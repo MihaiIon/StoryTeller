@@ -1,11 +1,42 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- StoryTeller Base -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorWhite">@color/white</item>
+        <item name="colorSoftGrey">@color/softGrey</item>
+        <item name="colorDark">@color/dark</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primaryDark</item>-->
+    </style>
+
+    <!-- Dialog -->
+    <style name="AppTheme.Dialog"></style>
+    <style name="AppTheme.Dialog.Title">
+        <item name="android:fontFamily">sans-serif</item> <!-- roboto light -->
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:paddingBottom">22dp</item>
+        <item name="android:textSize">32dp</item>
+    </style>
+
+    <style name="AppTheme.Dialog.Content">
+        <item name="android:layout_width">-1dp</item> <!-- Match parent -->
+    </style>
+
+    <style name="AppTheme.Dialog.Content.Separator">
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@color/primary</item>
+        <item name="android:layout_marginBottom">28dp</item>
+    </style>
+
+    <style name="AppTheme.Dialog.Content.Button">
+        <item name="android:layout_height">-2dp</item> <!-- Wrap content -->
+        <item name="android:layout_marginBottom">18dp</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+        <item name="android:background">@color/grey</item>
+
+        <item name="android:textSize">18dp</item>
+        <item name="android:textColor">@color/darkGrey</item>
+        <item name="android:fontFamily">sans-serif-thin</item> <!-- roboto thin -->
     </style>
 
 </resources>

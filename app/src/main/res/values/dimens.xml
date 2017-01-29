@@ -1,9 +1,26 @@
 <resources>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
+    <!-- General -->
+    <dimen name="settings_btn_dimensions">32dp</dimen>
+    <dimen name="settings_dialog_width">340dp</dimen>
+
     <!-- Home -->
+    <dimen name="profile_section_margins_top">18dp</dimen>
+    <item format="float" type="dimen" name="profile_section_weight">.25</item>
+    <item format="float" type="dimen" name="action_zone_section_weight">.55</item>
+    <item format="float" type="dimen" name="slides_indicatior_section_weight">.15</item>
+
+    <!-- Home : Profile -->
     <dimen name="profile_container_height">145dp</dimen>
+    <item format="float" type="dimen" name="profile_settings_weight">.20</item>
+    <item format="float" type="dimen" name="profile_profile_weight">.60</item>
+    <item format="float" type="dimen" name="profile_tokens_weight">.20</item>
+
+
+
 
 </resources>

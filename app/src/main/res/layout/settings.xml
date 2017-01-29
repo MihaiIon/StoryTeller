@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2f2f2"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:id="@+id/linearLayout">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_title"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            style="@style/AppTheme.Dialog.Title" />
+
+        <View
+            android:layout_width="match_parent"
+            style="@style/AppTheme.Dialog.Content.Separator"
+            android:id="@+id/view" />
+
+        <Button
+            style="@style/AppTheme.Dialog.Content.Button"
+            android:text="@string/settings_clearDB"
+            android:id="@+id/settings_clearDB_btn"
+            android:layout_width="match_parent" />
+
+        <Button
+            style="@style/AppTheme.Dialog.Content.Button"
+            android:text="@string/settings_addTokens"
+            android:id="@+id/settings_addTokens_btn"
+            android:layout_width="match_parent" />
+
+        <Button
+            style="@style/AppTheme.Dialog.Content.Button"
+            android:text="@string/settings_exit"
+            android:id="@+id/settings_exit_btn"
+            android:layout_width="match_parent" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="-- DEBUG VERSION --"
+        android:id="@+id/textView"
+        android:paddingTop="15dp"
+        android:textSize="10dp"
+        android:textColor="#bfbfbf"
+        android:layout_below="@+id/linearLayout"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout >

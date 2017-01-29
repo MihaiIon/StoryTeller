@@ -4,45 +4,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Profile -->
+    <!-- Profile Section -->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/profileSection"
+        android:id="@+id/profile_section"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".3"
-        android:background="@color/colorPrimary">
+        android:layout_weight="@dimen/profile_section_weight"
+        android:background="@color/primary">
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Allo"/>
+        <!-- Settings -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="@dimen/profile_settings_weight"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/profile_section_margins_top">
 
+            <ImageButton
+                android:id="@+id/settings_btn"
+                android:layout_width="@dimen/settings_btn_dimensions"
+                android:layout_height="@dimen/settings_btn_dimensions"
+                android:background="@drawable/settings_icon"/>
 
+        </LinearLayout>
+
+        <!-- Profile -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="@dimen/profile_profile_weight"
+            android:gravity="center_vertical|center_horizontal">
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Profile"/>
+
+        </LinearLayout>
+
+        <!-- Tokens -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="@dimen/profile_tokens_weight"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/profile_section_margins_top">
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:text="tokens"/>
+
+        </LinearLayout>
     </LinearLayout>
 
 
-    <!-- Action Zone -->
+    <!-- Action Zone Section -->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/asdjkalsdkajsd"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".55"
+        android:layout_weight="@dimen/action_zone_section_weight"
         android:background="@color/white">
 
 
     </LinearLayout>
 
 
-    <!-- Slides Indicator -->
+    <!-- Slides Indicator Section -->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/sildesIndicator"
+        android:id="@+id/sildes_indicator_section"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight=".15"
-        android:background="@color/greyPale">
+        android:layout_weight="@dimen/slides_indicatior_section_weight"
+        android:background="@color/softGrey">
 
     </LinearLayout>
 </LinearLayout>
