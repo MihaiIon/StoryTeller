@@ -90,6 +90,7 @@ public class Settings extends DialogFragment {
                         break;
                     case 1:
                         Toast.makeText(getContext(), "Database cleared.", Toast.LENGTH_SHORT).show();
+                        // Api.resetDatabase();
                         count++;
                         break;
                     default:

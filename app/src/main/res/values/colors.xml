@@ -5,10 +5,7 @@
     <color name="softGrey">#f5f5f5</color>
     <color name="grey">#e4e4e4</color>
     <color name="darkGrey">#7b7b7b</color>
-    <color name="dark">#1d1d1d</color>
-    <color name="black">#000000</color>
 
     <!-- Theme -->
     <color name="primary">#1aa19b</color>
-    <color name="primaryDark">#125350</color>
 </resources>

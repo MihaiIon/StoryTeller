@@ -8,6 +8,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
+import app.storyteller.classes.Api;
 import app.storyteller.fragments.AllStoriesFragment;
 import app.storyteller.fragments.HomeFragment;
 import app.storyteller.fragments.PartyModeFragment;
@@ -42,6 +43,10 @@ public class MainActivity extends FragmentActivity {
 
         // Set on the Home screen by default.
         slider.setCurrentItem(1);
+
+        // TESTING
+        //Api.init(this);
+        //Api.createProfile("allo");
     }
 
     @Override
