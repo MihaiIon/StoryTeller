@@ -45,6 +45,7 @@ public class MainActivity extends FragmentActivity {
         slider.setCurrentItem(1);
 
         // TESTING
+        //
         //Api.init(this);
         //Api.createProfile("allo");
     }
