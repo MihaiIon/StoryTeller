@@ -77,6 +77,7 @@ public class MainActivity extends FragmentActivity {
                 case 2:  return new AllStoriesFragment();
                 case 0:  return new PartyModeFragment();
                 default: return new HomeFragment();
+                
             }
         }
 
