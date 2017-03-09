@@ -5,10 +5,12 @@ package app.storyteller.database;
  */
 public class SQLRequests {
 
+    /**
+     *
+     */
     public static final String CREATE_ALL_TABLES =
-            Database.ProfileTable.TABLE_NAME + "("
-                + ""
-            + ");";
+            Database.ProfileTable.getTableCreationStatement()+
+            Database.Lala.getTableCreationStatement();
 
     public static final String DELETE_ALL_TABLES = "";
 }
