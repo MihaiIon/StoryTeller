@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.sql.Timestamp;
+
 import app.storyteller.models.Profile;
 
 /**
@@ -64,6 +66,10 @@ public class DBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(Database.ProfileTable.COLUMN_ID, "");
         values.put(Database.ProfileTable.COLUMN_NAME, "");
+        values.put(Database.ProfileTable.COLUMN_IMAGE, "");
+        values.put(Database.ProfileTable.COLUMN_TOKENS, "");
+        values.put(Database.ProfileTable.COLUMN_LAST_CONNECTED
+            , new Timestamp(System.currentTimeMillis()).toString());
         db.insert(Database.ProfileTable.TABLE_NAME, null, values);
     }
 
