@@ -11,8 +11,11 @@ public class Stories {
     private String name;
     private String creator;
     private String[] collaborators;
+    private String mainCharacter;
     private String theme; //PENSER A FAIRE UN ENUM POUR FILTRER
     private ArrayList<Sentences> sentences;
+    private String content;
+    private int id;
 
     public Stories(String name,String creator,String theme,String sentences) {
         setName(name);
@@ -20,6 +23,15 @@ public class Stories {
         setTheme(theme);
         addSentences(new Sentences(sentences,creator));
     }
+
+    //return the story in the format of a raw string
+    public String getContent() {return content;}
+
+    //return the id
+    public int getId() {return id;}
+
+    //returns the name of the main character
+    public String getMainCharacter() {return mainCharacter;}
 
     //return the name of the story
     public String getName() {

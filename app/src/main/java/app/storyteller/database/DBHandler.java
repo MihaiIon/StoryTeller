@@ -64,17 +64,77 @@ public class DBHandler extends SQLiteOpenHelper {
      * @param db    : TODO.
      * @param p     : TODO.
      */
-    public static void createProfile(SQLiteDatabase db, Profile p){
+    public static void addToProfile(SQLiteDatabase db, Profile p){
         ContentValues values = new ContentValues();
-        values.put(Database.ProfilesTable.COLUMN_ID, "");
-        values.put(Database.ProfilesTable.COLUMN_NAME, "");
-        values.put(Database.ProfilesTable.COLUMN_IMAGE, "");
-        values.put(Database.ProfilesTable.COLUMN_TOKENS, "");
+        values.put(Database.ProfilesTable.COLUMN_GOOGLE_ID, p.getId());
+        values.put(Database.ProfilesTable.COLUMN_NAME, p.getName());
+        values.put(Database.ProfilesTable.COLUMN_IMAGE, p.getImagepath());
+        values.put(Database.ProfilesTable.COLUMN_TOKENS, p.getTokens());
         values.put(Database.ProfilesTable.COLUMN_LAST_CONNECTED
             , new Timestamp(System.currentTimeMillis()).toString());
+
         db.insert(Database.ProfilesTable.TABLE_NAME, null, values);
     }
 
+    /**
+     *
+     * @param db    : TODO.
+     * @param s     : TODO.
+     */
+    public static void addToStories(SQLiteDatabase db, Stories s){
+        ContentValues values = new ContentValues();
+        values.put(Database.StoriesTable.COLUMN_NAME, s.getName());
+        values.put(Database.StoriesTable.COLUMN_CREATOR_ID, s.getCreator());
+        values.put(Database.StoriesTable.COLUMN_CREATION_DATE, new Timestamp(System.currentTimeMillis()).toString());
+        values.put(Database.StoriesTable.COLUMN_MAIN_CHARACTER, s.getMainCharacter());
+        values.put(Database.StoriesTable.COLUMN_THEME, s.getTheme());
+
+        db.insert(Database.ProfilesTable.TABLE_NAME, null, values);
+    }
+
+    /**
+     *
+     * @param db    : TODO.
+     * @param p     : TODO.* @
+     * @param s     : TODO.
+     *
+     */
+    public static void addToCollaborators(SQLiteDatabase db, Profile p, Stories s){
+        ContentValues values = new ContentValues();
+        values.put(Database.CollaboratorsTable.COLUMN_PROFILE_ID, p.getId());
+        values.put(Database.CollaboratorsTable.COLUMN_STORY_ID, s.getId());
+
+        db.insert(Database.ProfilesTable.TABLE_NAME, null, values);
+    }
+
+    /**
+     *
+     * @param db    : TODO.
+     * @param s     : TODO.
+     *
+     */
+    public static void addToFavorites(SQLiteDatabase db,Stories s){
+        ContentValues values = new ContentValues();
+        values.put(Database.FavoritesTable.COLUMN_STORY_ID, s.getId());
+
+        db.insert(Database.ProfilesTable.TABLE_NAME, null, values);
+    }
+
+    /**
+     *
+     * @param db    : TODO.
+     * @param p     : TODO.* @
+     * @param s     : TODO.
+     *
+     */
+    public static void addToSentences(SQLiteDatabase db, Profile p, Stories s){
+        ContentValues values = new ContentValues();
+        values.put(Database.SentencesTable.COLUMN_AUTHOR, p.getName());
+        values.put(Database.SentencesTable.COLUMN_CONTENT, s.getContent());
+        values.put(Database.CollaboratorsTable.COLUMN_STORY_ID, s.getId());
+
+        db.insert(Database.ProfilesTable.TABLE_NAME, null, values);
+    }
 
     /**
      *

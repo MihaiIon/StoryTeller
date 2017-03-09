@@ -13,6 +13,7 @@ public class Database {
     public static class ProfilesTable implements BaseColumns {
         public static final String TABLE_NAME = "profile";
         public static final String COLUMN_ID = "id";
+        public static final String COLUMN_GOOGLE_ID = "google_id";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_IMAGE = "image_path";
         public static final String COLUMN_TOKENS = "tokens";
@@ -22,6 +23,7 @@ public class Database {
         public static String getTableCreationStatement(){
             return "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INT PRIMARY KEY NOT NULL AUTOINCREMENT,"
+                    + COLUMN_GOOGLE_ID + " INT PRIMARY KEY NOT NULL AUTOINCREMENT "
                     + COLUMN_NAME + " CHAR(25) NOT NULL,"
                     + COLUMN_IMAGE + " CHAR(1000) NOT NULL,"
                     + COLUMN_TOKENS + " INT NOT NULL,"
