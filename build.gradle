@@ -7,11 +7,9 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
-<<<<<<< HEAD
-=======
+
         classpath 'com.google.gms:google-services:3.0.0'
-//        classpath 'com.google.android.gms.auth.api.signin'
->>>>>>> f45c1dab07295982ff231b8c5392be03f5e16537
+
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

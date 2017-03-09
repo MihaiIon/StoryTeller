@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AppGitHub.iml" filepath="$PROJECT_DIR$/AppGitHub.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/StoryTeller.iml" filepath="$PROJECT_DIR$/.idea/StoryTeller.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
