@@ -1,11 +1,10 @@
-package app.storyteller.classes;
+package app.storyteller.api;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentActivity;
 import android.provider.Settings.Secure;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -178,7 +177,7 @@ public class Api {
                 case Request.Actions.RESET_DATABASE:
                     System.out.println(
                         "************************************"
-                        +"\nDatabase has been Reset on API.\n"
+                        +"\nDBHandler has been Reset on API.\n"
                         +"************************************"
                     );
                     break;

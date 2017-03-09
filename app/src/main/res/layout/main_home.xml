@@ -39,7 +39,8 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Profile"/>
+                android:text="Profile"
+                android:id="@+id/profile_button" />
 
         </LinearLayout>
 

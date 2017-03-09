@@ -89,12 +89,12 @@ public class Settings extends DialogFragment {
                         count++;
                         break;
                     case 1:
-                        Toast.makeText(getContext(), "Database cleared.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "DBHandler cleared.", Toast.LENGTH_SHORT).show();
                         // Api.resetDatabase();
                         count++;
                         break;
                     default:
-                        Toast.makeText(getContext(), "Database already cleared.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "DBHandler already cleared.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

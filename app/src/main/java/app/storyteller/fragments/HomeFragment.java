@@ -1,5 +1,6 @@
 package app.storyteller.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -8,13 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import app.storyteller.MainActivity;
 import app.storyteller.R;
 import app.storyteller.fragments.dialogs.Settings;
+import app.storyteller.sign_in_out;
 
 /**
  * Created by Mihai on 2017-01-20.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment /*mplements View.OnClickListener*/ {
 
     /**
      *
@@ -49,4 +52,13 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    /*@Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.profile_button:
+                Intent intent = new Intent( getContext(), sign_in_out.class);
+                startActivity(intent);
+                break;
+    }}*/
 }
