@@ -79,9 +79,9 @@ public class DBHandler extends SQLiteOpenHelper {
      * @param db    : TODO.
      * @return      : TODO.
      */
-   /* public static Profile getProfile(SQLiteDatabase db){
+    public static Profile getProfile(SQLiteDatabase db){
 
 
-        //return new Profile();
-    }*/
+        return new Profile();
+    }
 }
