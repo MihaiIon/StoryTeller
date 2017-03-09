@@ -11,11 +11,6 @@
     tools:context="app.storyteller.sign_in_out">
 
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/sign_in_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <Button
         android:text=" Continue with my google acount"
         android:layout_width="wrap_content"
@@ -33,4 +28,10 @@
         android:id="@+id/dont_have_account"
         android:layout_below="@+id/Sign_In_button"
         android:layout_centerHorizontal="true" />
+    <com.google.android.gms.common.SignInButton
+            android:id="@+id/sign_in_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
+            android:layout_marginTop="44dp"/>
 </RelativeLayout>
