@@ -2,6 +2,7 @@ package app.storyteller.database;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -136,13 +137,39 @@ public class DBHandler extends SQLiteOpenHelper {
         db.insert(Database.ProfilesTable.TABLE_NAME, null, values);
     }
 
+    //------------------------------------------------------------------------
+
     /**
      *
      * @param db    : TODO.
      * @return      : TODO.
      */
-    public static Profile getProfile(SQLiteDatabase db){
+    public static Profile getProfile(SQLiteDatabase db, int google_id){
+
+        Cursor cursor = db.query(Database.ProfilesTable.TABLE_NAME,
+                new String[]
+                {
+                    Database.ProfilesTable.COLUMN_GOOGLE_ID,
+                    Database.ProfilesTable.COLUMN_ID,
+                    Database.ProfilesTable.COLUMN_IMAGE,
+                    Database.ProfilesTable.COLUMN_TOKENS,
+                    Database.ProfilesTable.COLUMN_LAST_CONNECTED,
+                    Database.ProfilesTable.COLUMN_NAME
+                }, Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?",new String[]{String.valueOf(google_id)},null,null,null,null);
+
+        if(cursor != null)
+        {
+            cursor.moveToFirst();
+        }
+        else
+        {
+            System.out.println("**********CURSOR NULL AFTER PROFILE QUERY************");
+        }
+        cursor.getString(0);
 
         return new Profile("hola", 25, 25, "allo", "allo",new ArrayList<Stories>());
     }
+
+    //------------------------------------------------------------------------
+
 }
