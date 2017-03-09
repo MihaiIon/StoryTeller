@@ -1,4 +1,4 @@
-package app.storyteller.classes;
+package app.storyteller.api;
 
 /**
  * Created by Mihai on 2017-01-30.

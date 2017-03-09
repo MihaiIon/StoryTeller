@@ -8,7 +8,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
-import app.storyteller.classes.Api;
 import app.storyteller.fragments.AllStoriesFragment;
 import app.storyteller.fragments.HomeFragment;
 import app.storyteller.fragments.PartyModeFragment;
@@ -45,7 +44,6 @@ public class MainActivity extends FragmentActivity {
         slider.setCurrentItem(1);
 
         // TESTING
-        //
         //Api.init(this);
         //Api.createProfile("allo");
     }
@@ -77,7 +75,7 @@ public class MainActivity extends FragmentActivity {
                 case 2:  return new AllStoriesFragment();
                 case 0:  return new PartyModeFragment();
                 default: return new HomeFragment();
-                
+
             }
         }
 
