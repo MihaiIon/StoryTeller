@@ -6,8 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import app.storyteller.models.Profile;
+import app.storyteller.models.Stories;
 
 /**
  * Created by Mihai on 2017-03-08.
@@ -64,13 +66,13 @@ public class DBHandler extends SQLiteOpenHelper {
      */
     public static void createProfile(SQLiteDatabase db, Profile p){
         ContentValues values = new ContentValues();
-        values.put(Database.ProfileTable.COLUMN_ID, "");
-        values.put(Database.ProfileTable.COLUMN_NAME, "");
-        values.put(Database.ProfileTable.COLUMN_IMAGE, "");
-        values.put(Database.ProfileTable.COLUMN_TOKENS, "");
-        values.put(Database.ProfileTable.COLUMN_LAST_CONNECTED
+        values.put(Database.ProfilesTable.COLUMN_ID, "");
+        values.put(Database.ProfilesTable.COLUMN_NAME, "");
+        values.put(Database.ProfilesTable.COLUMN_IMAGE, "");
+        values.put(Database.ProfilesTable.COLUMN_TOKENS, "");
+        values.put(Database.ProfilesTable.COLUMN_LAST_CONNECTED
             , new Timestamp(System.currentTimeMillis()).toString());
-        db.insert(Database.ProfileTable.TABLE_NAME, null, values);
+        db.insert(Database.ProfilesTable.TABLE_NAME, null, values);
     }
 
 
@@ -81,7 +83,6 @@ public class DBHandler extends SQLiteOpenHelper {
      */
     public static Profile getProfile(SQLiteDatabase db){
 
-
-        return new Profile();
+        return new Profile("hola", 25, 25, "allo", "allo",new ArrayList<Stories>());
     }
 }
