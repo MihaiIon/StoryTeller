@@ -155,9 +155,8 @@ public class DBHandler extends SQLiteOpenHelper {
     //------------------------------------------------------------------------
 
     /**
-     *
-     *
-     * @return      : TODO.
+     * Retrieves the Profile from the database corresponding to the
+     * google_id.
      */
     public static Profile getProfile(int google_id){
         Cursor cursor = db.query(
@@ -170,10 +169,10 @@ public class DBHandler extends SQLiteOpenHelper {
                 Database.ProfilesTable.COLUMN_LAST_CONNECTED,
             }
             ,Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?"
-            , new String[]{String.valueOf(google_id)},null,null,null,null);
+            ,new String[]{String.valueOf(google_id)},null,null,null,null);
 
-        if(cursor != null)  cursor.moveToFirst();
-        else                System.out.println("**********CURSOR NULL AFTER PROFILE QUERY************");
+        // Select the first element.
+        cursor.moveToFirst();
 
         return new Profile(
             Integer.parseInt(cursor.getString(0)),
@@ -188,22 +187,16 @@ public class DBHandler extends SQLiteOpenHelper {
     //------------------------------------------------------------------------
 
     /**
-     * Checks if there is a profile attached to the current google ID.
-     *
-     * @param google_id : TODO.
-     * @return          : TODO.
+     * Checks if there is a profile attached to the google_id passed in
+     * the parameters.
      */
     public static boolean profileExists(int google_id){
-
         Cursor cursor = db.query(
             Database.ProfilesTable.TABLE_NAME,
-            new String[]{
-                Database.ProfilesTable.COLUMN_ID,
-            }
-            , Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?"
-            , new String[]{String.valueOf(google_id)},null,null,null,null
+            new String[]{Database.ProfilesTable.COLUMN_ID},
+            Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?",
+            new String[]{String.valueOf(google_id)},null,null,null,null
         );
-
-        return cursor != null;
+        return cursor.getCount() != 0;
     }
 }

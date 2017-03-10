@@ -26,17 +26,18 @@ public class LoadingScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         Profile p;
+        int fake_google_id = 123456;
         DBHandler.openConnection(getApplicationContext());
 
-        if (DBHandler.profileExists(123456)){
-            p = DBHandler.getProfile(123456);
-            //Toast.makeText(getApplicationContext(), "PROFILE LOADED : ", Toast.LENGTH_LONG);
+        if (DBHandler.profileExists(fake_google_id)){
+            p = DBHandler.getProfile(fake_google_id);
             System.out.println("*******"+p.toString()+"***********");
         }
 
         else {
-            p = new Profile(123456, "TEST", 255, "pathpath", "321654", new ArrayList<Stories>());
+            p = new Profile(fake_google_id, "TEST", 255, "pathpath", "321654", new ArrayList<Stories>());
             DBHandler.addToProfile(p);
+            System.out.println("*******"+p.toString()+"***********");
         }
 
         DBHandler.closeConnection();

@@ -19,7 +19,6 @@ public class Database {
         public static final String COLUMN_TOKENS = "tokens";
         public static final String COLUMN_LAST_CONNECTED = "last_connected";
 
-
         public static String getTableCreationStatement(){
             return "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INT PRIMARY KEY,"
@@ -67,7 +66,6 @@ public class Database {
         public static final String COLUMN_CREATOR_ID= "creator_id";
         public static final String COLUMN_CREATION_DATE= "creation_date";
         public static final String COLUMN_MAIN_CHARACTER= "main_character";
-
 
         public static String getTableCreationStatement(){
             return "CREATE TABLE " + TABLE_NAME + "("
