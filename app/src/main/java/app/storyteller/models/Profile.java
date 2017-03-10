@@ -1,17 +1,18 @@
 package app.storyteller.models;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Profile {
     private String name;
     private int tokens;
-    private int id; //google id
-    private String imagepath;
-    private String lastvisited;
+    private int google_id;
+    private String imagePath;
+    private Timestamp lastConnected;
     private ArrayList<Stories> favorites;
 
     public int getId() {
-        return id;
+        return google_id;
     }
 
     public int getTokens() {
@@ -22,20 +23,18 @@ public class Profile {
         return name;
     }
 
-    public String getImagepath() {
-        return imagepath;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public String getLastvisited() {
-        return lastvisited;
-    }
+    public String getLastvisited() { return lastConnected.toString(); }
 
     public ArrayList getFavorites() {
         return favorites;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int google_id) {
+        this.google_id = google_id;
     }
 
     public void setName(String name) {
@@ -46,12 +45,12 @@ public class Profile {
         this.tokens = tokens;
     }
 
-    public void setImagepath(String imagepath) {
-        this.imagepath = imagepath;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
-    public void setLastvisited(String lastvisited) {
-        this.lastvisited = lastvisited;
+    public void setLastConnected(Timestamp lastConnected) {
+        this.lastConnected = lastConnected;
     }
 
     public void addFavorite(Stories story) {
@@ -71,12 +70,12 @@ public class Profile {
         else throw new IllegalArgumentException("Story is not present");
     }
 
-    public Profile(int id, String name, int tokens, String imagepath, String lastvisited, ArrayList<Stories> favorites) {
+    public Profile(int google_id, String name, int tokens, String imagePath, Timestamp lastConnected, ArrayList<Stories> favorites) {
         this.name = name;
         this.tokens = tokens;
-        this.id = id;
-        this.imagepath = imagepath;
-        this.lastvisited = lastvisited;
+        this.google_id = google_id;
+        this.imagePath = imagePath;
+        this.lastConnected = lastConnected;
         this.favorites = favorites;
 
     }
@@ -86,9 +85,9 @@ public class Profile {
         return "Profile{" +
                 "name='" + name + '\'' +
                 ", tokens=" + tokens +
-                ", id=" + id +
-                ", imagepath='" + imagepath + '\'' +
-                ", lastvisited='" + lastvisited + '\'' +
+                ", id=" + google_id +
+                ", imagepath='" + imagePath + '\'' +
+                ", lastvisited='" + lastConnected.toString() + '\'' +
                 ", favorites=" + favorites +
                 '}';
     }

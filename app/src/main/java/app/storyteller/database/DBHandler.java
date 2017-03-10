@@ -83,11 +83,11 @@ public class DBHandler extends SQLiteOpenHelper {
      *
      * @param p     : TODO.
      */
-    public static void addToProfile(Profile p){
+    public static void addToProfiles(Profile p){
         ContentValues values = new ContentValues();
         values.put(Database.ProfilesTable.COLUMN_GOOGLE_ID, p.getId());
         values.put(Database.ProfilesTable.COLUMN_NAME, p.getName());
-        values.put(Database.ProfilesTable.COLUMN_IMAGE, p.getImagepath());
+        values.put(Database.ProfilesTable.COLUMN_IMAGE, p.getImagePath());
         values.put(Database.ProfilesTable.COLUMN_TOKENS, p.getTokens());
         values.put(Database.ProfilesTable.COLUMN_LAST_CONNECTED
                 , new Timestamp(System.currentTimeMillis()).toString());
@@ -179,7 +179,7 @@ public class DBHandler extends SQLiteOpenHelper {
             cursor.getString(1),
             Integer.parseInt(cursor.getString(2)),
             cursor.getString(3),
-            cursor.getString(4),
+            Timestamp.valueOf(cursor.getString(4)),
             new ArrayList<Stories>()
         );
     }

@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 import app.storyteller.database.DBHandler;
 import app.storyteller.models.Profile;
@@ -22,7 +24,6 @@ public class LoadingScreen extends AppCompatActivity {
 * */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 
         Profile p;
@@ -35,8 +36,15 @@ public class LoadingScreen extends AppCompatActivity {
         }
 
         else {
-            p = new Profile(fake_google_id, "TEST", 255, "pathpath", "321654", new ArrayList<Stories>());
-            DBHandler.addToProfile(p);
+            p = new Profile(
+                fake_google_id,
+                "TEST",
+                60,         // Tokens gift - First Time.
+                "pathpath",
+                new Timestamp(System.currentTimeMillis()),
+                new ArrayList<Stories>()
+            );
+            DBHandler.addToProfiles(p);
             System.out.println("*******"+p.toString()+"***********");
         }
 
