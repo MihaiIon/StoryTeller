@@ -71,7 +71,7 @@ public class Profile {
         else throw new IllegalArgumentException("Story is not present");
     }
 
-    public Profile(String name, int tokens, int id, String imagepath, String lastvisited, ArrayList<Stories> favorites) {
+    public Profile(int id, String name, int tokens, String imagepath, String lastvisited, ArrayList<Stories> favorites) {
         this.name = name;
         this.tokens = tokens;
         this.id = id;
@@ -81,5 +81,15 @@ public class Profile {
 
     }
 
-
+    @Override
+    public String toString() {
+        return "Profile{" +
+                "name='" + name + '\'' +
+                ", tokens=" + tokens +
+                ", id=" + id +
+                ", imagepath='" + imagepath + '\'' +
+                ", lastvisited='" + lastvisited + '\'' +
+                ", favorites=" + favorites +
+                '}';
+    }
 }

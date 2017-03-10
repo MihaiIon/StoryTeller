@@ -22,10 +22,10 @@ public class Database {
 
         public static String getTableCreationStatement(){
             return "CREATE TABLE " + TABLE_NAME + "("
-                    + COLUMN_ID + " INT PRIMARY KEY NOT NULL AUTOINCREMENT,"
-                    + COLUMN_GOOGLE_ID + " INT PRIMARY KEY NOT NULL AUTOINCREMENT "
-                    + COLUMN_NAME + " CHAR(25) NOT NULL,"
-                    + COLUMN_IMAGE + " CHAR(1000) NOT NULL,"
+                    + COLUMN_ID + " INT PRIMARY KEY,"
+                    + COLUMN_GOOGLE_ID + " INT NOT NULL,"
+                    + COLUMN_NAME + " TEXT NOT NULL,"
+                    + COLUMN_IMAGE + " TEXT NOT NULL,"
                     + COLUMN_TOKENS + " INT NOT NULL,"
                     + COLUMN_LAST_CONNECTED + " DATE"
                     + ");";
@@ -44,14 +44,14 @@ public class Database {
 
         public static String getTableCreationStatement(){
             return "CREATE TABLE " + TABLE_NAME + "("
-                    + COLUMN_ID + " INT PRIMARY KEY NOT NULL AUTOINCREMENT,"
-                    + COLUMN_AUTHOR + " CHAR(25) NOT NULL,"
+                    + COLUMN_ID + " INT PRIMARY KEY,"
+                    + COLUMN_AUTHOR + " TEXT NOT NULL,"
                     + " FOREIGN KEY ("+COLUMN_AUTHOR+") REFERENCES "
-                        + ProfilesTable.TABLE_NAME+"("+ProfilesTable.COLUMN_ID+")"
-                    + COLUMN_STORY_ID + " CHAR(15) NOT NULL,"
+                        + ProfilesTable.TABLE_NAME+"("+ProfilesTable.COLUMN_ID+"),"
+                    + COLUMN_STORY_ID + " INT NOT NULL,"
                     + " FOREIGN KEY ("+COLUMN_STORY_ID+") REFERENCES "
-                        + StoriesTable.TABLE_NAME+"("+StoriesTable.COLUMN_ID+")"
-                    + COLUMN_CONTENT + " CHAR(2000) NOT NULL,"
+                        + StoriesTable.TABLE_NAME+"("+StoriesTable.COLUMN_ID+"),"
+                    + COLUMN_CONTENT + " TEXT NOT NULL"
                     + ");";
         }
     }
@@ -71,14 +71,14 @@ public class Database {
 
         public static String getTableCreationStatement(){
             return "CREATE TABLE " + TABLE_NAME + "("
-                    + COLUMN_ID + " INT PRIMARY KEY NOT NULL AUTOINCREMENT,"
-                    + COLUMN_NAME + " CHAR(25) NOT NULL,"
-                    + COLUMN_THEME + " CHAR(15) NOT NULL,"
-                    + COLUMN_CREATOR_ID + " CHAR(25) NOT NULL,"
+                    + COLUMN_ID + " INT PRIMARY KEY,"
+                    + COLUMN_NAME + " TEXT NOT NULL,"
+                    + COLUMN_THEME + " TEXT NOT NULL,"
+                    + COLUMN_CREATOR_ID + " INT NOT NULL,"
                     + " FOREIGN KEY ("+COLUMN_CREATOR_ID+") REFERENCES "
-                        + ProfilesTable.TABLE_NAME+"("+ProfilesTable.COLUMN_ID+")"
-                    + COLUMN_CREATION_DATE + "DATE NOT NULL,"
-                    + COLUMN_MAIN_CHARACTER + "CHAR(25) NOT NULL,"
+                        + ProfilesTable.TABLE_NAME+"("+ProfilesTable.COLUMN_ID+"),"
+                    + COLUMN_CREATION_DATE + " DATE NOT NULL,"
+                    + COLUMN_MAIN_CHARACTER + " TEXT NOT NULL"
                     + ");";
         }
     }
@@ -93,7 +93,7 @@ public class Database {
 
         public static String getTableCreationStatement(){
             return "CREATE TABLE " + TABLE_NAME + "("
-                    + COLUMN_ID + " INT PRIMARY KEY NOT NULL AUTOINCREMENT,"
+                    + COLUMN_ID + " INT PRIMARY KEY,"
                     + COLUMN_STORY_ID + " INT NOT NULL,"
                     + " FOREIGN KEY ("+COLUMN_STORY_ID+") REFERENCES "
                         + StoriesTable.TABLE_NAME+"("+StoriesTable.COLUMN_ID+")"
@@ -112,11 +112,11 @@ public class Database {
 
         public static String getTableCreationStatement(){
             return "CREATE TABLE " + TABLE_NAME + "("
-                    + COLUMN_ID + " INT PRIMARY KEY NOT NULL AUTOINCREMENT,"
+                    + COLUMN_ID + " INT PRIMARY KEY,"
                     + COLUMN_PROFILE_ID + " INT NOT NULL,"
                     + COLUMN_STORY_ID + " INT NOT NULL,"
                     + " FOREIGN KEY ("+COLUMN_PROFILE_ID+") REFERENCES "
-                        + ProfilesTable.TABLE_NAME+"("+ProfilesTable.COLUMN_ID+")"
+                        + ProfilesTable.TABLE_NAME+"("+ProfilesTable.COLUMN_ID+"),"
                     + " FOREIGN KEY ("+COLUMN_STORY_ID+") REFERENCES "
                         + StoriesTable.TABLE_NAME+"("+StoriesTable.COLUMN_ID+")"
                     + ");";
