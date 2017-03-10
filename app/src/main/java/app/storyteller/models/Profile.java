@@ -3,66 +3,87 @@ package app.storyteller.models;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class Profile {
-    private String name;
+public class Profile extends User {
+
+    /*
+     * Attributes
+     */
     private int tokens;
-    private int google_id;
-    private String imagePath;
-    private Timestamp lastConnected;
-    private ArrayList<Stories> favorites;
+    private ArrayList<Story> favorites;
 
-    public int getId() {
-        return google_id;
+    /**
+     * Constructors
+     */
+    public Profile(int id, int google_id, String name, int tokens, String imageURL, Timestamp lastConnected, ArrayList<Story> favorites) {
+        super(id, google_id, name, imageURL, lastConnected);
+        this.tokens = tokens;
+        this.favorites = favorites;
     }
 
-    public int getTokens() {
-        return tokens;
+    public Profile(User user, int tokens, ArrayList<Story> favorites) {
+        super(user.getId(), user.getGoogleId(), user.getName(),
+                user.getImageURL(), user.getLastConnected());
+        this.tokens = tokens;
+        this.favorites = favorites;
     }
 
-    public String getName() {
-        return name;
-    }
 
-    public String getImagePath() {
-        return imagePath;
-    }
+    //------------------------------------------------------------
+    // Getters and Setters
 
-    public String getLastvisited() { return lastConnected.toString(); }
-
-    public ArrayList getFavorites() {
-        return favorites;
-    }
-
-    public void setId(int google_id) {
-        this.google_id = google_id;
-    }
+    public int getId() { return super.getId(); }
+    public int getGoogleId() { return super.getGoogleId(); }
+    public String getName() { return super.getName(); }
+    public int getTokens() { return tokens; }
+    public String getImageURL() { return super.getImageURL(); }
+    public ArrayList getFavorites() { return favorites; }
+    public Timestamp getLastConnected() { return super.getLastConnected(); }
 
     public void setName(String name) {
-        this.name = name;
+        super.setName(name);
     }
-
     public void setTokens(int tokens) {
         this.tokens = tokens;
     }
+    public void setImagePath(String imageURL) { super.setImagePath(imageURL); }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+
+    //------------------------------------------------------------
+    // Methods
+
+    /**
+     * TODO. -> Returns a list of all the stories which this profile participated.
+     * @return :
+     */
+    public ArrayList<Story> hasParticipatedIn() {
+        return new ArrayList<Story>();
     }
 
-    public void setLastConnected(Timestamp lastConnected) {
-        this.lastConnected = lastConnected;
+    /**
+     * Trivial.
+     */
+    public Profile updateLastConnected(){
+        super.setLastConnected(new Timestamp(System.currentTimeMillis()));
+        return this;
     }
 
-    public void addFavorite(Stories story) {
-        int i = this.favorites.indexOf(story); //return 0 si la story n'est pas dans la liste
+    /**
+     *
+     * @param story
+     */
+    public void addFavorite(Story story) {
+        int i = this.favorites.indexOf(story); // Return 0 if the story is not in the list.
         if(i < 0) {
             this.favorites.add(story);
         }
         else throw new IllegalArgumentException("Story already present");
-
     }
 
-    public void removeFavorite(Stories story) {
+    /**
+     *
+     * @param story
+     */
+    public void removeFavorite(Story story) {
         int i = this.favorites.indexOf(story);
         if(i >= 0) {
             this.favorites.remove(i);
@@ -70,25 +91,16 @@ public class Profile {
         else throw new IllegalArgumentException("Story is not present");
     }
 
-    public Profile(int google_id, String name, int tokens, String imagePath, Timestamp lastConnected, ArrayList<Stories> favorites) {
-        this.name = name;
-        this.tokens = tokens;
-        this.google_id = google_id;
-        this.imagePath = imagePath;
-        this.lastConnected = lastConnected;
-        this.favorites = favorites;
-
-    }
-
     @Override
     public String toString() {
         return "Profile{" +
-                "name='" + name + '\'' +
+                "id=" + getId() +
+                ", google_id=" + getGoogleId() +
+                ", name='" + getName() + '\'' +
+                ", imageURL='" + getImageURL() + '\'' +
                 ", tokens=" + tokens +
-                ", id=" + google_id +
-                ", imagepath='" + imagePath + '\'' +
-                ", lastvisited='" + lastConnected.toString() + '\'' +
                 ", favorites=" + favorites +
+                ", lastConnected='" + getLastConnected() + '\'' +
                 '}';
     }
 }

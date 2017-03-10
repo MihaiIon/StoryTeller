@@ -19,7 +19,7 @@ public class MainActivity extends FragmentActivity {
 
     /**
      * Number of slides contained in the mainActivity. The slides includes : this Home screen,
-     * the PartyMode screen and the Stories screen.
+     * the PartyMode screen and the Story screen.
      */
     private static final int NUM_SLIDES = 3;
 
