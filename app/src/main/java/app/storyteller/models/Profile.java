@@ -62,6 +62,18 @@ public class Profile extends User {
     }
 
     /**
+     * Checks if the current User (Profile) is connect to the Internet.
+     * Being disconnect for internet will produce the following probles: The user
+     * will not be able to create, add a sentence to a story, check new stories, etc.
+     *
+     * TODO.
+     */
+    @Override
+    public boolean isConnected() {
+        return super.isConnected();
+    }
+
+    /**
      * Trivial.
      */
     public Profile updateLastConnected(){
