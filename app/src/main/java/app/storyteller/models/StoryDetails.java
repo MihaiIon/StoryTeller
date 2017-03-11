@@ -20,4 +20,16 @@ public class StoryDetails {
         return theme;
     }
     public String getMainCharacter() { return mainCharacter; }
+
+    /**
+     *
+     */
+    @Override
+    public String toString() {
+        return "StoryDetails{" +
+                "title='" + title + '\'' +
+                ", theme='" + theme + '\'' +
+                ", mainCharacter='" + mainCharacter + '\'' +
+                '}';
+    }
 }

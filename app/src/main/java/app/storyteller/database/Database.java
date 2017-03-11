@@ -58,30 +58,6 @@ public class Database {
     }
 
     /**
-     * Table : Sentences.
-     */
-    public static class SentencesTable implements BaseColumns {
-        public static final String TABLE_NAME = "sentences";
-        public static final String COLUMN_ID = "id";
-        public static final String COLUMN_AUTHOR_ID = "author_id";
-        public static final String COLUMN_STORY_ID = "story_id";
-        public static final String COLUMN_CONTENT = "content";
-
-        public static String getTableCreationStatement(){
-            return "CREATE TABLE " + TABLE_NAME + "("
-                    + COLUMN_ID + " INT NOT NULL,"
-                    + COLUMN_AUTHOR_ID + " INT NOT NULL,"
-                    + " FOREIGN KEY ("+COLUMN_AUTHOR_ID+") REFERENCES "
-                        + UsersTable.TABLE_NAME+"("+UsersTable.COLUMN_ID+"),"
-                    + COLUMN_STORY_ID + " INT NOT NULL,"
-                    + " FOREIGN KEY ("+COLUMN_STORY_ID+") REFERENCES "
-                        + StoriesTable.TABLE_NAME+"("+StoriesTable.COLUMN_ID+"),"
-                    + COLUMN_CONTENT + " TEXT NOT NULL"
-                    + ");";
-        }
-    }
-
-    /**
      * Table : Stories.
      */
     public static class StoriesTable implements BaseColumns {
@@ -93,7 +69,6 @@ public class Database {
         public static final String COLUMN_CREATOR_ID= "creator_id";
         public static final String COLUMN_CREATION_DATE= "creation_date";
 
-
         public static String getTableCreationStatement(){
             return "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INT NOT NULL,"
@@ -101,9 +76,35 @@ public class Database {
                     + COLUMN_THEME + " TEXT NOT NULL,"
                     + COLUMN_MAIN_CHARACTER + " TEXT NOT NULL,"
                     + COLUMN_CREATOR_ID + " INT NOT NULL,"
+                    + COLUMN_CREATION_DATE + " DATE NOT NULL,"
                     + " FOREIGN KEY ("+COLUMN_CREATOR_ID+") REFERENCES "
+                    + UsersTable.TABLE_NAME+"("+UsersTable.COLUMN_ID+")"
+                    + ");";
+        }
+    }
+
+    /**
+     * Table : Sentences.
+     */
+    public static class SentencesTable implements BaseColumns {
+        public static final String TABLE_NAME = "sentences";
+        public static final String COLUMN_ID = "id";
+        public static final String COLUMN_AUTHOR_ID = "author_id";
+        public static final String COLUMN_STORY_ID = "story_id";
+        public static final String COLUMN_CONTENT = "content";
+        public static final String COLUMN_CREATION_DATE = "creation_date";
+
+        public static String getTableCreationStatement(){
+            return "CREATE TABLE " + TABLE_NAME + "("
+                    + COLUMN_ID + " INT NOT NULL,"
+                    + COLUMN_AUTHOR_ID + " INT NOT NULL,"
+                    + COLUMN_STORY_ID + " INT NOT NULL,"
+                    + COLUMN_CONTENT + " TEXT NOT NULL,"
+                    + COLUMN_CREATION_DATE + " DATE NOT NULL,"
+                    + " FOREIGN KEY ("+COLUMN_AUTHOR_ID+") REFERENCES "
                         + UsersTable.TABLE_NAME+"("+UsersTable.COLUMN_ID+"),"
-                    + COLUMN_CREATION_DATE + " DATE NOT NULL"
+                    + " FOREIGN KEY ("+COLUMN_STORY_ID+") REFERENCES "
+                        + StoriesTable.TABLE_NAME+"("+StoriesTable.COLUMN_ID+")"
                     + ");";
         }
     }

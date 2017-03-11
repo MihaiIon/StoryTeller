@@ -45,10 +45,10 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(Database.UsersTable.getTableCreationStatement());
         db.execSQL(Database.ProfilesTable.getTableCreationStatement());
-        /*db.execSQL(Database.StoriesTable.getTableCreationStatement());
+        db.execSQL(Database.StoriesTable.getTableCreationStatement());
         db.execSQL(Database.FavoritesTable.getTableCreationStatement());
         db.execSQL(Database.SentencesTable.getTableCreationStatement());
-        db.execSQL(Database.CollaboratorsTable.getTableCreationStatement());*/
+        db.execSQL(Database.CollaboratorsTable.getTableCreationStatement());
     }
 
     /**
@@ -76,6 +76,7 @@ public class DBHandler extends SQLiteOpenHelper {
      *
      */
     public static void closeConnection(){
+        db.close();
         db = null;
     }
 
@@ -86,7 +87,7 @@ public class DBHandler extends SQLiteOpenHelper {
     /**
      * Add to the local database the Profile "p" passed in the parameters.
      */
-    public static void addProfileToDB(Profile p){
+    public static void addProfile(Profile p){
         /*
          * First, add the profile as a User in the "Users Table".
          */
@@ -95,8 +96,8 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(Database.UsersTable.COLUMN_GOOGLE_ID, p.getGoogleId());
         values.put(Database.UsersTable.COLUMN_NAME, p.getName());
         values.put(Database.UsersTable.COLUMN_IMAGE, p.getImageURL());
-        values.put(Database.UsersTable.COLUMN_LAST_CONNECTED
-                ,p.updateLastConnected().getLastConnected().toString());
+        values.put(Database.UsersTable.COLUMN_LAST_CONNECTED,
+                p.updateLastConnected().getLastConnected().toString());
         db.insert(Database.UsersTable.TABLE_NAME, null, values);
 
         /*
@@ -115,56 +116,51 @@ public class DBHandler extends SQLiteOpenHelper {
      * insert all the sentences under the Story "s" in the database under the
      * sentences_table.
      */
-    public static void addToStories(Story s){
+    public static void addStory(Story s){
         StoryDetails st = s.getDetails();
         ContentValues values = new ContentValues();
+        values.put(Database.StoriesTable.COLUMN_ID, s.getId());
         values.put(Database.StoriesTable.COLUMN_NAME, st.getTitle());
-        values.put(Database.StoriesTable.COLUMN_CREATOR_ID, s.getCreator().getGoogleId());
-        values.put(Database.StoriesTable.COLUMN_CREATION_DATE, new Timestamp(System.currentTimeMillis()).toString());
-        values.put(Database.StoriesTable.COLUMN_MAIN_CHARACTER, st.getMainCharacter());
         values.put(Database.StoriesTable.COLUMN_THEME, st.getTheme());
+        values.put(Database.StoriesTable.COLUMN_MAIN_CHARACTER, st.getMainCharacter());
+        values.put(Database.StoriesTable.COLUMN_CREATOR_ID, s.getCreator().getId());
+        values.put(Database.StoriesTable.COLUMN_CREATION_DATE, s.getCreationDate().toString());
         db.insert(Database.StoriesTable.TABLE_NAME, null, values);
 
         // -- Add each sentence.
         for (Sentence sentence : s.getSentences()) {
-            addToSentences(s.getId(), sentence);
+            addSentence(s.getId(), sentence);
         }
     }
 
     /**
-     *
-     *
-     * @param story_id  : TODO.
-     * @param s         : TODO.
+     * Add to the local database the Sentence "s" passed in the parameters, related
+     * to the Story with id : "story_id".
      */
-    public static void addToSentences(int story_id, Sentence s){
+    private static void addSentence(int story_id, Sentence s){
         ContentValues values = new ContentValues();
-        values.put(Database.CollaboratorsTable.COLUMN_STORY_ID, story_id);
+        values.put(Database.SentencesTable.COLUMN_ID, s.getId());
         values.put(Database.SentencesTable.COLUMN_AUTHOR_ID, s.getAuthor().getId());
+        values.put(Database.SentencesTable.COLUMN_STORY_ID, story_id);
         values.put(Database.SentencesTable.COLUMN_CONTENT, s.getContent());
+        values.put(Database.SentencesTable.COLUMN_CREATION_DATE, s.getCreationDate().toString());
         db.insert(Database.SentencesTable.TABLE_NAME, null, values);
     }
 
     /**
-     *
-     *
-     * @param p     : TODO.
-     * @param s     : TODO.
+     * TODO.
      */
-    public static void addToCollaborators(Profile p, Story s){
+    public static void addCollaborator(Profile p, Story s){
         ContentValues values = new ContentValues();
         values.put(Database.CollaboratorsTable.COLUMN_PROFILE_ID, p.getId());
         values.put(Database.CollaboratorsTable.COLUMN_STORY_ID, s.getId());
-
         db.insert(Database.ProfilesTable.TABLE_NAME, null, values);
     }
 
     /**
-     *
-     *
-     * @param s     : TODO.
+     * TODO.
      */
-    public static void addToFavorites(Story s){
+    public static void addStoryToFavorites(Story s){
         ContentValues values = new ContentValues();
         values.put(Database.FavoritesTable.COLUMN_STORY_ID, s.getId());
         db.insert(Database.ProfilesTable.TABLE_NAME, null, values);
@@ -174,16 +170,17 @@ public class DBHandler extends SQLiteOpenHelper {
 
     //------------------------------------------------------------------------
 
+
     /**
      * Retrieves the Profile from the database corresponding to the
-     * google_id.
+     * google_id passed in the parameters.
      */
     public static Profile getProfile(int google_id){
         Cursor cursor = db.query(
             Database.ProfilesTable.TABLE_NAME,
             new String[]{
-                Database.ProfilesTable.COLUMN_USER_ID,
-                Database.ProfilesTable.COLUMN_TOKENS
+                    Database.ProfilesTable.COLUMN_USER_ID,
+                    Database.ProfilesTable.COLUMN_TOKENS
             }
             ,Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?"
             ,new String[]{String.valueOf(google_id)},null,null,null,null);
@@ -202,8 +199,8 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     /**
-     * Retrieves the Profile from the database corresponding to the
-     * google_id.
+     * Retrieves the User from the database corresponding to the
+     * is passed in the parameters.
      */
     public static User getUser(int id){
         Cursor cursor = db.query(
@@ -229,6 +226,89 @@ public class DBHandler extends SQLiteOpenHelper {
         );
     }
 
+    /**
+     * Retrieves the Story from the database corresponding to the id
+     * passed in parameters.
+     */
+    public static Story getStory(int id){
+        Cursor cursor = db.query(
+            Database.StoriesTable.TABLE_NAME,
+            new String[]{
+                Database.StoriesTable.COLUMN_NAME,
+                Database.StoriesTable.COLUMN_THEME,
+                Database.StoriesTable.COLUMN_MAIN_CHARACTER,
+                Database.StoriesTable.COLUMN_CREATOR_ID,
+                Database.StoriesTable.COLUMN_CREATION_DATE
+            }
+            ,Database.StoriesTable.COLUMN_ID + "=?"
+            ,new String[]{String.valueOf(id)},null,null,null,null);
+
+        // Select the first element.
+        cursor.moveToFirst();
+
+        // Get user_id corresponding to the google_id passed in parameters.
+        int user_id = Integer.parseInt(cursor.getString(3));
+
+        return new Story(
+            id,
+            new StoryDetails(cursor.getString(0), cursor.getString(1), cursor.getString(2)),
+            getUser(user_id),
+            getSentences(id),
+            Timestamp.valueOf(cursor.getString(4))
+        );
+    }
+
+    /**
+     * Returns the number of stories available in the local database.
+     */
+    public static int getStoryListSize(){
+        Cursor cursor = db.query(
+            Database.StoriesTable.TABLE_NAME,
+            new String[]{ Database.StoriesTable.COLUMN_ID}
+            ,null,null,null,null,null,null);
+
+        return cursor.getCount();
+    }
+
+    /**
+     * Provides the list of sentences related to the Story with the
+     * id : story_id.
+     */
+    public static ArrayList<Sentence> getSentences(int story_id){
+        //
+        ArrayList<Sentence> sentences = new ArrayList<Sentence>();
+
+        Cursor cursor = db.query(
+            Database.SentencesTable.TABLE_NAME,
+            new String[]{
+                Database.SentencesTable.COLUMN_ID,
+                Database.SentencesTable.COLUMN_AUTHOR_ID,
+                Database.SentencesTable.COLUMN_CONTENT,
+                Database.SentencesTable.COLUMN_CREATION_DATE
+            }
+            ,Database.SentencesTable.COLUMN_STORY_ID + "=?"
+            ,new String[]{String.valueOf(story_id)},null,null,null,null);
+
+        // Select the first element.
+        cursor.moveToFirst();
+
+        // Get one sentence at a time.
+        do {
+            // Get author.
+            int user_id = Integer.parseInt(cursor.getString(1));
+            User author = getUser(user_id);
+            sentences.add(new Sentence(
+                Integer.parseInt(cursor.getString(0)),
+                author,
+                cursor.getString(2),
+                Timestamp.valueOf(cursor.getString(3))
+            ));
+        }while(cursor.moveToNext());
+
+        // Return sentences.
+        return sentences;
+    }
+
     //------------------------------------------------------------------------
 
     /**
@@ -241,6 +321,20 @@ public class DBHandler extends SQLiteOpenHelper {
             new String[]{Database.ProfilesTable.COLUMN_ID},
             Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?",
             new String[]{String.valueOf(google_id)},null,null,null,null
+        );
+        return cursor.getCount() != 0;
+    }
+
+
+    /**
+     *
+     */
+    public static boolean storyExists(int id){
+        Cursor cursor = db.query(
+                Database.StoriesTable.TABLE_NAME,
+                new String[]{Database.StoriesTable.COLUMN_ID},
+                Database.StoriesTable.COLUMN_ID + "=?",
+                new String[]{String.valueOf(id)},null,null,null,null
         );
         return cursor.getCount() != 0;
     }

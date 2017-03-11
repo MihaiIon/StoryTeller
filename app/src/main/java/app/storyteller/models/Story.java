@@ -1,6 +1,8 @@
 package app.storyteller.models;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Vincent on 2017-03-09.
@@ -15,6 +17,7 @@ public class Story {
     private Collaborator[] collaborators;
     private ArrayList<Sentence> sentences;
     private StoryDetails details;
+    private Timestamp creationDate;
 
     /**
      * Available Themes.
@@ -28,11 +31,12 @@ public class Story {
     /**
      * Constructor.
      */
-    public Story(int id, StoryDetails details, User creator, ArrayList<Sentence> sentences) {
+    public Story(int id, StoryDetails details, User creator, ArrayList<Sentence> sentences, Timestamp creationDate) {
         this.id = id;
         this.details = details;
         this.creator = creator;
         this.sentences = sentences;
+        this.creationDate = creationDate;
 
         // TODO. -> Get collaborators from sentences.
     }
@@ -52,6 +56,7 @@ public class Story {
     public ArrayList<Sentence> getSentences() {
         return sentences;
     }
+    public Timestamp getCreationDate() { return creationDate; }
 
 
     //------------------------------------------------------------
@@ -82,6 +87,20 @@ public class Story {
      */
     public int getStorySize(){
         return sentences.size();
+    }
+
+    /**
+     *
+     */
+    @Override
+    public String toString() {
+        return "Story{" +
+                "id=" + id +
+                ", creator=" + creator +
+                ", collaborators=" + Arrays.toString(collaborators) +
+                ", sentences=" + sentences +
+                ", details=" + details +
+                '}';
     }
 }
 
