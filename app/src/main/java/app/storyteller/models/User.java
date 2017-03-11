@@ -19,8 +19,7 @@ public class User {
 
     /**
      * Constructor.
-     *
-     *
+     * -- A User is a person that interacts with the app.
      */
     public User(int id, int google_id, String name, String imageURL, Timestamp lastConnected){
         this.id = id;
@@ -56,6 +55,13 @@ public class User {
 
     //------------------------------------------------------------
     // Methods
+
+    /**
+     * Checks if the user is online. TODO.
+     */
+    public boolean isConnected(){
+        return true;
+    }
 
     @Override
     public String toString() {

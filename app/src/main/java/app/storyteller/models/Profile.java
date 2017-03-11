@@ -13,6 +13,8 @@ public class Profile extends User {
 
     /**
      * Constructors
+     * -- A Profile is what is created locally to represent the current User.
+     *    Additional features are : Tokens and Favorites.
      */
     public Profile(int id, int google_id, String name, int tokens, String imageURL, Timestamp lastConnected, ArrayList<Story> favorites) {
         super(id, google_id, name, imageURL, lastConnected);
