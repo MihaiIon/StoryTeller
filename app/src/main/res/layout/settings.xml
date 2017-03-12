@@ -43,10 +43,20 @@
             android:layout_width="match_parent" />
 
         <Button
+            android:id="@+id/setting_log_out_button"
             style="@style/AppTheme.Dialog.Content.Button"
-            android:text="@string/settings_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log out" />
+
+        <Button
             android:id="@+id/settings_exit_btn"
-            android:layout_width="match_parent" />
+            style="@style/AppTheme.Dialog.Content.Button"
+            android:layout_width="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView"
+            android:layout_marginTop="11dp"
+            android:text="@string/settings_exit" />
 
     </LinearLayout>
 

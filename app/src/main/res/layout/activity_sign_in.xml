@@ -44,4 +44,15 @@
         android:layout_alignTop="@+id/sign_in_button"
         android:layout_alignEnd="@+id/dont_have_account_button"
         android:id="@+id/tempSignOut_button" />
+
+    <TextView
+        android:id="@+id/Create Profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_in_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Create Profile"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        android:textSize="24sp" />
 </RelativeLayout>

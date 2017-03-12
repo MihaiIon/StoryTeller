@@ -20,8 +20,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-import app.storyteller.R;
-
 public class SignInActivity extends AppCompatActivity {
 
     /*
@@ -41,8 +39,9 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in_out);
+        setContentView(R.layout.activity_sign_in);
 
+        // SET UP FOR SIGN IN ACTIVITY
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(this.getResources().getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -82,7 +81,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("SIGN OUT STARTS HERE");
-                LogOut();
+                logOut();
             }
         });
 
@@ -101,7 +100,7 @@ public class SignInActivity extends AppCompatActivity {
 
     //TODO: LogOut needs a :"ARE you sure you want to log out?" extra step and call a clear local database function
 
-    private void LogOut() {
+    private void logOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(           //launches google sign out and resets sign in process
                 new ResultCallback<Status>() {
                     @Override
@@ -134,13 +133,20 @@ public class SignInActivity extends AppCompatActivity {
 
             if (result.isSuccess()) {
                 GoogleSignInAccount acct = result.getSignInAccount();
+
                 // Get account information
                 System.out.println("Account is: "+acct.getDisplayName() +" has id: " + acct.getId()+ " and has email: "+ acct.getEmail()+ "Photo URL: " + acct.getPhotoUrl());
-                //String mFullName = acct.getDisplayName();
+                Toast.makeText(getApplicationContext(),"Account is: "+acct.getDisplayName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "has id: " + acct.getId(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext()," and has email: "+ acct.getEmail(), Toast.LENGTH_SHORT).show();
+
+                //Seting LoadingScreen's hasAccount to true
+                LoadingScreen.setHasAccount(true);
+                //Starting new Main Activity
+                startActivity(new Intent(this, MainActivity.class));
 
             } else System.out.println("AN ERROR IS FUCKING ME UP");
         }
     }
-
 }
 

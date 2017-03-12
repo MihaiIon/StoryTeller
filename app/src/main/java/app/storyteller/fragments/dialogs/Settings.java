@@ -1,5 +1,7 @@
 package app.storyteller.fragments.dialogs;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -11,13 +13,23 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+
+import app.storyteller.LoadingScreen;
 import app.storyteller.R;
+import app.storyteller.SignInActivity;
 
 /**
  * Created by Mihai on 2017-01-28.
  */
 public class Settings extends DialogFragment {
 
+    private GoogleApiClient mGoogleApiClient;
     /**
      * Creates a new instance of the Settings Dialog.
      */
@@ -35,6 +47,28 @@ public class Settings extends DialogFragment {
         // Here we choose and set the style of our dialog.
         int style = DialogFragment.STYLE_NORMAL, theme = 0;
         setStyle(style, theme);
+
+        /*
+            We set up for log out
+             NOTE: Sign Out needs sign in options from google to work? weird but it works
+             DATABASE CLEAR IS NOT DONE, ONLY NEEDS TO BE INSERTED BEFORE activityStart
+         */
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(this.getResources().getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity().getApplicationContext())
+                .enableAutoManage(getActivity(),
+                        new GoogleApiClient.OnConnectionFailedListener() {
+                            @Override
+                            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                                //try again? Show message of error and try again?
+                            }})
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
     }
 
     @Override
@@ -45,6 +79,7 @@ public class Settings extends DialogFragment {
         initializeClearDBBtn(view.findViewById(R.id.settings_clearDB_btn));
         initializeTokensBtn(view.findViewById(R.id.settings_addTokens_btn));
         initializeExitBtn(view.findViewById(R.id.settings_exit_btn));
+        initializeLogOutBtn(view.findViewById(R.id.setting_log_out_button));
 
         return view;
     }
@@ -129,4 +164,43 @@ public class Settings extends DialogFragment {
             }
         });
     }
+
+    /**
+     * NOT DEBUG (maybe)
+     *
+     * When the "Log out" button is clicked, the account is unlinked and
+     */
+
+    /*
+    DATABASE CLEAR IS NOT DONE, ONLY NEEDS TO BE INSERTED BEFORE StartActivity(...)
+     */
+    private void initializeLogOutBtn(View view)
+    {
+        Button btn = (Button) view;
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOut();
+            }
+        });
+    }
+
+    private void logOut() {
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(           //launches google sign out and resets sign in process
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        Toast.makeText(getContext(), "Logging out", Toast.LENGTH_SHORT).show();
+                        //Setting has account to false
+                        LoadingScreen.setHasAccount(false);
+
+                        //Setting up new Loading screen
+                        Intent FreshStart = new Intent(getContext(),LoadingScreen.class);
+                        startActivity(FreshStart);
+                    }
+                });
+
+    }
+
+
 }

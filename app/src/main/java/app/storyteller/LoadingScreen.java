@@ -20,6 +20,15 @@ public class LoadingScreen extends AppCompatActivity {
 *   if there is an account: goes to main
 *   if there isnt: goes to sign_in_out
 * */
+
+    //-----TEMP VERIFICATOR------
+    private static boolean hasAccount;
+    //NOT WORKING Y?
+    public static void setHasAccount(boolean hasAccount) {
+        LoadingScreen.hasAccount = hasAccount;
+    }
+    //-----TEMP VERIFICATION-------
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +38,12 @@ public class LoadingScreen extends AppCompatActivity {
         MihaiTesting.testingStory(getApplicationContext());
         /* TESTING -- Mihai -- TESTING */
 
-        if(Math.random() == 0){
+        if(hasAccount){
             startActivity(new Intent(this, MainActivity.class));
         }
 
         else{
-            startActivity(new Intent(this, sign_in_out.class));
+            startActivity(new Intent(this, SignInActivity.class));
         }
     }
 }
