@@ -45,7 +45,7 @@ public class Story {
     //------------------------------------------------------------
     // Getters
 
-    public int getId() { return id; }
+    public String getId() { return Integer.toString(id); }
     public StoryDetails getDetails() { return details; }
     public User getCreator() {
         return creator;
@@ -90,8 +90,23 @@ public class Story {
     }
 
     /**
-     *
+     * Returns the main character as a String
      */
+    public String getMainCharacter() {
+        return this.details.getMainCharacter();
+    }
+
+    /**
+     * Returns all sentences as a long String
+     */
+    public String getContent() {
+        String tmp = "";
+        for (int i = 0; i < sentences.size(); i++) {
+            tmp += sentences.get(i).getContent() + " ";
+        }
+        return tmp.substring(0,tmp.length()-1);
+    }
+
     @Override
     public String toString() {
         return "Story{" +
