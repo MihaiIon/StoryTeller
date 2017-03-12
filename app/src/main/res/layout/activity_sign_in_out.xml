@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="app.storyteller.sign_in_out">
+    tools:context="app.storyteller.SignInActivity">
 
 
     <Button
@@ -25,13 +25,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
-        android:id="@+id/dont_have_account"
+        android:id="@+id/dont_have_account_button"
         android:layout_below="@+id/Sign_In_button"
         android:layout_centerHorizontal="true" />
+
     <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
-            android:layout_marginTop="44dp"/>
+        android:layout_marginTop="49dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/dont_have_account_button" />
+
+    <Button
+        android:text="Log Out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/sign_in_button"
+        android:layout_alignEnd="@+id/dont_have_account_button"
+        android:id="@+id/tempSignOut_button" />
 </RelativeLayout>
