@@ -29,7 +29,9 @@ import app.storyteller.SignInActivity;
  */
 public class Settings extends DialogFragment {
 
+    //Local variable
     private GoogleApiClient mGoogleApiClient;
+
     /**
      * Creates a new instance of the Settings Dialog.
      */
@@ -160,6 +162,9 @@ public class Settings extends DialogFragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //resets gso and mGoogleApiClient
+                closeConnection();
+                //closes popup
                 dismiss();
             }
         });
@@ -201,6 +206,11 @@ public class Settings extends DialogFragment {
                     }
                 });
 
+    }
+
+    private void closeConnection() {
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
     }
 
 
