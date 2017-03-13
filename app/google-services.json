@@ -1,33 +1,72 @@
 {
   "project_info": {
-    "project_number": "626440357515",
-    "project_id": "storyteller-c9940"
+    "project_number": "360621653184",
+    "project_id": "storyteller-7d179"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:626440357515:android:986fe6b92aa7611c",
+        "mobilesdk_app_id": "1:360621653184:android:305398c68cd54ecb",
+        "android_client_info": {
+          "package_name": "StoryTeller.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360621653184-ptg74lb7r0jv7n04tgk2umrdscrarum2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "360621653184-isd4f0vhp5lrsd1k31d00jutbgheev7a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "StoryTeller.app",
+            "certificate_hash": "9942d65acc8d0a42528f55a2b517a0b8c4a65009"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJ8r7V2x3Pu-G0kOWSaBgug6qzfJYSG2g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360621653184:android:986fe6b92aa7611c",
         "android_client_info": {
           "package_name": "app.storyteller"
         }
       },
       "oauth_client": [
         {
-          "client_id": "626440357515-rhrkglh8mliarbo2om4gu4uugbjt9vvc.apps.googleusercontent.com",
+          "client_id": "360621653184-aag0cjcvovekt7rk9krmrtb3ejev90qo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "app.storyteller",
-            "certificate_hash": "c89851e5712a661185d0439bc580b524a0a14668"
+            "certificate_hash": "9942d65acc8d0a42528f55a2b517a0b8c4a65009"
           }
         },
         {
-          "client_id": "626440357515-gt9au3uod0esgctp2vclh8up0s4h1aeb.apps.googleusercontent.com",
+          "client_id": "360621653184-ptg74lb7r0jv7n04tgk2umrdscrarum2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBiXSWHlYBONaLQ7OuVmt7Z72A6BHmJEUY"
+          "current_key": "AIzaSyCJ8r7V2x3Pu-G0kOWSaBgug6qzfJYSG2g"
         }
       ],
       "services": {
