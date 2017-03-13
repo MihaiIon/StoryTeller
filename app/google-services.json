@@ -1,33 +1,64 @@
 {
   "project_info": {
-    "project_number": "626440357515",
-    "project_id": "storyteller-c9940"
+    "project_number": "360621653184",
+    "project_id": "storyteller-7d179"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:626440357515:android:986fe6b92aa7611c",
+        "mobilesdk_app_id": "1:360621653184:android:305398c68cd54ecb",
+        "android_client_info": {
+          "package_name": "StoryTeller.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360621653184-64kja58vnjsqpbl8p6fdb4fh6gv1vcao.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAN1wdw-pf7gBTBhxgqgZEIffW_23c_9b4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360621653184:android:986fe6b92aa7611c",
         "android_client_info": {
           "package_name": "app.storyteller"
         }
       },
       "oauth_client": [
         {
-          "client_id": "626440357515-rhrkglh8mliarbo2om4gu4uugbjt9vvc.apps.googleusercontent.com",
+          "client_id": "360621653184-j64l8m4f188k1khogb9qjd3l1eubmugk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "app.storyteller",
-            "certificate_hash": "c89851e5712a661185d0439bc580b524a0a14668"
+            "certificate_hash": "c3a1d8b13e943bd07dcd5d764b2049b755ad0d17"
           }
         },
         {
-          "client_id": "626440357515-gt9au3uod0esgctp2vclh8up0s4h1aeb.apps.googleusercontent.com",
+          "client_id": "360621653184-64kja58vnjsqpbl8p6fdb4fh6gv1vcao.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBiXSWHlYBONaLQ7OuVmt7Z72A6BHmJEUY"
+          "current_key": "AIzaSyAN1wdw-pf7gBTBhxgqgZEIffW_23c_9b4"
         }
       ],
       "services": {
