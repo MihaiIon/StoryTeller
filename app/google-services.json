@@ -13,21 +13,13 @@
       },
       "oauth_client": [
         {
-          "client_id": "360621653184-ptg74lb7r0jv7n04tgk2umrdscrarum2.apps.googleusercontent.com",
+          "client_id": "360621653184-64kja58vnjsqpbl8p6fdb4fh6gv1vcao.apps.googleusercontent.com",
           "client_type": 3
-        },
-        {
-          "client_id": "360621653184-isd4f0vhp5lrsd1k31d00jutbgheev7a.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "StoryTeller.app",
-            "certificate_hash": "9942d65acc8d0a42528f55a2b517a0b8c4a65009"
-          }
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCJ8r7V2x3Pu-G0kOWSaBgug6qzfJYSG2g"
+          "current_key": "AIzaSyAN1wdw-pf7gBTBhxgqgZEIffW_23c_9b4"
         }
       ],
       "services": {
@@ -52,21 +44,21 @@
       },
       "oauth_client": [
         {
-          "client_id": "360621653184-aag0cjcvovekt7rk9krmrtb3ejev90qo.apps.googleusercontent.com",
+          "client_id": "360621653184-j64l8m4f188k1khogb9qjd3l1eubmugk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "app.storyteller",
-            "certificate_hash": "9942d65acc8d0a42528f55a2b517a0b8c4a65009"
+            "certificate_hash": "c3a1d8b13e943bd07dcd5d764b2049b755ad0d17"
           }
         },
         {
-          "client_id": "360621653184-ptg74lb7r0jv7n04tgk2umrdscrarum2.apps.googleusercontent.com",
+          "client_id": "360621653184-64kja58vnjsqpbl8p6fdb4fh6gv1vcao.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCJ8r7V2x3Pu-G0kOWSaBgug6qzfJYSG2g"
+          "current_key": "AIzaSyAN1wdw-pf7gBTBhxgqgZEIffW_23c_9b4"
         }
       ],
       "services": {
