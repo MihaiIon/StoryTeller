@@ -39,7 +39,7 @@ public class LoadingScreen extends AppCompatActivity {
         MihaiTesting.testingStory(getApplicationContext());
         /* TESTING -- Mihai -- TESTING */
 
-        if(true){
+        if(false){
             startActivity(new Intent(this, MainActivity.class));
         }
 
