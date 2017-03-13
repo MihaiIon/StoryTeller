@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import app.storyteller.fragments.AllStoriesFragment;
 import app.storyteller.fragments.HomeFragment;
+import app.storyteller.fragments.PagerFragment;
 import app.storyteller.fragments.PartyModeFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -86,6 +87,27 @@ public class MainActivity extends FragmentActivity {
         @Override
         public int getCount() {
             return NUM_SLIDES;
+        }
+    }
+    /**
+     * Main Pager adapter, contains 2 fragments: -PagerFragment(contains 2 fragments)
+     *                                           -Story
+     *
+     */
+    public class MainSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public MainSlidePagerAdapter(FragmentManager fm) {super(fm);}
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 1: return new AllStoriesFragment();
+                default: return new PagerFragment(); //fragment contains a pager
+            }
+        }
+
+        @Override
+        public int getCount() {
+            return 2; //create static var
         }
     }
 }
