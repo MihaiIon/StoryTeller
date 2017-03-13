@@ -46,7 +46,7 @@ public class Story {
     //------------------------------------------------------------
     // Getters
 
-    public String getId() { return Integer.toString(id); }
+    public int getId() { return id; }
     public StoryDetails getDetails() { return details; }
     public User getCreator() {
         return creator;

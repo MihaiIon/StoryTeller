@@ -54,13 +54,13 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        if (slider.getCurrentItem() == 0) {
+        if (slider.getCurrentItem() == 1) {
             // If the user is currently looking at the first step, allow the system to handle the
             // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
+            // super.onBackPressed();
         } else {
             // Otherwise, select the previous step.
-            slider.setCurrentItem(slider.getCurrentItem() - 1);
+            slider.setCurrentItem(1);
         }
     }
 

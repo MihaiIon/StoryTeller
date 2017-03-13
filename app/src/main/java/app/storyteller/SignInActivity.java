@@ -111,7 +111,6 @@ public class SignInActivity extends AppCompatActivity {
                         startActivity(FreshStart);
                     }
                 });
-
     }
 
         //function that utilises result from action button to do the next things...

@@ -41,12 +41,11 @@
         android:text="Log Out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/sign_in_button"
-        android:layout_alignEnd="@+id/dont_have_account_button"
-        android:id="@+id/tempSignOut_button" />
+        android:id="@+id/tempSignOut_button"
+        android:layout_above="@+id/textView2"
+        android:layout_alignEnd="@+id/dont_have_account_button" />
 
     <TextView
-        android:id="@+id/Create Profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/sign_in_button"
@@ -54,5 +53,6 @@
         android:layout_marginTop="25dp"
         android:text="Create Profile"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:id="@+id/textView2" />
 </RelativeLayout>
