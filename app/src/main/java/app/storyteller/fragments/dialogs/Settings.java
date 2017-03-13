@@ -176,6 +176,7 @@ public class Settings extends DialogFragment {
      */
     private void initializeLogOutBtn(View view)
     {
+
         Button btn = (Button) view;
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

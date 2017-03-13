@@ -7,6 +7,7 @@ import android.provider.BaseColumns;
  */
 public class Database {
 
+
     /**
      * Table : Profiles.
      *

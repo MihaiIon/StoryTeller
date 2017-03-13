@@ -19,6 +19,7 @@ import java.util.Date;
  */
 public class Api {
 
+
     /**
      * The Url to connect to the api.
      */

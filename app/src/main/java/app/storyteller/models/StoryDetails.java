@@ -3,6 +3,7 @@ package app.storyteller.models;
 /**
  * Created by Mihai on 2017-03-10.
  */
+
 public class StoryDetails {
 
     private String title;

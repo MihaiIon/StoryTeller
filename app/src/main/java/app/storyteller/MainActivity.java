@@ -17,6 +17,7 @@ import app.storyteller.fragments.PartyModeFragment;
 
 public class MainActivity extends FragmentActivity {
 
+
     /**
      * Number of slides contained in the mainActivity. The slides includes : this Home screen,
      * the PartyMode screen and the Story screen.

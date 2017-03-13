@@ -36,6 +36,7 @@ public class DBHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+
     /**
      * Create all the tables in the database.
      *

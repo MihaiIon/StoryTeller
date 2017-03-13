@@ -100,6 +100,7 @@ public class SignInActivity extends AppCompatActivity {
 
     //TODO: LogOut needs a :"ARE you sure you want to log out?" extra step and call a clear local database function
 
+
     private void logOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(           //launches google sign out and resets sign in process
                 new ResultCallback<Status>() {

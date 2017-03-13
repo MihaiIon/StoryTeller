@@ -3,6 +3,7 @@ package app.storyteller.models;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+
 public class Profile extends User {
 
     /*

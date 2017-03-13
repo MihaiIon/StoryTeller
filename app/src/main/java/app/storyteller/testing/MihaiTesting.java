@@ -17,6 +17,7 @@ import app.storyteller.models.StoryDetails;
 
 public class MihaiTesting {
 
+
     private static Profile profile = null;
 
     /**

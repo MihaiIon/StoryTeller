@@ -21,6 +21,7 @@ public class LoadingScreen extends AppCompatActivity {
 *   if there isnt: goes to sign_in_out
 * */
 
+
     //-----TEMP VERIFICATOR------
     private static boolean hasAccount;
     //NOT WORKING Y?

@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 /**
  * Created by Vincent on 2017-03-09.
  */
+
 public class Sentence {
 
     private int id;
