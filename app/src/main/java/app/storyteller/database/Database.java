@@ -23,7 +23,7 @@ public class Database {
         public static String getTableCreationStatement(){
             return "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INT PRIMARY KEY,"
-                    + COLUMN_GOOGLE_ID + " INT NOT NULL,"
+                    + COLUMN_GOOGLE_ID + " VARCHAR(21) NOT NULL,"
                     + COLUMN_USER_ID + " TEXT NOT NULL,"
                     + COLUMN_TOKENS + " INT NOT NULL,"
                     + " FOREIGN KEY ("+COLUMN_USER_ID+") REFERENCES "
@@ -50,7 +50,7 @@ public class Database {
         public static String getTableCreationStatement(){
             return "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INT NOT NULL,"
-                    + COLUMN_GOOGLE_ID + " INT NOT NULL,"
+                    + COLUMN_GOOGLE_ID + " VARCHAR(21) NOT NULL,"
                     + COLUMN_NAME + " TEXT NOT NULL,"
                     + COLUMN_IMAGE + " TEXT NOT NULL,"
                     + COLUMN_LAST_CONNECTED + " DATE"

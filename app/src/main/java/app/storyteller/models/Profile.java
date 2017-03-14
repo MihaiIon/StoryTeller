@@ -17,7 +17,7 @@ public class Profile extends User {
      * -- A Profile is what is created locally to represent the current User.
      *    Additional features are : Tokens and Favorites.
      */
-    public Profile(int id, int google_id, String name, int tokens, String imageURL, Timestamp lastConnected, ArrayList<Story> favorites) {
+    public Profile(int id, String google_id, String name, int tokens, String imageURL, Timestamp lastConnected, ArrayList<Story> favorites) {
         super(id, google_id, name, imageURL, lastConnected);
         this.tokens = tokens;
         this.favorites = favorites;
@@ -35,7 +35,7 @@ public class Profile extends User {
     // Getters and Setters
 
     public int getId() { return super.getId(); }
-    public int getGoogleId() { return super.getGoogleId(); }
+    public String getGoogleId() { return super.getGoogleId(); }
     public String getName() { return super.getName(); }
     public int getTokens() { return tokens; }
     public String getImageURL() { return super.getImageURL(); }

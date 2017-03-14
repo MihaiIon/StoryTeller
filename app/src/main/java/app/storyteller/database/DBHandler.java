@@ -176,7 +176,7 @@ public class DBHandler extends SQLiteOpenHelper {
      * Retrieves the Profile from the database corresponding to the
      * google_id passed in the parameters.
      */
-    public static Profile getProfile(int google_id){
+    public static Profile getProfile(String google_id){
         Cursor cursor = db.query(
             Database.ProfilesTable.TABLE_NAME,
             new String[]{
@@ -184,7 +184,7 @@ public class DBHandler extends SQLiteOpenHelper {
                     Database.ProfilesTable.COLUMN_TOKENS
             }
             ,Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?"
-            ,new String[]{String.valueOf(google_id)},null,null,null,null);
+            ,new String[] {google_id},null,null,null,null);
 
         // Select the first element.
         cursor.moveToFirst();
@@ -220,7 +220,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
         return new User(
             id,
-            Integer.parseInt(cursor.getString(0)),
+            cursor.getString(0),
             cursor.getString(1),
             cursor.getString(2),
             Timestamp.valueOf(cursor.getString(3))
@@ -313,15 +313,25 @@ public class DBHandler extends SQLiteOpenHelper {
     //------------------------------------------------------------------------
 
     /**
+     * Verifies if there is at least one profile in the database
+     * @return true if there is and false otherwise
+     */
+    public static boolean profileExists()
+    {
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ Database.ProfilesTable.TABLE_NAME, null);
+        return cursor.getCount() != 0;
+    }
+
+    /**
      * Checks if there is a profile attached to the google_id passed in
      * the parameters.
      */
-    public static boolean profileExists(int google_id){
+    public static boolean profileExists(String google_id){
         Cursor cursor = db.query(
             Database.ProfilesTable.TABLE_NAME,
             new String[]{Database.ProfilesTable.COLUMN_ID},
             Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?",
-            new String[]{String.valueOf(google_id)},null,null,null,null
+            new String[]{google_id},null,null,null,null
         );
         return cursor.getCount() != 0;
     }

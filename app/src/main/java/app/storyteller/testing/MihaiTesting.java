@@ -25,7 +25,7 @@ public class MihaiTesting {
      */
     public static void testingProfile(Context context){
 
-        int fake_google_id = 123456;
+        String fake_google_id = "123456";
         DBHandler.openConnection(context);
 
         if (DBHandler.profileExists(fake_google_id)){

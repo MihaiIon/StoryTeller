@@ -14,7 +14,7 @@ public class User {
      */
     private int id;         // Index in the database.
     private String name;
-    private int google_id;
+    private String google_id;
     private String imageURL;
     private Timestamp lastConnected;
 
@@ -22,7 +22,7 @@ public class User {
      * Constructor.
      * -- A User is a person that interacts with the app.
      */
-    public User(int id, int google_id, String name, String imageURL, Timestamp lastConnected){
+    public User(int id, String google_id, String name, String imageURL, Timestamp lastConnected){
         this.id = id;
         this.google_id = google_id;
         this.name = name;
@@ -34,7 +34,7 @@ public class User {
     // Getters and Setters
 
     public int getId() { return id; }
-    public int getGoogleId() {
+    public String getGoogleId() {
         return google_id;
     }
     public String getName() {

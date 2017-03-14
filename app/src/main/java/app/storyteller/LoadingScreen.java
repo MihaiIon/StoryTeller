@@ -21,30 +21,30 @@ public class LoadingScreen extends AppCompatActivity {
 *   if there isnt: goes to sign_in_out
 * */
 
-
-    //-----TEMP VERIFICATOR------
-    private static boolean hasAccount;
-    //NOT WORKING Y?
-    public static void setHasAccount(boolean hasAccount) {
-        LoadingScreen.hasAccount = hasAccount;
-    }
-    //-----TEMP VERIFICATION-------
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        DBHandler.openConnection(getApplicationContext());
         /* TESTING -- Mihai -- TESTING */
-        MihaiTesting.testingProfile(getApplicationContext());
-        MihaiTesting.testingStory(getApplicationContext());
+        //MihaiTesting.testingProfile(getApplicationContext());
+        //MihaiTesting.testingStory(getApplicationContext());
         /* TESTING -- Mihai -- TESTING */
 
-        if(false){
+        if(DBHandler.profileExists()){
+            DBHandler.closeConnection();
             startActivity(new Intent(this, MainActivity.class));
         }
 
-        else{
+        else /*if(Internet is active)*/{
+            DBHandler.closeConnection();
             startActivity(new Intent(this, SignInActivity.class));
         }
+
+        /*else
+        {
+            MAKE FU ACTIVITY ACTIVE (SORRY NOT SORRY)
+            YOU WILL BE TRACKED AND KILLED
+        }*/
     }
 }
