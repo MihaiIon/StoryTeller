@@ -100,7 +100,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                     + "\n" + response
                 );
                 try{
-                    JSONObject obj = new JSONObject(response.trim());
+                    JSONObject obj = new JSONObject(response);
                     Profile p = new Profile(
                         obj.getInt("id"),
                         obj.getString("google_id"),
