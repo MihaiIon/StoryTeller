@@ -4,12 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-
 import app.storyteller.database.DBHandler;
-import app.storyteller.models.Profile;
-import app.storyteller.models.Story;
+import app.storyteller.manager.StoryTellerManager;
 import app.storyteller.testing.MihaiTesting;
 
 public class LoadingScreen extends AppCompatActivity {
@@ -25,22 +21,23 @@ public class LoadingScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DBHandler.openConnection(getApplicationContext());
+        StoryTellerManager.init(getApplicationContext(), "123123");
+        DBHandler.openConnection();
         /* TESTING -- Mihai -- TESTING */
         //MihaiTesting.testingProfile(getApplicationContext());
         //MihaiTesting.testingStory(getApplicationContext());
+        MihaiTesting.testingApiCreateProfile();
         /* TESTING -- Mihai -- TESTING */
 
-        if(DBHandler.profileExists()){
+        /*(DBHandler.profileExists("asdasda")){
             DBHandler.closeConnection();
             startActivity(new Intent(this, MainActivity.class));
         }
 
-        else /*if(Internet is active)*/{
+        else if(StoryTellerManager.isConnected()){
             DBHandler.closeConnection();
             startActivity(new Intent(this, SignInActivity.class));
-        }
-
+        }*/
         /*else
         {
             MAKE FU ACTIVITY ACTIVE (SORRY NOT SORRY)

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import app.storyteller.manager.StoryTellerManager;
 import app.storyteller.models.Profile;
 import app.storyteller.models.Sentence;
 import app.storyteller.models.Story;
@@ -44,8 +45,8 @@ public class DBHandler extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(Database.UsersTable.getTableCreationStatement());
         db.execSQL(Database.ProfilesTable.getTableCreationStatement());
+        db.execSQL(Database.AccountsTable.getTableCreationStatement());
         db.execSQL(Database.StoriesTable.getTableCreationStatement());
         db.execSQL(Database.FavoritesTable.getTableCreationStatement());
         db.execSQL(Database.SentencesTable.getTableCreationStatement());
@@ -66,11 +67,9 @@ public class DBHandler extends SQLiteOpenHelper {
 
     /**
      *
-     *
-     * @param context : TODO.
      */
-    public static void openConnection(Context context){
-        db = new DBHandler(context).getWritableDatabase();
+    public static void openConnection(){
+        db = new DBHandler(StoryTellerManager.getContext()).getWritableDatabase();
     }
 
     /**
@@ -86,30 +85,36 @@ public class DBHandler extends SQLiteOpenHelper {
     //------------------------------------------------------------------------
 
     /**
+     * Add to the local database the Profile "p" passed in the parameters and
+     * create an Account entry in the AccountsTable referring to the Profile.
+     */
+    public static void createAccount(Profile p){
+        addProfile(p);
+        addAccount(p);
+    }
+
+    /**
      * Add to the local database the Profile "p" passed in the parameters.
      */
     public static void addProfile(Profile p){
-        /*
-         * First, add the profile as a User in the "Users Table".
-         */
         ContentValues values = new ContentValues();
-        values.put(Database.UsersTable.COLUMN_ID, p.getId());
-        values.put(Database.UsersTable.COLUMN_GOOGLE_ID, p.getGoogleId());
-        values.put(Database.UsersTable.COLUMN_NAME, p.getName());
-        values.put(Database.UsersTable.COLUMN_IMAGE, p.getImageURL());
-        values.put(Database.UsersTable.COLUMN_LAST_CONNECTED,
-                p.updateLastConnected().getLastConnected().toString());
-        db.insert(Database.UsersTable.TABLE_NAME, null, values);
-
-        /*
-         * Then, add the information related to the local profile in
-         * the "Profiles Table".
-         */
-        values = new ContentValues();
-        values.put(Database.ProfilesTable.COLUMN_USER_ID, p.getId());
+        values.put(Database.ProfilesTable.COLUMN_ID, p.getId());
         values.put(Database.ProfilesTable.COLUMN_GOOGLE_ID, p.getGoogleId());
+        values.put(Database.ProfilesTable.COLUMN_NAME, p.getName());
         values.put(Database.ProfilesTable.COLUMN_TOKENS, p.getTokens());
+        values.put(Database.ProfilesTable.COLUMN_IMAGE, p.getImageURL());
+        values.put(Database.ProfilesTable.COLUMN_LAST_CONNECTED, p.getLastConnected().toString());
         db.insert(Database.ProfilesTable.TABLE_NAME, null, values);
+    }
+
+    /**
+     * Add to the local database the account "p" passed in the parameters.
+     */
+    public static void addAccount(Profile p){
+        ContentValues values = new ContentValues();
+        values.put(Database.AccountsTable.COLUMN_PROFILE_ID, p.getId());
+        values.put(Database.AccountsTable.COLUMN_LAST_CONNECTED, p.getLastConnected().toString());
+        db.insert(Database.AccountsTable.TABLE_NAME, null, values);
     }
 
     /**
@@ -121,7 +126,7 @@ public class DBHandler extends SQLiteOpenHelper {
         StoryDetails st = s.getDetails();
         ContentValues values = new ContentValues();
         values.put(Database.StoriesTable.COLUMN_ID, s.getId());
-        values.put(Database.StoriesTable.COLUMN_NAME, st.getTitle());
+        values.put(Database.StoriesTable.COLUMN_TITLE, st.getTitle());
         values.put(Database.StoriesTable.COLUMN_THEME, st.getTheme());
         values.put(Database.StoriesTable.COLUMN_MAIN_CHARACTER, st.getMainCharacter());
         values.put(Database.StoriesTable.COLUMN_CREATOR_ID, s.getCreator().getId());
@@ -173,69 +178,62 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
     /**
-     * Retrieves the Profile from the database corresponding to the
-     * google_id passed in the parameters.
+     * Retrieves the Profile from the local database corresponding to the
+     * "id" passed in the parameters.
      */
-    public static Profile getProfile(String google_id){
+    public static Profile getProfile(int id){
         Cursor cursor = db.query(
             Database.ProfilesTable.TABLE_NAME,
             new String[]{
-                    Database.ProfilesTable.COLUMN_USER_ID,
-                    Database.ProfilesTable.COLUMN_TOKENS
+                Database.ProfilesTable.COLUMN_ID,
+                Database.ProfilesTable.COLUMN_GOOGLE_ID,
+                Database.ProfilesTable.COLUMN_NAME,
+                Database.ProfilesTable.COLUMN_TOKENS,
+                Database.ProfilesTable.COLUMN_IMAGE,
+                Database.ProfilesTable.COLUMN_LAST_CONNECTED
             }
-            ,Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?"
-            ,new String[] {google_id},null,null,null,null);
+            ,Database.ProfilesTable.COLUMN_ID + "=?"
+            ,new String[] {""+id},null,null,null,null);
 
         // Select the first element.
         cursor.moveToFirst();
-
-        // Get user_id corresponding to the google_id passed in parameters.
-        int user_id = Integer.parseInt(cursor.getString(0));
 
         return new Profile(
-            getUser(user_id),
-            Integer.parseInt(cursor.getString(1)),
-            new ArrayList<Story>() // getfavoriteStories(user_id)
-        );
-    }
-
-    /**
-     * Retrieves the User from the database corresponding to the
-     * is passed in the parameters.
-     */
-    public static User getUser(int id){
-        Cursor cursor = db.query(
-            Database.UsersTable.TABLE_NAME,
-            new String[]{
-                Database.UsersTable.COLUMN_GOOGLE_ID,
-                Database.UsersTable.COLUMN_NAME,
-                Database.UsersTable.COLUMN_IMAGE,
-                Database.UsersTable.COLUMN_LAST_CONNECTED
-            }
-            ,Database.UsersTable.COLUMN_ID + "=?"
-            ,new String[]{String.valueOf(id)},null,null,null,null);
-
-        // Select the first element.
-        cursor.moveToFirst();
-
-        return new User(
-            id,
-            cursor.getString(0),
+            Integer.parseInt(cursor.getString(0)),
             cursor.getString(1),
             cursor.getString(2),
-            Timestamp.valueOf(cursor.getString(3))
+            Integer.parseInt(cursor.getString(3)),
+            cursor.getString(4),
+            Timestamp.valueOf(cursor.getString(5)),
+            new ArrayList<Story>() // getfavoriteStories()
         );
     }
 
     /**
-     * Retrieves the Story from the database corresponding to the id
+     * Retrieves the ID of the last Profile that was used on this device
+     * (from the local database).
+     * @return : The ID of the last connected Profile.
+     */
+    public static int getLastAccountConnected(){
+        Cursor cursor = db.query(
+            Database.ProfilesTable.TABLE_NAME,
+            new String[]{Database.ProfilesTable.COLUMN_GOOGLE_ID}
+            ,Database.ProfilesTable.COLUMN_LAST_CONNECTED + "=?"
+            ,new String[] {"lkjlkjlkj"},null,null,null,null);
+
+        cursor.moveToFirst();
+        return Integer.parseInt(cursor.getString(0));
+    }
+
+    /**
+     * Retrieves the Story from the local database corresponding to the id
      * passed in parameters.
      */
     public static Story getStory(int id){
         Cursor cursor = db.query(
             Database.StoriesTable.TABLE_NAME,
             new String[]{
-                Database.StoriesTable.COLUMN_NAME,
+                Database.StoriesTable.COLUMN_TITLE,
                 Database.StoriesTable.COLUMN_THEME,
                 Database.StoriesTable.COLUMN_MAIN_CHARACTER,
                 Database.StoriesTable.COLUMN_CREATOR_ID,
@@ -253,7 +251,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return new Story(
             id,
             new StoryDetails(cursor.getString(0), cursor.getString(1), cursor.getString(2)),
-            getUser(user_id),
+            getProfile(user_id),
             getSentences(id),
             Timestamp.valueOf(cursor.getString(4))
         );
@@ -297,7 +295,7 @@ public class DBHandler extends SQLiteOpenHelper {
         do {
             // Get author.
             int user_id = Integer.parseInt(cursor.getString(1));
-            User author = getUser(user_id);
+            User author = getProfile(user_id);
             sentences.add(new Sentence(
                 Integer.parseInt(cursor.getString(0)),
                 author,
@@ -313,12 +311,12 @@ public class DBHandler extends SQLiteOpenHelper {
     //------------------------------------------------------------------------
 
     /**
-     * Verifies if there is at least one profile in the database
-     * @return true if there is and false otherwise
+     * Verifies if there is at least one Account in the local database
+     * @return true if there is and false otherwise.
      */
-    public static boolean profileExists()
+    public static boolean AccountExists()
     {
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ Database.ProfilesTable.TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM "+ Database.AccountsTable.TABLE_NAME, null);
         return cursor.getCount() != 0;
     }
 

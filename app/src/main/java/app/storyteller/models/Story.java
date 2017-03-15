@@ -102,13 +102,6 @@ public class Story {
     }
 
     /**
-     * Returns the main character as a String
-     */
-    public String getMainCharacter() {
-        return this.details.getMainCharacter();
-    }
-
-    /**
      * Returns all sentences as a long String
      */
     public String getContent() {

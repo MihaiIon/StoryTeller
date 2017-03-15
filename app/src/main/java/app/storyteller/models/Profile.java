@@ -14,18 +14,9 @@ public class Profile extends User {
 
     /**
      * Constructors
-     * -- A Profile is what is created locally to represent the current User.
-     *    Additional features are : Tokens and Favorites.
      */
     public Profile(int id, String google_id, String name, int tokens, String imageURL, Timestamp lastConnected, ArrayList<Story> favorites) {
         super(id, google_id, name, imageURL, lastConnected);
-        this.tokens = tokens;
-        this.favorites = favorites;
-    }
-
-    public Profile(User user, int tokens, ArrayList<Story> favorites) {
-        super(user.getId(), user.getGoogleId(), user.getName(),
-                user.getImageURL(), user.getLastConnected());
         this.tokens = tokens;
         this.favorites = favorites;
     }

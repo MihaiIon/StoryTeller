@@ -199,7 +199,7 @@ public class Settings extends DialogFragment {
                     public void onResult(Status status) {
                         Toast.makeText(getContext(), "Logging out", Toast.LENGTH_SHORT).show();
                         //Setting has account to false
-                        DBHandler.openConnection(getContext());
+                        DBHandler.openConnection();
                         //Make current account not
                         DBHandler.closeConnection();
                         //Setting up new Loading screen
@@ -214,6 +214,4 @@ public class Settings extends DialogFragment {
         mGoogleApiClient.stopAutoManage(getActivity());
         mGoogleApiClient.disconnect();
     }
-
-
 }

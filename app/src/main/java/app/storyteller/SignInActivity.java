@@ -144,7 +144,7 @@ public class SignInActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "has id: " + acct.getId(), Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext()," and has email: "+ acct.getEmail(), Toast.LENGTH_SHORT).show();
 
-                DBHandler.openConnection(getApplicationContext());
+                DBHandler.openConnection();
                 //Verify if account is in local DB
                 if(!DBHandler.profileExists(acct.getId())) {
 
