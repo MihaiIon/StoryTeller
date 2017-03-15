@@ -87,6 +87,11 @@ public class DBHandler extends SQLiteOpenHelper {
     /**
      * Add to the local database the Profile "p" passed in the parameters and
      * create an Account entry in the AccountsTable referring to the Profile.
+     *
+     * When the application opens, it can check and see if there was a Google
+     * Account used on this device.
+     *
+     * -- Tested: working - MI - 03/15/2017.
      */
     public static void createAccount(Profile p){
         addProfile(p);
@@ -95,6 +100,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     /**
      * Add to the local database the Profile "p" passed in the parameters.
+     * -- Tested: working - MI - 03/15/2017.
      */
     public static void addProfile(Profile p){
         ContentValues values = new ContentValues();
@@ -109,10 +115,12 @@ public class DBHandler extends SQLiteOpenHelper {
 
     /**
      * Add to the local database the account "p" passed in the parameters.
+     * -- Tested: working - MI - 03/15/2017.
      */
-    public static void addAccount(Profile p){
+    private static void addAccount(Profile p){
         ContentValues values = new ContentValues();
         values.put(Database.AccountsTable.COLUMN_PROFILE_ID, p.getId());
+        values.put(Database.AccountsTable.COLUMN_GOOGLE_ID, p.getGoogleId());
         values.put(Database.AccountsTable.COLUMN_LAST_CONNECTED, p.getLastConnected().toString());
         db.insert(Database.AccountsTable.TABLE_NAME, null, values);
     }
@@ -176,10 +184,10 @@ public class DBHandler extends SQLiteOpenHelper {
 
     //------------------------------------------------------------------------
 
-
     /**
-     * Retrieves the Profile from the local database corresponding to the
-     * "id" passed in the parameters.
+     * Retrieves the Profile from the local database.
+     * @param id : Profile's id.
+     * -- Tested: working - MI - 03/15/2017.
      */
     public static Profile getProfile(int id){
         Cursor cursor = db.query(
@@ -193,7 +201,41 @@ public class DBHandler extends SQLiteOpenHelper {
                 Database.ProfilesTable.COLUMN_LAST_CONNECTED
             }
             ,Database.ProfilesTable.COLUMN_ID + "=?"
-            ,new String[] {""+id},null,null,null,null);
+            ,new String[]{Integer.toString(id)},null,null,null,null);
+
+        // Select the first element.
+        cursor.moveToFirst();
+
+        return new Profile(
+            Integer.parseInt(cursor.getString(0)),
+            cursor.getString(1),
+            cursor.getString(2),
+            Integer.parseInt(cursor.getString(3)),
+            cursor.getString(4),
+            Timestamp.valueOf(cursor.getString(5)),
+            new ArrayList<Story>() // getfavoriteStories()
+        );
+    }
+
+
+    /**
+     * Retrieves the Profile from the local database.
+     * @param google_id : Profile's google_id.
+     * -- Tested: working - MI - 03/15/2017.
+     */
+    public static Profile getProfile(String google_id){
+        Cursor cursor = db.query(
+            Database.ProfilesTable.TABLE_NAME,
+            new String[]{
+                Database.ProfilesTable.COLUMN_ID,
+                Database.ProfilesTable.COLUMN_GOOGLE_ID,
+                Database.ProfilesTable.COLUMN_NAME,
+                Database.ProfilesTable.COLUMN_TOKENS,
+                Database.ProfilesTable.COLUMN_IMAGE,
+                Database.ProfilesTable.COLUMN_LAST_CONNECTED
+            }
+            ,Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?"
+            ,new String[]{google_id},null,null,null,null);
 
         // Select the first element.
         cursor.moveToFirst();
@@ -210,9 +252,27 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * Returns the number of stories available in the local database.
+     * -- Tested: working - MI - 03/15/2017.
+     */
+    public static int getProfileListSize(){
+        return db.rawQuery("SELECT * FROM "+ Database.ProfilesTable.TABLE_NAME, null).getCount();
+    }
+
+    /**
+     * Returns the number of stories available in the local database.
+     * -- Tested: working - MI - 03/15/2017.
+     */
+    public static int getAccountListSize(){
+        return db.rawQuery("SELECT * FROM "+ Database.AccountsTable.TABLE_NAME, null).getCount();
+    }
+
+    /**
      * Retrieves the ID of the last Profile that was used on this device
      * (from the local database).
      * @return : The ID of the last connected Profile.
+     *
+     * TODO.
      */
     public static int getLastAccountConnected(){
         Cursor cursor = db.query(
@@ -220,6 +280,8 @@ public class DBHandler extends SQLiteOpenHelper {
             new String[]{Database.ProfilesTable.COLUMN_GOOGLE_ID}
             ,Database.ProfilesTable.COLUMN_LAST_CONNECTED + "=?"
             ,new String[] {"lkjlkjlkj"},null,null,null,null);
+
+        // SELECT * FROM x ORDER BY timestamp DESC LIMIT 1
 
         cursor.moveToFirst();
         return Integer.parseInt(cursor.getString(0));
@@ -251,7 +313,7 @@ public class DBHandler extends SQLiteOpenHelper {
         return new Story(
             id,
             new StoryDetails(cursor.getString(0), cursor.getString(1), cursor.getString(2)),
-            getProfile(user_id),
+            getProfile("123"),
             getSentences(id),
             Timestamp.valueOf(cursor.getString(4))
         );
@@ -261,12 +323,7 @@ public class DBHandler extends SQLiteOpenHelper {
      * Returns the number of stories available in the local database.
      */
     public static int getStoryListSize(){
-        Cursor cursor = db.query(
-            Database.StoriesTable.TABLE_NAME,
-            new String[]{ Database.StoriesTable.COLUMN_ID}
-            ,null,null,null,null,null,null);
-
-        return cursor.getCount();
+        return db.rawQuery("SELECT * FROM "+ Database.StoriesTable.TABLE_NAME, null).getCount();
     }
 
     /**
@@ -295,7 +352,7 @@ public class DBHandler extends SQLiteOpenHelper {
         do {
             // Get author.
             int user_id = Integer.parseInt(cursor.getString(1));
-            User author = getProfile(user_id);
+            User author = getProfile("123");
             sentences.add(new Sentence(
                 Integer.parseInt(cursor.getString(0)),
                 author,
@@ -310,19 +367,27 @@ public class DBHandler extends SQLiteOpenHelper {
 
     //------------------------------------------------------------------------
 
+
+
     /**
-     * Verifies if there is at least one Account in the local database
-     * @return true if there is and false otherwise.
+     * Checks if there is a profile in the local database.
+     * @param id : Profile's id.
+     * -- Tested: working - MI - 03/15/2017.
      */
-    public static boolean AccountExists()
-    {
-        Cursor cursor = db.rawQuery("SELECT * FROM "+ Database.AccountsTable.TABLE_NAME, null);
+    public static boolean profileExists(int id){
+        Cursor cursor = db.query(
+                Database.ProfilesTable.TABLE_NAME,
+                new String[]{Database.ProfilesTable.COLUMN_ID},
+                Database.ProfilesTable.COLUMN_ID + "=?",
+                new String[]{Integer.toString(id)},null,null,null,null
+        );
         return cursor.getCount() != 0;
     }
 
     /**
-     * Checks if there is a profile attached to the google_id passed in
-     * the parameters.
+     * Checks if there is a profile in the local database.
+     * @param google_id : Profile's google_id.
+     * -- Tested: working - MI - 03/15/2017.
      */
     public static boolean profileExists(String google_id){
         Cursor cursor = db.query(
@@ -330,6 +395,30 @@ public class DBHandler extends SQLiteOpenHelper {
             new String[]{Database.ProfilesTable.COLUMN_ID},
             Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?",
             new String[]{google_id},null,null,null,null
+        );
+        return cursor.getCount() != 0;
+    }
+
+    /**
+     * Verifies if there is at least one Account in the local database
+     * @return true if there is and false otherwise.
+     */
+    public static boolean accountExists()
+    {
+        return getAccountListSize() != 0;
+    }
+
+    /**
+     * Checks if there is a profile attached to the id (given by the API) passed in
+     * the parameters.
+     * TODO.
+     */
+    public static boolean accountExists(int google_id){
+        Cursor cursor = db.query(
+                Database.AccountsTable.TABLE_NAME,
+                new String[]{Database.AccountsTable.COLUMN_ID},
+                Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?",
+                new String[]{Integer.toString(google_id)},null,null,null,null
         );
         return cursor.getCount() != 0;
     }

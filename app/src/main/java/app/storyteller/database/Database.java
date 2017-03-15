@@ -16,15 +16,19 @@ public class Database {
         public static final String TABLE_NAME = "accounts";
         public static final String COLUMN_ID = "id";
         public static final String COLUMN_PROFILE_ID = "profile_id";
+        public static final String COLUMN_GOOGLE_ID = "google_id";
         public static final String COLUMN_LAST_CONNECTED = "last_connected";
 
         public static String getTableCreationStatement(){
             return "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INT PRIMARY KEY,"
                     + COLUMN_PROFILE_ID + " INT NOT NULL,"
+                    + COLUMN_GOOGLE_ID + " INT NOT NULL,"
                     + COLUMN_LAST_CONNECTED + " DATE NOT NULL,"   // TimeStamp.
                     + " FOREIGN KEY ("+COLUMN_PROFILE_ID+") REFERENCES "
-                    + ProfilesTable.TABLE_NAME+"("+ProfilesTable.COLUMN_ID+")"
+                    + ProfilesTable.TABLE_NAME+"("+ProfilesTable.COLUMN_ID+"),"
+                    + " FOREIGN KEY ("+COLUMN_GOOGLE_ID+") REFERENCES "
+                    + ProfilesTable.TABLE_NAME+"("+ProfilesTable.COLUMN_GOOGLE_ID+")"
                     + ");";
         }
     }

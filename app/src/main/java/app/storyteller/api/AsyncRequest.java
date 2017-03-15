@@ -114,7 +114,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
 
                     // -- Add Profile to local DB.
                     DBHandler.openConnection();
-                    DBHandler.addAccount(p);
+                    DBHandler.createAccount(p);
                     DBHandler.closeConnection();
 
                 } catch(JSONException e){ e.printStackTrace(); }
