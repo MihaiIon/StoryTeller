@@ -22,7 +22,7 @@ public class Database {
             return "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INT PRIMARY KEY,"
                     + COLUMN_PROFILE_ID + " INT NOT NULL,"
-                    + COLUMN_LAST_CONNECTED + " DATE NOT NULL"   // TimeStamp.
+                    + COLUMN_LAST_CONNECTED + " DATE NOT NULL,"   // TimeStamp.
                     + " FOREIGN KEY ("+COLUMN_PROFILE_ID+") REFERENCES "
                     + ProfilesTable.TABLE_NAME+"("+ProfilesTable.COLUMN_ID+")"
                     + ");";
