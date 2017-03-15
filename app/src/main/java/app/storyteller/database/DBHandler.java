@@ -95,6 +95,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     /**
      * Add to the local database the Profile "p" passed in the parameters.
+     * Tested : Working - MB - 3/15/2017
      */
     public static void addProfile(Profile p){
         ContentValues values = new ContentValues();
@@ -121,6 +122,7 @@ public class DBHandler extends SQLiteOpenHelper {
      * Add to the local database the Story "s" passed in the parameters. Also
      * insert all the sentences under the Story "s" in the database under the
      * sentences_table.
+     * Tested: Working - MB - 3/15/2017
      */
     public static void addStory(Story s){
         StoryDetails st = s.getDetails();
@@ -180,6 +182,7 @@ public class DBHandler extends SQLiteOpenHelper {
     /**
      * Retrieves the Profile from the local database corresponding to the
      * "id" passed in the parameters.
+     * Tested : Working - MB - 3/15/2017
      */
     public static Profile getProfile(int id){
         Cursor cursor = db.query(
@@ -259,6 +262,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     /**
      * Returns the number of stories available in the local database.
+     * Tested: working - MB - 3/15/2017
      */
     public static int getStoryListSize(){
         Cursor cursor = db.query(
@@ -308,6 +312,28 @@ public class DBHandler extends SQLiteOpenHelper {
         return sentences;
     }
 
+    /**
+     *@param id id of the requested user
+     */
+    public static ArrayList<Integer> getFavorites(int id) {
+
+        ArrayList<Integer> favs = new ArrayList<>();
+
+        Cursor cursor = db.query(
+                Database.FavoritesTable.TABLE_NAME,
+                new String[]{
+                        Database.FavoritesTable.COLUMN_STORY_ID
+                }
+                ,Database.FavoritesTable.COLUMN_PROFILE_ID+ "=?"
+                ,new String[]{String.valueOf(id)},null,null,null,null);
+
+        cursor.getCount();
+        System.out.println("****************FAVORITE COUNT OF ID#"+id+": " +cursor.getCount() + "*****************");
+
+        return favs;
+    };
+
+
     //------------------------------------------------------------------------
 
     /**
@@ -336,7 +362,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
     /**
-     *
+     * Checks in the database and returns true or false whether the story exists or not.
+     * Tested: Working - MB - 3/15/2017
      */
     public static boolean storyExists(int id){
         Cursor cursor = db.query(

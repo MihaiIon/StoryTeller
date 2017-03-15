@@ -55,30 +55,54 @@ public class MihaiTesting {
     public static void testingStory(){
 
         Story story;
-        int story_id = 123;
+        int story_id = 124;
         DBHandler.openConnection();
         System.out.println("******* NUMBER OF STORIES : " + DBHandler.getStoryListSize() + " ***********");
+        System.out.println("******* STORY EXISTS : " + DBHandler.storyExists(story_id) + " ***********");
 
         if (DBHandler.storyExists(story_id)){
             story = DBHandler.getStory(story_id);
         }
 
         else {
+            Profile p = new Profile(123,"213asd532165","DatProfileTho",3,"lfask",new Timestamp(System.currentTimeMillis()),new ArrayList<Story>());
+            DBHandler.addProfile(p);
+
+            Profile testProfile = DBHandler.getProfile(123);
+            System.out.println("**************TEST PROFILE INFOS : " + testProfile.getId() + " " + testProfile.getGoogleId() + " " + testProfile.getName() + " etc*********");
+
             StoryDetails st = new StoryDetails("My title", Story.Themes.FUNNY, "Mihai");
             ArrayList<Sentence> list = new ArrayList<Sentence>();
 
             list.add(new Sentence(
-                    3, profile,
+                    3, testProfile,
                     "Once upon a time there was Gena giving bad notes.",
                     new Timestamp(System.currentTimeMillis())));
 
             list.add(new Sentence(
-                    4, profile, "And Then he died.",
+                    4, testProfile, "And Then he died.",
                     new Timestamp(System.currentTimeMillis())));
 
-            story = new Story(story_id, st, profile, list, new Timestamp(System.currentTimeMillis()));
+            story = new Story(story_id, st, testProfile, list, new Timestamp(System.currentTimeMillis()));
 
             DBHandler.addStory(story);
+
+            System.out.println("******* NUMBER OF STORIES AFTER ADDSTORY : " + DBHandler.getStoryListSize() + " ***********");
+            System.out.println("******* STORY EXISTS AFTER ADDSTORY: " + DBHandler.storyExists(story.getId()) + " ***********");
+
+            ArrayList<Story> favs = new ArrayList<Story>();
+            favs.add(story);
+            Profile p2 = new Profile(125,"213asd532165","DatProfileTho",3,"lfask",new Timestamp(System.currentTimeMillis()),favs);
+            DBHandler.addProfile(p2);
+            ArrayList<Integer> favorites = DBHandler.getFavorites(p2.getId());
+            System.out.println("************************Favorite stories are: ");
+            for(int i =0;i<favorites.size();i++){
+                System.out.println(favorites.get(i) + " , " );
+            }
+            System.out.println("FAVS OVER****************************");
+
+
+
         }
 
         System.out.println("**********"+story.toString()+"************");

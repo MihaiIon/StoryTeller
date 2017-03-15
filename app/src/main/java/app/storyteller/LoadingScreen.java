@@ -22,11 +22,11 @@ public class LoadingScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         StoryTellerManager.init(getApplicationContext(), "123123");
-        DBHandler.openConnection();
+        //DBHandler.openConnection();
         /* TESTING -- Mihai -- TESTING */
         //MihaiTesting.testingProfile(getApplicationContext());
-        //MihaiTesting.testingStory(getApplicationContext());
-        MihaiTesting.testingApiCreateProfile();
+        MihaiTesting.testingStory();
+        //MihaiTesting.testingApiCreateProfile();
         /* TESTING -- Mihai -- TESTING */
 
         /*(DBHandler.profileExists("asdasda")){

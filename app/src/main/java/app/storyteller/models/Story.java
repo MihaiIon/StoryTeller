@@ -112,6 +112,10 @@ public class Story {
         return tmp.substring(0,tmp.length()-1);
     }
 
+    /**
+    *
+     * Tested : Working - MB - 3/15/2017
+    * */
     @Override
     public String toString() {
         return "Story{" +
