@@ -28,9 +28,13 @@ public class MihaiTesting {
 
         String fake_google_id = "123456";
         DBHandler.openConnection();
-
+        System.out.println("************* Nb Profiles : "+ DBHandler.getProfileListSize() +"*****************");
+        System.out.println("************* Nb Accounts : "+ DBHandler.getAccountListSize() +"*****************");
         if (DBHandler.profileExists(fake_google_id)){
-            profile = DBHandler.getProfile(Integer.parseInt(fake_google_id));
+            profile = DBHandler.getProfile(fake_google_id);
+            System.out.println("******* GET Profile by google_id : "+profile.toString()+"***********");
+            profile = DBHandler.getProfile(profile.getId());
+            System.out.println("******* GET Profile by id : "+profile.toString()+"***********");
         }
 
         else {
@@ -40,11 +44,10 @@ public class MihaiTesting {
                 new Timestamp(System.currentTimeMillis()),
                 new ArrayList<Story>()
             );
-            DBHandler.addProfile(profile);
-
+            DBHandler.createAccount(profile);
         }
-
-        System.out.println("*******"+profile.toString()+"***********");
+        System.out.println("************* Nb Profiles : "+ DBHandler.getProfileListSize() +"*****************");
+        System.out.println("************* Nb Accounts : "+ DBHandler.getAccountListSize() +"*****************");
         DBHandler.closeConnection();
     }
 
