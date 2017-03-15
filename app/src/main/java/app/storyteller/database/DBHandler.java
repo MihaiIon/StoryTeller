@@ -451,7 +451,7 @@ public class DBHandler extends SQLiteOpenHelper {
     /**
      * Checks in the database and returns true or false whether the story exists or not.
      * Tested: Working - MB - 3/15/2017
-     *//
+     */
     public static boolean storyExists(int id){
         Cursor cursor = db.query(
                 Database.StoriesTable.TABLE_NAME,
