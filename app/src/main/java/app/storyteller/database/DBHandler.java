@@ -175,14 +175,22 @@ public class DBHandler extends SQLiteOpenHelper {
 
     /**
      * TODO.
+     * Please take note that, story_id should be unique in the database
      */
-    public static void addStoryToFavorites(Story s){
+    public static void addFavorite(int profile_id,int story_id){
         ContentValues values = new ContentValues();
-        values.put(Database.FavoritesTable.COLUMN_STORY_ID, s.getId());
-        db.insert(Database.ProfilesTable.TABLE_NAME, null, values);
+        values.put(Database.FavoritesTable.COLUMN_STORY_ID, story_id);
+        values.put(Database.FavoritesTable.COLUMN_PROFILE_ID, profile_id);
+        db.insert(Database.FavoritesTable.TABLE_NAME, null, values);
     }
 
+    /**
+     * TODO
+     *
+     */
+    public static void removeFavorite(int user_id,int story_id) {
 
+    }
 
     //------------------------------------------------------------------------
 
@@ -310,12 +318,12 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.moveToFirst();
 
         // Get user_id corresponding to the google_id passed in parameters.
-        int user_id = Integer.parseInt(cursor.getString(3));
+        int profile_id = Integer.parseInt(cursor.getString(3));
 
         return new Story(
             id,
             new StoryDetails(cursor.getString(0), cursor.getString(1), cursor.getString(2)),
-            getProfile("123"),
+            getProfile(profile_id),
             getSentences(id),
             Timestamp.valueOf(cursor.getString(4))
         );
@@ -353,8 +361,8 @@ public class DBHandler extends SQLiteOpenHelper {
         // Get one sentence at a time.
         do {
             // Get author.
-            int user_id = Integer.parseInt(cursor.getString(1));
-            User author = getProfile("123");
+            int profile_id = Integer.parseInt(cursor.getString(1));
+            User author = getProfile(profile_id);
             sentences.add(new Sentence(
                 Integer.parseInt(cursor.getString(0)),
                 author,
@@ -369,6 +377,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     /**
      *@param id id of the requested user
+     *  Tested: Working - MB - 3/15/2017
      */
     public static ArrayList<Integer> getFavorites(int id) {
 
@@ -376,15 +385,14 @@ public class DBHandler extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(
                 Database.FavoritesTable.TABLE_NAME,
-                new String[]{
-                        Database.FavoritesTable.COLUMN_STORY_ID
-                }
+                new String[]{Database.FavoritesTable.COLUMN_STORY_ID}
                 ,Database.FavoritesTable.COLUMN_PROFILE_ID+ "=?"
                 ,new String[]{String.valueOf(id)},null,null,null,null);
 
         cursor.getCount();
         System.out.println("****************FAVORITE COUNT OF ID#"+id+": " +cursor.getCount() + "*****************");
-
+        cursor.moveToFirst();
+        favs.add(Integer.parseInt(cursor.getString(0)));
         return favs;
     };
 
