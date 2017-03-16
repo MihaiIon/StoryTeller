@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -77,20 +78,21 @@ public class SignInActivity extends AppCompatActivity {
 
         });
 
+        setGoogleSignInButtonText(signInButton, "Continue with my Google Account" );
+
        // ------------------------------
-        //Temp sign out to be put in the place where sign out button is as well as the gso maker
-        //and  other things needed
- /*       final Button signOutButton = (Button) findViewById(R.id.tempSignOut_button);
-        signOutButton.setOnClickListener(new View.OnClickListener() {
+
+       final Button goToMainButton = (Button) findViewById(R.id.goToMain_button);
+        goToMainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("SIGN OUT STARTS HERE");
-                logOut();
+                System.out.println("GOING TO MAIN HERE");
+                startMainActivity();
             }
-        });*/
+        });
 
 /**
- * Sign Methods
+ * Methods
  */
 
         //TODO: Sign in result (in activityResult should start main activity
@@ -105,6 +107,11 @@ public class SignInActivity extends AppCompatActivity {
     //TODO: LogOut needs a :"ARE you sure you want to log out?" extra step and call a clear local database function
 
 
+    private void startMainActivity()
+    {
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
 /*    private void logOut() {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(           //launches google sign out and resets sign in process
                 new ResultCallback<Status>() {
@@ -117,6 +124,22 @@ public class SignInActivity extends AppCompatActivity {
                 });
     }
 */
+
+    //Sets a google sign In button given to text given in buttonText section
+
+    protected void setGoogleSignInButtonText(SignInButton signInButton, String buttonText) {
+        // Find the TextView that is inside of the SignInButton and set its text
+        for (int i = 0; i < signInButton.getChildCount(); i++) {
+            View v = signInButton.getChildAt(i);
+
+            if (v instanceof TextView) {
+                TextView tv = (TextView) v;
+                tv.setText(buttonText);
+                return;
+            }
+        }
+    }
+
         //function that utilises result from action button to do the next things...
         // (like get id and send it to BD)
 //TODO: Verify if online BD has account already
@@ -148,7 +171,7 @@ public class SignInActivity extends AppCompatActivity {
                 //Verify if account is in local DB
                 if(!DBHandler.profileExists(acct.getId())) {
 
-                    //Seting LoadingScreen's thing to detect active account
+                    //Setting LoadingScreen's thing to detect active account
 
                     ArrayList<Story> a = new ArrayList<>();
                     Profile p = new Profile(1, acct.getId(), acct.getDisplayName(), 3, acct.getPhotoUrl().toString(), new Timestamp(System.currentTimeMillis()), a);

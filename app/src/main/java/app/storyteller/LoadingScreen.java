@@ -25,11 +25,11 @@ public class LoadingScreen extends AppCompatActivity {
         //DBHandler.openConnection();
         /* TESTING -- Mihai -- TESTING */
         //MihaiTesting.testingProfile(getApplicationContext());
-        MihaiTesting.testingStory();
+       // MihaiTesting.testingStory();
         //MihaiTesting.testingApiCreateProfile();
         /* TESTING -- Mihai -- TESTING */
-
-        /*(DBHandler.profileExists("asdasda")){
+            DBHandler.openConnection();
+        if(DBHandler.profileExists("asdasda")){
             DBHandler.closeConnection();
             startActivity(new Intent(this, MainActivity.class));
         }
@@ -37,7 +37,7 @@ public class LoadingScreen extends AppCompatActivity {
         else if(StoryTellerManager.isConnected()){
             DBHandler.closeConnection();
             startActivity(new Intent(this, SignInActivity.class));
-        }*/
+        }
         /*else
         {
             MAKE FU ACTIVITY ACTIVE (SORRY NOT SORRY)
