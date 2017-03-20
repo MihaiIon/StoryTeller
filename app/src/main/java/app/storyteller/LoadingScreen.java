@@ -33,7 +33,6 @@ public class LoadingScreen extends AppCompatActivity {
             DBHandler.closeConnection();
             startActivity(new Intent(this, MainActivity.class));
         }
-
         else if(StoryTellerManager.isConnected()){
             DBHandler.closeConnection();
             startActivity(new Intent(this, SignInActivity.class));
