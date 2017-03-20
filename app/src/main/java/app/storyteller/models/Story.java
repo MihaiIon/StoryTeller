@@ -19,6 +19,8 @@ public class Story {
     private ArrayList<Sentence> sentences;
     private StoryDetails details;
     private Timestamp creationDate;
+    private boolean wasRead;
+    private boolean isNew;
 
     /**
      * Available Themes.
@@ -38,6 +40,8 @@ public class Story {
         this.creator = creator;
         this.sentences = sentences;
         this.creationDate = creationDate;
+        this.isNew = true;
+        this.wasRead = false;
 
         // TODO. -> Get collaborators from sentences.
     }
@@ -58,7 +62,14 @@ public class Story {
         return sentences;
     }
     public Timestamp getCreationDate() { return creationDate; }
+    public boolean wasRead() { return wasRead;}
+    public boolean isNew() { return isNew;}
 
+    //------------------------------------------------------------
+    // Setters
+
+    public void setNew(boolean aNew) { isNew = aNew; }
+    public void read() { this.wasRead = true; }
 
     //------------------------------------------------------------
     // Methods
@@ -91,13 +102,6 @@ public class Story {
     }
 
     /**
-     * Returns the main character as a String
-     */
-    public String getMainCharacter() {
-        return this.details.getMainCharacter();
-    }
-
-    /**
      * Returns all sentences as a long String
      */
     public String getContent() {
@@ -108,6 +112,10 @@ public class Story {
         return tmp.substring(0,tmp.length()-1);
     }
 
+    /**
+    *
+     * Tested : Working - MB - 3/15/2017
+    * */
     @Override
     public String toString() {
         return "Story{" +

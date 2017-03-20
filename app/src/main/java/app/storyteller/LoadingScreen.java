@@ -4,12 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.sql.Timestamp;
-import java.util.ArrayList;
-
 import app.storyteller.database.DBHandler;
-import app.storyteller.models.Profile;
-import app.storyteller.models.Story;
+import app.storyteller.manager.StoryTellerManager;
 import app.storyteller.testing.MihaiTesting;
 
 public class LoadingScreen extends AppCompatActivity {
@@ -21,30 +17,31 @@ public class LoadingScreen extends AppCompatActivity {
 *   if there isnt: goes to sign_in_out
 * */
 
-
-    //-----TEMP VERIFICATOR------
-    private static boolean hasAccount;
-    //NOT WORKING Y?
-    public static void setHasAccount(boolean hasAccount) {
-        LoadingScreen.hasAccount = hasAccount;
-    }
-    //-----TEMP VERIFICATION-------
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        StoryTellerManager.init(getApplicationContext(), "123123");
+        //DBHandler.openConnection();
         /* TESTING -- Mihai -- TESTING */
-        MihaiTesting.testingProfile(getApplicationContext());
-        MihaiTesting.testingStory(getApplicationContext());
+        //MihaiTesting.testingProfile(getApplicationContext());
+       // MihaiTesting.testingStory();
+        //MihaiTesting.testingApiCreateProfile();
         /* TESTING -- Mihai -- TESTING */
-
-        if(false){
+            DBHandler.openConnection();
+        if(DBHandler.profileExists("asdasda")){
+            DBHandler.closeConnection();
             startActivity(new Intent(this, MainActivity.class));
         }
 
-        else{
+        else if(StoryTellerManager.isConnected()){
+            DBHandler.closeConnection();
             startActivity(new Intent(this, SignInActivity.class));
         }
+        /*else
+        {
+            MAKE FU ACTIVITY ACTIVE (SORRY NOT SORRY)
+            YOU WILL BE TRACKED AND KILLED
+        }*/
     }
 }

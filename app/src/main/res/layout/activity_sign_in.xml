@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_sign_in_out"
     android:layout_width="match_parent"
@@ -12,47 +13,48 @@
 
 
     <Button
-        android:text=" Continue with my google acount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="167dp"
-        android:id="@+id/Sign_In_button"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="I don't have a google account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
         android:id="@+id/dont_have_account_button"
-        android:layout_below="@+id/Sign_In_button"
+        style="@style/AppTheme"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="146dp"
+        android:text="I don't have a Google Account"
+        android:layout_above="@+id/goToMain_button"
         android:layout_centerHorizontal="true" />
 
     <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-        android:layout_marginTop="49dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/dont_have_account_button" />
+        android:layout_marginBottom="20dp"
+        android:layout_above="@+id/dont_have_account_button"
+        android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="Log Out"
+        android:id="@+id/goToMain_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tempSignOut_button"
-        android:layout_above="@+id/textView2"
-        android:layout_alignEnd="@+id/dont_have_account_button" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Go to Main" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sign_in_button"
+        android:layout_above="@+id/sign_in_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginBottom="42dp"
+        android:fontFamily="serif"
         android:text="Create Profile"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        android:textSize="24sp"
-        android:id="@+id/textView2" />
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.TabWidget" />
+
+    <WebView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/textView2"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp" />
+
 </RelativeLayout>
