@@ -58,7 +58,7 @@ public class MihaiTesting {
     public static void testingStory(){
 
         Story story;
-        int story_id = 124;
+        int story_id = 126;
         DBHandler.openConnection();
         System.out.println("******* NUMBER OF STORIES : " + DBHandler.getStoryListSize() + " ***********");
         System.out.println("******* STORY EXISTS : " + DBHandler.storyExists(story_id) + " ***********");
@@ -67,7 +67,7 @@ public class MihaiTesting {
             story = DBHandler.getStory(story_id);
         }
 
-        else {
+
             Profile p = new Profile(123,"213asd532165","DatProfileTho",3,"lfask",new Timestamp(System.currentTimeMillis()),new ArrayList<Story>());
             DBHandler.addProfile(p);
 
@@ -95,10 +95,12 @@ public class MihaiTesting {
 
             ArrayList<Story> favs = new ArrayList<Story>();
             favs.add(story);
-            Profile p2 = new Profile(125,"213asd532165","DatProfileTho",3,"lfask",new Timestamp(System.currentTimeMillis()),favs);
+            DBHandler.addFavorite(127, story.getId());
+            Profile p2 = new Profile(127,"213asd532165","DatProfileTho",3,"lfask",new Timestamp(System.currentTimeMillis()),favs);
             DBHandler.addProfile(p2);
             ArrayList<Integer> favorites = DBHandler.getFavorites(p2.getId());
             System.out.println("************************Favorite stories are: ");
+
             for(int i =0;i<favorites.size();i++){
                 System.out.println(favorites.get(i) + " , " );
             }
@@ -106,7 +108,7 @@ public class MihaiTesting {
 
 
 
-        }
+
 
         System.out.println("**********"+story.toString()+"************");
         System.out.println("******* NUMBER OF STORIES : " + DBHandler.getStoryListSize() + " ***********");
