@@ -18,7 +18,8 @@
             android:layout_height="match_parent"
             android:layout_weight="@dimen/profile_settings_weight"
             android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/profile_section_margins_top">
+            android:layout_marginTop="@dimen/profile_section_margins_top"
+            android:background="@color/primary">
 
             <ImageButton
                 android:id="@+id/settings_btn"
@@ -33,14 +34,16 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="@dimen/profile_profile_weight"
-            android:gravity="center_vertical|center_horizontal">
+            android:gravity="center_vertical|center_horizontal"
+            android:weightSum="1">
 
-            <Button
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="Profile"
-                android:id="@+id/profile_button" />
+
+            <WebView
+                android:id="@+id/webview_logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1" />
 
         </LinearLayout>
 
@@ -50,7 +53,8 @@
             android:layout_height="match_parent"
             android:layout_weight="@dimen/profile_tokens_weight"
             android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/profile_section_margins_top">
+            android:layout_marginTop="@dimen/profile_section_margins_top"
+            android:background="@color/primary">
 
             <Button
                 android:layout_width="60dp"
@@ -71,6 +75,10 @@
         android:background="@color/white">
 
 
+        <WebView
+            android:id="@+id/webview_play"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 

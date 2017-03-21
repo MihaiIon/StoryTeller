@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">StoryTeller</string>
 
-    <!-- Settings -->
+    <!--  SignIn  -->
+    <string name="signIn_create_profile">Create Profile</string>
+    <string name="signIn_no_account">I don\'t have a <b>Google Account</b> </string>
+    <string name="signIn_google_account">Continue with my <b>Google Account</b> </string>
+
+    <!--  Settings  -->
     <string name="settings_title">Settings</string>
     <string name="settings_clearDB">Clear Database</string>
     <string name="settings_addTokens">Add Tokens</string>

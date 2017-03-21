@@ -1,58 +1,93 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_sign_in_out"
+    android:id="@+id/signInActivity"
+    style="@style/AppTheme.SignIn.Activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="app.storyteller.SignInActivity">
 
-
-    <Button
-        android:id="@+id/dont_have_account_button"
-        style="@style/AppTheme"
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="146dp"
-        android:text="I don't have a Google Account"
-        android:layout_above="@+id/goToMain_button"
-        android:layout_centerHorizontal="true" />
-
-    <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_above="@+id/dont_have_account_button"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/goToMain_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Go to Main" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/sign_in_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="42dp"
-        android:fontFamily="serif"
-        android:text="Create Profile"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.TabWidget" />
-
-    <ImageView
-        android:id="@+id/logo"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/logo" />
+        android:layout_height="0dp"
+        android:layout_weight="0.85"
+        android:orientation="vertical"
+        android:padding="@dimen/signIn_section_padding">
 
-</RelativeLayout>
+        <!--  Image container  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/logo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/logo_green"
+                android:layout_marginTop="12dp"/>
+        </LinearLayout>
+
+        <!--  Main   -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/sign_in_create_profile_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:fontFamily="sans-serif-thin"
+                android:text="@string/signIn_create_profile"
+                android:textAlignment="center"
+                android:textColor="@color/darkGrey"
+                android:textSize="32sp" />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/sign_in_btn"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
+
+            <Button
+                android:id="@+id/lala"
+                style="@style/AppTheme.SignIn.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary"
+                android:text="@string/signIn_google_account"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/no_account_btn"
+                style="@style/AppTheme.SignIn.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/signIn_no_account" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--  I agree conditions...  -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/goToMain_button"
+            style="@style/AppTheme.SignIn.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:text="Go to Main"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>
