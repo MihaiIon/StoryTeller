@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +46,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_sign_in);
 
         // SET UP FOR SIGN IN ACTIVITY
@@ -68,7 +71,7 @@ public class SignInActivity extends AppCompatActivity {
          * Buttons
          */
 
-        final SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_button);
+        final SignInButton signInButton = (SignInButton) findViewById(R.id.sign_in_btn);
         signInButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 System.out.println("SIGN IN STARTS HERE");
