@@ -18,7 +18,8 @@
             android:layout_height="match_parent"
             android:layout_weight="@dimen/profile_settings_weight"
             android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/profile_section_margins_top">
+            android:layout_marginTop="@dimen/profile_section_margins_top"
+            android:background="@color/primary">
 
             <ImageButton
                 android:id="@+id/settings_btn"
@@ -52,7 +53,8 @@
             android:layout_height="match_parent"
             android:layout_weight="@dimen/profile_tokens_weight"
             android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/profile_section_margins_top">
+            android:layout_marginTop="@dimen/profile_section_margins_top"
+            android:background="@color/primary">
 
             <Button
                 android:layout_width="60dp"
