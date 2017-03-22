@@ -2,15 +2,12 @@ package app.storyteller.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import app.storyteller.R;
-import app.storyteller.database.DBHandler;
 
 /**
  * Created by Mihai on 2017-01-20.
@@ -34,8 +31,8 @@ public class AllStoriesFragment extends Fragment {
                 "a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"};
 
         View view = inflater.inflate(R.layout.main_all_stories, container, false);
-
-        /*ListView lv = (ListView) view.findViewById(R.id.stories_reader_list);
+        ListView lv = (ListView) view.findViewById(R.id.listview);
+        /*
         StoriesListAdapter sladapter = new StoriesListAdapter(this.getActivity(), items);
         lv.setAdapter(sladapter);*/
 
