@@ -5,6 +5,7 @@
     <color name="grey">#dadada</color>
     <color name="darkGrey">#949494</color>
     <color name="darkerGrey">#717171</color>
+    <color name="newStory">#deb92c</color>
     <!--  Theme  -->
     <color name="primary">#1aa19b</color>
 </resources>

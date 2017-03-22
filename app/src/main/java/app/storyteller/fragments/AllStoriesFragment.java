@@ -14,8 +14,8 @@ import app.storyteller.R;
  */
 
 public class AllStoriesFragment extends Fragment {
-
-
+    ListView lv;
+    String[] items;
     /**
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,15 +27,22 @@ public class AllStoriesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        String[] items = new String[] {"a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a",
+        items = new String[] {"a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a",
                 "a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"};
 
         View view = inflater.inflate(R.layout.main_all_stories, container, false);
-        ListView lv = (ListView) view.findViewById(R.id.listview);
+        lv = (ListView) view.findViewById(R.id.listview);
         /*
         StoriesListAdapter sladapter = new StoriesListAdapter(this.getActivity(), items);
         lv.setAdapter(sladapter);*/
+        new Thread(new Runnable(){
 
+            @Override
+            public void run() {
+                StoriesListAdapter adapter = new StoriesListAdapter(getActivity(),items);
+                lv.setAdapter(adapter);
+            }
+        }).start();
         return view;
 
     }
