@@ -22,6 +22,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import app.storyteller.database.DBHandler;
+import app.storyteller.manager.StoryTellerManager;
 import app.storyteller.models.Profile;
 import app.storyteller.models.Story;
 
@@ -43,11 +44,6 @@ public class SignInActivity extends AppCompatActivity {
      */
     private Button skipToMainBtn;
 
-    /**
-     * Provides access to the Google API to retrieve information about accounts.
-     */
-    private GoogleApiClient mGoogleApiClient;
-
 
     /**
      * On create :
@@ -61,37 +57,8 @@ public class SignInActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_sign_in);
         setUpButtons();
-
-        // -- Google.
-        setUpGoogleStuff();
     }
 
-
-
-    //----------------------------------------------------------------------------
-    // Google
-
-    /**
-     * Connect to the Google API.
-     */
-    private void setUpGoogleStuff(){
-
-        // -- Options.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(this.getResources().getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        // -- Prepare Client (also fetch basic information on account).
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this,
-                    new GoogleApiClient.OnConnectionFailedListener() {
-                        @Override
-                        public void onConnectionFailed(@NonNull ConnectionResult connectionResult)
-                        { /*try again? Show message of error and try again?*/}})
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-    }
 
 
 
@@ -176,7 +143,8 @@ public class SignInActivity extends AppCompatActivity {
         googleSignInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(
+                        StoryTellerManager.getGoogleApiClient());
                 startActivityForResult(signInIntent, 1);
                 // On complete goes to -> onActivityResult().
             }
