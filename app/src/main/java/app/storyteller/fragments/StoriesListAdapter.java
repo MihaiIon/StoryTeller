@@ -1,16 +1,11 @@
 package app.storyteller.fragments;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
+
 import app.storyteller.R;
 
 
@@ -44,7 +39,7 @@ public class StoriesListAdapter extends ArrayAdapter<String> {
                 Toast.makeText(getContext(), position + " faved", Toast.LENGTH_SHORT).show();
             }
         });
-
+YOLO GROS CHANGEMENT
         textView.setText(values[position]);
 */
         return new View(getContext());
