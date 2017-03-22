@@ -58,10 +58,26 @@ public class StoryTellerManager extends Application{
     //-------------------------------------------------------
     // Methods
 
+
+    /**
+     *
+     */
+    public static boolean init(GoogleApiClient g){
+        setGoogleApiClient(g);
+        return true;
+    }
+
     /**
      *  Checks if the current Android Device is connected to the internet.
      */
     public static boolean isConnected(){
+        return gac.isConnected();
+    }
+
+    /**
+     *  Checks if the current User has signed in with a Google Account.
+     */
+    public static boolean isSignedIn(){
         return gac.isConnected();
     }
 }

@@ -97,7 +97,6 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                     "************************************"
                     +"\nProfile Created on API.\n"
                     +"************************************"
-                    + "\n" + response
                 );
                 try{
                     JSONObject obj = new JSONObject(response);

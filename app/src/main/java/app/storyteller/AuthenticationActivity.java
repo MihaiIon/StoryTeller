@@ -1,75 +1,125 @@
 package app.storyteller;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
-import android.widget.Toast;
 
-import java.util.LinkedList;
-import java.util.List;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import app.storyteller.database.DBHandler;
 import app.storyteller.manager.StoryTellerManager;
-import app.storyteller.testing.MihaiTesting;
 
 public class AuthenticationActivity extends AppCompatActivity {
-/*
-* loading screen is the true main file as it verifies if there is an account in the local
-* data base and progresses app to appropriate location:
-*
-*   if there is an account: goes to main
-*   if there isnt: goes to sign_in_out
-* */
 
+    /**
+     *
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        // --
-        //DBHandler.openConnection(getApplicationContext());
+        // -- Google.
+        setUpGoogleStuff();
 
-        /* TESTING -- Mihai -- TESTING */
-        //MihaiTesting.testingProfile(getApplicationContext());
-        //MihaiTesting.testingStory();
-        //MihaiTesting.testingApiCreateProfile();
-        /* TESTING -- Mihai -- TESTING */
-        //retrieveMainAccountFromDevice();
-        if(false){
-            //DBHandler.closeConnection();
-            startActivity(new Intent(this, MainActivity.class));
-        }
+        // -- Connect to Database.
+        DBHandler.openConnection(getApplicationContext());
 
-        else{
-            //DBHandler.closeConnection();
+        /*
+         * If there is no Profile in the Database or if the current User isn't signed
+         * in with a Google Account, go to SignInActivity.
+         */
+        if(DBHandler.getProfileListSize() == 0 || !StoryTellerManager.isSignedIn()) {
+            DBHandler.closeConnection();
             startActivity(new Intent(this, SignInActivity.class));
         }
+
+        /*
+         * Else, connect to Google's API with the current Google Account logged and Fetch the
+         * Profile that corresponds to the Google Account's ID in the local Database and
+         * go straight to the MainActivity.
+         */
+        else signInAndProceed();
+    }
+
+
+
+
+    //----------------------------------------------------------------------------
+    // Google
+
+
+    /**
+     * Sign In to the Google's API.
+     */
+    private void signInAndProceed(){
+        Intent signInIntent = Auth.GoogleSignInApi
+                .getSignInIntent(StoryTellerManager.getGoogleApiClient());
+        startActivityForResult(signInIntent, 1);
+    }
+
+    /**
+     * Connect to the Google API.
+     */
+    private void setUpGoogleStuff(){
+        // -- Options.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(this.getResources().getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        // -- Set Client.
+        StoryTellerManager.init(new GoogleApiClient.Builder(this)
+                .enableAutoManage(this,
+                        new GoogleApiClient.OnConnectionFailedListener() {
+                            @Override
+                            public void onConnectionFailed(@NonNull ConnectionResult connectionResult)
+                            { /*try again? Show message of error and try again?*/}})
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build());
     }
 
 
     /**
      *
-     * @return
+     *
+     * @param requestCode   : TODO.
+     * @param resultCode    : TODO.
+     * @param data          : TODO.
      */
-    private void retrieveMainAccountFromDevice(){
-        AccountManager manager = (AccountManager) getSystemService(ACCOUNT_SERVICE);;
-        Account[] accounts = manager.getAccounts();
-        Toast.makeText(this, accounts.length+"", Toast.LENGTH_SHORT).show();
-        for (Account account : accounts) {
-            Toast.makeText(this, account.type, Toast.LENGTH_SHORT).show();
-        }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        /*if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
-            String email = possibleEmails.get(0);
-            String[] parts = email.split("@");
-            if (parts.length > 0 && parts[0] != null)
-                return parts[0];
-            else
-                return null;
-        } else
-            return null;*/
+        // -- If requestCode == 1, the request has succeeded.
+        if (requestCode == 1) {
+
+            // -- Get results.
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            if (result.isSuccess())
+            {
+                // -- Get Account Infos.
+                GoogleSignInAccount acct = result.getSignInAccount();
+
+                // -- Retrieve Profile from DB.
+                StoryTellerManager.setProfile(DBHandler.getProfile(acct.getId()));
+
+                // -- Close connection to DB.
+                DBHandler.closeConnection();
+
+                // -- Start MainActivity.
+                startActivity(new Intent(this, MainActivity.class));
+
+            }
+            else System.out.println("****ERROR******AN ERROR IS FUCKING ME UP (Most likely error: 12501");
+        }else System.out.println("****ERROR******REQUEST CODE FAILED, requestCode : " + requestCode);
     }
 }
