@@ -20,9 +20,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-import app.storyteller.LoadingScreen;
+import app.storyteller.AuthenticationActivity;
 import app.storyteller.R;
-import app.storyteller.SignInActivity;
 import app.storyteller.database.DBHandler;
 
 /**
@@ -203,7 +202,7 @@ public class Settings extends DialogFragment {
                         //Make current account not
                         DBHandler.closeConnection();
                         //Setting up new Loading screen
-                        Intent FreshStart = new Intent(getContext(),LoadingScreen.class);
+                        Intent FreshStart = new Intent(getContext(),AuthenticationActivity.class);
                         startActivity(FreshStart);
                     }
                 });

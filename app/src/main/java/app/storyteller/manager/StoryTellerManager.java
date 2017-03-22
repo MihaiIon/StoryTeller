@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import app.storyteller.models.Profile;
 
 /**
@@ -17,11 +19,11 @@ import app.storyteller.models.Profile;
  */
 
 public class StoryTellerManager extends Application{
+
     /**
-     * Current context in the application.
-     * -- Useful for an easy access to the database.
+     * Provides access to the Google API to retrieve information about accounts
      */
-    private static Context context;
+    private static GoogleApiClient gac;
 
     /**
      * Current logged-in Profile or the last Profile that logged-in
@@ -34,42 +36,32 @@ public class StoryTellerManager extends Application{
      */
     public void onCreate() {
         super.onCreate();
-        StoryTellerManager.context = getApplicationContext();
-    }
 
+    }
 
 
     //-------------------------------------------------------
     // Getters and Setters
 
+    /**
+     * Current context in the application.
+     * -- Useful for an easy access to the database.
+     */
+    public static Context getContext(){ return getContext(); }
     public static Profile getProfile(){ return profile; }
-    public static Context getContext(){ return context; }
+    public static GoogleApiClient getGoogleApiClient(){ return gac; }
 
     public static void setProfile(Profile p){ profile = p; }
-    public static void setContext(Context c){ context = c; }
+    public static void setGoogleApiClient(GoogleApiClient g){ gac = g; }
 
 
     //-------------------------------------------------------
     // Methods
 
-
-    /**
-     * Initializes the StoryTellerManager.
-     * @param google_id : TODO.
-     */
-    public static boolean init(Context ctx, String google_id) {
-        if (context == null)
-            context = ctx;
-
-        return true;
-    }
-
     /**
      *  Checks if the current Android Device is connected to the internet.
      */
     public static boolean isConnected(){
-        return ((ConnectivityManager)
-                context.getSystemService(Context.CONNECTIVITY_SERVICE))
-                        .getActiveNetworkInfo().isConnected();
+        return gac.isConnected();
     }
 }

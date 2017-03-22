@@ -35,9 +35,9 @@ public class AllStoriesFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.main_all_stories, container, false);
 
-        ListView lv = (ListView) view.findViewById(R.id.stories_reader_list);
+        /*ListView lv = (ListView) view.findViewById(R.id.stories_reader_list);
         StoriesListAdapter sladapter = new StoriesListAdapter(this.getActivity(), items);
-        lv.setAdapter(sladapter);
+        lv.setAdapter(sladapter);*/
 
         return view;
 
