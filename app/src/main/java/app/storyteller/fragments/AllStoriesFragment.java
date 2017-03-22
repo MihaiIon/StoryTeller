@@ -41,9 +41,13 @@ public class AllStoriesFragment extends Fragment {
             public void run() {
                 StoriesListAdapter adapter = new StoriesListAdapter(getActivity(),items);
                 lv.setAdapter(adapter);
+
             }
         }).start();
+
+
         return view;
+
 
     }
 

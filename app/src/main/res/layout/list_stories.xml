@@ -77,14 +77,30 @@ android:orientation="vertical">
 
         </LinearLayout>
         -->
-        <TextView
-            android:id="@+id/smallDesc"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="Author: "
-            android:textColor="@color/darkerGrey"/>
+            android:layout_height="wrap_content"
+            android:gravity="left">
 
+            <TextView
+                android:id="@+id/labelauthor"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Author: "
+                android:textColor="@color/darkerGrey"
+                android:singleLine="true"/>
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textColor="@color/darkerGrey"
+                android:layout_toRightOf="@+id/labelauthor"/>
+
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
 </LinearLayout>
