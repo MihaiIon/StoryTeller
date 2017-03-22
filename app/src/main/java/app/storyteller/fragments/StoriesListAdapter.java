@@ -34,7 +34,7 @@ public class StoriesListAdapter extends ArrayAdapter<String> {
         //return super.getView(position, convertView, parent);
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.list_stories_element, parent, false);
+       /* View rowView = inflater.inflate(R.layout.list_stories_element, parent, false);
         TextView textView = (TextView) rowView.findViewById(R.id.text_view_stories_reader);
         ToggleButton toggleButton = (ToggleButton) rowView.findViewById(R.id.toggle_button_favorite);
 
@@ -46,8 +46,8 @@ public class StoriesListAdapter extends ArrayAdapter<String> {
         });
 
         textView.setText(values[position]);
-
-        return rowView;
+*/
+        return new View(getContext());
 
     }
 }

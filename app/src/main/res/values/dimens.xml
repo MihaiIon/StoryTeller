@@ -8,7 +8,7 @@
     <dimen name="settings_dialog_width">340dp</dimen>
 
     <!--  Sign In  -->
-    <dimen name="signIn_section_padding">35dp</dimen>
+    <dimen name="signIn_section_padding">45dp</dimen>
 
     <!--  Home  -->
     <dimen name="profile_section_margins_top">18dp</dimen>

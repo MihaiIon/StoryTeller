@@ -75,6 +75,13 @@ public class DBHandler extends SQLiteOpenHelper {
     /**
      *
      */
+    public static void openConnection(Context ctx){
+        db = new DBHandler(ctx).getWritableDatabase();
+    }
+
+    /**
+     *
+     */
     public static void closeConnection(){
         db.close();
         db = null;

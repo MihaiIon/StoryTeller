@@ -1,50 +1,46 @@
 <resources>
-    <!--  StoryTeller Base  -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <!--
-        <item name="colorWhite">@color/white</item>
-                <item name="colorSoftGrey">@color/softGrey</item>
-                <item name="colorDark">@color/dark</item>
-                <item name="colorPrimary">@color/primary</item>
-                <item name="colorPrimaryDark">@color/primaryDark</item>
-        -->
-        <item name="android:background">@color/softGrey</item>
-    </style>
 
-    <!--  SignIn  -->
-    <style name="AppTheme.SignIn"/>
-    <style name="AppTheme.SignIn.Activity">
+    <!--
+      ~~ StoryTeller Base : AppTheme.
+      -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar"/>
+
+    <!--
+      ~~ Activity
+      -->
+    <style name="AppTheme.Activity">
+        <item name="android:background">@color/white</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-    <style name="AppTheme.SignIn.Button" parent="Base.Widget.AppCompat.Button.Borderless">
+    <style name="AppTheme.Activity.Button" parent="Base.Widget.AppCompat.Button.Borderless">
         <item name="android:paddingTop">18dp</item>
         <item name="android:paddingBottom">18dp</item>
         <item name="android:layout_marginTop">15dp</item>
         <item name="android:background">@color/grey</item>
         <item name="android:textColor">@color/darkGrey</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
-    <!--  Dialog  -->
-    <style name="AppTheme.Dialog"/>
+    <!--
+      ~~ Dialog
+      -->
+    <style name="AppTheme.Dialog" parent="AppTheme.Activity"/>
     <style name="AppTheme.Dialog.Title">
         <item name="android:fontFamily">sans-serif</item> <!--  roboto light  -->
         <item name="android:textColor">@color/primary</item>
         <item name="android:paddingBottom">22dp</item>
         <item name="android:textSize">32dp</item>
     </style>
-
     <style name="AppTheme.Dialog.Content">
         <item name="android:layout_width">-1dp</item><!--  Match parent  -->
     </style>
-
     <style name="AppTheme.Dialog.Content.Separator">
         <item name="android:layout_height">2dp</item>
         <item name="android:background">@color/primary</item>
         <item name="android:layout_marginBottom">28dp</item>
     </style>
-
     <style name="AppTheme.Dialog.Content.Button">
         <item name="android:layout_height">-2dp</item><!--  Wrap content  -->
         <item name="android:layout_marginBottom">18dp</item>
@@ -53,8 +49,5 @@
         <item name="android:textSize">18dp</item>
         <item name="android:textColor">@color/darkGrey</item>
         <item name="android:fontFamily">sans-serif-thin</item><!--  roboto thin  -->
-    </style>
-    <style name="AppTheme.SignInText">
-        <item name="android:background">@color/grey</item>
     </style>
 </resources>
