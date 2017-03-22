@@ -2,10 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/signInActivity"
-    style="@style/AppTheme.SignIn.Activity"
+    style="@style/AppTheme.Activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context="app.storyteller.SignInActivity">
 
     <LinearLayout
@@ -57,7 +58,7 @@
 
             <Button
                 android:id="@+id/google_sign_in_btn"
-                style="@style/AppTheme.SignIn.Button"
+                style="@style/AppTheme.Activity.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/primary"
@@ -66,7 +67,7 @@
 
             <Button
                 android:id="@+id/google_no_account_btn"
-                style="@style/AppTheme.SignIn.Button"
+                style="@style/AppTheme.Activity.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/signIn_no_account" />
@@ -78,16 +79,15 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.15"
-        android:background="@color/white"
+        android:background="@color/softGrey"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/skip_to_main_btn"
-            style="@style/AppTheme.SignIn.Button"
+            style="@style/AppTheme.Activity.Button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="Go to Main"
-            android:textColor="@color/white" />
+            android:layout_height="match_parent"
+            android:background="@color/softGrey"
+            android:textColor="@color/softGrey" />
     </LinearLayout>
 </LinearLayout>
