@@ -79,12 +79,12 @@ YOLO GROS CHANGEMENT
         //Va chercher text et modifie
         //Plus tard modifier pour ce qui a été prit dans BD
         TextView titretv = (TextView) v.findViewById(R.id.title);
-        titretv.setText("123456789012345678901234 ");
+        titretv.setText("WWWWWWWWWWWWWWWWWWWWWWWW");
 
         //Va chercher text et modifie
         //Plus tard modifier pour ce qui a été prit dans BD
-        TextView authortv = (TextView) v.findViewById(R.id.smallDesc);
-        authortv.setText("Autheur : You MOFOS");
+        TextView authortv = (TextView) v.findViewById(R.id.author);
+        authortv.setText("You & GENA HAHN");
 
 
 
