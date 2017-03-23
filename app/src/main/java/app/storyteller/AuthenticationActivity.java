@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -27,27 +28,43 @@ public class AuthenticationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        // -- Google.
-        setUpGoogleStuff();
-
-        // -- Connect to Database.
-        DBHandler.openConnection(getApplicationContext());
-
         /*
-         * If there is no Profile in the Database or if the current User isn't signed
-         * in with a Google Account, go to SignInActivity.
+        * Verifies if connected to internet before starting anything
          */
-        if(DBHandler.getProfileListSize() == 0 || !StoryTellerManager.isSignedIn()) {
-            DBHandler.closeConnection();
-            startActivity(new Intent(this, SignInActivity.class));
+        if(StoryTellerManager.isConnectedToInternet(this.getApplicationContext())) {
+            // -- Google.
+            setUpGoogleStuff();
+
+            // -- Connect to Database.
+            DBHandler.openConnection(getApplicationContext());
+
+            /*
+             * If there is no Profile in the Database or if the current User isn't signed
+             * in with a Google Account, go to SignInActivity.
+             */
+            if (DBHandler.getProfileListSize() == 0 || !StoryTellerManager.isSignedIn()) {
+                DBHandler.closeConnection();
+                startActivity(new Intent(this, SignInActivity.class));
+            }
+
+            /*
+             * Else, connect to Google's API with the current Google Account logged and Fetch the
+             * Profile that corresponds to the Google Account's ID in the local Database and
+             * go straight to the MainActivity.
+             */
+            else signInAndProceed();
         }
-
-        /*
-         * Else, connect to Google's API with the current Google Account logged and Fetch the
-         * Profile that corresponds to the Google Account's ID in the local Database and
-         * go straight to the MainActivity.
-         */
-        else signInAndProceed();
+        else{
+            Toast.makeText(getApplicationContext(),"This Application needs an Internet Connection, please connect to the internet to continue", Toast.LENGTH_SHORT).show();
+            System.out.println("SYSTEM IS NOT CONNECTED TO THE INTERNET");
+            //Wait
+            try{Thread.sleep(3500, 1);}
+            catch(InterruptedException e){e.printStackTrace();}
+            //Reload AuthenticationActivity
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
+        }
     }
 
 

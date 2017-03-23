@@ -3,6 +3,7 @@ package app.storyteller.manager;
 import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -64,7 +65,11 @@ public class StoryTellerManager extends Application{
     /**
      *  Checks if the current Android Device is connected to the internet.
      */
-    public static boolean isConnected(){ return true; }
+    public static boolean isConnectedToInternet(Context c) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) c.getSystemService(Context.CONNECTIVITY_SERVICE);
+        return (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
+    }
 
     /**
      *  Checks if the current User has signed in with a Google Account.
