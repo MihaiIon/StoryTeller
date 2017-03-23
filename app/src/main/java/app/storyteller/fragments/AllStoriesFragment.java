@@ -45,18 +45,16 @@ public class AllStoriesFragment extends Fragment {
             }
         }).start();
 
-
         return view;
 
 
     }
 
 
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
 
     }
 

@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment /*implements View.OnClickListener*/ {
         initializeSettings(home.findViewById(R.id.settings_btn));
         initializeWebView(home.findViewById(R.id.webview_logo));
         initializePlayWebView(home.findViewById(R.id.webview_play));
+
         return home;
     }
     private void initializePlayWebView(View view)
