@@ -198,7 +198,7 @@ public class Settings extends DialogFragment {
                     public void onResult(Status status) {
                         Toast.makeText(getContext(), "Logging out", Toast.LENGTH_SHORT).show();
                         //Setting has account to false
-                        DBHandler.openConnection();
+                        DBHandler.openConnection(getContext());
                         //Make current account not
                         DBHandler.closeConnection();
                         //Setting up new Loading screen

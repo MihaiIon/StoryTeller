@@ -3,15 +3,15 @@ package app.storyteller.api;
 /**
  * Created by Mihai on 2017-01-30.
  */
-public class Request {
+class Request {
 
 
     /**
      * TODO.
      */
-    public final static class Actions{
-        public final static String CREATE_PROFILE = "createprofile";
-        public final static String RESET_DATABASE = "resetdatabase";
+    final static class Actions{
+        final static String CREATE_PROFILE = "createprofile";
+        final static String RESET_DATABASE = "resetdatabase";
     }
 
     /*

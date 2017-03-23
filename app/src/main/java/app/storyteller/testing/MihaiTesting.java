@@ -24,7 +24,7 @@ public class MihaiTesting {
     /**
      * Profile TESTING
      */
-    public static void testingProfile(){
+    /*public static void testingProfile(){
 
         String fake_google_id = "123456";
         DBHandler.openConnection();
@@ -49,13 +49,13 @@ public class MihaiTesting {
         System.out.println("************* Nb Profiles : "+ DBHandler.getProfileListSize() +"*****************");
         System.out.println("************* Nb Accounts : "+ DBHandler.getAccountListSize() +"*****************");
         DBHandler.closeConnection();
-    }
+    }*/
 
 
     /**
      * Story TESTING
      */
-    public static void testingStory(){
+    /*public static void testingStory(){
 
         Story story;
         int story_id = 126;
@@ -118,5 +118,5 @@ public class MihaiTesting {
 
     public static void testingApiCreateProfile(){
         Api.createProfile("123456789", "Mihai", "abcdefg");
-    }
+    }*/
 }

@@ -117,7 +117,6 @@ public class AuthenticationActivity extends AppCompatActivity {
 
                 // -- Start MainActivity.
                 startActivity(new Intent(this, MainActivity.class));
-
             }
             else System.out.println("****ERROR******AN ERROR IS FUCKING ME UP (Most likely error: 12501");
         }else System.out.println("****ERROR******REQUEST CODE FAILED, requestCode : " + requestCode);

@@ -36,18 +36,12 @@ public class StoryTellerManager extends Application{
      */
     public void onCreate() {
         super.onCreate();
-
     }
 
 
     //-------------------------------------------------------
     // Getters and Setters
 
-    /**
-     * Current context in the application.
-     * -- Useful for an easy access to the database.
-     */
-    public static Context getContext(){ return getContext(); }
     public static Profile getProfile(){ return profile; }
     public static GoogleApiClient getGoogleApiClient(){ return gac; }
 
@@ -70,9 +64,7 @@ public class StoryTellerManager extends Application{
     /**
      *  Checks if the current Android Device is connected to the internet.
      */
-    public static boolean isConnected(){
-        return gac.isConnected();
-    }
+    public static boolean isConnected(){ return true; }
 
     /**
      *  Checks if the current User has signed in with a Google Account.

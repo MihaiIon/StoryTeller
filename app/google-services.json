@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "626440357515",
-    "project_id": "storyteller-c9940"
+    "project_number": "174960593687",
+    "project_id": "storyteller-be844"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:626440357515:android:986fe6b92aa7611c",
+        "mobilesdk_app_id": "1:174960593687:android:986fe6b92aa7611c",
         "android_client_info": {
           "package_name": "app.storyteller"
         }
       },
       "oauth_client": [
         {
-          "client_id": "626440357515-rhrkglh8mliarbo2om4gu4uugbjt9vvc.apps.googleusercontent.com",
+          "client_id": "174960593687-k5ti9hvkcud5d0erq22fvv74k0t93s0i.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "174960593687-8prmk10jiv3i231k6k2j58ihq9ql9fv9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "app.storyteller",
-            "certificate_hash": "c89851e5712a661185d0439bc580b524a0a14668"
+            "certificate_hash": "4a98d4be315c4e7700052fcb8df34a06171db948"
           }
-        },
-        {
-          "client_id": "626440357515-gt9au3uod0esgctp2vclh8up0s4h1aeb.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBiXSWHlYBONaLQ7OuVmt7Z72A6BHmJEUY"
+          "current_key": "AIzaSyBBqXtgQJLpKcdcuO7cnfYyGL5onVs1jac"
         }
       ],
       "services": {

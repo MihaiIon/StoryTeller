@@ -21,6 +21,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import app.storyteller.api.Api;
+import app.storyteller.api.ApiRequests;
 import app.storyteller.database.DBHandler;
 import app.storyteller.manager.StoryTellerManager;
 import app.storyteller.models.Profile;
@@ -87,33 +89,27 @@ public class SignInActivity extends AppCompatActivity {
             // int statusCode = result.getStatus().getStatusCode();
             //System.out.println(statusCode);
 
+
+
             if (result.isSuccess()) {
                 GoogleSignInAccount acct = result.getSignInAccount();
 
-                // Get account information
-                System.out.println("Account is: "+acct.getDisplayName() +" has id: " + acct.getId()+ " and has email: "+ acct.getEmail()+ "Photo URL: " + acct.getPhotoUrl());
-                Toast.makeText(getApplicationContext(),"Account is: "+acct.getDisplayName(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext(), "has id: " + acct.getId(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getApplicationContext()," and has email: "+ acct.getEmail(), Toast.LENGTH_SHORT).show();
+                //System.out.println("Account is: "+acct.getDisplayName() +" has id: " + acct.getId()+ " and has email: "+ acct.getEmail()+ "Photo URL: " + acct.getPhotoUrl());
+                //Toast.makeText(getApplicationContext(),"Account is: "+acct.getDisplayName(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "has id: " + acct.getId(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext()," and has email: "+ acct.getEmail(), Toast.LENGTH_SHORT).show();
 
-                DBHandler.openConnection();
-                //Verify if account is in local DB
-                if(!DBHandler.profileExists(acct.getId())) {
+                DBHandler.openConnection(getApplicationContext());
 
-                    //Setting AuthenticationActivity's thing to detect active account
-
-                    ArrayList<Story> a = new ArrayList<>();
-                    Profile p = new Profile(1, acct.getId(), acct.getDisplayName(), 3, acct.getPhotoUrl().toString(), new Timestamp(System.currentTimeMillis()), a);
-
-                    DBHandler.addProfile(p);
-
-
-                }
+                Api.executeRequest(
+                        ApiRequests.createProfile(
+                                acct.getId(),
+                                acct.getDisplayName(),
+                                acct.getPhotoUrl().toString()),
+                        getApplicationContext()
+                );
 
                 DBHandler.closeConnection();
-
-                //Starting new Main Activity
-                //MainActivity.profle.activeAccount = acct
 
                 startActivity(new Intent(this, AuthenticationActivity.class));
 

@@ -68,13 +68,6 @@ public class DBHandler extends SQLiteOpenHelper {
     /**
      *
      */
-    public static void openConnection(){
-        db = new DBHandler(StoryTellerManager.getContext()).getWritableDatabase();
-    }
-
-    /**
-     *
-     */
     public static void openConnection(Context ctx){
         db = new DBHandler(ctx).getWritableDatabase();
     }

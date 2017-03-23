@@ -1,5 +1,6 @@
 package app.storyteller.api;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import org.json.JSONException;
@@ -30,12 +31,18 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
     private Request request;
 
     /**
+     *
+     */
+    private Context context;
+
+    /**
      * Constructor.
      *
      * @param request : Your request for Api.
      */
-    public AsyncRequest(Request request){
+    public AsyncRequest(Request request, Context context){
         this.request = request;
+        this.context = context;
         execute();
     }
 
@@ -45,7 +52,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
      * @param request :
      */
     private String buildUrlFromRequest(Request request){
-        return Api.getApiUrl() + request.getAction() + request.getParams();
+        return Api.API_URL + request.getAction() + request.getParams();
     }
 
     /**
@@ -112,7 +119,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                     System.out.println(p);
 
                     // -- Add Profile to local DB.
-                    DBHandler.openConnection();
+                    DBHandler.openConnection(context);
                     DBHandler.createAccount(p);
                     DBHandler.closeConnection();
 
