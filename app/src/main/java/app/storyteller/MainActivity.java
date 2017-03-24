@@ -41,12 +41,38 @@ public class MainActivity extends AppCompatActivity {
         slider = (ViewPager) findViewById(R.id.mainActivity);
         sliderAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         slider.setAdapter(sliderAdapter);
-
+        getSupportActionBar().hide();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Set on the Home screen by default.
         slider.setCurrentItem(1);
         // TESTING
         //Api.init(this);
         //Api.createProfile("allo");
+
+        slider.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0 :
+                    case 1 :
+                        getSupportActionBar().hide();
+                        break;
+                    case 2 :
+                        getSupportActionBar().show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -88,18 +114,12 @@ public class MainActivity extends AppCompatActivity {
             Fragment frag;
             switch (position) {
                 case 2:
-                    //getSupportActionBar().show();
-                    //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     frag =  new AllStoriesFragment();
                     break;
                 case 0:
-                    //getSupportActionBar().hide();
-                    //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     frag = new PartyModeFragment();
                     break;
                 default:
-                    //getSupportActionBar().hide();
-                    //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                     frag=  new HomeFragment();
                     break;
             }
