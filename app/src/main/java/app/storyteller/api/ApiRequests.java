@@ -1,16 +1,15 @@
 package app.storyteller.api;
 
-import android.content.Context;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import app.storyteller.models.Profile;
 
 /**
  * Created by Mihai on 2017-03-22.
  */
 
 public class ApiRequests {
-
 
 
     /********************************************
@@ -33,18 +32,56 @@ public class ApiRequests {
     public static Request createProfile(String google_id, String name, String imageURL){
         JSONObject json = new JSONObject();
         try {
+            json.put("key", Api.API_KEY);
             json.put("google_id", google_id);
             json.put("name", name);
             json.put("imageURL", imageURL);
         } catch (JSONException e) { e.printStackTrace(); }
-
-        String[] params = new String[]{ Api.API_KEY, json.toString()};
-        return new Request(Request.Actions.CREATE_PROFILE, params, true);
+        return new Request(Request.Actions.CREATE_PROFILE, json, true);
     }
 
 
+    /**
+     * Update all the Information of the Profile "p".
+     */
+    public static Request updateProfile(Profile p){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("key", Api.API_KEY);
+            json.put("id", p.getId());
+            json.put("name", p.getName());
+            json.put("tokens", p.getTokens());
+            json.put("imageURL", p.getImageURL());
+        } catch (JSONException e) { e.printStackTrace(); }
+        return new Request(Request.Actions.UPDATE_PROFILE, json, true);
+    }
+
+
+    /********************************************
+     *											*
+     *											*
+     *	Story Related							*
+     *											*
+     *											*
+     ********************************************/
 
 
 
 
+
+    /********************************************
+     *											*
+     *											*
+     *	For Debug Purpose						*
+     *											*
+     *											*
+     ********************************************/
+
+    /**
+     *	FOR DEBUG -- Resets the content of all tables (and resets the IDs).
+     */
+    private static void resetDatabase(){
+        // Create and execute request.
+        //executeRequest(new Request(Request.Actions.RESET_DATABASE, new String[]{API_KEY}, false));
+    }
 }

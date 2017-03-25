@@ -108,10 +108,9 @@ public class SignInActivity extends AppCompatActivity {
                                 acct.getPhotoUrl().toString()),
                         getApplicationContext()
                 );
-
                 DBHandler.closeConnection();
 
-                startActivity(new Intent(this, AuthenticationActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
 
             } else System.out.println("AN ERROR IS FUCKING ME UP (Most likely error: 12501");
         }

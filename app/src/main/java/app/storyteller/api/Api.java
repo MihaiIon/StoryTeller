@@ -33,45 +33,4 @@ public class Api {
     {
         new AsyncRequest(request, context);
     }
-
-
-    //------------------------------------------------------------------
-
-
-
-    /**
-     * TODO.
-     */
-    private static void updateProfile(){
-
-    }
-
-
-    /********************************************
-    *											*
-    *											*
-    *	Story Related							*
-    *											*
-    *											*
-    ********************************************/
-
-
-
-
-
-    /********************************************
-    *											*
-    *											*
-    *	For Debug Purpose						*
-    *											*
-    *											*
-    ********************************************/
-
-    /**
-     *	FOR DEBUG -- Resets the content of all tables (and resets the IDs).
-     */
-    private static void resetDatabase(){
-        // Create and execute request.
-        //executeRequest(new Request(Request.Actions.RESET_DATABASE, new String[]{API_KEY}, false));
-    }
 }
