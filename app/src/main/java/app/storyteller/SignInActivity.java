@@ -3,30 +3,20 @@ package app.storyteller;
  * Created by farlyprj on 17-03-08.
  */
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import java.sql.Timestamp;
-import java.util.ArrayList;
 
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.database.DBHandler;
 import app.storyteller.manager.StoryTellerManager;
-import app.storyteller.models.Profile;
-import app.storyteller.models.Story;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -57,6 +47,7 @@ public class SignInActivity extends AppCompatActivity {
 
         // -- General.
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_sign_in);
         setUpButtons();
     }

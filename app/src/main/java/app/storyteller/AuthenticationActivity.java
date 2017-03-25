@@ -60,12 +60,10 @@ public class AuthenticationActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(),"This Application needs an Internet Connection, please connect to the internet to continue", Toast.LENGTH_SHORT).show();
             System.out.println("SYSTEM IS NOT CONNECTED TO THE INTERNET");
             //Wait
-            try{Thread.sleep(3500, 1);}
+            try{Thread.sleep(1000, 1);}
             catch(InterruptedException e){e.printStackTrace();}
             //Reload AuthenticationActivity
-            Intent intent = getIntent();
-            finish();
-            startActivity(intent);
+            //startActivity(new Intent(this, TryAgainActivity.class));
         }
     }
 

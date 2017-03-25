@@ -2,18 +2,19 @@ package app.storyteller;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import app.storyteller.fragments.AllStoriesFragment;
 import app.storyteller.fragments.HomeFragment;
 import app.storyteller.fragments.PagerFragment;
 import app.storyteller.fragments.PartyModeFragment;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
 
 
     /**
@@ -40,18 +41,55 @@ public class MainActivity extends FragmentActivity {
         slider = (ViewPager) findViewById(R.id.mainActivity);
         sliderAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         slider.setAdapter(sliderAdapter);
-
+        getSupportActionBar().hide();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Set on the Home screen by default.
         slider.setCurrentItem(1);
-
         // TESTING
         //Api.init(this);
         //Api.createProfile("allo");
+
+        slider.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position){
+                    case 0 :
+                    case 1 :
+                        getSupportActionBar().hide();
+                        break;
+                    case 2 :
+                        getSupportActionBar().show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
     public void onBackPressed() {
         if (slider.getCurrentItem() == 1) {
+
             // If the user is currently looking at the first step, allow the system to handle the
             // Back button. This calls finish() on this activity and pops the back stack.
             // super.onBackPressed();
@@ -60,6 +98,7 @@ public class MainActivity extends FragmentActivity {
             slider.setCurrentItem(1);
         }
     }
+
 
     /**
      * A simple pager adapter that represents 3 ScreenSlidePageFragment objects. Depending
@@ -72,14 +111,20 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
+            Fragment frag;
             switch (position) {
-                case 2:  return new AllStoriesFragment();
-                case 0:  return new PartyModeFragment();
-                default: return new HomeFragment();
-
+                case 2:
+                    frag =  new AllStoriesFragment();
+                    break;
+                case 0:
+                    frag = new PartyModeFragment();
+                    break;
+                default:
+                    frag=  new HomeFragment();
+                    break;
             }
+            return frag;
         }
-
         @Override
         public int getCount() {
             return NUM_SLIDES;

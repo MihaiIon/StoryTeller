@@ -45,19 +45,26 @@ public class AllStoriesFragment extends Fragment {
             }
         }).start();
 
-
         return view;
 
 
     }
 
 
+
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
-
     }
 
 }
+
+/*
+* Tentative faites pour show/hide action bar
+* 1. OnResume (Fragment) - change rien
+* 2. OnViewCreated (Fragment) - app crash
+* 3. Switch Case getItem (MainAcvitity) - Fonctionne a moitier
+* 4. OnCreate (Fragment) - app crash
+* */
