@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -27,6 +28,8 @@ public class AuthenticationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.setContentView(R.layout.activity_loading_screen);
+        ((WebView)findViewById(R.id.loading_screen)).loadData("\t<html> <head> <style> body {display:flex; width:100%; min-height:100vh; justify-content:center; align-items:center; } .loading {width:80px; height:80px; border:solid #55b875 8px; border-radius:50%; border-bottom-color:rgba(0,0,0,0); -webkit-animation:spin 1s linear infinite; } @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } } @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } } @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } } </style> </head> <body> <div class=\"loading\"> </div> </body> </html>", "text/html", null);
 
         /*
         * Verifies if connected to internet before starting anything
@@ -63,7 +66,7 @@ public class AuthenticationActivity extends AppCompatActivity {
             try{Thread.sleep(1000, 1);}
             catch(InterruptedException e){e.printStackTrace();}
             //Reload AuthenticationActivity
-            //startActivity(new Intent(this, TryAgainActivity.class));
+            //startActivity(new Intent(this, AuthenticationActivity.class));
         }
     }
 

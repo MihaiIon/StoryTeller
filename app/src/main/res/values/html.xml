@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Loading Screen -->
+    <string name="loading">
+        <html>
+            <head>
+                <style>
+                    body {
+                        display:flex;
+                        width:100%;
+                        min-height:100vh;
+                        justify-content:center;
+                        align-items:center;
+                    }
+
+                    .loading {
+                        width:150px;
+                        height:150px;
+                        background:red;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="loading">
+
+                </div>
+            </body>
+        </html>
+    </string>
+
+</resources>
