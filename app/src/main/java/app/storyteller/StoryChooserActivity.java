@@ -22,8 +22,6 @@ public class StoryChooserActivity extends AppCompatActivity {
     }
 
 
-
-
     //--------------------------------------------------------------------
     // Back Actions.
 

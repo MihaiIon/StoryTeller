@@ -8,6 +8,11 @@
 
     <!-- StoryChooser -->
     <string name="story_chooser_header_title">Available Stories</string>
+    <string-array name="themes_array">
+        <item>Funny</item>
+        <item>Adventure</item>
+        <item>Horror</item>
+    </string-array>
 
     <!--  Settings  -->
     <string name="settings_title">Settings</string>
