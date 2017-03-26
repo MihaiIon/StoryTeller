@@ -18,7 +18,7 @@ import app.storyteller.fragments.dialogs.Settings;
 /**
  * Created by Mihai on 2017-01-20.
  */
-public class HomeFragment extends Fragment /*implements View.OnClickListener*/ {
+public class MainHomeFragment extends Fragment /*implements View.OnClickListener*/ {
 
     /**
      *
@@ -28,13 +28,13 @@ public class HomeFragment extends Fragment /*implements View.OnClickListener*/ {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup home = (ViewGroup) inflater.inflate(R.layout.main_home, container, false);
+        ViewGroup home = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
 
         //
         initializeSettings(home.findViewById(R.id.settings_btn));
         initializeWebView(home.findViewById(R.id.webview_logo));
         initializePlayWebView(home.findViewById(R.id.webview_play));
-        initializeTokensTEST_MIHAI(home.findViewById(R.id.tokens));
+        initializeTokensTEST_MIHAI(home.findViewById(R.id.testing_story_chooser_btn));
 
         return home;
     }

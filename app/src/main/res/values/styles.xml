@@ -46,6 +46,24 @@
     </style>
 
     <!--
+      ~~ List Item
+      -->
+    <style name="AppTheme.ListItem">
+        <item name="android:paddingTop">@dimen/list_item_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/list_item_vertical_padding</item>
+        <item name="android:paddingRight">@dimen/list_item_horizontal_padding</item>
+        <item name="android:paddingLeft">@dimen/list_item_horizontal_padding</item>
+        <item name="android:background">@color/white</item>
+    </style>
+    <!--<style name="AppTheme.ListItem.Theme">
+        <item name="android:padding">1dp</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="layout_alignParentEnd">true</item>
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>-->
+
+
+    <!--
       ~~ Dialog
       -->
     <style name="AppTheme.Dialog" parent="AppTheme.Activity"/>

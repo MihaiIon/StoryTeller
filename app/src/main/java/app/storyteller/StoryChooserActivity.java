@@ -18,7 +18,21 @@ public class StoryChooserActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_chooser);
+        initAddStoryBtn(findViewById(R.id.story_chooser_add_btn));
         initBackArrow();
+    }
+
+
+    /**
+     *
+     */
+    private void initAddStoryBtn(View v){
+        ((ImageButton)v).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), StoryCreatorActivity.class));
+            }
+        });
     }
 
 

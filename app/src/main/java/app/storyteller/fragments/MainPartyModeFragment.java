@@ -6,5 +6,5 @@ import android.support.v4.app.Fragment;
  * Created by Mihai on 2017-01-20.
  */
 
-public class PartyModeFragment extends Fragment {
+public class MainPartyModeFragment extends Fragment {
 }

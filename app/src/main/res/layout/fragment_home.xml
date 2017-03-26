@@ -79,8 +79,15 @@
 
         <WebView
             android:id="@+id/webview_play"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/testing_story_chooser_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go to StoryChooser"/>
+
     </LinearLayout>
 
 

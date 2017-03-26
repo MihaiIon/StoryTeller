@@ -66,7 +66,7 @@ YOLO GROS CHANGEMENT
         View v = convertView;
 
         //Modifie la row dans le listView
-        v= inflater.inflate(R.layout.list_stories,parent,false);
+        v= inflater.inflate(R.layout.fragment_stories_list,parent,false);
 
         //Va chercher le toggle et change ces propriétés
         ToggleButton tb = (ToggleButton) v.findViewById(R.id.toggleButton);
