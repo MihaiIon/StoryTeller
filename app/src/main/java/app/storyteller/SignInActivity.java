@@ -47,7 +47,6 @@ public class SignInActivity extends AppCompatActivity {
 
         // -- General.
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_sign_in);
         setUpButtons();
     }

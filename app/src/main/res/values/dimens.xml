@@ -5,6 +5,14 @@
 
     <!--  General  -->
     <dimen name="settings_btn_dimensions">32dp</dimen>
+
+    <!-- Header -->
+    <dimen name="header_vertical_padding">20dp</dimen>
+    <dimen name="header_horizontal_padding">30dp</dimen>
+    <dimen name="header_back_btn_width">13.5dp</dimen>
+    <dimen name="header_back_btn_height">20dp</dimen>
+
+    <!-- Dialogs -->
     <dimen name="settings_dialog_width">340dp</dimen>
 
     <!--  Sign In  -->

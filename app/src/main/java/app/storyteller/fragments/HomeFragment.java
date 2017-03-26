@@ -1,5 +1,6 @@
 package app.storyteller.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -7,9 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import app.storyteller.R;
+import app.storyteller.StoryChooserActivity;
 import app.storyteller.fragments.dialogs.Settings;
 
 /**
@@ -31,6 +34,7 @@ public class HomeFragment extends Fragment /*implements View.OnClickListener*/ {
         initializeSettings(home.findViewById(R.id.settings_btn));
         initializeWebView(home.findViewById(R.id.webview_logo));
         initializePlayWebView(home.findViewById(R.id.webview_play));
+        initializeTokensTEST_MIHAI(home.findViewById(R.id.tokens));
 
         return home;
     }
@@ -59,6 +63,15 @@ public class HomeFragment extends Fragment /*implements View.OnClickListener*/ {
                 // Create and show the dialog.
                 Settings s = Settings.newInstance();
                 s.show(ft, "title");
+            }
+        });
+    }
+
+    private void initializeTokensTEST_MIHAI(View view){
+        ((Button)view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), StoryChooserActivity.class));
             }
         });
     }

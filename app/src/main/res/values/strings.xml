@@ -6,6 +6,9 @@
     <string name="signIn_no_account">I don\'t have a <b>Google Account</b> </string>
     <string name="signIn_google_account">Continue with my <b>Google Account</b> </string>
 
+    <!-- StoryChooser -->
+    <string name="story_chooser_header_title">Available Stories</string>
+
     <!--  Settings  -->
     <string name="settings_title">Settings</string>
     <string name="settings_clearDB">Clear Database</string>

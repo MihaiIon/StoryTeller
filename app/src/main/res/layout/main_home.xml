@@ -58,6 +58,7 @@
             android:background="@color/primary">
 
             <Button
+                android:id="@+id/tokens"
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="tokens"/>

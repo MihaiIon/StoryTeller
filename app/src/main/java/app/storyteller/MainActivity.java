@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         slider = (ViewPager) findViewById(R.id.mainActivity);
         sliderAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         slider.setAdapter(sliderAdapter);
-        getSupportActionBar().hide();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Set on the Home screen by default.
         slider.setCurrentItem(1);
         // TESTING
