@@ -60,9 +60,11 @@ public class MainActivity extends AppCompatActivity {
                 switch (position){
                     case 0 :
                     case 1 :
+
                         getSupportActionBar().hide();
                         break;
                     case 2 :
+                        getSupportActionBar().setTitle("Stories");
                         getSupportActionBar().show();
                         break;
                 }
