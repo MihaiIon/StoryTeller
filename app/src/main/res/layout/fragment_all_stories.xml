@@ -6,12 +6,93 @@
     style="@style/AppTheme.Activity">
 
 
-    <ListView
+
+    <!-- Header -->
+    <LinearLayout
+        style="@style/AppTheme.Activity.Header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/story_chooser_back_btn"
+            style="@style/AppTheme.Activity.Header.BackBtn"
+            android:background="@drawable/back_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/story_chooser_header_title"
+            style="@style/AppTheme.Activity.Header.Title"/>
+    </LinearLayout>
+
+
+
+    <ListView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:id="@+id/listview"
         android:divider="@color/softGrey"
         android:dividerHeight="1dp"/>
+
+
+
+    <!-- Navigation Bar Maison -->
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:background="@color/primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:gravity="center">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Page 1"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Page 2"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Page 3"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>
