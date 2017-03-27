@@ -5,6 +5,14 @@
 
     <!--  General  -->
     <dimen name="settings_btn_dimensions">32dp</dimen>
+
+    <!-- Header -->
+    <dimen name="header_vertical_padding">20dp</dimen>
+    <dimen name="header_horizontal_padding">30dp</dimen>
+    <dimen name="header_back_btn_width">13.5dp</dimen>
+    <dimen name="header_back_btn_height">20dp</dimen>
+
+    <!-- Dialogs -->
     <dimen name="settings_dialog_width">340dp</dimen>
 
     <!--  Sign In  -->
@@ -22,8 +30,14 @@
     <item name="profile_tokens_weight" format="float" type="dimen">.20</item>
 
     <!--
-     Default screen margins, per the Android Design guidelines.
-    -->
+      ~~ StoryChooser : List Item.
+      -->
+    <dimen name="list_item_vertical_padding">16dp</dimen>
+    <dimen name="list_item_horizontal_padding">16dp</dimen>
+
+    <!--
+      ~~ Default screen margins, per the Android Design guidelines.
+      -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 </resources>

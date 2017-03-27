@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -27,11 +28,14 @@ public class AuthenticationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.setContentView(R.layout.activity_loading_screen);
+        ((WebView)findViewById(R.id.loading_screen)).loadData("\t<html> <head> <style> body {display:flex; width:100%; min-height:100vh; justify-content:center; align-items:center; } .loading {width:80px; height:80px; border:solid #55b875 8px; border-radius:50%; border-bottom-color:rgba(0,0,0,0); -webkit-animation:spin 1s linear infinite; } @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } } @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } } @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } } </style> </head> <body> <div class=\"loading\"> </div> </body> </html>", "text/html", null);
 
         /*
         * Verifies if connected to internet before starting anything
          */
-        if(StoryTellerManager.isConnectedToInternet(this.getApplicationContext())) {
+        if(StoryTellerManager.isConnectedToInternet(getApplicationContext()))
+        {
             // -- Google.
             setUpGoogleStuff();
 
@@ -42,15 +46,16 @@ public class AuthenticationActivity extends AppCompatActivity {
              * If there is no Profile in the Database or if the current User isn't signed
              * in with a Google Account, go to SignInActivity.
              */
-            if (DBHandler.getProfileListSize() == 0 || !StoryTellerManager.isSignedIn()) {
+            if (DBHandler.getProfileListSize() == 0) {
                 DBHandler.closeConnection();
                 startActivity(new Intent(this, SignInActivity.class));
             }
 
             /*
              * Else, connect to Google's API with the current Google Account logged and Fetch the
-             * Profile that corresponds to the Google Account's ID in the local Database and
-             * go straight to the MainActivity.
+             * Profile that corresponds to the Google Account's ID in the local Database.
+             *
+             * If the Profile Exist, go straight to the MainActivity. Else, go to SignInActivity.
              */
             else signInAndProceed();
         }
@@ -61,7 +66,7 @@ public class AuthenticationActivity extends AppCompatActivity {
             try{Thread.sleep(1000, 1);}
             catch(InterruptedException e){e.printStackTrace();}
             //Reload AuthenticationActivity
-            //startActivity(new Intent(this, TryAgainActivity.class));
+            //startActivity(new Intent(this, AuthenticationActivity.class));
         }
     }
 
@@ -70,16 +75,6 @@ public class AuthenticationActivity extends AppCompatActivity {
 
     //----------------------------------------------------------------------------
     // Google
-
-
-    /**
-     * Sign In to the Google's API.
-     */
-    private void signInAndProceed(){
-        Intent signInIntent = Auth.GoogleSignInApi
-                .getSignInIntent(StoryTellerManager.getGoogleApiClient());
-        startActivityForResult(signInIntent, 1);
-    }
 
     /**
      * Connect to the Google API.
@@ -103,6 +98,18 @@ public class AuthenticationActivity extends AppCompatActivity {
     }
 
 
+    //
+    // Sign In Process
+
+    /**
+     * Sign In to the Google's API.
+     */
+    private void signInAndProceed(){
+        Intent signInIntent = Auth.GoogleSignInApi
+                .getSignInIntent(StoryTellerManager.getGoogleApiClient());
+        startActivityForResult(signInIntent, 1);
+    }
+
     /**
      *
      *
@@ -124,14 +131,24 @@ public class AuthenticationActivity extends AppCompatActivity {
                 // -- Get Account Infos.
                 GoogleSignInAccount acct = result.getSignInAccount();
 
-                // -- Retrieve Profile from DB.
-                StoryTellerManager.setProfile(DBHandler.getProfile(acct.getId()));
+                /*
+                 * Check if the current Google Account has a Profile on this Device and
+                 * if he/she was signed-in the last time he/she used the app : Login and proceed
+                 * to MainActivity.
+                 */
+                if (DBHandler.accountExists(acct.getId())&& true /*TODO*/)
+                {
+                    StoryTellerManager.setAccount(DBHandler.getAccount(acct.getId()));
+                    DBHandler.closeConnection();
+                    startActivity(new Intent(this, MainActivity.class));
+                }
 
-                // -- Close connection to DB.
-                DBHandler.closeConnection();
-
-                // -- Start MainActivity.
-                startActivity(new Intent(this, MainActivity.class));
+                // -- Proceed to SignInActivity.
+                else
+                {
+                    DBHandler.closeConnection();
+                    startActivity(new Intent(this, MainActivity.class));
+                }
             }
             else System.out.println("****ERROR******AN ERROR IS FUCKING ME UP (Most likely error: 12501");
         }else System.out.println("****ERROR******REQUEST CODE FAILED, requestCode : " + requestCode);

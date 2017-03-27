@@ -1,25 +1,21 @@
 package app.storyteller.manager;
 
-import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
-import app.storyteller.models.Profile;
+import app.storyteller.models.Account;
 
 /**
  * Created by Mihai on 2017-03-12.
  *
  * This class is used to keep track of the current logged User and
  * activities changes.
- *
- * It is a useful class for the saving data to the clouds and on the
- * local database.
  */
 
-public class StoryTellerManager extends Application{
+public class StoryTellerManager{
 
     /**
      * Provides access to the Google API to retrieve information about accounts
@@ -30,23 +26,16 @@ public class StoryTellerManager extends Application{
      * Current logged-in Profile or the last Profile that logged-in
      * since the last visit.
      */
-    private static Profile profile;
-
-    /**
-     *
-     */
-    public void onCreate() {
-        super.onCreate();
-    }
+    private static Account account;
 
 
     //-------------------------------------------------------
     // Getters and Setters
 
-    public static Profile getProfile(){ return profile; }
+    public static Account getAccount(){ return account; }
     public static GoogleApiClient getGoogleApiClient(){ return gac; }
 
-    public static void setProfile(Profile p){ profile = p; }
+    public static void setAccount(Account a){ account = a; }
     public static void setGoogleApiClient(GoogleApiClient g){ gac = g; }
 
 

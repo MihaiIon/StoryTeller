@@ -75,7 +75,7 @@ public class Settings extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.settings, container, false);
+        View view = inflater.inflate(R.layout.dialog_settings, container, false);
 
         // Add listeners to buttons.
         initializeClearDBBtn(view.findViewById(R.id.settings_clearDB_btn));

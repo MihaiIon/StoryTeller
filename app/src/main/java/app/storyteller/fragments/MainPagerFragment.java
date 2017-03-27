@@ -1,24 +1,17 @@
 package app.storyteller.fragments;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import app.storyteller.MainActivity;
 
 /**
  * Created by Andre on 2017-03-13.
  */
 //ref: https://www.reddit.com/r/androiddev/comments/1pke7v/fragments_belonging_to_a_viewpager_are_not_being/
 
-public class PagerFragment extends Fragment {
+public class MainPagerFragment extends Fragment {
 
     private static final int NUM_PAGES = 2;
     private ViewPager mPager;
@@ -45,8 +38,8 @@ public class PagerFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0: return new PartyModeFragment();
-                case 1: return new HomeFragment();
+                case 0: return new MainPartyModeFragment();
+                case 1: return new MainHomeFragment();
                 default: return null;
             }
         }

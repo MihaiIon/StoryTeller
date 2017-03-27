@@ -1,5 +1,6 @@
 package app.storyteller.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -7,15 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import app.storyteller.R;
+import app.storyteller.StoryChooserActivity;
 import app.storyteller.fragments.dialogs.Settings;
 
 /**
  * Created by Mihai on 2017-01-20.
  */
-public class HomeFragment extends Fragment /*implements View.OnClickListener*/ {
+public class MainHomeFragment extends Fragment /*implements View.OnClickListener*/ {
 
     /**
      *
@@ -25,12 +28,13 @@ public class HomeFragment extends Fragment /*implements View.OnClickListener*/ {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup home = (ViewGroup) inflater.inflate(R.layout.main_home, container, false);
+        ViewGroup home = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
 
         //
         initializeSettings(home.findViewById(R.id.settings_btn));
         initializeWebView(home.findViewById(R.id.webview_logo));
         initializePlayWebView(home.findViewById(R.id.webview_play));
+        initializeTokensTEST_MIHAI(home.findViewById(R.id.testing_story_chooser_btn));
 
         return home;
     }
@@ -59,6 +63,15 @@ public class HomeFragment extends Fragment /*implements View.OnClickListener*/ {
                 // Create and show the dialog.
                 Settings s = Settings.newInstance();
                 s.show(ft, "title");
+            }
+        });
+    }
+
+    private void initializeTokensTEST_MIHAI(View view){
+        ((Button)view).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), StoryChooserActivity.class));
             }
         });
     }

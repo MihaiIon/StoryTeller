@@ -47,7 +47,6 @@ public class SignInActivity extends AppCompatActivity {
 
         // -- General.
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_sign_in);
         setUpButtons();
     }
@@ -99,10 +98,9 @@ public class SignInActivity extends AppCompatActivity {
                                 acct.getPhotoUrl().toString()),
                         getApplicationContext()
                 );
-
                 DBHandler.closeConnection();
 
-                startActivity(new Intent(this, AuthenticationActivity.class));
+                startActivity(new Intent(this, MainActivity.class));
 
             } else System.out.println("AN ERROR IS FUCKING ME UP (Most likely error: 12501");
         }

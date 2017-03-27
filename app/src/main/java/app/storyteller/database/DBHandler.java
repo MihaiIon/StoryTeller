@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.models.Account;
 import app.storyteller.models.Profile;
 import app.storyteller.models.Sentence;
 import app.storyteller.models.Story;
@@ -93,9 +94,9 @@ public class DBHandler extends SQLiteOpenHelper {
      *
      * -- Tested: working - MI - 03/15/2017.
      */
-    public static void createAccount(Profile p){
-        addProfile(p);
-        addAccount(p);
+    public static void createAccount(Account acc){
+        addProfile(acc);
+        addAccount(acc);
     }
 
     /**
@@ -118,7 +119,7 @@ public class DBHandler extends SQLiteOpenHelper {
      * Add to the local database the account "p" passed in the parameters.
      * -- Tested: working - MI - 03/15/2017.
      */
-    private static void addAccount(Profile p){
+    private static void addAccount(Account p){
         ContentValues values = new ContentValues();
         values.put(Database.AccountsTable.COLUMN_PROFILE_ID, p.getId());
         values.put(Database.AccountsTable.COLUMN_GOOGLE_ID, p.getGoogleId());
@@ -258,6 +259,39 @@ public class DBHandler extends SQLiteOpenHelper {
             cursor.getString(4),
             Timestamp.valueOf(cursor.getString(5)),
             new ArrayList<Story>() // getfavoriteStories()
+        );
+    }
+
+    /**
+     * Retrieves the Account from the local database.
+     * @param google_id : Profile's google_id.
+     * -- Tested: working - MI - 03/15/2017.
+     */
+    public static Account getAccount(String google_id){
+        Cursor cursor = db.query(
+                Database.ProfilesTable.TABLE_NAME,
+                new String[]{
+                        Database.ProfilesTable.COLUMN_ID,
+                        Database.ProfilesTable.COLUMN_GOOGLE_ID,
+                        Database.ProfilesTable.COLUMN_NAME,
+                        Database.ProfilesTable.COLUMN_TOKENS,
+                        Database.ProfilesTable.COLUMN_IMAGE,
+                        Database.ProfilesTable.COLUMN_LAST_CONNECTED
+                }
+                ,Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?"
+                ,new String[]{google_id},null,null,null,null);
+
+        // Select the first element.
+        cursor.moveToFirst();
+
+        return new Account(
+                Integer.parseInt(cursor.getString(0)),
+                cursor.getString(1),
+                cursor.getString(2),
+                Integer.parseInt(cursor.getString(3)),
+                cursor.getString(4),
+                Timestamp.valueOf(cursor.getString(5)),
+                new ArrayList<Story>() // getfavoriteStories()
         );
     }
 
@@ -445,12 +479,12 @@ public class DBHandler extends SQLiteOpenHelper {
      * the parameters.
      * TODO.
      */
-    public static boolean accountExists(int google_id){
+    public static boolean accountExists(String google_id){
         Cursor cursor = db.query(
                 Database.AccountsTable.TABLE_NAME,
                 new String[]{Database.AccountsTable.COLUMN_ID},
                 Database.ProfilesTable.COLUMN_GOOGLE_ID + "=?",
-                new String[]{Integer.toString(google_id)},null,null,null,null
+                new String[]{google_id},null,null,null,null
         );
         return cursor.getCount() != 0;
     }

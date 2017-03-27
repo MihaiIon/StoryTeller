@@ -13,13 +13,13 @@ import app.storyteller.R;
  * Created by Mihai on 2017-01-20.
  */
 
-public class AllStoriesFragment extends Fragment {
+public class MainAllStoriesFragment extends Fragment {
     ListView lv;
     String[] items;
     /**
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.main_all_stories, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_all_stories, container, false);
 
         return rootView;
     }
@@ -30,7 +30,7 @@ public class AllStoriesFragment extends Fragment {
         items = new String[] {"a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a",
                 "a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a","a"};
 
-        View view = inflater.inflate(R.layout.main_all_stories, container, false);
+        View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
         lv = (ListView) view.findViewById(R.id.listview);
         /*
         StoriesListAdapter sladapter = new StoriesListAdapter(this.getActivity(), items);

@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -15,6 +16,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import app.storyteller.database.DBHandler;
+import app.storyteller.models.Account;
 import app.storyteller.models.Profile;
 import app.storyteller.models.Story;
 
@@ -47,15 +49,6 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
     }
 
     /**
-     * Returns a well formatted URL to access the API.
-     *
-     * @param request :
-     */
-    private String buildUrlFromRequest(Request request){
-        return Api.API_URL + request.getAction() + request.getParams();
-    }
-
-    /**
      * Async Call to the API.
      *
      * @param params : params[0] -> request.
@@ -65,16 +58,28 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
     @Override
     protected String doInBackground(Object[] params) {
 
-        // Response from API.
+        //
         String response = "";
 
         try
         {
             // Build url.
-            URL url = new URL(buildUrlFromRequest(request));
-
-            // Connect to the API.
+            URL url = new URL(request.getUrl());
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + request.getUrl());
+            // Set Connection.
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty("Content-Type","application/json");
+            conn.setRequestProperty("User-Agent", "");
+            conn.setRequestMethod("POST");
+            conn.setDoInput(true);
+
+            // Add JSON.
+            DataOutputStream wr = new DataOutputStream(conn.getOutputStream ());
+            wr.writeBytes(request.getJSON().toString());
+            wr.flush();
+            wr.close();
+
+            // Connect to API.
             conn.connect();
 
             // If the request needs a response from the API, read the response...
@@ -89,15 +94,15 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
             }
         }
         catch(Exception e){ e.printStackTrace(); }
-
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + response);
         return response;
     }
 
     @Override
     protected void onPostExecute(String response) {
         super.onPostExecute(response);
-        String action = request.getAction();
-        switch (action.substring(0,action.length()-1))
+
+        switch (request.getAction())
         {
             case Request.Actions.CREATE_PROFILE:
                 System.out.println(
@@ -107,7 +112,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                 );
                 try{
                     JSONObject obj = new JSONObject(response);
-                    Profile p = new Profile(
+                    Account acc = new Account(
                         obj.getInt("id"),
                         obj.getString("google_id"),
                         obj.getString("name"),
@@ -116,11 +121,11 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                         Timestamp.valueOf(obj.getString("last_connected")),
                         new ArrayList<Story>()
                     );
-                    System.out.println(p);
+                    System.out.println(acc);
 
                     // -- Add Profile to local DB.
                     DBHandler.openConnection(context);
-                    DBHandler.createAccount(p);
+                    DBHandler.createAccount(acc);
                     DBHandler.closeConnection();
 
                 } catch(JSONException e){ e.printStackTrace(); }

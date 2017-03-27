@@ -9,10 +9,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import app.storyteller.fragments.AllStoriesFragment;
-import app.storyteller.fragments.HomeFragment;
-import app.storyteller.fragments.PagerFragment;
-import app.storyteller.fragments.PartyModeFragment;
+import app.storyteller.fragments.MainAllStoriesFragment;
+import app.storyteller.fragments.MainHomeFragment;
+import app.storyteller.fragments.MainPagerFragment;
+import app.storyteller.fragments.MainPartyModeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,13 +41,9 @@ public class MainActivity extends AppCompatActivity {
         slider = (ViewPager) findViewById(R.id.mainActivity);
         sliderAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         slider.setAdapter(sliderAdapter);
-        getSupportActionBar().hide();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Set on the Home screen by default.
         slider.setCurrentItem(1);
-        // TESTING
-        //Api.init(this);
-        //Api.createProfile("allo");
+
 
         slider.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -116,13 +112,13 @@ public class MainActivity extends AppCompatActivity {
             Fragment frag;
             switch (position) {
                 case 2:
-                    frag =  new AllStoriesFragment();
+                    frag =  new MainAllStoriesFragment();
                     break;
                 case 0:
-                    frag = new PartyModeFragment();
+                    frag = new MainPartyModeFragment();
                     break;
                 default:
-                    frag=  new HomeFragment();
+                    frag=  new MainHomeFragment();
                     break;
             }
             return frag;
@@ -133,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     /**
-     * Main Pager adapter, contains 2 fragments: -PagerFragment(contains 2 fragments)
+     * Main Pager adapter, contains 2 fragments: -MainPagerFragment(contains 2 fragments)
      *                                           -Story
      *
      */
@@ -143,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 1: return new AllStoriesFragment();
-                default: return new PagerFragment(); //fragment contains a pager
+                case 1: return new MainAllStoriesFragment();
+                default: return new MainPagerFragment(); //fragment contains a pager
             }
         }
 
