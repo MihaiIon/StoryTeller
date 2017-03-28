@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import app.storyteller.R;
 
@@ -45,6 +46,8 @@ public class MainAllStoriesFragment extends Fragment {
             }
         }).start();
 
+
+
         return view;
 
 
@@ -56,6 +59,35 @@ public class MainAllStoriesFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        //Mettre action de back sur la fleche
+        getActivity().findViewById(R.id.story_chooser_back_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+
+
+
+        getActivity().findViewById(R.id.all_story_page).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"All Stories",Toast.LENGTH_SHORT).show();
+            }
+        });
+        getActivity().findViewById(R.id.my_story_page).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"My Stories",Toast.LENGTH_SHORT).show();
+            }
+        });
+        getActivity().findViewById(R.id.favs_story_page).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"Favs Stories",Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 

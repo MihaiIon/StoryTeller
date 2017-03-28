@@ -57,11 +57,12 @@
             android:gravity="center"
             android:layout_weight="1"
             android:paddingBottom="20dp"
-            android:paddingTop="20dp">
+            android:paddingTop="20dp"
+            android:id="@+id/all_story_page">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Page 1"
+                android:text="All"
                 />
 
         </LinearLayout>
@@ -71,11 +72,12 @@
             android:gravity="center"
             android:layout_weight="1"
             android:paddingBottom="20dp"
-            android:paddingTop="20dp">
+            android:paddingTop="20dp"
+            android:id="@+id/my_story_page">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Page 2"
+                android:text="Only Me"
                 />
 
         </LinearLayout>
@@ -85,11 +87,12 @@
             android:gravity="center"
             android:layout_weight="1"
             android:paddingBottom="20dp"
-            android:paddingTop="20dp">
+            android:paddingTop="20dp"
+            android:id="@+id/favs_story_page">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Page 3"
+                android:text="My Favs"
                 />
 
         </LinearLayout>
