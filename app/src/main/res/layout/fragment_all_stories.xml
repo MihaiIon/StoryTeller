@@ -43,11 +43,10 @@
     <!-- Navigation Bar Maison -->
     <LinearLayout
         android:layout_alignParentBottom="true"
-        android:background="@color/primary"
+        android:background="@color/softGrey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="3"
         android:gravity="center">
 
 
@@ -63,9 +62,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="All"
+                android:textColor="@color/primary"
                 />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -78,9 +79,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="Only Me"
+                android:textColor="@color/primary"
                 />
 
         </LinearLayout>
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -93,6 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="My Favs"
+                android:textColor="@color/primary"
                 />
 
         </LinearLayout>
