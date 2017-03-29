@@ -17,7 +17,8 @@ import app.storyteller.R;
 
 public class MainAllStoriesFragment extends Fragment {
     ListView lv;
-    String[] items;
+    String[] titles;
+    String[] authors;
 
     LinearLayout all_stories;
     LinearLayout my_stories;
@@ -34,9 +35,8 @@ public class MainAllStoriesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        items = new String[]{"a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a",
-                "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a"};
-
+        titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
+        authors = new String[] {"Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents"};
         View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
         lv = (ListView) view.findViewById(R.id.listview);
         /*
@@ -46,7 +46,7 @@ public class MainAllStoriesFragment extends Fragment {
 
             @Override
             public void run() {
-                StoriesListAdapter adapter = new StoriesListAdapter(getActivity(), items);
+                StoriesListAdapter adapter = new StoriesListAdapter(getActivity(), titles ,authors);
                 lv.setAdapter(adapter);
 
             }
@@ -108,6 +108,7 @@ public class MainAllStoriesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navigatorToSelector(1);
+                lv.removeAllViewsInLayout();
                 //Thread qui remplace le listView
             }
         });
