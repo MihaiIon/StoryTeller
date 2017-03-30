@@ -3,13 +3,33 @@ package app.storyteller.api;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.models.Account;
 import app.storyteller.models.Profile;
+import app.storyteller.models.Sentence;
+import app.storyteller.models.StoryDetails;
 
 /**
  * Created by Mihai on 2017-03-22.
  */
 
 public class ApiRequests {
+
+
+    /**
+     * TODO.
+     */
+    final static class Actions{
+        final static String CREATE_PROFILE = "createprofile";
+        final static String UPDATE_PROFILE = "updateprofile";
+
+        final static String CREATE_STORY   = "createstory";
+        final static String UPDATE_STORY   = "updatestory";
+        final static String GET_COMPLETED_STORIES   = "getcompletedstories";
+        final static String GET_INCOMPLETE_STORIES = "getincompletestories";
+
+        final static String RESET_DATABASE = "resetdatabase";
+    }
 
 
     /********************************************
@@ -37,23 +57,25 @@ public class ApiRequests {
             json.put("name", name);
             json.put("imageURL", imageURL);
         } catch (JSONException e) { e.printStackTrace(); }
-        return new Request(Request.Actions.CREATE_PROFILE, json, true);
+        return new Request(Actions.CREATE_PROFILE, json, true);
     }
 
 
     /**
-     * Update all the Information of the Profile "p".
+     * Update all the Information of the current Profile.
+     *
+     * @param acc : Account related to the current Profile.
      */
-    public static Request updateProfile(Profile p){
+    public static Request updateProfile(Account acc){
         JSONObject json = new JSONObject();
         try {
             json.put("key", Api.API_KEY);
-            json.put("id", p.getId());
-            json.put("name", p.getName());
-            json.put("tokens", p.getTokens());
-            json.put("imageURL", p.getImageURL());
+            json.put("id", acc.getId());
+            json.put("name", acc.getName());
+            json.put("tokens", acc.getTokens());
+            json.put("imageURL", acc.getImageURL());
         } catch (JSONException e) { e.printStackTrace(); }
-        return new Request(Request.Actions.UPDATE_PROFILE, json, true);
+        return new Request(Actions.UPDATE_PROFILE, json, true);
     }
 
 
@@ -65,7 +87,60 @@ public class ApiRequests {
      *											*
      ********************************************/
 
+    /**
+     * Update all the Information of the Profile "p".
+     */
+    public static Request createStory(StoryDetails sd, String sentence){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("key", Api.API_KEY);
+            json.put("title", sd.getTitle());
+            json.put("sentence_content", sentence);
+            json.put("character_name", sd.getMainCharacter());
+            json.put("creator_id", StoryTellerManager.getAccount().getId());
+        } catch (JSONException e) { e.printStackTrace(); }
+        return new Request(Actions.CREATE_STORY, json, false);
+    }
 
+    /**
+     * Update all the Information of the Profile "p".
+     */
+    public static Request updateStory(int story_id, String sentence){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("key", Api.API_KEY);
+            json.put("story_id", story_id);
+            json.put("sentence_content", sentence);
+            json.put("author_id", StoryTellerManager.getAccount().getId());
+        } catch (JSONException e) { e.printStackTrace(); }
+        return new Request(Actions.UPDATE_STORY, json, false);
+    }
+
+    /**
+     * Provides a list of completed stories related to the current
+     * Account/Profile.
+     */
+    public static Request getCompletedStories(){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("key", Api.API_KEY);
+            json.put("profile_id", StoryTellerManager.getAccount().getId());
+        } catch (JSONException e) { e.printStackTrace(); }
+        return new Request(Actions.GET_COMPLETED_STORIES, json, true);
+    }
+
+    /**
+     * Provides a list of incomplete stories from the API which the
+     * current Account didn't participated as the last author.
+     */
+    public static Request getIncompleteStories(){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("key", Api.API_KEY);
+            json.put("profile_id", StoryTellerManager.getAccount().getId());
+        } catch (JSONException e) { e.printStackTrace(); }
+        return new Request(Actions.GET_INCOMPLETE_STORIES, json, true);
+    }
 
 
 

@@ -100,6 +100,22 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     /**
+     * Updates
+     */
+    public static void updateAccount(Account acc){
+        ContentValues values = new ContentValues();
+        values.put(Database.ProfilesTable.COLUMN_NAME, acc.getName());
+        values.put(Database.ProfilesTable.COLUMN_TOKENS, acc.getTokens());
+        values.put(Database.ProfilesTable.COLUMN_IMAGE, acc.getImageURL());
+        values.put(Database.ProfilesTable.COLUMN_LAST_CONNECTED, acc.getLastConnected().toString());
+        db.update(
+                Database.ProfilesTable.TABLE_NAME,
+                values,
+                Database.ProfilesTable.COLUMN_GOOGLE_ID,
+                new String[]{acc.getGoogleId()});
+    }
+
+    /**
      * Add to the local database the Profile "p" passed in the parameters.
      * Tested : Working - MB - 3/15/2017
      * -- Tested: working - MI - 03/15/2017.

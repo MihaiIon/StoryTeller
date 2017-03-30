@@ -98,7 +98,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     }
 
 
-    //
+    //----------------------------------------------------------------------------
     // Sign In Process
 
     /**

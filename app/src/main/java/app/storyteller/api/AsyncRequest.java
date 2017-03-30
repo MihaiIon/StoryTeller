@@ -104,10 +104,14 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
 
         switch (request.getAction())
         {
-            case Request.Actions.CREATE_PROFILE:
+            /*
+             * Profile Related.
+             */
+            case ApiRequests.Actions.CREATE_PROFILE:
+            case ApiRequests.Actions.UPDATE_PROFILE:
                 System.out.println(
                     "************************************"
-                    +"\nProfile Created on API.\n"
+                    +"\nProfile Created/Updated on API.\n"
                     +"************************************"
                 );
                 try{
@@ -123,15 +127,41 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                     );
                     System.out.println(acc);
 
-                    // -- Add Profile to local DB.
+                    /*
+                     * Add Profile to local DB.
+                     */
                     DBHandler.openConnection(context);
-                    DBHandler.createAccount(acc);
-                    DBHandler.closeConnection();
 
+                    if (request.getAction().equals(ApiRequests.Actions.CREATE_PROFILE))
+                    {
+                        DBHandler.createAccount(acc);
+                    }
+                    else
+                    {
+                        DBHandler.updateAccount(acc);
+                    }
+
+                    DBHandler.closeConnection();
                 } catch(JSONException e){ e.printStackTrace(); }
                 break;
 
-            case Request.Actions.RESET_DATABASE:
+            /*
+             * Story related.
+             */
+            case ApiRequests.Actions.CREATE_STORY:
+                break;
+            case ApiRequests.Actions.UPDATE_STORY:
+                break;
+            case ApiRequests.Actions.GET_COMPLETED_STORIES:
+                break;
+            case ApiRequests.Actions.GET_INCOMPLETE_STORIES:
+                break;
+
+
+            /*
+             * DEBUG related.
+             */
+            case ApiRequests.Actions.RESET_DATABASE:
                 System.out.println(
                     "************************************"
                     +"\nDBHandler has been Reset on API.\n"

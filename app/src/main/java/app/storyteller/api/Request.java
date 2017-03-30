@@ -7,15 +7,6 @@ import org.json.JSONObject;
  */
 class Request {
 
-    /**
-     * TODO.
-     */
-    final static class Actions{
-        final static String CREATE_PROFILE = "createprofile";
-        final static String UPDATE_PROFILE = "updateprofile";
-        final static String RESET_DATABASE = "resetdatabase";
-    }
-
     /*
      * Attributes.
      */
