@@ -18,7 +18,7 @@
         <ImageButton
             android:id="@+id/story_chooser_back_btn"
             style="@style/AppTheme.Activity.Header.BackBtn"
-            android:background="@drawable/back_arrow" />
+            android:background="@drawable/white_back_arrow" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,8 +70,8 @@
             android:layout_height="70dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="35dp"
-            android:layout_marginBottom="35dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
             android:background="@drawable/story_chooser_add_btn"/>
     </RelativeLayout>
 </LinearLayout>

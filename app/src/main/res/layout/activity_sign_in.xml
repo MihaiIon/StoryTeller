@@ -51,23 +51,16 @@
                 android:textColor="@color/darkGrey"
                 android:textSize="32sp" />
 
-            <com.google.android.gms.common.SignInButton
-                android:id="@+id/lala"
-                android:layout_width="match_parent"
-                android:layout_height="0dp" />
-
             <Button
                 android:id="@+id/google_sign_in_btn"
-                style="@style/AppTheme.Activity.Button"
+                style="@style/AppTheme.Button.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/primary"
-                android:text="@string/signIn_google_account"
-                android:textColor="@color/white" />
+                android:text="@string/signIn_google_account"/>
 
             <Button
                 android:id="@+id/google_no_account_btn"
-                style="@style/AppTheme.Activity.Button"
+                style="@style/AppTheme.Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/signIn_no_account" />
@@ -84,7 +77,7 @@
 
         <Button
             android:id="@+id/skip_to_main_btn"
-            style="@style/AppTheme.Activity.Button"
+            style="@style/AppTheme.Button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/softGrey"
