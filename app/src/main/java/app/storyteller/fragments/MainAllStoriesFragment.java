@@ -9,7 +9,18 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.sql.Array;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+
 import app.storyteller.R;
+import app.storyteller.database.DBHandler;
+import app.storyteller.models.Sentence;
+import app.storyteller.models.Story;
+import app.storyteller.models.StoryDetails;
+import app.storyteller.models.User;
+
+import static app.storyteller.testing.MihaiTesting.testingStory;
 
 /**
  * Created by Mihai on 2017-01-20.
@@ -19,6 +30,7 @@ public class MainAllStoriesFragment extends Fragment {
     ListView lv;
     String[] titles;
     String[] authors;
+    boolean[] favorites;
 
     LinearLayout all_stories;
     LinearLayout my_stories;
@@ -35,8 +47,26 @@ public class MainAllStoriesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        //init les tableaux avec le size de getAllStories (version bs)
         titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
         authors = new String[] {"Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents"};
+        favorites = new boolean[titles.length];
+
+        //logique pour get de la DB
+        //getAllStories()
+        //passer un tableau avec les Stories a l'adapter
+        //passer le tableau des favorites de l'utilisateur a l'adapter
+        //gerer l'extract du title + author dans l'adapter
+
+        testingStory(getContext());
+        DBHandler.openConnection(getContext());
+        titles[0] = DBHandler.getStory(126).getDetails().getTitle();
+        authors[0] = DBHandler.getStory(126).getCreator().getName();
+        ArrayList<Integer> arrayList = DBHandler.getFavorites(127);
+        favorites[0] = DBHandler.getStory(126).getId() == arrayList.get(0);
+        DBHandler.closeConnection();
+        //end
+
         View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
         lv = (ListView) view.findViewById(R.id.listview);
         /*
@@ -46,7 +76,7 @@ public class MainAllStoriesFragment extends Fragment {
 
             @Override
             public void run() {
-                StoriesListAdapter adapter = new StoriesListAdapter(getActivity(), titles ,authors);
+                StoriesListAdapter adapter = new StoriesListAdapter(getActivity(), titles, authors, favorites);
                 lv.setAdapter(adapter);
 
             }

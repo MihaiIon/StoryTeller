@@ -1,14 +1,19 @@
 package app.storyteller.fragments;
 
 import android.content.Context;
+import android.text.style.SubscriptSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+
+import java.util.ArrayList;
 
 import app.storyteller.R;
 
@@ -22,13 +27,15 @@ public class StoriesListAdapter extends BaseAdapter{
     private Context context;
     private String[] titles;
     private String[] authors;
+    private boolean[] favorites; //true, false selon si le story au meme index est favorite
     private LayoutInflater inflater;
 
 
-    public StoriesListAdapter(Context context, String[] titles, String[] author) {
+    public StoriesListAdapter(Context context, String[] titles, String[] author, boolean[] favorites) {
         this.context = context;
         this.titles = titles;
         this.authors = author;
+        this.favorites = favorites;
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -76,7 +83,16 @@ YOLO GROS CHANGEMENT
         tb.setTextOn(null);
         tb.setTextOff(null);
         tb.setBackgroundResource(R.drawable.mytogglebutton);
+        tb.setChecked(this.favorites[position]);
 
+        tb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    System.out.println("Checked " + position);
+                else System.out.println("Unchecked " + position);
+            }
+        });
 
         //Va chercher text et modifie
         //Plus tard modifier pour ce qui a été prit dans BD

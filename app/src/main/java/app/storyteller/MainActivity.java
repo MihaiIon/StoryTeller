@@ -9,10 +9,24 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import java.security.Timestamp;
+import java.security.cert.CertPath;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateEncodingException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import app.storyteller.database.DBHandler;
 import app.storyteller.fragments.MainAllStoriesFragment;
 import app.storyteller.fragments.MainHomeFragment;
 import app.storyteller.fragments.MainPagerFragment;
 import app.storyteller.fragments.MainPartyModeFragment;
+import app.storyteller.models.Sentence;
+import app.storyteller.models.Story;
+import app.storyteller.models.StoryDetails;
+import app.storyteller.models.User;
 
 public class MainActivity extends AppCompatActivity {
 

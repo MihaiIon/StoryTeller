@@ -5,6 +5,7 @@ import android.content.Context;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import app.storyteller.MainActivity;
 import app.storyteller.api.Api;
 import app.storyteller.database.DBHandler;
 import app.storyteller.models.Profile;
@@ -24,7 +25,8 @@ public class MihaiTesting {
     /**
      * Profile TESTING
      */
-    /*public static void testingProfile(){
+    /*
+    public static void testingProfile(){
 
         String fake_google_id = "123456";
         DBHandler.openConnection();
@@ -49,17 +51,17 @@ public class MihaiTesting {
         System.out.println("************* Nb Profiles : "+ DBHandler.getProfileListSize() +"*****************");
         System.out.println("************* Nb Accounts : "+ DBHandler.getAccountListSize() +"*****************");
         DBHandler.closeConnection();
-    }*/
-
+    }
+    */
 
     /**
      * Story TESTING
      */
-    /*public static void testingStory(){
+    public static void testingStory(Context ctx){
 
         Story story;
         int story_id = 126;
-        DBHandler.openConnection();
+        DBHandler.openConnection(ctx);
         System.out.println("******* NUMBER OF STORIES : " + DBHandler.getStoryListSize() + " ***********");
         System.out.println("******* STORY EXISTS : " + DBHandler.storyExists(story_id) + " ***********");
 
@@ -115,8 +117,9 @@ public class MihaiTesting {
 
         DBHandler.closeConnection();
     }
-
+/*
     public static void testingApiCreateProfile(){
         Api.createProfile("123456789", "Mihai", "abcdefg");
-    }*/
+    }
+    */
 }
