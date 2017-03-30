@@ -6,11 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 /**
  * Created by Mihai on 2017-03-26.
@@ -30,7 +31,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_creator);
-        initArrow();
+        initHeader();
         initTitleInput();
         initCharacterInput();
         initThemeSelect();
@@ -45,14 +46,19 @@ public class StoryCreatorActivity extends AppCompatActivity {
     /**
      * Triggers back button (returns back to StoryChooserActivity).
      */
-    private void initArrow(){
-        LinearLayout header = (LinearLayout) findViewById(R.id.story_chooser_back_lyt);
-        header.setOnClickListener(new View.OnClickListener() {
+    private void initHeader(){
+        // -- Set Arrow Button.
+        findViewById(R.id.app_header_arrow_btn)
+            .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
          });
+
+        // -- Set title
+        ((TextView)findViewById(R.id.app_header_title))
+                .setText(getString(R.string.story_creator_header_title));
     }
 
     /**
@@ -101,7 +107,17 @@ public class StoryCreatorActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), StoryEditorActivity.class));
+
+                /**
+                 * Start new Activity and send infos.
+                 */
+                Intent i = new Intent(v.getContext(), StoryEditorActivity.class);
+                i.putExtra("title", title.getText().toString());
+                i.putExtra("theme", theme.getSelectedItem().toString());
+                i.putExtra("character_name", character.getText().toString());
+                i.putExtra("new_story", true);
+
+                startActivity(i);
                 finish();
             }
         });

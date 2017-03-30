@@ -30,15 +30,16 @@
         <item name="android:textColor">@color/primary</item>
         <item name="android:background">@drawable/white_button_with_border</item>
     </style>
+
+
+    <!--
+      ~~ Activity - Form
+      -->
     <style name="AppTheme.Form">
         <item name="android:layout_width">275dp</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:paddingTop">25dp</item>
         <item name="android:paddingBottom">60dp</item>
-    </style>
-    <style name="AppTheme.TextInput">
-        <item name="android:inputType">textCapSentences|textAutoCorrect</item>
-        <item name="android:textSize">18sp</item>
     </style>
     <style name="AppTheme.Spinner">
         <item name="android:paddingTop">15dp</item>
@@ -48,6 +49,23 @@
         <item name="android:textColor">@color/primary</item>
         <item name="android:background">@drawable/white_button_with_border</item>
     </style>
+    <style name="AppTheme.TextInput">
+        <item name="android:inputType">textCapSentences|textAutoCorrect</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <style name="AppTheme.SentenceInputContainer">
+        <item name="android:padding">25dp</item>
+        <item name="android:background">@drawable/sentence_input_container</item>
+    </style>
+    <style name="AppTheme.SentenceInfoContainer">
+        <item name="android:paddingTop">25dp</item>
+    </style>
+    <style name="AppTheme.SentenceInput">
+        <item name="android:inputType">textCapSentences|textAutoCorrect</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
 
     <!--
       ~~ Activity - Header
