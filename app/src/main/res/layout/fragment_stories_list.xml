@@ -9,13 +9,15 @@ android:orientation="vertical" >
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="5dp">
+    android:layout_margin="5dp"
+    android:gravity="center_vertical">
 
 
     <ToggleButton
         android:id="@+id/toggleButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="15dp"
         android:checked="false"
         />
 
@@ -45,7 +47,7 @@ android:orientation="vertical" >
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="( NEW ! )"
+                android:text="( NEW )"
                 android:textColor="@color/newStory"
                 android:layout_alignParentRight="true"/>
 

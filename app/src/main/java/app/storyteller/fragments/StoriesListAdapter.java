@@ -19,21 +19,23 @@ import app.storyteller.R;
 
 public class StoriesListAdapter extends BaseAdapter{
 
-    private final Context context;
-    private final String[] values;
+    private Context context;
+    private String[] titles;
+    private String[] authors;
     private LayoutInflater inflater;
 
 
-    public StoriesListAdapter(Context context, String[] values) {
+    public StoriesListAdapter(Context context, String[] titles, String[] author) {
         this.context = context;
-        this.values = values;
+        this.titles = titles;
+        this.authors = author;
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return values.length;
+        return titles.length;
     }
 
     @Override
@@ -79,12 +81,12 @@ YOLO GROS CHANGEMENT
         //Va chercher text et modifie
         //Plus tard modifier pour ce qui a été prit dans BD
         TextView titretv = (TextView) v.findViewById(R.id.title);
-        titretv.setText("WWWWWWWWWWWWWWWWWWWWWWWW");
+        titretv.setText(this.titles[position]);
 
         //Va chercher text et modifie
         //Plus tard modifier pour ce qui a été prit dans BD
         TextView authortv = (TextView) v.findViewById(R.id.author);
-        authortv.setText("You & GENA HAHN");
+        authortv.setText(this.authors[position]);
 
 
 

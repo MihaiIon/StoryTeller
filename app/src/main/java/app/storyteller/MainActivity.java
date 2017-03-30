@@ -45,30 +45,7 @@ public class MainActivity extends AppCompatActivity {
         slider.setCurrentItem(1);
 
 
-        slider.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                switch (position){
-                    case 0 :
-                    case 1 :
-                        getSupportActionBar().hide();
-                        break;
-                    case 2 :
-                        getSupportActionBar().show();
-                        break;
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     @Override

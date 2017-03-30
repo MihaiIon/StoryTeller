@@ -6,12 +6,101 @@
     style="@style/AppTheme.Activity">
 
 
-    <ListView
+
+    <!-- Header -->
+    <LinearLayout
+        style="@style/AppTheme.Activity.Header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <ImageButton
+            android:id="@+id/story_chooser_back_btn"
+            style="@style/AppTheme.Activity.Header.BackBtn"
+            android:background="@drawable/back_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/story_chooser_header_title"
+            style="@style/AppTheme.Activity.Header.Title"/>
+    </LinearLayout>
+
+
+
+    <ListView
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:id="@+id/listview"
         android:divider="@color/softGrey"
         android:dividerHeight="1dp"/>
+
+
+
+    <!-- Navigation Bar Maison -->
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:background="@color/softGrey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:id="@+id/all_story_page">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="All"
+                android:textColor="@color/primary"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:id="@+id/my_story_page">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Only Me"
+                android:textColor="@color/primary"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:id="@+id/favs_story_page">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="My Favs"
+                android:textColor="@color/primary"
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>
