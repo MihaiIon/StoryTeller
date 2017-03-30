@@ -8,24 +8,7 @@
 
 
     <!-- Header -->
-    <LinearLayout
-        style="@style/AppTheme.Activity.Header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical">
-
-        <ImageButton
-            android:id="@+id/story_chooser_back_btn"
-            style="@style/AppTheme.Activity.Header.BackBtn"
-            android:background="@drawable/back_arrow" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/story_chooser_header_title"
-            style="@style/AppTheme.Activity.Header.Title"/>
-    </LinearLayout>
-
+   <include layout="@layout/header_frame_layout"/>
 
 
     <ListView

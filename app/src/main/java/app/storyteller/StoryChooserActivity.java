@@ -1,12 +1,12 @@
 package app.storyteller;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 /**
  * Created by Mihai on 2017-03-25.
@@ -40,10 +40,10 @@ public class StoryChooserActivity extends AppCompatActivity {
     // Back Actions.
 
     /**
-     * When the Back Arrow is pressed, return to MainActivity.
+     * When the Layout of the Back Arrow is pressed, return to MainActivity.
      */
     private void initBackArrow(){
-        ((ImageButton)findViewById(R.id.story_chooser_back_btn))
+        ((LinearLayout)findViewById(R.id.story_chooser_back_lyt))
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

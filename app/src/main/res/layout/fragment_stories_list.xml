@@ -15,10 +15,8 @@ android:orientation="vertical" >
 
     <ToggleButton
         android:id="@+id/toggleButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_margin="15dp"
-        android:checked="false"
+        style="@style/AppTheme.ToggleStars"
+        android:background="@drawable/mytogglebutton"
         />
 
     <LinearLayout
@@ -40,7 +38,8 @@ android:orientation="vertical" >
                 android:gravity="center_vertical"
                 android:text="Titre"
                 android:textColor="@color/primary"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/newStory"
@@ -49,7 +48,8 @@ android:orientation="vertical" >
                 android:gravity="center_vertical"
                 android:text="( NEW )"
                 android:textColor="@color/newStory"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:textStyle="italic"/>
 
 
         </RelativeLayout>
@@ -91,7 +91,8 @@ android:orientation="vertical" >
                 android:gravity="center_vertical"
                 android:text="Author: "
                 android:textColor="@color/darkerGrey"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:textStyle="italic"/>
 
             <TextView
                 android:id="@+id/author"
@@ -100,7 +101,7 @@ android:orientation="vertical" >
                 android:gravity="center_vertical"
                 android:text=""
                 android:textColor="@color/darkerGrey"
-                android:layout_toRightOf="@+id/labelauthor"/>
+                android:layout_toRightOf="@+id/labelauthor" />
 
         </RelativeLayout>
     </LinearLayout>

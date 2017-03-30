@@ -79,7 +79,7 @@ public class MainAllStoriesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         //Mettre action de back sur la fleche
-        getActivity().findViewById(R.id.story_chooser_back_btn).setOnClickListener(new View.OnClickListener() {
+        getActivity().findViewById(R.id.story_chooser_back_lyt).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();

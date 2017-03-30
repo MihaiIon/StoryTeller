@@ -28,9 +28,6 @@
       -->
     <style name="AppTheme.Activity.Header">
         <item name="android:background">@color/primary</item>
-        <item name="android:paddingTop">@dimen/header_vertical_padding</item>
-        <item name="android:paddingBottom">@dimen/header_vertical_padding</item>
-        <item name="android:paddingLeft">@dimen/header_horizontal_padding</item>
         <item name="android:paddingRight">@dimen/header_horizontal_padding</item>
     </style>
     <style name="AppTheme.Activity.Header.Title">
@@ -42,7 +39,7 @@
     <style name="AppTheme.Activity.Header.BackBtn">
         <item name="android:layout_width">@dimen/header_back_btn_width</item>
         <item name="android:layout_height">@dimen/header_back_btn_height</item>
-        <item name="android:layout_marginRight">30dp</item>
+
     </style>
 
     <!--
@@ -89,5 +86,12 @@
         <item name="android:textSize">18dp</item>
         <item name="android:textColor">@color/darkGrey</item>
         <item name="android:fontFamily">sans-serif-thin</item><!--  roboto thin  -->
+    </style>
+    <style name="AppTheme.ToggleStars">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_margin">15dp</item>
+        <item name="android:textOff"></item>
+        <item name="android:textOn"></item>
     </style>
 </resources>
