@@ -18,6 +18,7 @@
     <string name="story_creator_header_title">Once upon a time&#8230;</string>
     <string name="story_creator_title_hint">Title</string>
     <string name="story_creator_character_hint">Main character\'s name</string>
+    <string name="story_creator_theme_btn">THEME</string>
     <string name="story_creator_next_btn">Next</string>
 
     <!--  Settings  -->

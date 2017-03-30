@@ -26,47 +26,68 @@
     </LinearLayout>
 
     <!-- Content -->
-    <LinearLayout
+    <RelativeLayout
         android:layout_height="match_parent"
         style="@style/AppTheme.Form">
 
-        <android.support.design.widget.TextInputLayout
-            android:textColorHint="@color/darkGrey"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/story_creator_title_input"
+            <android.support.design.widget.TextInputLayout
+                android:textColorHint="@color/darkGrey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/story_creator_title_hint"
-                style="@style/AppTheme.TextInput"
-                />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/story_creator_title_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/story_creator_title_hint"
+                    style="@style/AppTheme.TextInput"
+                    />
+            </android.support.design.widget.TextInputLayout>
 
 
-        <android.support.design.widget.TextInputLayout
-            android:textColorHint="@color/darkGrey"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp">
-
-            <EditText
-                android:id="@+id/story_creator_character_input"
+            <android.support.design.widget.TextInputLayout
+                android:textColorHint="@color/darkGrey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/story_creator_character_hint"
-                style="@style/AppTheme.TextInput"/>
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp">
+
+                <EditText
+                    android:id="@+id/story_creator_character_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/story_creator_character_hint"
+                    style="@style/AppTheme.TextInput"/>
+            </android.support.design.widget.TextInputLayout>
 
 
+            <!-- Theme Selection -->
+            <Button
+                android:id="@+id/story_creator_theme_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/story_creator_theme_btn"
+                style="@style/AppTheme.Button.Primary.WithBorder"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"/>
+
+
+        </LinearLayout>
+
+        <!-- Next -->
         <Button
+            android:id="@+id/story_creator_next_btn"
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/story_creator_next_btn"
             style="@style/AppTheme.Button"/>
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

@@ -17,7 +17,7 @@
         <ImageButton
             android:id="@+id/story_chooser_back_btn"
             style="@style/AppTheme.Activity.Header.BackBtn"
-            android:background="@drawable/back_arrow" />
+            android:background="@drawable/white_back_arrow" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,8 +25,6 @@
             android:text="@string/story_chooser_header_title"
             style="@style/AppTheme.Activity.Header.Title"/>
     </LinearLayout>
-
-
 
     <ListView
         android:layout_weight="1"
@@ -37,7 +35,6 @@
         android:id="@+id/listview"
         android:divider="@color/softGrey"
         android:dividerHeight="1dp"/>
-
 
 
     <!-- Navigation Bar Maison -->
