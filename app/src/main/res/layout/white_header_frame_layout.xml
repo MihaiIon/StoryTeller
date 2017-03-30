@@ -2,7 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <LinearLayout
-        style="@style/AppTheme.Activity.Header"
+        style="@style/AppTheme.Activity.WhiteHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical">
@@ -16,14 +16,12 @@
 
             <ImageView
                 style="@style/AppTheme.Activity.Header.BackBtn"
-                android:background="@drawable/white_back_arrow"/>
+                android:background="@drawable/green_back_arrow"/>
         </LinearLayout>
         <TextView
-            style="@style/AppTheme.Activity.Header.Title"
+            style="@style/AppTheme.Activity.WhiteHeader.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/story_chooser_header_title" />
     </LinearLayout>
-
-
 </FrameLayout>

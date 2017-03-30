@@ -28,7 +28,7 @@
     </style>
     <style name="AppTheme.Button.Primary.WithBorder">
         <item name="android:textColor">@color/primary</item>
-        <item name="android:background">@drawable/button_border</item>
+        <item name="android:background">@drawable/white_button_with_border</item>
     </style>
     <style name="AppTheme.Form">
         <item name="android:layout_width">275dp</item>
@@ -39,6 +39,14 @@
     <style name="AppTheme.TextInput">
         <item name="android:inputType">textCapSentences|textAutoCorrect</item>
         <item name="android:textSize">18sp</item>
+    </style>
+    <style name="AppTheme.Spinner">
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+    </style>
+    <style name="AppTheme.Spinner.Primary">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:background">@drawable/white_button_with_border</item>
     </style>
 
     <!--
@@ -57,10 +65,6 @@
     </style>
     <style name="AppTheme.Activity.WhiteHeader">
         <item name="android:background">@color/white</item>
-        <item name="android:paddingTop">@dimen/header_vertical_padding</item>
-        <item name="android:paddingBottom">@dimen/header_vertical_padding</item>
-        <item name="android:paddingLeft">@dimen/header_horizontal_padding</item>
-        <item name="android:paddingRight">@dimen/header_horizontal_padding</item>
     </style>
     <style name="AppTheme.Activity.WhiteHeader.Title">
         <item name="android:textColor">@color/primary</item>

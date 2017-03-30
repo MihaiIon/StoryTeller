@@ -7,7 +7,7 @@
     style="@style/AppTheme.Activity">
 
     <!-- Header -->
-    <include layout="@layout/header_frame_layout"/>
+    <include layout="@layout/white_header_frame_layout"/>
 
     <!-- Content -->
     <RelativeLayout
@@ -53,15 +53,14 @@
 
 
             <!-- Theme Selection -->
-            <Button
-                android:id="@+id/story_creator_theme_btn"
+            <Spinner
+                android:id="@+id/story_creator_theme_select"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/story_creator_theme_btn"
-                style="@style/AppTheme.Button.Primary.WithBorder"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp"/>
-
+                android:entries="@array/themes_array"
+                android:textAlignment="center"
+                android:layout_marginTop="22dp"
+                style="@style/AppTheme.Spinner.Primary"/>
 
         </LinearLayout>
 
