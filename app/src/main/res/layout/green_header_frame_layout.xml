@@ -1,0 +1,27 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        style="@style/AppTheme.Activity.Header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+        <LinearLayout
+            android:id="@+id/story_chooser_back_lyt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="30dp">
+
+            <ImageView
+                style="@style/AppTheme.Activity.Header.BackBtn"
+                android:background="@drawable/white_back_arrow"/>
+        </LinearLayout>
+        <TextView
+            style="@style/AppTheme.Activity.Header.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/story_chooser_header_title" />
+    </LinearLayout>
+</FrameLayout>

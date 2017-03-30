@@ -23,6 +23,7 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".StoryChooserActivity"/>
         <activity android:name=".StoryCreatorActivity"/>
+        <activity android:name=".StoryEditorActivity"/>
     </application>
 
 </manifest>
