@@ -22,7 +22,6 @@
         android:dividerHeight="1dp"/>
 
 
-
     <!-- Navigation Bar Maison -->
     <LinearLayout
         android:layout_alignParentBottom="true"

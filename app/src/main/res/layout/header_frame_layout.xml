@@ -12,12 +12,11 @@
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
-            android:paddingRight="30dp"
             android:paddingLeft="30dp">
 
             <ImageView
                 style="@style/AppTheme.Activity.Header.BackBtn"
-                android:background="@drawable/back_arrow"/>
+                android:background="@drawable/white_back_arrow"/>
         </LinearLayout>
         <TextView
             style="@style/AppTheme.Activity.Header.Title"
