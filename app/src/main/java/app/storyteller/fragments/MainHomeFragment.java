@@ -13,7 +13,9 @@ import android.widget.ImageButton;
 
 import app.storyteller.R;
 import app.storyteller.StoryChooserActivity;
+import app.storyteller.database.DBHandler;
 import app.storyteller.fragments.dialogs.Settings;
+import app.storyteller.manager.StoryTellerManager;
 
 /**
  * Created by Mihai on 2017-01-20.
@@ -46,7 +48,10 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
     private void initializeWebView(View view)
     {
         WebView webview = (WebView) view;
-        webview.loadDataWithBaseURL("file:///android_res/drawable/", "<html><body style='background-color:#1aa19b'><img src='test.jpg' style='border-radius:50%;width:50%;max-width:50%;max-height:75%;margin-left:25%;margin-right:25%' /></body></html>", "text/html", "utf-8", null);
+        String url = getGoogleProfileImgURL();
+        String name = getGoogleProfileName();
+        int tok = getGoogleProfileTokens();
+        webview.loadDataWithBaseURL("file:///android_res/drawable/", "<html><body style='background-color:#1aa19b'><img src='"+url+"' style='border-radius:50%;width:50%;max-width:50%;max-height:75%;margin-left:25%;margin-right:25%;margin-bottom:0;padding-bottom:0;' /><p style='text-align:center;color:white;font-size:30px;margin-top:0;padding-top:0;margin-bottom:0;padding-bottom:0;'>"+name+"</p></body></html>", "text/html", "utf-8", null);
     }
     private void initializeSettings(View view) {
         settings = (ImageButton) view;
@@ -76,6 +81,25 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         });
     }
 
+    private String getGoogleProfileImgURL() {
+        DBHandler.openConnection(getContext());
+        String str = StoryTellerManager.getAccount().getImageURL();
+        DBHandler.closeConnection();
+        return str;
+    }
+
+    private String getGoogleProfileName() {
+        DBHandler.openConnection(getContext());
+        String str = StoryTellerManager.getAccount().getName();
+        DBHandler.closeConnection();
+        return str;
+    }
+    private int getGoogleProfileTokens() {
+        DBHandler.openConnection(getContext());
+        int tok = StoryTellerManager.getAccount().getTokens();
+        DBHandler.closeConnection();
+        return tok;
+    }
     /*@Override
     public void onClick(View v) {
         switch (v.getId()) {
