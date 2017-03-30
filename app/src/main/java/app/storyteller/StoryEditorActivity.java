@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -13,9 +14,10 @@ import android.widget.TextView;
 public class StoryEditorActivity extends AppCompatActivity {
 
     /**
-     * The words limit for each sentences.
+     * The words limits for each sentences.
      */
     private final int MAX_WORDS_ALLOWED = 25;
+    private final int MIN_WORDS_ALLOWED = 15;
 
     /**
      * Information related to the Current Story.
@@ -29,6 +31,11 @@ public class StoryEditorActivity extends AppCompatActivity {
      * Story created by the current User.
      */
     private boolean newStory;
+
+    /**
+     * Submits the Story the API.
+     */
+    private Button submitBtn;
 
     /**
      *
@@ -103,13 +110,13 @@ public class StoryEditorActivity extends AppCompatActivity {
      *
      */
     private void initSubmitBtn(){
-        findViewById(R.id.story_editor_submit_btn)
-            .setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        submitBtn = (Button)findViewById(R.id.story_editor_submit_btn);
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                }
-            });
+            }
+        });
     }
 
 
