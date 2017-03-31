@@ -1,11 +1,16 @@
 package app.storyteller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import app.storyteller.api.Api;
+import app.storyteller.api.ApiRequests;
+import app.storyteller.models.StoryDetails;
 
 /**
  * Created by Mihai on 2017-03-29.
@@ -111,10 +116,16 @@ public class StoryEditorActivity extends AppCompatActivity {
      */
     private void initSubmitBtn(){
         submitBtn = (Button)findViewById(R.id.story_editor_submit_btn);
+        submitBtn.setEnabled(false);
+
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Api.executeRequest(
+                        ApiRequests.createStory(
+                                new StoryDetails(title, characterName, theme), ""),
+                        StoryEditorActivity.this
+                );
             }
         });
     }
@@ -128,5 +139,15 @@ public class StoryEditorActivity extends AppCompatActivity {
      */
     private void validate(){
 
+    }
+
+
+    /**
+     *
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        startActivity(new Intent(this, StoryChooserActivity.class));
     }
 }

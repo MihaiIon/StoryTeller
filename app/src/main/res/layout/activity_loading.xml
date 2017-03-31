@@ -11,8 +11,15 @@
         android:screenOrientation="portrait"
         style="@style/AppTheme.Activity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CACA"/>
+
+
     <WebView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/loading_screen" />
+
 </LinearLayout>

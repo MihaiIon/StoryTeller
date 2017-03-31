@@ -2,6 +2,7 @@ package app.storyteller.api;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,23 +29,23 @@ import app.storyteller.models.Story;
 public class AsyncRequest extends AsyncTask<Object, Integer, String> {
 
     /**
-     *
+     * Current activity that ordered a AsyncRequest.
      */
-    private Request request;
+    private AppCompatActivity activity;
 
     /**
-     *
+     * The resquest sent to the API.
      */
-    private Context context;
+    private Request request;
 
     /**
      * Constructor.
      *
      * @param request : Your request for Api.
      */
-    public AsyncRequest(Request request, Context context){
+    public AsyncRequest(Request request, AppCompatActivity activity){
         this.request = request;
-        this.context = context;
+        this.activity = activity;
         execute();
     }
 
@@ -130,18 +131,17 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                     /*
                      * Add Profile to local DB.
                      */
-                    DBHandler.openConnection(context);
-
+                    DBHandler.openConnection(activity.getApplicationContext());
                     if (request.getAction().equals(ApiRequests.Actions.CREATE_PROFILE))
-                    {
-                        DBHandler.createAccount(acc);
-                    }
-                    else
-                    {
-                        DBHandler.updateAccount(acc);
-                    }
-
+                         DBHandler.createAccount(acc);
+                    else DBHandler.updateAccount(acc);
                     DBHandler.closeConnection();
+
+                    /*
+                     * Proceed to MainActivity.
+                     */
+                    activity.finish();
+
                 } catch(JSONException e){ e.printStackTrace(); }
                 break;
 
@@ -149,8 +149,10 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
              * Story related.
              */
             case ApiRequests.Actions.CREATE_STORY:
+                activity.finish();
                 break;
             case ApiRequests.Actions.UPDATE_STORY:
+                activity.finish();
                 break;
             case ApiRequests.Actions.GET_COMPLETED_STORIES:
                 break;

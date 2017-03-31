@@ -2,6 +2,7 @@ package app.storyteller.api;
 
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by Mihai on 2017-01-30.
@@ -29,8 +30,8 @@ public class Api {
      *
      * @return
      */
-    public static void executeRequest(Request request, Context context)
+    public static void executeRequest(Request request, AppCompatActivity activity)
     {
-        new AsyncRequest(request, context);
+        new AsyncRequest(request, activity);
     }
 }

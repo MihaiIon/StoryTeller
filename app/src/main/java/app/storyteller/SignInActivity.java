@@ -13,9 +13,6 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 
-import app.storyteller.api.Api;
-import app.storyteller.api.ApiRequests;
-import app.storyteller.database.DBHandler;
 import app.storyteller.manager.StoryTellerManager;
 
 public class SignInActivity extends AppCompatActivity {
@@ -68,51 +65,42 @@ public class SignInActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        System.out.println("Account id is being treated");
-
-        // Result returned from launching the Intent from
-        // GoogleSignInApi.getSignInIntent(...);
-
+        /*
+         * Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...).
+         */
         if (requestCode == 1) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-
-            // int statusCode = result.getStatus().getStatusCode();
-            //System.out.println(statusCode);
-
-
 
             if (result.isSuccess()) {
                 GoogleSignInAccount acct = result.getSignInAccount();
 
-                //System.out.println("Account is: "+acct.getDisplayName() +" has id: " + acct.getId()+ " and has email: "+ acct.getEmail()+ "Photo URL: " + acct.getPhotoUrl());
-                //Toast.makeText(getApplicationContext(),"Account is: "+acct.getDisplayName(), Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getApplicationContext(), "has id: " + acct.getId(), Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getApplicationContext()," and has email: "+ acct.getEmail(), Toast.LENGTH_SHORT).show();
+                /*
+                 * Launch LoadingActivity and wait for the API response. When
+                 * the application is ready. proceed to MainActivity.
+                 */
+                Intent intent = new Intent(this, LoadingActivity.class);
+                intent.putExtra("next_activity", LoadingActivity.ActivityList.MAIN_ACTIVITY);
+                intent.putExtra("account_id", acct.getId());
+                intent.putExtra("account_name", acct.getDisplayName());
+                intent.putExtra("account_image_url", acct.getPhotoUrl().toString());
 
-                DBHandler.openConnection(getApplicationContext());
-
-                Api.executeRequest(
-                        ApiRequests.createProfile(
-                                acct.getId(),
-                                acct.getDisplayName(),
-                                acct.getPhotoUrl().toString()),
-                        getApplicationContext()
-                );
-                DBHandler.closeConnection();
-
-                startActivity(new Intent(this, MainActivity.class));
-
+                // --
+                startActivity(intent);
+                finish();
             } else System.out.println("AN ERROR IS FUCKING ME UP (Most likely error: 12501");
         }
-
-        /*
-        if (mGoogleApiClient.isConnected()) {
-            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-            mGoogleApiClient.disconnect();
-            mGoogleApiClient.connect();
-        }
-         */
     }
+
+
+
+    // int statusCode = result.getStatus().getStatusCode();
+    //System.out.println(statusCode);
+
+    //System.out.println("Account is: "+acct.getDisplayName() +" has id: " + acct.getId()+ " and has email: "+ acct.getEmail()+ "Photo URL: " + acct.getPhotoUrl());
+    //Toast.makeText(getApplicationContext(),"Account is: "+acct.getDisplayName(), Toast.LENGTH_SHORT).show();
+    //Toast.makeText(getApplicationContext(), "has id: " + acct.getId(), Toast.LENGTH_SHORT).show();
+    //Toast.makeText(getApplicationContext()," and has email: "+ acct.getEmail(), Toast.LENGTH_SHORT).show();
+
 
 
     //----------------------------------------------------------------------------
