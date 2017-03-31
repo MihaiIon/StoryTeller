@@ -13,20 +13,17 @@ class Request {
     private String action;
     private String[] params;
     private JSONObject json;
-    private boolean needsResponse;
 
     /**
      * Constructor.
      *
      * @param action :  The action to be executed by the API.
      * @param json   :
-     * @param needsResponse : Indicates if the API will respond with that or not.
      */
-    Request(String action, JSONObject json, boolean needsResponse){
+    Request(String action, JSONObject json){
         this.action = action;
         this.params = null;
         this.json   = json;
-        this.needsResponse = needsResponse;
     }
 
     /**
@@ -35,22 +32,19 @@ class Request {
      * @param action :  The action to be executed by the API.
      * @param params :  The parameters related to the action that will be executed by the API.
      * @param json   :
-     * @param needsResponse : Indicates if the API will respond with that or not.
      */
-    Request(String action, String[] params, JSONObject json, boolean needsResponse){
+    Request(String action, String[] params, JSONObject json){
         this.action = action;
         this.params = params;
         this.json   = json;
-        this.needsResponse = needsResponse;
     }
 
 
     //------------------------------------------------------------------------
     // Getters
 
-    String getAction()      { return action;        }
-    JSONObject getJSON()    { return json;          }
-    boolean needsResponse() { return needsResponse; }
+    String getAction()      { return action; }
+    JSONObject getJSON()    { return json;   }
 
     /**
      * Returns a well formatted URL to access the API.

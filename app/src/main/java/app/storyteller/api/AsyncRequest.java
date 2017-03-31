@@ -1,6 +1,5 @@
 package app.storyteller.api;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 
@@ -17,8 +16,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import app.storyteller.database.DBHandler;
+import app.storyteller.manager.StoryTellerManager;
 import app.storyteller.models.Account;
-import app.storyteller.models.Profile;
 import app.storyteller.models.Story;
 
 /**
@@ -66,10 +65,12 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
         {
             // Build url.
             URL url = new URL(request.getUrl());
-            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + request.getUrl());
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>> URL : " + request.getUrl());
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>> REQUEST : " + request.getJSON().toString());
+
             // Set Connection.
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestProperty("Content-Type","application/json");
+            conn.setRequestProperty("Content-Type","application/json;charset=UTF-8");
             conn.setRequestProperty("User-Agent", "");
             conn.setRequestMethod("POST");
             conn.setDoInput(true);
@@ -82,20 +83,18 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
 
             // Connect to API.
             conn.connect();
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>> RESPONSE CODE : " + conn.getResponseCode());
 
             // If the request needs a response from the API, read the response...
-            if (request.needsResponse())
-            {
-                InputStream is = conn.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-                String data;
-                while ((data = reader.readLine()) != null){
-                    response += data;
-                }
+            InputStream is = conn.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            String data;
+            while ((data = reader.readLine()) != null){
+                response += data;
             }
         }
         catch(Exception e){ e.printStackTrace(); }
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>" + response);
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>> RESPONSE : " + response);
         return response;
     }
 
@@ -129,12 +128,13 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                     System.out.println(acc);
 
                     /*
-                     * Add Profile to local DB.
+                     * Add/Update Account in local DB.
                      */
                     DBHandler.openConnection(activity.getApplicationContext());
                     if (request.getAction().equals(ApiRequests.Actions.CREATE_PROFILE))
                          DBHandler.createAccount(acc);
                     else DBHandler.updateAccount(acc);
+                    StoryTellerManager.setAccount(acc);
                     DBHandler.closeConnection();
 
                     /*
@@ -149,9 +149,8 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
              * Story related.
              */
             case ApiRequests.Actions.CREATE_STORY:
-                activity.finish();
-                break;
             case ApiRequests.Actions.UPDATE_STORY:
+                // -- Destroy StoryEditorActivity.
                 activity.finish();
                 break;
             case ApiRequests.Actions.GET_COMPLETED_STORIES:

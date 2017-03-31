@@ -140,14 +140,4 @@ public class StoryEditorActivity extends AppCompatActivity {
     private void validate(){
 
     }
-
-
-    /**
-     *
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        startActivity(new Intent(this, StoryChooserActivity.class));
-    }
 }

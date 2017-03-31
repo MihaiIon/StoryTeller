@@ -1,12 +1,14 @@
 package app.storyteller.testing;
 
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import app.storyteller.MainActivity;
 import app.storyteller.api.Api;
+import app.storyteller.api.ApiRequests;
 import app.storyteller.database.DBHandler;
 import app.storyteller.models.Profile;
 import app.storyteller.models.Sentence;
@@ -117,9 +119,10 @@ public class MihaiTesting {
 
         DBHandler.closeConnection();
     }
-/*
-    public static void testingApiCreateProfile(){
-        Api.createProfile("123456789", "Mihai", "abcdefg");
+
+    public static void testingApiCreateStory(AppCompatActivity app){
+        Api.executeRequest(ApiRequests.createStory(
+                new StoryDetails("Mon Titre", "MOn theme", "Mon personnage"),
+                "Il etait une fois, fuck you"), app);
     }
-    */
 }

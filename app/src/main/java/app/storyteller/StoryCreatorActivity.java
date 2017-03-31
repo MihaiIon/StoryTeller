@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import app.storyteller.testing.MihaiTesting;
+
 /**
  * Created by Mihai on 2017-03-26.
  */
@@ -36,6 +38,8 @@ public class StoryCreatorActivity extends AppCompatActivity {
         initCharacterInput();
         initThemeSelect();
         initNextBtn();
+
+        MihaiTesting.testingApiCreateStory(this);
     }
 
 

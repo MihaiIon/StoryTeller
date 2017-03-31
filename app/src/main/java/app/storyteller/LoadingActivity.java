@@ -24,6 +24,7 @@ public class LoadingActivity extends AppCompatActivity {
     public static class ActivityList {
         public static final String SIGN_IN_ACTIVITY = "sign_in_activity";
         public static final String MAIN_ACTIVITY    = "main_activity";
+        public static final String STORY_CHOOSER_ACTIVITY = "story_chooser_activity";
     }
 
 
@@ -70,6 +71,8 @@ public class LoadingActivity extends AppCompatActivity {
          */
         switch (nextActivity){
             case ActivityList.SIGN_IN_ACTIVITY:
+                break;
+            case ActivityList.STORY_CHOOSER_ACTIVITY:
                 break;
             case ActivityList.MAIN_ACTIVITY:
             default:

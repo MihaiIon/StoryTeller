@@ -57,7 +57,7 @@ public class ApiRequests {
             json.put("name", name);
             json.put("imageURL", imageURL);
         } catch (JSONException e) { e.printStackTrace(); }
-        return new Request(Actions.CREATE_PROFILE, json, true);
+        return new Request(Actions.CREATE_PROFILE, json);
     }
 
 
@@ -75,7 +75,7 @@ public class ApiRequests {
             json.put("tokens", acc.getTokens());
             json.put("imageURL", acc.getImageURL());
         } catch (JSONException e) { e.printStackTrace(); }
-        return new Request(Actions.UPDATE_PROFILE, json, true);
+        return new Request(Actions.UPDATE_PROFILE, json);
     }
 
 
@@ -95,11 +95,12 @@ public class ApiRequests {
         try {
             json.put("key", Api.API_KEY);
             json.put("title", sd.getTitle());
+            json.put("theme", sd.getTheme());
             json.put("sentence_content", sentence);
             json.put("character_name", sd.getMainCharacter());
             json.put("creator_id", StoryTellerManager.getAccount().getId());
         } catch (JSONException e) { e.printStackTrace(); }
-        return new Request(Actions.CREATE_STORY, json, false);
+        return new Request(Actions.CREATE_STORY, json);
     }
 
     /**
@@ -113,7 +114,7 @@ public class ApiRequests {
             json.put("sentence_content", sentence);
             json.put("author_id", StoryTellerManager.getAccount().getId());
         } catch (JSONException e) { e.printStackTrace(); }
-        return new Request(Actions.UPDATE_STORY, json, false);
+        return new Request(Actions.UPDATE_STORY, json);
     }
 
     /**
@@ -126,7 +127,7 @@ public class ApiRequests {
             json.put("key", Api.API_KEY);
             json.put("profile_id", StoryTellerManager.getAccount().getId());
         } catch (JSONException e) { e.printStackTrace(); }
-        return new Request(Actions.GET_COMPLETED_STORIES, json, true);
+        return new Request(Actions.GET_COMPLETED_STORIES, json);
     }
 
     /**
@@ -139,7 +140,7 @@ public class ApiRequests {
             json.put("key", Api.API_KEY);
             json.put("profile_id", StoryTellerManager.getAccount().getId());
         } catch (JSONException e) { e.printStackTrace(); }
-        return new Request(Actions.GET_INCOMPLETE_STORIES, json, true);
+        return new Request(Actions.GET_INCOMPLETE_STORIES, json);
     }
 
 
