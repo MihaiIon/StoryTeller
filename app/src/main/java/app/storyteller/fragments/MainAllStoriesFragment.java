@@ -1,24 +1,20 @@
 package app.storyteller.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.sql.Array;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import app.storyteller.R;
 import app.storyteller.database.DBHandler;
-import app.storyteller.models.Sentence;
-import app.storyteller.models.Story;
-import app.storyteller.models.StoryDetails;
-import app.storyteller.models.User;
 
 import static app.storyteller.testing.MihaiTesting.testingStory;
 
@@ -45,7 +41,7 @@ public class MainAllStoriesFragment extends Fragment {
      * }
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //init les tableaux avec le size de getAllStories (version bs)
         titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
@@ -69,6 +65,8 @@ public class MainAllStoriesFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
         lv = (ListView) view.findViewById(R.id.listview);
+
+
         /*
         StoriesListAdapter sladapter = new StoriesListAdapter(this.getActivity(), items);
         lv.setAdapter(sladapter);*/
@@ -77,10 +75,25 @@ public class MainAllStoriesFragment extends Fragment {
             @Override
             public void run() {
                 StoriesListAdapter adapter = new StoriesListAdapter(getActivity(), titles, authors, favorites);
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getContext(),StoryReaderActivity.class);
+                        intent.putExtra("Title",titles[position]);
+                        intent.putExtra("Authors",authors[position]);
+                        intent.putExtra("Story","GET THE STORY AND PUT IT HERE GEE.");
+                        intent.putExtra("Favs",true);
+
+                        startActivity(intent);
+
+
+                    }
+                });
                 lv.setAdapter(adapter);
 
             }
         }).start();
+
 
         return view;
 

@@ -23,7 +23,8 @@
             android:text="@string/settings_title"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            style="@style/AppTheme.Dialog.Title" />
+            style="@style/AppTheme.Dialog.Title"
+            android:background="#f2f2f2"/>
 
         <View
             android:layout_width="match_parent"

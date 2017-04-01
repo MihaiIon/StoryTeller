@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+id/waza"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="vertical" >
 
-<LinearLayout
-    android:layout_width="wrap_content"
+
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_margin="5dp"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <ToggleButton
         android:id="@+id/toggleButton"
         style="@style/AppTheme.ToggleStars"
         android:background="@drawable/mytogglebutton"
-        />
+        android:focusable="false"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -87,7 +83,7 @@ android:orientation="vertical" >
             <TextView
                 android:id="@+id/labelauthor"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text="Author: "
                 android:textColor="@color/darkerGrey"
@@ -97,7 +93,7 @@ android:orientation="vertical" >
             <TextView
                 android:id="@+id/author"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:text=""
                 android:textColor="@color/darkerGrey"
@@ -105,5 +101,4 @@ android:orientation="vertical" >
 
         </RelativeLayout>
     </LinearLayout>
-</LinearLayout>
 </LinearLayout>

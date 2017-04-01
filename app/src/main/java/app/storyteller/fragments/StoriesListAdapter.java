@@ -1,19 +1,13 @@
 package app.storyteller.fragments;
 
 import android.content.Context;
-import android.text.style.SubscriptSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
-
-
-import java.util.ArrayList;
 
 import app.storyteller.R;
 

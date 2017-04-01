@@ -1,53 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
-    android:layout_marginTop="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical">
 
-    <LinearLayout
+    <include layout="@layout/green_header_frame_layout"/>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TITLE YOLO"
-                android:textColor="@color/primary"
-                android:textStyle="bold"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="by: AUTHORS"
-                android:textStyle="italic"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/story_title"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold"
+                    android:text="titre"
+                    android:textSize="17sp"/>
+
+                <TextView
+                    android:id="@+id/story_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="by: AUTHORS"
+                    android:textStyle="italic"/>
+
+            </LinearLayout>
+
+            <ToggleButton
+                android:background="@drawable/mytogglebutton"
+                style="@style/AppTheme.ToggleStars"
+                android:id="@+id/story_fav" />
 
         </LinearLayout>
 
-        <ToggleButton
-            android:background="@drawable/mytogglebutton"
-            style="@style/AppTheme.ToggleStars"/>
-
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp">
-
-        <TextView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="HERE GOES THE STORY " />
-    </ScrollView>
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/story"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="HERE GOES THE STORY "
+                android:textSize="17sp" />
+        </ScrollView>
+    </LinearLayout>
 </LinearLayout>
