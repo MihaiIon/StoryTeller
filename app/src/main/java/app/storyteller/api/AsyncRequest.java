@@ -75,14 +75,13 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
 
             // Set Connection.
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestProperty("Content-Type","application/json;charset=UTF-8");
-            conn.setRequestProperty("User-Agent", "");
+            conn.setRequestProperty("Content-Type","application/json; charset=UTF-8");
             conn.setRequestMethod("POST");
             conn.setDoInput(true);
 
             // Add JSON.
             DataOutputStream wr = new DataOutputStream(conn.getOutputStream ());
-            wr.writeBytes(request.getJSON().toString());
+            wr.write(request.getJSON().toString().getBytes("UTF-8"));
             wr.flush();
             wr.close();
 

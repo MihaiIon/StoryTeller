@@ -81,7 +81,7 @@ public class SignInActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, LoadingActivity.class);
                 intent.putExtra("next_activity", LoadingActivity.ActivityList.MAIN_ACTIVITY);
                 intent.putExtra("account_id", acct.getId());
-                intent.putExtra("account_name", acct.getDisplayName());
+                intent.putExtra("account_name", "ééééééééééé"/*acct.getDisplayName()*/);
                 intent.putExtra("account_image_url", acct.getPhotoUrl().toString());
 
                 // --
