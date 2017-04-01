@@ -8,6 +8,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+
+import app.storyteller.api.Api;
+import app.storyteller.api.ApiRequests;
+import app.storyteller.models.Story;
+import app.storyteller.testing.MihaiTesting;
+
 /**
  * Created by Mihai on 2017-03-25.
  */
@@ -27,12 +34,31 @@ public class StoryChooserActivity extends AppCompatActivity {
      *
      */
     private void initAddStoryBtn(View v){
-        ((ImageButton)v).setOnClickListener(new View.OnClickListener() {
+        v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), StoryCreatorActivity.class));
             }
         });
+    }
+
+
+    //--------------------------------------------------------------------
+    // Methods
+
+    /**
+     *
+     */
+    private void fetchIncompleteStories(){
+        Api.executeRequest(ApiRequests.getIncompleteStories(),this);
+        // -- TODO :  Add loading.
+    }
+
+    /**
+     *
+     */
+    public void refreshStoriesList(ArrayList<Story> list){
+        // -- TODO :  Remove loading and place stories in ListView.
     }
 
 
@@ -43,7 +69,7 @@ public class StoryChooserActivity extends AppCompatActivity {
      * When the Layout of the Back Arrow is pressed, return to MainActivity.
      */
     private void initBackArrow(){
-        ((LinearLayout)findViewById(R.id.story_chooser_back_lyt))
+        findViewById(R.id.story_chooser_back_lyt)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -59,7 +85,6 @@ public class StoryChooserActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         backToMain();
-
     }
 
     /**

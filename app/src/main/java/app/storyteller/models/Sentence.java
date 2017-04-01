@@ -13,11 +13,25 @@ public class Sentence {
     private User author;
     private Timestamp creationDate;
 
+    /**
+     * Default Constructor.
+     */
     public Sentence(int id, User author, String content, Timestamp creationDate) {
         this.id = id;
         this.content = content;
         this.author = author;
         this.creationDate = creationDate;
+    }
+
+    /**
+     * Quick Constructor
+     * -- Used for editing a Story (See AsyncTask).
+     */
+    public Sentence(String content) {
+        this.id = -1;
+        this.content = content;
+        this.author = null;
+        this.creationDate = null;
     }
 
     public int getId() { return  id; }

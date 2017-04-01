@@ -1,5 +1,6 @@
 package app.storyteller.testing;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 
@@ -7,6 +8,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import app.storyteller.MainActivity;
+import app.storyteller.StoryChooserActivity;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.database.DBHandler;
@@ -122,16 +124,40 @@ public class MihaiTesting {
 
     public static void testingApiCreateStory(AppCompatActivity app){
         /*Api.executeRequest(ApiRequests.createStory(
-                new StoryDetails("Mon Titre", "MOn theme", "Mon personnage"),
-                "Il etait une fois, fuck you"), app);*/
-
+                new StoryDetails("My first Story", "Horror", "Gena"),
+                "One the day, I saw myself in the mirror and I was TRIVIAL"), app);
+*/
         /*Api.executeRequest(ApiRequests.updateStory(
-                27,
-                "And caca pouel boom",
+                35, "I did so much proofs that my hand went numb",
+                false), app);
+
+        Api.executeRequest(ApiRequests.updateStory(
+                35, "That's when I decided to buy old cloths and become TRIVIAL",
+                false), app);
+
+        Api.executeRequest(ApiRequests.updateStory(
+                35, "And so my life began",
+                false), app);*/
+
+        /*Api.executeRequest(ApiRequests.createStory(
+                new StoryDetails("My Second Story", "Algos", "Gilles"),
+                "I'm simply Trivial and my name is evident"), app);
+
+        Api.executeRequest(ApiRequests.updateStory(
+                36, "When I was a kid, I got sick from evidence and became a...",
+                false), app);
+
+        Api.executeRequest(ApiRequests.updateStory(
+                36, "That day I was born, trivial?",
+                false), app);
+
+        Api.executeRequest(ApiRequests.updateStory(
+                36, "Pas a ta place?",
                 false), app);*/
 
         //Api.executeRequest(ApiRequests.lockStory(27),app); // Took from the API.
         //Api.executeRequest(ApiRequests.unlockStory(27),app); // Took from the API.
         //Api.executeRequest(ApiRequests.isStoryLocked(27),app); // Took from the API.
+        //Api.executeRequest(ApiRequests.getIncompleteStories(),app);
     }
 }

@@ -1,8 +1,10 @@
 package app.storyteller.api;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,10 +17,15 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import app.storyteller.StoryChooserActivity;
+import app.storyteller.StoryCreatorActivity;
 import app.storyteller.database.DBHandler;
 import app.storyteller.manager.StoryTellerManager;
 import app.storyteller.models.Account;
+import app.storyteller.models.Sentence;
 import app.storyteller.models.Story;
+import app.storyteller.models.StoryDetails;
+import app.storyteller.models.User;
 
 /**
  * Created by Mihai on 2017-03-15.
@@ -38,9 +45,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
     private Request request;
 
     /**
-     * Constructor.
-     *
-     * @param request : Your request for Api.
+     * Constructors
      */
     public AsyncRequest(Request request, AppCompatActivity activity){
         this.request = request;
@@ -104,6 +109,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
 
         switch (request.getAction())
         {
+            //----------------------------------------------------------------------
             /*
              * Profile Related.
              */
@@ -127,9 +133,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                     );
                     System.out.println(acc);
 
-                    /*
-                     * Add/Update Account in local DB.
-                     */
+                    // -- Add/Update Account in local DB.
                     DBHandler.openConnection(activity.getApplicationContext());
                     if (request.getAction().equals(ApiRequests.Actions.CREATE_PROFILE))
                          DBHandler.createAccount(acc);
@@ -137,14 +141,12 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                     StoryTellerManager.setAccount(acc);
                     DBHandler.closeConnection();
 
-                    /*
-                     * Proceed to MainActivity.
-                     */
+                    // -- Proceed to MainActivity.
                     activity.finish();
-
                 } catch(JSONException e){ e.printStackTrace(); }
                 break;
 
+            //----------------------------------------------------------------------
             /*
              * Story related.
              */
@@ -154,18 +156,12 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                 activity.finish();
                 break;
             case ApiRequests.Actions.LOCK_STORY:
-                break;
             case ApiRequests.Actions.UNLOCK_STORY:
                 break;
             case ApiRequests.Actions.IS_STORY_LOCKED:
                 try{
                     JSONObject obj = new JSONObject(response);
-                    int isLocked = obj.getInt("value");
-
-                    /*
-                     * 1: true; 2: false
-                     */
-                    if (isLocked == 1){
+                    if (obj.getInt("value") == 1){ // 1: true; 2: false
 
                     } else {
 
@@ -173,12 +169,60 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
 
                 }catch(JSONException e){ e.printStackTrace(); }
                 break;
+
+
+            //----------------------------------------------------------------------
+            /*
+             * Story related - Fetches
+             */
             case ApiRequests.Actions.GET_COMPLETED_STORIES:
                 break;
             case ApiRequests.Actions.GET_INCOMPLETE_STORIES:
+                System.out.println(
+                    "************************************"
+                    +"\nIncomplete Stories fetched from API.\n"
+                    +"************************************"
+                );
+
+                // -- List that will contain all the Stories from the response.
+                ArrayList<Story> incompleteStories = new ArrayList<>();
+
+                // -- Get stories from response.
+                try{
+                    // -- Get JSON obj.
+                    JSONObject obj  = new JSONObject(response);
+                    JSONArray array = obj.optJSONArray("array");
+
+                    /*
+                     *
+                     */
+                    JSONObject row;
+                    Story st; StoryDetails sd;
+                    ArrayList<Sentence> se;
+                    for (int i=0; i<array.length();i++){
+                        row = array.getJSONObject(i);
+                        sd = new StoryDetails(
+                                row.getString("title"),
+                                row.getString("theme"),
+                                row.getString("main_character"));
+                        se = new ArrayList<>();
+                        se.add(new Sentence(row.getString("content")));
+                        st = new Story(
+                                row.getInt("id"),
+                                sd, new User(row.getInt("creator_id")),
+                                se, null
+                        );
+                        incompleteStories.add(st);
+                        System.out.println(st);
+                    }
+                } catch(JSONException e){ e.printStackTrace(); }
+
+                // -- Refresh StoryChooserActivity.
+                ((StoryChooserActivity)activity)
+                        .refreshStoriesList(incompleteStories);
                 break;
 
-
+            //----------------------------------------------------------------------
             /*
              * DEBUG related.
              */

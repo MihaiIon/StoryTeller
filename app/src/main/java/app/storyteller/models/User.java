@@ -18,7 +18,7 @@ public class User {
     private Timestamp lastConnected;
 
     /**
-     * Constructor.
+     * Default Constructor.
      * -- A User is a person that interacts with the app.
      */
     public User(int id, String google_id, String name, String imageURL, Timestamp lastConnected){
@@ -27,6 +27,18 @@ public class User {
         this.name = name;
         this.imageURL = imageURL;
         this.lastConnected = lastConnected;
+    }
+
+    /**
+     * Quick Constructor.
+     * -- Used for editing a Story (See AsyncTask).
+     */
+    public User(int id){
+        this.id = id;
+        this.google_id = null;
+        this.name = null;
+        this.imageURL = null;
+        this.lastConnected = null;
     }
 
     //------------------------------------------------------------

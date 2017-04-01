@@ -30,12 +30,23 @@ public class StoryEditorActivity extends AppCompatActivity {
     private String title;
     private String characterName;
     private String theme;
+    private String content;
 
     /**
      * This is value is set to TRUE if the current story is a new
      * Story created by the current User.
      */
-    private boolean newStory;
+    private boolean isNewStory;
+
+    /**
+     * The current story ID.
+     */
+    private int story_id;
+
+    /**
+     * By editing this current Story, will it be completed?
+     */
+    private boolean isCompleted;
 
     /**
      * Submits the Story the API.
@@ -75,7 +86,13 @@ public class StoryEditorActivity extends AppCompatActivity {
         theme = getIntent().getStringExtra("theme");
 
         // -- Information on the nature of the Story : NEW or ALREADY STARTED.
-        newStory = getIntent().getBooleanExtra("new_story", false);
+        isNewStory = getIntent().getBooleanExtra("new_story", false);
+
+        if (isNewStory)
+            story_id = getIntent().getIntExtra("story_id", -1);
+
+        // -- By default.
+        isCompleted = false;
     }
 
     /**
@@ -117,15 +134,21 @@ public class StoryEditorActivity extends AppCompatActivity {
     private void initSubmitBtn(){
         submitBtn = (Button)findViewById(R.id.story_editor_submit_btn);
         submitBtn.setEnabled(false);
-
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Api.executeRequest(
+                if (isNewStory){
+                    Api.executeRequest(
                         ApiRequests.createStory(
-                                new StoryDetails(title, characterName, theme), ""),
-                        StoryEditorActivity.this
-                );
+                            new StoryDetails(title, characterName, theme),
+                            content), StoryEditorActivity.this);
+                } else {
+                    Api.executeRequest(
+                        ApiRequests.updateStory(
+                            story_id, content, isCompleted),
+                            StoryEditorActivity.this);
+                }
+
             }
         });
     }
