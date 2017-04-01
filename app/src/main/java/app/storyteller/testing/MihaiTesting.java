@@ -121,8 +121,17 @@ public class MihaiTesting {
     }
 
     public static void testingApiCreateStory(AppCompatActivity app){
-        Api.executeRequest(ApiRequests.createStory(
+        /*Api.executeRequest(ApiRequests.createStory(
                 new StoryDetails("Mon Titre", "MOn theme", "Mon personnage"),
-                "Il etait une fois, fuck you"), app);
+                "Il etait une fois, fuck you"), app);*/
+
+        /*Api.executeRequest(ApiRequests.updateStory(
+                27,
+                "And caca pouel boom",
+                false), app);*/
+
+        //Api.executeRequest(ApiRequests.lockStory(27),app); // Took from the API.
+        //Api.executeRequest(ApiRequests.unlockStory(27),app); // Took from the API.
+        //Api.executeRequest(ApiRequests.isStoryLocked(27),app); // Took from the API.
     }
 }

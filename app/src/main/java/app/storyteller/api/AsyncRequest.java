@@ -153,6 +153,26 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                 // -- Destroy StoryEditorActivity.
                 activity.finish();
                 break;
+            case ApiRequests.Actions.LOCK_STORY:
+                break;
+            case ApiRequests.Actions.UNLOCK_STORY:
+                break;
+            case ApiRequests.Actions.IS_STORY_LOCKED:
+                try{
+                    JSONObject obj = new JSONObject(response);
+                    int isLocked = obj.getInt("value");
+
+                    /*
+                     * 1: true; 2: false
+                     */
+                    if (isLocked == 1){
+
+                    } else {
+
+                    }
+
+                }catch(JSONException e){ e.printStackTrace(); }
+                break;
             case ApiRequests.Actions.GET_COMPLETED_STORIES:
                 break;
             case ApiRequests.Actions.GET_INCOMPLETE_STORIES:

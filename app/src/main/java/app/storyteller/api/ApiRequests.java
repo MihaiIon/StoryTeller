@@ -25,6 +25,11 @@ public class ApiRequests {
 
         final static String CREATE_STORY   = "createstory";
         final static String UPDATE_STORY   = "updatestory";
+
+        final static String LOCK_STORY      = "lockstory";
+        final static String UNLOCK_STORY    = "unlockstory";
+        final static String IS_STORY_LOCKED = "isstorylocked";
+
         final static String GET_COMPLETED_STORIES   = "getcompletedstories";
         final static String GET_INCOMPLETE_STORIES = "getincompletestories";
 
@@ -106,15 +111,52 @@ public class ApiRequests {
     /**
      * Update all the Information of the Profile "p".
      */
-    public static Request updateStory(int story_id, String sentence){
+    public static Request updateStory(int story_id, String sentence, boolean isCompleted){
         JSONObject json = new JSONObject();
         try {
             json.put("key", Api.API_KEY);
             json.put("story_id", story_id);
             json.put("sentence_content", sentence);
             json.put("author_id", StoryTellerManager.getAccount().getId());
+            json.put("is_completed", isCompleted ? 1 : 0);
         } catch (JSONException e) { e.printStackTrace(); }
         return new Request(Actions.UPDATE_STORY, json);
+    }
+
+    /**
+     *
+     */
+    public static Request lockStory(int story_id){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("key", Api.API_KEY);
+            json.put("story_id", story_id);
+        } catch (JSONException e) { e.printStackTrace(); }
+        return new Request(Actions.LOCK_STORY, json);
+    }
+
+    /**
+     *
+     */
+    public static Request unlockStory(int story_id){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("key", Api.API_KEY);
+            json.put("story_id", story_id);
+        } catch (JSONException e) { e.printStackTrace(); }
+        return new Request(Actions.UNLOCK_STORY, json);
+    }
+
+    /**
+     *
+     */
+    public static Request isStoryLocked(int story_id){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("key", Api.API_KEY);
+            json.put("story_id", story_id);
+        } catch (JSONException e) { e.printStackTrace(); }
+        return new Request(Actions.IS_STORY_LOCKED, json);
     }
 
     /**
