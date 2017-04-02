@@ -30,7 +30,8 @@ public class StoriesListAdapter extends BaseAdapter{
         this.titles = titles;
         this.authors = author;
         this.favorites = favorites;
-        inflater = (LayoutInflater) context
+        if(context != null)
+            inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

@@ -1,6 +1,7 @@
 package app.storyteller.fragments;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,11 +23,12 @@ import static app.storyteller.testing.MihaiTesting.testingStory;
  * Created by Mihai on 2017-01-20.
  */
 
-public class MainAllStoriesFragment extends Fragment {
+public class MainAllStoriesFragment extends Fragment implements AdapterView.OnItemClickListener{
     ListView lv;
     String[] titles;
     String[] authors;
     boolean[] favorites;
+
 
     LinearLayout all_stories;
     LinearLayout my_stories;
@@ -47,58 +49,112 @@ public class MainAllStoriesFragment extends Fragment {
         titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
         authors = new String[] {"Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents"};
         favorites = new boolean[titles.length];
-
-        //logique pour get de la DB
-        //getAllStories()
-        //passer un tableau avec les Stories a l'adapter
-        //passer le tableau des favorites de l'utilisateur a l'adapter
-        //gerer l'extract du title + author dans l'adapter
-
-        testingStory(getContext());
-        DBHandler.openConnection(getContext());
-        titles[0] = DBHandler.getStory(126).getDetails().getTitle();
-        authors[0] = DBHandler.getStory(126).getCreator().getName();
-        ArrayList<Integer> arrayList = DBHandler.getFavorites(127);
-        favorites[0] = DBHandler.getStory(126).getId() == arrayList.get(0);
-        DBHandler.closeConnection();
-        //end
-
+        
         View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
         lv = (ListView) view.findViewById(R.id.listview);
 
-
-        /*
-        StoriesListAdapter sladapter = new StoriesListAdapter(this.getActivity(), items);
-        lv.setAdapter(sladapter);*/
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                StoriesListAdapter adapter = new StoriesListAdapter(getActivity(), titles, authors, favorites);
-                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(getContext(),StoryReaderActivity.class);
-                        intent.putExtra("Title",titles[position]);
-                        intent.putExtra("Authors",authors[position]);
-                        intent.putExtra("Story","GET THE STORY AND PUT IT HERE GEE.");
-                        intent.putExtra("Favs",favorites[position]);
-
-                        startActivity(intent);
-
-
-                    }
-                });
-                lv.setAdapter(adapter);
-
-            }
-        }).start();
-
+        Publish p = new Publish();
+        p.execute();
 
         return view;
-
-
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getContext(),StoryReaderActivity.class);
+        intent.putExtra("Title",titles[position]);
+        intent.putExtra("Authors",authors[position]);
+        intent.putExtra("Story","GET THE STORY AND PUT IT HERE GEE.");
+        intent.putExtra("Favs",favorites[position]);
+
+        startActivity(intent);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public class Publish extends AsyncTask{
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+
+
+            //Do DB fetch info et mettre dans un Objet ou des tableaux
+
+
+            //logique pour get de la DB
+            //getAllStories()
+            //passer un tableau avec les Stories a l'adapter
+            //passer le tableau des favorites de l'utilisateur a l'adapter
+            //gerer l'extract du title + author dans l'adapter
+
+            testingStory(getContext());
+            DBHandler.openConnection(getContext());
+            titles[0] = DBHandler.getStory(126).getDetails().getTitle();
+            authors[0] = DBHandler.getStory(126).getCreator().getName();
+            ArrayList<Integer> arrayList = DBHandler.getFavorites(127);
+            favorites[0] = DBHandler.getStory(126).getId() == arrayList.get(0);
+            DBHandler.closeConnection();
+            //end
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            lv.removeAllViewsInLayout();
+            StoriesListAdapter adapter = new StoriesListAdapter(getActivity(), titles, authors, favorites);
+            lv.setOnItemClickListener(MainAllStoriesFragment.this);
+            lv.setAdapter(adapter);
+        }
+
+        @Override
+        protected void onProgressUpdate(Object[] values) {
+            super.onProgressUpdate(values);
+            //Loading screen
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // 0 : AllStorie    1: MyStories   2: FavsStories
     public void navigatorToSelector(int Selector) {
@@ -143,6 +199,8 @@ public class MainAllStoriesFragment extends Fragment {
             public void onClick(View v) {
                 navigatorToSelector(0);
                 //Thread qui remplace le listView
+                Publish p = new Publish();
+                p.execute();
             }
         });
 
@@ -151,7 +209,6 @@ public class MainAllStoriesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 navigatorToSelector(1);
-                lv.removeAllViewsInLayout();
                 //Thread qui remplace le listView
             }
         });
