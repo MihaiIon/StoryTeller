@@ -82,7 +82,7 @@ public class MainAllStoriesFragment extends Fragment {
                         intent.putExtra("Title",titles[position]);
                         intent.putExtra("Authors",authors[position]);
                         intent.putExtra("Story","GET THE STORY AND PUT IT HERE GEE.");
-                        intent.putExtra("Favs",true);
+                        intent.putExtra("Favs",favorites[position]);
 
                         startActivity(intent);
 
