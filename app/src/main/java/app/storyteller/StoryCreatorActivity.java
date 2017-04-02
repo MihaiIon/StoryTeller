@@ -130,7 +130,40 @@ public class StoryCreatorActivity extends AppCompatActivity {
      * the R.id.story_creator_next_btn Button.
      */
     private void validate(){
-        if (title.getText().length() != 0 && character.getText().length() != 0)
+
+        boolean validation = true;
+
+        String titleText = title.getText().toString();
+        String characterText = character.getText().toString();
+
+        //validate for double char that shouldn't be doubled
+        //better way?
+        for (int i = 0; i < titleText.length() - 1; i++) {
+            if(titleText.charAt(i) == ' ' && titleText.charAt(i+1) == ' ')
+                validation = false;
+            if(titleText.charAt(i) == ',' && titleText.charAt(i+1) == ',')
+                validation = false;
+            if(titleText.charAt(i) == ';' && titleText.charAt(i+1) == ';')
+                validation = false;
+            if(titleText.charAt(i) == ':' && titleText.charAt(i+1) == ':')
+                validation = false;
+        }
+        for (int i = 0; i < characterText.length() - 1; i++) {
+            if(characterText.charAt(i) == ' ' && characterText.charAt(i+1) == ' ')
+                validation = false;
+            if(characterText.charAt(i) == ',' && characterText.charAt(i+1) == ',')
+                validation = false;
+            if(characterText.charAt(i) == ';' && characterText.charAt(i+1) == ';')
+                validation = false;
+            if(characterText.charAt(i) == ':' && characterText.charAt(i+1) == ':')
+                validation = false;
+        }
+
+        //validate for length
+        if (title.getText().length() == 0 || character.getText().length() == 0)
+            validation = false;
+
+        if (validation)
         {
             nextBtn.setEnabled(true);
             nextBtn.setBackground(
