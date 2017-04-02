@@ -61,29 +61,29 @@
             <ImageView
                 android:id="@+id/token1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:background="@color/transparent"
                 android:visibility="invisible"
-                app:srcCompat="@drawable/token" />
+                app:srcCompat="@drawable/quill" />
 
             <ImageView
                 android:id="@+id/token2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:background="@color/transparent"
                 android:visibility="invisible"
-                app:srcCompat="@drawable/token" />
+                app:srcCompat="@drawable/quill" />
 
             <ImageView
                 android:id="@+id/token3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:background="@color/transparent"
                 android:visibility="invisible"
-                app:srcCompat="@drawable/token" />
+                app:srcCompat="@drawable/quill" />
 
         </LinearLayout>
     </LinearLayout>
