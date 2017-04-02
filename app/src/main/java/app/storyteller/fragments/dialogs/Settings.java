@@ -1,5 +1,6 @@
 package app.storyteller.fragments.dialogs;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -82,7 +83,8 @@ public class Settings extends DialogFragment {
         initializeTokensBtn(view.findViewById(R.id.settings_addTokens_btn));
         initializeExitBtn(view.findViewById(R.id.settings_exit_btn));
         initializeLogOutBtn(view.findViewById(R.id.setting_log_out_button));
-
+        // Allow closing on outside press
+        getDialog().setCanceledOnTouchOutside(true);
         return view;
     }
 
@@ -97,6 +99,16 @@ public class Settings extends DialogFragment {
         //TODO:
     }
 
+    /**
+     * Close connection in an outside click event
+     * @param dialog
+     */
+    @Override
+    public void onCancel(DialogInterface dialog) {
+        closeConnection();
+        super.onCancel(dialog);
+
+    }
 
 
     //------------------------------------------------------------------------------------------
