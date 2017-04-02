@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -57,11 +58,32 @@
             android:layout_marginTop="@dimen/profile_section_margins_top"
             android:background="@color/primary">
 
-            <Button
-                android:id="@+id/tokens"
-                android:layout_width="60dp"
+            <ImageView
+                android:id="@+id/token1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="tokens"/>
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/token" />
+
+            <ImageView
+                android:id="@+id/token2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/token" />
+
+            <ImageView
+                android:id="@+id/token3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/token" />
 
         </LinearLayout>
     </LinearLayout>
@@ -87,6 +109,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Go to StoryChooser"/>
+
+        <ImageButton
+            android:id="@+id/playButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/play_button" />
 
     </LinearLayout>
 
