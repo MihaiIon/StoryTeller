@@ -61,8 +61,10 @@
         <item name="android:paddingTop">25dp</item>
     </style>
     <style name="AppTheme.SentenceInput">
-        <item name="android:inputType">textCapSentences|textAutoCorrect</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:inputType">textCapSentences|textAutoCorrect|textMultiLine</item>
+        <item name="android:maxLength">100</item>
+        <item name="android:maxLines">5</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:background">@color/white</item>
     </style>
 

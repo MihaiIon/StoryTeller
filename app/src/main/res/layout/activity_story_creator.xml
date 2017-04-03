@@ -31,6 +31,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/story_creator_title_hint"
+                    android:maxLength="18"
                     style="@style/AppTheme.TextInput"
                     />
             </android.support.design.widget.TextInputLayout>
@@ -48,6 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/story_creator_character_hint"
+                    android:maxLength="18"
                     style="@style/AppTheme.TextInput"/>
             </android.support.design.widget.TextInputLayout>
 

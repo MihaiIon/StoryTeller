@@ -5,11 +5,19 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.regex.Pattern;
+
+import app.storyteller.constants.RegexPatterns;
 
 /**
  * Created by Mihai on 2017-03-26.
@@ -63,11 +71,28 @@ public class StoryCreatorActivity extends AppCompatActivity {
      */
     private void initTitleInput(){
         title = (EditText)findViewById(R.id.story_creator_title_input);
-        title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
-                    validate();
+        title.setMaxLines(1);
+        title.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                validate();
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            /**
+             *  Check for illegal character. TODO.
+             */
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()!=0){
+                    char c = s.charAt(s.length()-1);
+                    if (!validateChar(c)){
+                        Toast.makeText(getApplicationContext(),
+                                "\""+c+"\" : " + "is an invalid character.",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -77,12 +102,27 @@ public class StoryCreatorActivity extends AppCompatActivity {
      *
      */
     private void initCharacterInput(){
-        character = (EditText)findViewById(R.id.story_creator_title_input);
-        character.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus){
-                    validate();
+        character = (EditText)findViewById(R.id.story_creator_character_input);
+        title.setMaxLines(1);
+        character.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                validate();
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            /**
+             *  Check for illegal character. TODO.
+             */
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length()!=0){
+                    char c = s.charAt(s.length()-1);
+                    if (!validateChar(c)){
+                        Toast.makeText(getApplicationContext(),
+                                "\""+c+"\" : " + "is an invalid character.",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -104,7 +144,6 @@ public class StoryCreatorActivity extends AppCompatActivity {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 /**
                  * Start new Activity and send infos.
                  */
@@ -131,52 +170,48 @@ public class StoryCreatorActivity extends AppCompatActivity {
      */
     private void validate(){
 
-        boolean validation = true;
+        // -- Get inputs and remove extra spaces.
+        String titleText = title.getText().toString().trim().replaceAll("\\s+"," ");
+        String characterText = character.getText().toString().trim().replaceAll("\\s+"," ");
 
-        String titleText = title.getText().toString();
-        String characterText = character.getText().toString();
+        // -- Regex pattern validating the inputs.
+        Pattern p = Pattern.compile(RegexPatterns.BASIC_INPUT_VALIDATION);
 
-        //validate for double char that shouldn't be doubled
-        //better way?
-        for (int i = 0; i < titleText.length() - 1; i++) {
-            if(titleText.charAt(i) == ' ' && titleText.charAt(i+1) == ' ')
-                validation = false;
-            if(titleText.charAt(i) == ',' && titleText.charAt(i+1) == ',')
-                validation = false;
-            if(titleText.charAt(i) == ';' && titleText.charAt(i+1) == ';')
-                validation = false;
-            if(titleText.charAt(i) == ':' && titleText.charAt(i+1) == ':')
-                validation = false;
-        }
-        for (int i = 0; i < characterText.length() - 1; i++) {
-            if(characterText.charAt(i) == ' ' && characterText.charAt(i+1) == ' ')
-                validation = false;
-            if(characterText.charAt(i) == ',' && characterText.charAt(i+1) == ',')
-                validation = false;
-            if(characterText.charAt(i) == ';' && characterText.charAt(i+1) == ';')
-                validation = false;
-            if(characterText.charAt(i) == ':' && characterText.charAt(i+1) == ':')
-                validation = false;
-        }
+        /// -- If all fields are well filled, enable the nextBtn.
+        if (p.matcher(titleText).matches() && p.matcher(characterText).matches())
+            enableNextBtn();
 
-        //validate for length
-        if (title.getText().length() == 0 || character.getText().length() == 0)
-            validation = false;
+        // -- Else, disable the button.
+        else disableNextBtn();
+    }
 
-        if (validation)
-        {
-            nextBtn.setEnabled(true);
-            nextBtn.setBackground(
-                    ContextCompat.getDrawable(
-                            getApplicationContext(),
-                            R.drawable.green_button)
-            );
-            nextBtn.setTextColor(
-                    ContextCompat.getColor(
-                            getApplicationContext(),
-                            R.color.white
-                    )
-            );
-        }
+    private boolean validateChar(char c){
+        return Pattern.compile(RegexPatterns
+                .CHARACTER_VALIDATION).matcher(""+c).matches();
+    }
+
+
+    /**
+     * Enabling the nextBtn will allow the user to proceed
+     * and write the story first sentence.
+     */
+    private void enableNextBtn(){
+        nextBtn.setEnabled(true);
+        nextBtn.setBackground(ContextCompat.getDrawable(
+                getApplicationContext(), R.color.primary));
+
+        nextBtn.setTextColor(ContextCompat.getColor(
+                getApplicationContext(), R.color.white));
+    }
+
+    /**
+     * See enableNextBtn().
+     */
+    private void disableNextBtn(){
+        nextBtn.setEnabled(false);
+        nextBtn.setBackground(ContextCompat.getDrawable(
+                getApplicationContext(), R.color.grey));
+        nextBtn.setTextColor(ContextCompat.getColor(
+                getApplicationContext(), R.color.darkGrey));
     }
 }

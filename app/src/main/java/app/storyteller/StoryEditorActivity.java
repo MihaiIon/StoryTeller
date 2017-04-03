@@ -21,8 +21,9 @@ public class StoryEditorActivity extends AppCompatActivity {
     /**
      * The words limits for each sentences.
      */
-    private final int MAX_WORDS_ALLOWED = 25;
-    private final int MIN_WORDS_ALLOWED = 15;
+    private final int MAX_WORDS_ALLOWED = 20;
+    private final int MIN_WORDS_ALLOWED = 8;
+    private final int MAX_CHRACTERS_ALLOWED = 100;
 
     /**
      * Information related to the Current Story.
