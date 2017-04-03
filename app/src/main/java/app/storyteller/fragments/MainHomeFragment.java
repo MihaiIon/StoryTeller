@@ -1,7 +1,6 @@
 package app.storyteller.fragments;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,8 +10,8 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import app.storyteller.R;
 import app.storyteller.StoryChooserActivity;
@@ -97,7 +96,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
     private void refreshTokenUI(int nbTokens, View token1, View token2, View token3,boolean setVisible)
     {
         final int TOTAL_HP = 3;
-        ImageView img;
+        ToggleButton tb;
         int amountToRemove = TOTAL_HP - nbTokens;
 
         if(!setVisible) {
@@ -106,16 +105,16 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
                 switch (i)
                 {
                     case  0:
-                        img = (ImageView) token1;
-                        img.setVisibility(View.INVISIBLE);
+                        tb = (ToggleButton) token1;
+                        tb.setChecked(false);
                         break;
                     case 1:
-                        img  = (ImageView) token2;
-                        img.setVisibility(View.INVISIBLE);
+                        tb  = (ToggleButton) token2;
+                        tb.setChecked(false);
                         break;
                     case 2:
-                        img  = (ImageView) token3;
-                        img.setVisibility(View.INVISIBLE);
+                        tb  = (ToggleButton) token3;
+                        tb.setChecked(false);
                         break;
                 }
             }
@@ -128,16 +127,16 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
                 switch (i)
                 {
                     case 0:
-                        img = (ImageView) token1;
-                        img.setVisibility(View.VISIBLE);
+                        tb  = (ToggleButton) token1;
+                        tb.setChecked(true);
                         break;
                     case 1:
-                        img = (ImageView) token2;
-                        img.setVisibility(View.VISIBLE);
+                        tb  = (ToggleButton) token2;
+                        tb.setChecked(true);
                         break;
                     case 2:
-                        img = (ImageView) token3;
-                        img.setVisibility(View.VISIBLE);
+                        tb  = (ToggleButton) token3;
+                        tb.setChecked(true);
                         break;
                 }
             }

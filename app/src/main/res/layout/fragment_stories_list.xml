@@ -13,7 +13,7 @@
         android:id="@+id/toggleButton"
         style="@style/AppTheme.ToggleStars"
         android:background="@drawable/mytogglebutton"
-        android:focusable="false"/>
+        android:focusable="false" />
 
     <LinearLayout
         android:layout_width="match_parent"

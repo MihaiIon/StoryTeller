@@ -5,15 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.models.Story;
-import app.storyteller.testing.MihaiTesting;
 
 /**
  * Created by Mihai on 2017-03-25.
@@ -27,6 +24,9 @@ public class StoryChooserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_story_chooser);
         initAddStoryBtn(findViewById(R.id.story_chooser_add_btn));
         initBackArrow();
+
+        Api.executeRequest(ApiRequests.getIncompleteStories(),this);
+
     }
 
 
@@ -38,6 +38,10 @@ public class StoryChooserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), StoryCreatorActivity.class));
+
+                //MATT TON CODE VAS ICI POUR ENLEVER LES PLUMES
+
+
             }
         });
     }

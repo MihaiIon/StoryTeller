@@ -1,5 +1,6 @@
 package app.storyteller.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.storyteller.R;
+import app.storyteller.api.Api;
+import app.storyteller.api.ApiRequests;
 import app.storyteller.database.DBHandler;
 
 import static app.storyteller.testing.MihaiTesting.testingStory;
@@ -49,12 +52,13 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
         authors = new String[] {"Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents"};
         favorites = new boolean[titles.length];
-        
         View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
         lv = (ListView) view.findViewById(R.id.listview);
 
         Publish p = new Publish();
         p.execute();
+
+
 
         return view;
     }
@@ -66,6 +70,8 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         intent.putExtra("Authors",authors[position]);
         intent.putExtra("Story","GET THE STORY AND PUT IT HERE GEE.");
         intent.putExtra("Favs",favorites[position]);
+
+
 
         startActivity(intent);
     }
@@ -89,7 +95,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
 
 
     public class Publish extends AsyncTask{
-
+        ProgressDialog dialog = new ProgressDialog(getContext());
         @Override
         protected Object doInBackground(Object[] params) {
 
@@ -123,17 +129,24 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             StoriesListAdapter adapter = new StoriesListAdapter(getActivity(), titles, authors, favorites);
             lv.setOnItemClickListener(MainAllStoriesFragment.this);
             lv.setAdapter(adapter);
+            dialog.hide();
         }
 
         @Override
         protected void onProgressUpdate(Object[] values) {
             super.onProgressUpdate(values);
             //Loading screen
+
+            dialog.setMessage("Loading");
+            dialog.setCancelable(false);
+            dialog.setInverseBackgroundForced(false);
+            dialog.show();
+
         }
 
         @Override
         protected void onCancelled() {
-            super.onCancelled();
+
         }
     }
 

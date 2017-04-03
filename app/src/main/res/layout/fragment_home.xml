@@ -58,32 +58,35 @@
             android:layout_marginTop="@dimen/profile_section_margins_top"
             android:background="@color/primary">
 
-            <ImageView
+            <ToggleButton
                 android:id="@+id/token1"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="@color/transparent"
-                android:visibility="invisible"
-                app:srcCompat="@drawable/quill" />
+                android:background="@drawable/toggle_tokens"
+                android:textOn=""
+                android:textOff=""
+                android:clickable="false"/>
 
-            <ImageView
+            <ToggleButton
                 android:id="@+id/token2"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="@color/transparent"
-                android:visibility="invisible"
-                app:srcCompat="@drawable/quill" />
+                android:textOn=""
+                android:textOff=""
+                android:background="@drawable/toggle_tokens"
+                android:clickable="false"/>
 
-            <ImageView
+            <ToggleButton
                 android:id="@+id/token3"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="@color/transparent"
-                android:visibility="invisible"
-                app:srcCompat="@drawable/quill" />
+                android:textOn=""
+                android:textOff=""
+                android:background="@drawable/toggle_tokens"
+                android:clickable="false"/>
 
         </LinearLayout>
     </LinearLayout>

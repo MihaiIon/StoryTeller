@@ -2,7 +2,6 @@ package app.storyteller.api;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,7 +17,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import app.storyteller.StoryChooserActivity;
-import app.storyteller.StoryCreatorActivity;
 import app.storyteller.database.DBHandler;
 import app.storyteller.manager.StoryTellerManager;
 import app.storyteller.models.Account;
@@ -37,7 +35,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
     /**
      * Current activity that ordered a AsyncRequest.
      */
-    private AppCompatActivity activity;
+    private Activity activity;
 
     /**
      * The resquest sent to the API.
@@ -47,7 +45,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
     /**
      * Constructors
      */
-    public AsyncRequest(Request request, AppCompatActivity activity){
+    public AsyncRequest(Request request, Activity activity){
         this.request = request;
         this.activity = activity;
         execute();
