@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -191,6 +192,8 @@ public class StoryEditorActivity extends AppCompatActivity {
                             StoryEditorActivity.this);
                 }
 
+                // --
+                lockActivity();
             }
         });
     }
@@ -202,6 +205,15 @@ public class StoryEditorActivity extends AppCompatActivity {
     private void initLoadingScreen(){
         loadingScreen = (LinearLayout)findViewById(R.id.full_loading_screen);
         loadingScreen.setVisibility(View.GONE);
+    }
+
+    /**
+     * Removes all users interaction with the current activity.
+     */
+    private void lockActivity(){
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
     }
 
 

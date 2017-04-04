@@ -3,8 +3,12 @@ package app.storyteller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -23,6 +27,11 @@ public class StoryChooserActivity extends AppCompatActivity {
     /**
      *
      */
+    private boolean isActivityLocked;
+
+    /**
+     * Contains all the incomplete Stories.
+     */
     private ListView listView;
 
     /**
@@ -38,7 +47,7 @@ public class StoryChooserActivity extends AppCompatActivity {
         initBackArrow();
         initLoadingScreen();
 
-        /* TEST - ZONE - TEST - ZONE - TEST - ZONE */
+        // -- On create, fetch all incomplete stories and display them.
         fetchIncompleteStories();
     }
 
@@ -70,6 +79,7 @@ public class StoryChooserActivity extends AppCompatActivity {
     private void fetchIncompleteStories(){
         Api.executeRequest(ApiRequests.getIncompleteStories(),this);
         showLoadingScreen();
+        setLockActivity(true);
     }
 
     /**
@@ -77,6 +87,8 @@ public class StoryChooserActivity extends AppCompatActivity {
      */
     public void refreshStoriesList(ArrayList<Story> list){
         hideLoadingScreen();
+        setLockActivity(false);
+        System.out.println("************"+isActivityLocked);
         // -- TODO :  Remove loading and place stories in ListView.
     }
 
@@ -87,6 +99,8 @@ public class StoryChooserActivity extends AppCompatActivity {
 
     private void initLoadingScreen(){
         loadingScreen = (LinearLayout)findViewById(R.id.full_loading_screen);
+        loadingScreen.setBackground(ContextCompat
+                .getDrawable(getApplicationContext(), R.color.semiTransparent));
         hideLoadingScreen();
     }
 
@@ -96,6 +110,32 @@ public class StoryChooserActivity extends AppCompatActivity {
 
     private void showLoadingScreen(){
         loadingScreen.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * If TRUE, removes all users interaction with the current activity. Setting
+     * it to FALSE will reactivate all the listeners.
+     * @param value
+     */
+    private void setLockActivity(boolean value){
+        if (value == true){
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        isActivityLocked = value;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if(isActivityLocked){
+            return super.onTouchEvent(event);
+        }
+        return false;
     }
 
 
