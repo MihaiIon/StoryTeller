@@ -23,6 +23,9 @@
     <item name="profile_section_weight" format="float" type="dimen">.25</item>
     <item name="action_zone_section_weight" format="float" type="dimen">.55</item>
     <item name="slides_indicatior_section_weight" format="float" type="dimen">.15</item>
+    <dimen name="play_btn_size">200dp</dimen>
+    <item name="play_btn_frame_duration" format="integer" type="dimen">50</item>
+    <item name="play_btn_last_frame_duration" format="integer" type="dimen">50</item>
 
     <!--  Home : Profile  -->
     <item name="profile_settings_weight" format="float" type="dimen">.20</item>

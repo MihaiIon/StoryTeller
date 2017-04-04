@@ -1,6 +1,7 @@
 package app.storyteller.fragments;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -24,28 +26,31 @@ import app.storyteller.manager.StoryTellerManager;
  */
 public class MainHomeFragment extends Fragment /*implements View.OnClickListener*/ {
 
+    /**
+     * Settings button.
+     */
     private ImageButton settings;
+
+    /**
+     *
+     */
+    private ImageView playBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup home = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
 
+        initPlayBtn(home.findViewById(R.id.playBtn));
         initializeSettings(home.findViewById(R.id.settings_btn));
         initializeWebView(home.findViewById(R.id.webview_logo));
-        initializePlayWebView(home.findViewById(R.id.webview_play));
         initializeTokens(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
-        initializePlayButtonTEST_MATT(home.findViewById(R.id.playButton),home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
+        initializePlayButtonTEST_MATT(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
         initializeTokensTEST_MIHAI(home.findViewById(R.id.testing_story_chooser_btn));
-
-
-
-
 
         return home;
     }
-    private void initializePlayButtonTEST_MATT(View view,final View tok1,final  View tok2,final View tok3) {
-        ImageButton img = (ImageButton) view;
-        img.setOnClickListener(new View.OnClickListener() {
+    private void initializePlayButtonTEST_MATT(final View tok1,final  View tok2,final View tok3) {
+        playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int currentTok = StoryTellerManager.getAccount().getTokens();
@@ -63,11 +68,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
             }
         });
     }
-    private void initializePlayWebView(View view)
-    {
-        WebView webview = (WebView) view;
-        webview.loadData("","text/html",null);
-    }
+
     private void initializeWebView(View view)
     {
         WebView webview = (WebView) view;
@@ -184,4 +185,15 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
                 startActivity(intent);
                 break;
     }}*/
+
+
+
+    //-----------------------------------------------------------------------------------
+    // Mihai's code
+
+    private void initPlayBtn(View v){
+        playBtn = (ImageView) v;
+        playBtn.setBackgroundResource(R.drawable.play_btn_animation);
+        ((AnimationDrawable) playBtn.getBackground()).start();
+    }
 }

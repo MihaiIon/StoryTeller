@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/play_btn0" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn1" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn2" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn3" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn4" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn5" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn6" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn7" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn8" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn9" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn10" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn11" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn12" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn13" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn14" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn15" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn16" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn17" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn18" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn19" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn20" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn21" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn22" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn23" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn24" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn25" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn26" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn27" android:duration="@dimen/play_btn_frame_duration" />
+    <item android:drawable="@drawable/play_btn28" android:duration="@dimen/play_btn_frame_duration" />
+</animation-list>

@@ -99,13 +99,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="@dimen/action_zone_section_weight"
-        android:background="@color/white">
-
-
-        <WebView
-            android:id="@+id/webview_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_gravity="center"
+        android:gravity="center">
 
         <Button
             android:id="@+id/testing_story_chooser_btn"
@@ -114,10 +109,9 @@
             android:text="Go to StoryChooser"/>
 
         <ImageButton
-            android:id="@+id/playButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_story_teller_launcher" />
+            android:id="@+id/playBtn"
+            android:layout_width="@dimen/play_btn_size"
+            android:layout_height="@dimen/play_btn_size" />
 
     </LinearLayout>
 
