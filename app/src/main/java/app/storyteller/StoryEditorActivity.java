@@ -3,14 +3,21 @@ package app.storyteller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.regex.Pattern;
 
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
+import app.storyteller.constants.RegexPatterns;
 import app.storyteller.models.StoryDetails;
 
 /**
@@ -62,6 +69,11 @@ public class StoryEditorActivity extends AppCompatActivity {
 
     /**
      *
+     */
+    private LinearLayout loadingScreen;
+
+    /**
+     *
      * @param savedInstanceState
      */
     @Override
@@ -77,6 +89,7 @@ public class StoryEditorActivity extends AppCompatActivity {
         initThemeInfo();
         initSentenceInput();
         initSubmitBtn();
+        initLoadingScreen();
     }
 
 
@@ -133,7 +146,22 @@ public class StoryEditorActivity extends AppCompatActivity {
      */
     private void initSentenceInput(){
         sentenceInput = (EditText)findViewById(R.id.story_editor_sentence_input);
+        sentenceInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                validate();
+            }
+        });
     }
 
     /**
@@ -145,6 +173,11 @@ public class StoryEditorActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                // -- Enable Loading.
+                findViewById(R.id.full_loading_screen).setVisibility(View.VISIBLE);
+
+                // -- Launch API request.
                 if (isNewStory){
                     Api.executeRequest(
                         ApiRequests.createStory(
@@ -164,12 +197,58 @@ public class StoryEditorActivity extends AppCompatActivity {
 
 
     //-------------------------------------------------------------------
+    // Loading Screen methods.
+
+    private void initLoadingScreen(){
+        loadingScreen = (LinearLayout)findViewById(R.id.full_loading_screen);
+        loadingScreen.setVisibility(View.GONE);
+    }
+
+
+
+    //-------------------------------------------------------------------
     // Validation
 
     /**
      *
      */
     private void validate(){
+        // -- Get inputs and remove extra spaces.
+        String sentence = sentenceInput.getText().toString().trim().replaceAll("\\s+"," ");
 
+        // -- Regex pattern validating the inputs.
+        Pattern p = Pattern.compile(RegexPatterns.BASIC_INPUT_VALIDATION);
+
+        /// -- If all fields are well filled, enable the nextBtn.
+        if (p.matcher(sentence).matches())
+            enableSubmitBtn();
+
+            // -- Else, disable the button.
+        else disableSubmitBtn();
+    }
+
+    /**
+     * Enabling the submitBtn will allow the user to create/update the
+     * story on the API.
+     */
+    private void enableSubmitBtn(){
+        submitBtn.setEnabled(true);
+        submitBtn.setBackground(ContextCompat.getDrawable(
+                getApplicationContext(), R.color.primary));
+
+        submitBtn.setTextColor(ContextCompat.getColor(
+                getApplicationContext(), R.color.white));
+    }
+
+    /**
+     * See enableSubmitBtn().
+     */
+    private void disableSubmitBtn(){
+        submitBtn.setEnabled(false);
+        submitBtn.setBackground(ContextCompat.getDrawable(
+                getApplicationContext(), R.color.grey));
+
+        submitBtn.setTextColor(ContextCompat.getColor(
+                getApplicationContext(), R.color.darkGrey));
     }
 }

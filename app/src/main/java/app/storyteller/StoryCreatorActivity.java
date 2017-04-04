@@ -157,7 +157,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
                 finish();
             }
         });
-        nextBtn.setEnabled(false);
+        disableNextBtn();
     }
 
 

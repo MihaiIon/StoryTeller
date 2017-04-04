@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -18,15 +20,26 @@ import app.storyteller.models.Story;
 
 public class StoryChooserActivity extends AppCompatActivity {
 
+    /**
+     *
+     */
+    private ListView listView;
+
+    /**
+     *
+     */
+    private LinearLayout loadingScreen;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_chooser);
         initAddStoryBtn(findViewById(R.id.story_chooser_add_btn));
         initBackArrow();
+        initLoadingScreen();
 
-        Api.executeRequest(ApiRequests.getIncompleteStories(),this);
-
+        /* TEST - ZONE - TEST - ZONE - TEST - ZONE */
+        fetchIncompleteStories();
     }
 
 
@@ -47,6 +60,7 @@ public class StoryChooserActivity extends AppCompatActivity {
     }
 
 
+
     //--------------------------------------------------------------------
     // Methods
 
@@ -55,15 +69,35 @@ public class StoryChooserActivity extends AppCompatActivity {
      */
     private void fetchIncompleteStories(){
         Api.executeRequest(ApiRequests.getIncompleteStories(),this);
-        // -- TODO :  Add loading.
+        showLoadingScreen();
     }
 
     /**
      *
      */
     public void refreshStoriesList(ArrayList<Story> list){
+        hideLoadingScreen();
         // -- TODO :  Remove loading and place stories in ListView.
     }
+
+
+
+    //-------------------------------------------------------------------
+    // Loading Screen methods.
+
+    private void initLoadingScreen(){
+        loadingScreen = (LinearLayout)findViewById(R.id.full_loading_screen);
+        hideLoadingScreen();
+    }
+
+    private void hideLoadingScreen(){
+        loadingScreen.setVisibility(View.GONE);
+    }
+
+    private void showLoadingScreen(){
+        loadingScreen.setVisibility(View.VISIBLE);
+    }
+
 
 
     //--------------------------------------------------------------------

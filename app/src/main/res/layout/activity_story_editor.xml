@@ -1,61 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     style="@style/AppTheme.Activity">
 
-    <!-- Header -->
-    <include layout="@layout/white_header_frame_layout"/>
-
-    <!-- Content -->
-    <RelativeLayout
+    <!-- Main Layout -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/AppTheme.Form">
+        android:gravity="center_horizontal">
 
-        <!-- Sentence Input Container -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            style="@style/AppTheme.SentenceInputContainer">
+        <!-- Header -->
+        <include layout="@layout/white_header_frame_layout"/>
 
-            <!-- Sentence Input -->
-            <EditText
-                android:id="@+id/story_editor_sentence_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/AppTheme.SentenceInput"/>
+        <!-- Content -->
+        <RelativeLayout
+            android:layout_height="match_parent"
+            style="@style/AppTheme.Form">
 
-            <!-- Infos -->
+            <!-- Sentence Input Container -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/AppTheme.SentenceInfoContainer">
+                android:orientation="vertical"
+                style="@style/AppTheme.SentenceInputContainer">
 
-                <!-- Theme -->
-                <TextView
-                    android:id="@+id/story_editor_theme_info"
-                    android:layout_width="wrap_content"
+                <!-- Sentence Input -->
+                <EditText
+                    android:id="@+id/story_editor_sentence_input"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"/>
+                    style="@style/AppTheme.SentenceInput"/>
 
-                <!-- Number of Words remaining -->
-                <TextView
-                    android:id="@+id/story_editor_word_counter_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <!-- Infos -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AppTheme.SentenceInfoContainer">
+
+                    <!-- Theme -->
+                    <TextView
+                        android:id="@+id/story_editor_theme_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"/>
+
+                    <!-- Number of Words remaining -->
+                    <TextView
+                        android:id="@+id/story_editor_word_counter_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-        <!-- Next -->
-        <Button
-            android:id="@+id/story_editor_submit_btn"
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/story_creator_next_btn"
-            style="@style/AppTheme.Button"/>
-    </RelativeLayout>
-</LinearLayout>
+            <!-- Next -->
+            <Button
+                android:id="@+id/story_editor_submit_btn"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/story_editor_submit_btn"
+                style="@style/AppTheme.Button"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Loading Layout-->
+    <include layout="@layout/full_semi_transparent_loading_screen"/>
+
+</RelativeLayout>

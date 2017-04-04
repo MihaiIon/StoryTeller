@@ -145,4 +145,19 @@
         <item name="android:textOff"></item>
         <item name="android:textOn"></item>
     </style>
+
+    <!--
+      ~~ Dialog
+      -->
+    <style name="AppTheme.LoadingScreen">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="AppTheme.LoadingScreen.Opaque">
+        <item name="android:background">@color/white</item>
+    </style>
+    <style name="AppTheme.LoadingScreen.SemiTransparent">
+        <item name="android:background">@color/semiTransparent</item>
+    </style>
 </resources>
