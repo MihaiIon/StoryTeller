@@ -117,7 +117,7 @@
             android:id="@+id/playButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/play_button" />
+            app:srcCompat="@drawable/ic_story_teller_launcher" />
 
     </LinearLayout>
 
