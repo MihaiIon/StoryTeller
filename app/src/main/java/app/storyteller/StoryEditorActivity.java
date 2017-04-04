@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import app.storyteller.api.Api;
@@ -50,6 +51,11 @@ public class StoryEditorActivity extends AppCompatActivity {
     private boolean isCompleted;
 
     /**
+     * The content of the sentence is written here.
+     */
+    private EditText sentenceInput;
+
+    /**
      * Submits the Story the API.
      */
     private Button submitBtn;
@@ -64,7 +70,7 @@ public class StoryEditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_story_editor);
 
         // -- Get info related to story.
-        getInfo();
+        getInfoFromExtras();
 
         // -- Initialise...
         initHeader();
@@ -80,7 +86,7 @@ public class StoryEditorActivity extends AppCompatActivity {
     /**
      *
      */
-    private void getInfo(){
+    private void getInfoFromExtras(){
         // -- Info related to Story.
         title = getIntent().getStringExtra("title");
         characterName = getIntent().getStringExtra("character_name");
@@ -92,7 +98,7 @@ public class StoryEditorActivity extends AppCompatActivity {
         if (isNewStory)
             story_id = getIntent().getIntExtra("story_id", -1);
 
-        // -- By default.
+        // -- By default. TODO.
         isCompleted = false;
     }
 
@@ -123,9 +129,10 @@ public class StoryEditorActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * TODO.
      */
     private void initSentenceInput(){
+        sentenceInput = (EditText)findViewById(R.id.story_editor_sentence_input);
 
     }
 
@@ -134,15 +141,16 @@ public class StoryEditorActivity extends AppCompatActivity {
      */
     private void initSubmitBtn(){
         submitBtn = (Button)findViewById(R.id.story_editor_submit_btn);
-        submitBtn.setEnabled(false);
+        submitBtn.setEnabled(true);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isNewStory){
                     Api.executeRequest(
                         ApiRequests.createStory(
-                            new StoryDetails(title, characterName, theme),
-                            content), StoryEditorActivity.this);
+                            new StoryDetails(title, theme, characterName),
+                            sentenceInput.getText().toString()),
+                            StoryEditorActivity.this);
                 } else {
                     Api.executeRequest(
                         ApiRequests.updateStory(
