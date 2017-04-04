@@ -23,13 +23,12 @@ public class StoryChooserAdapter extends BaseAdapter {
         this.titles = titles;
         this.previews = previews;
         if(context != null)
-            inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return titles.length;
     }
 
     @Override
@@ -49,7 +48,7 @@ public class StoryChooserAdapter extends BaseAdapter {
 
         v = inflater.inflate(R.layout.story_chooser_list_item,parent,false);
 
-        /*//Va chercher text et modifie
+        //Va chercher text et modifie
         //Plus tard modifier pour ce qui a été prit dans BD
         TextView titretv = (TextView) v.findViewById(R.id.chooser_title);
         titretv.setText(this.titles[position]);
@@ -57,7 +56,7 @@ public class StoryChooserAdapter extends BaseAdapter {
         //Va chercher text et modifie
         //Plus tard modifier pour ce qui a été prit dans BD
         TextView previewtv = (TextView) v.findViewById(R.id.chooser_preview);
-        previewtv.setText(this.previews[position]);*/
+        previewtv.setText(this.previews[position]);
 
         return v;
     }

@@ -40,15 +40,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ListView
+                android:id="@+id/story_chooser_story_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/story_chooser_add_btn">
+
+            </ListView>
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <ListView
-                    android:id="@+id/story_chooser_story_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
 
-                </ListView>
             </ScrollView>
 
             <ImageButton
@@ -61,6 +64,7 @@
                 android:layout_marginBottom="30dp"
                 android:background="@drawable/story_chooser_add_btn"/>
         </RelativeLayout>
+
     </LinearLayout>
 
     <!-- Loading Layout-->

@@ -22,23 +22,25 @@
 
         <!-- Title -->
         <TextView
+            android:id="@+id/chooser_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textSize="20sp"
             android:fontFamily="sans-serif"
-            android:textStyle="bold"
+            android:text="My story Title"
             android:textColor="@color/primary"
-            android:text="My story Title"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <!-- Preview -->
         <TextView
+            android:id="@+id/chooser_preview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            android:textSize="14sp"
             android:fontFamily="sans-serif"
+            android:text="My story Preview"
             android:textColor="@color/dark"
-            android:text="My story Preview"/>
+            android:textSize="14sp" />
     </LinearLayout>
 </RelativeLayout>

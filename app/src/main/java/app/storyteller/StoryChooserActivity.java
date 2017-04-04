@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -24,6 +25,9 @@ import app.storyteller.models.Story;
 
 public class StoryChooserActivity extends AppCompatActivity {
 
+    private ListView lstview;
+    private String[] titles;
+    private String[] previews;
     /**
      *
      */
@@ -46,9 +50,9 @@ public class StoryChooserActivity extends AppCompatActivity {
         initAddStoryBtn(findViewById(R.id.story_chooser_add_btn));
         initBackArrow();
         initLoadingScreen();
-
         // -- On create, fetch all incomplete stories and display them.
         fetchIncompleteStories();
+
     }
 
 
@@ -80,6 +84,13 @@ public class StoryChooserActivity extends AppCompatActivity {
         Api.executeRequest(ApiRequests.getIncompleteStories(),this);
         showLoadingScreen();
         setLockActivity(true);
+
+        lstview = (ListView) findViewById(R.id.story_chooser_story_list);
+        titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
+        previews = new String[] {"gusgus","gfsysifsuegs","guashuirduiuisf","gu7ydr79agdh","guhhfsfshusfijfsje","ufhhiusfhuesfuheisf"};
+        StoryChooserAdapter adapter = new StoryChooserAdapter(this,titles,previews);
+        lstview.setAdapter(adapter);
+
     }
 
     /**
