@@ -128,7 +128,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
                 switch (i)
                 {
                     case 0:
-                        tb  = (ToggleButton) token1;
+                        tb  = (ToggleButton) token3;
                         tb.setChecked(true);
                         break;
                     case 1:
@@ -136,7 +136,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
                         tb.setChecked(true);
                         break;
                     case 2:
-                        tb  = (ToggleButton) token3;
+                        tb  = (ToggleButton) token1;
                         tb.setChecked(true);
                         break;
                 }

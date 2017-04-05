@@ -16,8 +16,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.storyteller.R;
-import app.storyteller.api.Api;
-import app.storyteller.api.ApiRequests;
 import app.storyteller.database.DBHandler;
 
 import static app.storyteller.testing.MihaiTesting.testingStory;
@@ -49,12 +47,13 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //init les tableaux avec le size de getAllStories (version bs)
-        titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
-        authors = new String[] {"Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents"};
+        titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
+        authors = new String[] {"Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents"};
         favorites = new boolean[titles.length];
         View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
         lv = (ListView) view.findViewById(R.id.listview);
-
+        TextView header_title = (TextView)view.findViewById(R.id.app_header_title);
+        header_title.setText("Stories");
         Publish p = new Publish();
         p.execute();
 
