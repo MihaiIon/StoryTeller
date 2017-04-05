@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
+import app.storyteller.database.DBHandler;
 import app.storyteller.models.Story;
 
 /**
@@ -28,6 +29,7 @@ public class StoryChooserActivity extends AppCompatActivity {
     private ListView lstview;
     private String[] titles;
     private String[] previews;
+    private String[] themes;
     /**
      *
      */
@@ -85,12 +87,6 @@ public class StoryChooserActivity extends AppCompatActivity {
         showLoadingScreen();
         setLockActivity(true);
 
-        lstview = (ListView) findViewById(R.id.story_chooser_story_list);
-        titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
-        previews = new String[] {"gusgus","gfsysifsuegs","guashuirduiuisf","gu7ydr79agdh","guhhfsfshusfijfsje","ufhhiusfhuesfuheisf"};
-        StoryChooserAdapter adapter = new StoryChooserAdapter(this,titles,previews);
-        lstview.setAdapter(adapter);
-
     }
 
     /**
@@ -101,6 +97,20 @@ public class StoryChooserActivity extends AppCompatActivity {
         setLockActivity(false);
         System.out.println("************"+isActivityLocked);
         // -- TODO :  Remove loading and place stories in ListView.
+        titles = new String[list.size()];
+        previews = new String[list.size()];
+        themes = new String[list.size()];
+        int t;
+        for (int i = 0; i < list.size(); i++) {
+            Story story = list.get(i);
+            titles[i] = story.getDetails().getTitle();
+            t = story.getSentences().size(); //get last sentence
+            previews[i] = story.getSentences().get(t - 1).getContent();
+            themes[i] = story.getDetails().getTheme();
+        }
+        lstview = (ListView) findViewById(R.id.story_chooser_story_list);
+        StoryChooserAdapter adapter = new StoryChooserAdapter(this,titles,previews,themes);
+        lstview.setAdapter(adapter);
     }
 
 
