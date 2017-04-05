@@ -16,12 +16,14 @@ public class StoryChooserAdapter extends BaseAdapter {
     private Context context;
     private String[] titles;
     private String[] previews;  //last sentence from string?
+    private String[] themes;
     private LayoutInflater inflater;
 
-    public StoryChooserAdapter(Context context, String[] titles, String[] previews) {
+    public StoryChooserAdapter(Context context, String[] titles, String[] previews, String[] themes) {
         this.context = context;
         this.titles = titles;
         this.previews = previews;
+        this.themes = themes;
         if(context != null)
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -57,6 +59,11 @@ public class StoryChooserAdapter extends BaseAdapter {
         //Plus tard modifier pour ce qui a été prit dans BD
         TextView previewtv = (TextView) v.findViewById(R.id.chooser_preview);
         previewtv.setText(this.previews[position]);
+
+        //Get text from array
+        TextView themetv = (TextView) v.findViewById(R.id.chooser_theme);
+        themetv.setText(this.themes[position]);
+        //set text color
 
         return v;
     }
