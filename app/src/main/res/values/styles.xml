@@ -147,7 +147,7 @@
     </style>
 
     <!--
-      ~~ Dialog
+      ~~ Loading Screen
       -->
     <style name="AppTheme.LoadingScreen">
         <item name="android:orientation">vertical</item>
@@ -159,5 +159,13 @@
     </style>
     <style name="AppTheme.LoadingScreen.SemiTransparent">
         <item name="android:background">@color/semiTransparent</item>
+    </style>
+
+
+    <!--
+      ~~ Tokens
+      -->
+    <style name="AppTheme.Tokens">
+
     </style>
 </resources>

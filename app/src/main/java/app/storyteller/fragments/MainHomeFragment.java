@@ -44,9 +44,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         initializeSettings(home.findViewById(R.id.settings_btn));
         initializeWebView(home.findViewById(R.id.webview_logo));
         initializeTokens(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
-        initializePlayButtonTEST_MATT(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
-        initializeTokensTEST_MIHAI(home.findViewById(R.id.testing_story_chooser_btn));
-
+        //initializePlayButtonTEST_MATT(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
         return home;
     }
     private void initializePlayButtonTEST_MATT(final View tok1,final  View tok2,final View tok3) {
@@ -148,14 +146,6 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         int tok = getGoogleProfileTokens();
         refreshTokenUI(tok,token1, token2, token3,true);
     }
-    private void initializeTokensTEST_MIHAI(View view){
-        ((Button)view).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), StoryChooserActivity.class));
-            }
-        });
-    }
 
     private String getGoogleProfileImgURL() {
         DBHandler.openConnection(getContext());
@@ -195,5 +185,11 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         playBtn = (ImageView) v;
         playBtn.setBackgroundResource(R.drawable.play_btn_animation);
         ((AnimationDrawable) playBtn.getBackground()).start();
+        playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), StoryChooserActivity.class));
+            }
+        });
     }
 }
