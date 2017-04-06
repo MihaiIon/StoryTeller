@@ -52,8 +52,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         favorites = new boolean[titles.length];
         View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
         lv = (ListView) view.findViewById(R.id.listview);
-        TextView header_title = (TextView)view.findViewById(R.id.app_header_title);
-        header_title.setText("Stories");
+        initHeader(view);
         Publish p = new Publish();
         p.execute();
 
@@ -75,7 +74,15 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         startActivity(intent);
     }
 
-
+    public void initHeader(View v){
+        v.findViewById(R.id.story_chooser_back_lyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
+        ((TextView)v.findViewById(R.id.app_header_title)).setText(getString(R.string.storie_list_header_title));
+    }
 
 
 
@@ -190,12 +197,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         super.onActivityCreated(savedInstanceState);
 
         //Mettre action de back sur la fleche
-        getActivity().findViewById(R.id.story_chooser_back_lyt).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+
 
         //On va get chacun des elements du navigator
         all_stories = (LinearLayout) getActivity().findViewById(R.id.all_story_page);

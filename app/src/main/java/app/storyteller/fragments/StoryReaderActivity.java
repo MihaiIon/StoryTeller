@@ -17,6 +17,7 @@ public class StoryReaderActivity extends AppCompatActivity {
 
     TextView title, author,story;
     ToggleButton favs;
+    TextView header_title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,14 +27,11 @@ public class StoryReaderActivity extends AppCompatActivity {
         author = (TextView) findViewById(R.id.story_author);
         story= (TextView) findViewById(R.id.story);
         favs= (ToggleButton) findViewById(R.id.story_fav);
-        TextView header_title = (TextView)findViewById(R.id.app_header_title);
-        header_title.setText("");
-        findViewById(R.id.story_chooser_back_lyt).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        InitHeader();
+
+
+
+
 
 
         Bundle bundle = getIntent().getExtras();
@@ -46,7 +44,15 @@ public class StoryReaderActivity extends AppCompatActivity {
 
         }
 
+    }
 
-
+    public void InitHeader()
+    {
+        this.findViewById(R.id.story_chooser_back_lyt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 }

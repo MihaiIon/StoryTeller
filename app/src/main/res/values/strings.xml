@@ -34,4 +34,8 @@
     <string name="settings_clearDB">Clear Database</string>
     <string name="settings_addTokens">Add Tokens</string>
     <string name="settings_exit">Exit</string>
+
+
+
+    <string name="storie_list_header_title">Stories</string>
 </resources>
