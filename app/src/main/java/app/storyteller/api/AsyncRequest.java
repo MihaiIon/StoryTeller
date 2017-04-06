@@ -112,35 +112,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
              */
             case ApiRequests.Actions.CREATE_PROFILE:
             case ApiRequests.Actions.UPDATE_PROFILE:
-                System.out.println(
-                    "************************************"
-                    +"\nProfile Created/Updated on API.\n"
-                    +"************************************"
-                );
-                try{
-                    JSONObject obj = new JSONObject(response);
-                    Account acc = new Account(
-                        obj.getInt("id"),
-                        obj.getString("google_id"),
-                        obj.getString("name"),
-                        obj.getInt("tokens"),
-                        obj.getString("image_url"),
-                        Timestamp.valueOf(obj.getString("last_connected")),
-                        new ArrayList<Story>()
-                    );
-                    System.out.println(acc);
-
-                    // -- Add/Update Account in local DB.
-                    DBHandler.openConnection(activity.getApplicationContext());
-                    if (request.getAction().equals(ApiRequests.Actions.CREATE_PROFILE))
-                         DBHandler.createAccount(acc);
-                    else DBHandler.updateAccount(acc);
-                    StoryTellerManager.setAccount(acc);
-                    DBHandler.closeConnection();
-
-                    // -- Proceed to MainActivity.
-                    activity.finish();
-                } catch(JSONException e){ e.printStackTrace(); }
+                processProfile(response);
                 break;
 
             //----------------------------------------------------------------------
@@ -156,15 +128,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
             case ApiRequests.Actions.UNLOCK_STORY:
                 break;
             case ApiRequests.Actions.IS_STORY_LOCKED:
-                try{
-                    JSONObject obj = new JSONObject(response);
-                    if (obj.getInt("value") == 1){ // 1: true; 2: false
-
-                    } else {
-
-                    }
-
-                }catch(JSONException e){ e.printStackTrace(); }
+                processIsStoryLocked(response);
                 break;
 
 
@@ -231,5 +195,58 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                 );
                 break;
         }
+    }
+
+
+
+    //----------------------------------------------------------------------
+
+
+    /**
+     *
+     * @param response
+     */
+    private void processProfile(String response){
+        System.out.println(
+                "************************************"
+                        +"\nProfile Created/Updated on API.\n"
+                        +"************************************"
+        );
+        try{
+            JSONObject obj = new JSONObject(response);
+            Account acc = new Account(
+                    obj.getInt("id"),
+                    obj.getString("google_id"),
+                    obj.getString("name"),
+                    obj.getInt("tokens"),
+                    obj.getString("image_url"),
+                    Timestamp.valueOf(obj.getString("last_connected")),
+                    new ArrayList<Story>()
+            );
+            System.out.println(acc);
+
+            // -- Add/Update Account in local DB.
+            DBHandler.openConnection(activity.getApplicationContext());
+            if (request.getAction().equals(ApiRequests.Actions.CREATE_PROFILE))
+                DBHandler.createAccount(acc);
+            else DBHandler.updateAccount(acc);
+            StoryTellerManager.setAccount(acc);
+            DBHandler.closeConnection();
+
+            // -- Proceed to MainActivity.
+            activity.finish();
+        } catch(JSONException e){ e.printStackTrace(); }
+    }
+
+    /**
+     *
+     * @param response
+     */
+    private void processIsStoryLocked(String response){
+        try{
+            JSONObject obj = new JSONObject(response);
+            ((StoryChooserActivity)activity)
+                    .onItemVerified(obj.getInt("value") == 1);
+        }catch(JSONException e){ e.printStackTrace(); }
     }
 }

@@ -27,11 +27,20 @@ import app.storyteller.models.Story;
 
 public class StoryChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
+    /**
+     *
+     */
     private ListView lstview;
     private String[] titles;
     private String[] previews;
     private String[] themes;
     private String[] characters;
+
+    /**
+     *
+     */
+    private int selectedItem;
+
     /**
      *
      */
@@ -75,39 +84,24 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         });
     }
 
-    /**
-     *
-     *
-     */
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(getApplicationContext(),StoryEditorActivity.class);
-        intent.putExtra("title",this.titles[position]);
-        intent.putExtra("character_name",this.characters[position]);
-        intent.putExtra("theme",this.titles[position]);
-        intent.putExtra("new_story",false);
 
-        startActivity(intent);
-    }
 
     //--------------------------------------------------------------------
     // Methods
 
     /**
-     *
+     * Fetches all incomplete stories from API that was not last updated
+     * by the current user.
      */
     private void fetchIncompleteStories(){
         Api.executeRequest(ApiRequests.getIncompleteStories(),this);
-        showLoadingScreen();
         setLockActivity(true);
-
     }
 
     /**
      *
      */
     public void refreshStoriesList(ArrayList<Story> list){
-        hideLoadingScreen();
         setLockActivity(false);
         System.out.println("************"+isActivityLocked);
         // -- TODO :  Remove loading and place stories in ListView.
@@ -133,6 +127,39 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
 
 
     //-------------------------------------------------------------------
+    // Item Methods
+
+    /**
+     *
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        setLockActivity(true);
+        selectedItem = position;
+        Api.executeRequest(ApiRequests.isStoryLocked(37), this);
+    }
+
+    /**
+     *
+     */
+    public void onItemVerified(boolean isLocked){
+        setLockActivity(false);
+        if (!isLocked){
+            Api.executeRequest(ApiRequests.lockStory(0), this);
+            Intent intent = new Intent(getApplicationContext(),StoryEditorActivity.class);
+            intent.putExtra("title",this.titles[selectedItem]);
+            intent.putExtra("character_name",this.characters[selectedItem]);
+            intent.putExtra("theme",this.titles[selectedItem]);
+            intent.putExtra("new_story",false);
+            startActivity(intent);
+        } else{
+            // Sorry the item is not available
+            // TODO : Remove item from list.
+        }
+    }
+
+
+    //-------------------------------------------------------------------
     // Loading Screen methods.
 
     private void initLoadingScreen(){
@@ -145,7 +172,6 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     private void hideLoadingScreen(){
         loadingScreen.setVisibility(View.GONE);
     }
-
     private void showLoadingScreen(){
         loadingScreen.setVisibility(View.VISIBLE);
     }
@@ -156,10 +182,12 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
      * @param value
      */
     private void setLockActivity(boolean value){
-        if (value == true){
+        if (value){
+            showLoadingScreen();
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         } else {
+            hideLoadingScreen();
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
         isActivityLocked = value;
