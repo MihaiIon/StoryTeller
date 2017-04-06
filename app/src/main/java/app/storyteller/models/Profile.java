@@ -3,6 +3,8 @@ package app.storyteller.models;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import app.storyteller.database.DBHandler;
+
 
 public class Profile extends User {
 
@@ -41,6 +43,10 @@ public class Profile extends User {
     }
     public void setImagePath(String imageURL) { super.setImagePath(imageURL); }
 
+    public void updateInfo()
+    {
+
+    }
 
     //------------------------------------------------------------
     // Methods

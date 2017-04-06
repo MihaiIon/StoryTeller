@@ -53,40 +53,56 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="@dimen/profile_tokens_weight"
-            android:gravity="center_horizontal"
             android:layout_marginTop="@dimen/profile_section_margins_top"
-            android:background="@color/primary">
+            android:layout_weight="@dimen/profile_tokens_weight"
+            android:background="@color/primary"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <ToggleButton
-                android:id="@+id/token1"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/toggle_tokens"
-                android:textOn=""
-                android:textOff=""
-                android:clickable="false"/>
+                android:orientation="horizontal">
 
-            <ToggleButton
-                android:id="@+id/token2"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:textOn=""
-                android:textOff=""
-                android:background="@drawable/toggle_tokens"
-                android:clickable="false"/>
+                <ToggleButton
+                    android:id="@+id/token3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_tokens"
+                    android:clickable="false"
+                    android:textOff=""
+                    android:textOn="" />
 
-            <ToggleButton
-                android:id="@+id/token3"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                <ToggleButton
+                    android:id="@+id/token2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_tokens"
+                    android:clickable="false"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/token1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_tokens"
+                    android:clickable="false"
+                    android:textOff=""
+                    android:textOn="" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tokenTimer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textOn=""
-                android:textOff=""
-                android:background="@drawable/toggle_tokens"
-                android:clickable="false"/>
+                android:text="Time:" />
 
         </LinearLayout>
     </LinearLayout>

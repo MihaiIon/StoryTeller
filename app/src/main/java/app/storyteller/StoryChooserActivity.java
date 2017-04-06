@@ -1,5 +1,6 @@
 package app.storyteller;
 
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,12 +13,15 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.database.DBHandler;
+import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.models.Account;
 import app.storyteller.models.Story;
 
 /**
@@ -65,16 +69,25 @@ public class StoryChooserActivity extends AppCompatActivity {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), StoryCreatorActivity.class));
-
-                //MATT TON CODE VAS ICI POUR ENLEVER LES PLUMES
-
-
+                //rajouter le code pour verifier la quantité de vies.
+                Account currentAccount = StoryTellerManager.getAccount();
+                int currTok = currentAccount.getTokens();
+                if(currTok > 0)
+                {
+                    currentAccount.setTokens(currTok-1);
+                    ApiRequests.updateProfile(currentAccount);
+                    startActivity(new Intent(getApplicationContext(), StoryCreatorActivity.class));
+                }
+                else
+                {
+                    String amountTime = "10";
+                    //check last time a token was given (timestamp) if this current timestamp - lastTokenGiven % 15(mins) == 1 give one life, ==2 two lives, == 3 give all life back
+                    Toast toast = Toast.makeText(getApplicationContext(),"You have unsufficient tokens, come back in "+amountTime+" minutes", Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
     }
-
-
 
     //--------------------------------------------------------------------
     // Methods
@@ -190,6 +203,12 @@ public class StoryChooserActivity extends AppCompatActivity {
      *
      */
     private void backToMain(){
+
+        //rajouter la vie enlevée pour l'histoire
+        Account currentAccount = StoryTellerManager.getAccount();
+        int curr = currentAccount.getTokens();
+        currentAccount.setTokens(curr+1);
+        ApiRequests.updateProfile(currentAccount);
         startActivity(new Intent(this, MainActivity.class));
     }
 }

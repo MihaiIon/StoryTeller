@@ -43,28 +43,11 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         initPlayBtn(home.findViewById(R.id.playBtn));
         initializeSettings(home.findViewById(R.id.settings_btn));
         initializeWebView(home.findViewById(R.id.webview_logo));
-        initializeTokens(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
-        //initializePlayButtonTEST_MATT(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
+        initializeTokens(home.findViewById(R.id.token1), home.findViewById(R.id.token2), home.findViewById(R.id.token3));
+
+        int newtok = StoryTellerManager.getAccount().getTokens();
+        refreshTokenUI(newtok, home.findViewById(R.id.token1), home.findViewById(R.id.token2), home.findViewById(R.id.token3), false);
         return home;
-    }
-    private void initializePlayButtonTEST_MATT(final View tok1,final  View tok2,final View tok3) {
-        playBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentTok = StoryTellerManager.getAccount().getTokens();
-                if(currentTok > 0)
-                {
-                    int newTok = currentTok-1;
-                    StoryTellerManager.getAccount().setTokens(newTok);
-                    refreshTokenUI(newTok, tok1,tok2,tok3,false);
-                }
-                else
-                {
-                    Toast toast = Toast.makeText(getContext(),"You have unsufficient tokens, come back in a few minutes", Toast.LENGTH_LONG);
-                    toast.show();
-                }
-            }
-        });
     }
 
     private void initializeWebView(View view)
