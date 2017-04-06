@@ -34,7 +34,6 @@
                 android:gravity="center_vertical"
                 android:text="Titre"
                 android:textColor="@color/primary"
-                android:singleLine="true"
                 android:textStyle="bold"/>
 
             <TextView

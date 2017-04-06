@@ -47,6 +47,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         //initializePlayButtonTEST_MATT(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
         return home;
     }
+
     private void initializePlayButtonTEST_MATT(final View tok1,final  View tok2,final View tok3) {
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +68,9 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         });
     }
 
+
+    // http://stackoverflow.com/questions/2471935/how-to-load-an-imageview-by-url-in-android
+    // http://stackoverflow.com/questions/18953632/how-to-set-image-from-url-for-imageview
     private void initializeWebView(View view)
     {
         WebView webview = (WebView) view;
@@ -74,6 +78,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         String name = getGoogleProfileName();
         webview.loadDataWithBaseURL("file:///android_res/drawable/", "<html><body style='background-color:#1aa19b'><img src='"+url+"' style='border-radius:50%;width:50%;max-width:50%;max-height:60%;margin-left:25%;margin-right:25%;margin-bottom:0;padding-bottom:0;' /><p style='text-align:center;color:white;font-size:26px;margin-top:0;padding-top:0;margin-bottom:0;padding-bottom:0;'>"+name+"</p></body></html>", "text/html", "utf-8", null);
     }
+
     private void initializeSettings(View view) {
         settings = (ImageButton) view;
         settings.setOnClickListener(new View.OnClickListener() {

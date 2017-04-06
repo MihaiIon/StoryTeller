@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.storyteller.R;
+import app.storyteller.StoryReaderActivity;
 import app.storyteller.database.DBHandler;
 
 import static app.storyteller.testing.MihaiTesting.testingStory;
