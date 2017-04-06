@@ -31,10 +31,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
      *
      */
     private ListView lstview;
-    private String[] titles;
-    private String[] previews;
-    private String[] themes;
-    private String[] characters;
+    private ArrayList<Story> stories;
 
     /**
      *
@@ -105,21 +102,9 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         setLockActivity(false);
         System.out.println("************"+isActivityLocked);
         // -- TODO :  Remove loading and place stories in ListView.
-        titles = new String[list.size()];
-        previews = new String[list.size()];
-        themes = new String[list.size()];
-        characters = new String[list.size()];
-        int t;
-        for (int i = 0; i < list.size(); i++) {
-            Story story = list.get(i);
-            titles[i] = story.getDetails().getTitle();
-            t = story.getSentences().size(); //get last sentence
-            previews[i] = story.getSentences().get(t - 1).getContent();
-            themes[i] = story.getDetails().getTheme();
-            characters[i] = story.getDetails().getMainCharacter();
-        }
+        stories = list;
         lstview = (ListView) findViewById(R.id.story_chooser_story_list);
-        StoryChooserAdapter adapter = new StoryChooserAdapter(this,titles,previews,themes);
+        StoryChooserAdapter adapter = new StoryChooserAdapter(this, stories);
         lstview.setOnItemClickListener(StoryChooserActivity.this);
         lstview.setAdapter(adapter);
     }
@@ -147,9 +132,9 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         if (!isLocked){
             Api.executeRequest(ApiRequests.lockStory(0), this);
             Intent intent = new Intent(getApplicationContext(),StoryEditorActivity.class);
-            intent.putExtra("title",this.titles[selectedItem]);
-            intent.putExtra("character_name",this.characters[selectedItem]);
-            intent.putExtra("theme",this.titles[selectedItem]);
+            intent.putExtra("title",this.stories.get(selectedItem).getDetails().getTitle());
+            intent.putExtra("character_name",this.stories.get(selectedItem).getDetails().getMainCharacter());
+            intent.putExtra("theme",this.stories.get(selectedItem).getDetails().getTheme());
             intent.putExtra("new_story",false);
             startActivity(intent);
         } else{
