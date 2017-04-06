@@ -9,24 +9,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import java.security.Timestamp;
-import java.security.cert.CertPath;
-import java.security.cert.Certificate;
-import java.security.cert.CertificateEncodingException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-
-import app.storyteller.database.DBHandler;
 import app.storyteller.fragments.MainAllStoriesFragment;
 import app.storyteller.fragments.MainHomeFragment;
 import app.storyteller.fragments.MainPagerFragment;
-import app.storyteller.fragments.MainPartyModeFragment;
-import app.storyteller.models.Sentence;
-import app.storyteller.models.Story;
-import app.storyteller.models.StoryDetails;
-import app.storyteller.models.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
      * Number of slides contained in the mainActivity. The slides includes : this Home screen,
      * the PartyMode screen and the Story screen.
      */
-    private static final int NUM_SLIDES = 3;
+    private static final int NUM_SLIDES = 2;
 
     /**
      * Handles animations and allows swiping horizontally to access the available slides.
@@ -55,11 +40,6 @@ public class MainActivity extends AppCompatActivity {
         slider = (ViewPager) findViewById(R.id.mainActivity);
         sliderAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         slider.setAdapter(sliderAdapter);
-        // Set on the Home screen by default.
-        slider.setCurrentItem(1);
-
-
-
     }
 
     @Override
@@ -75,14 +55,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (slider.getCurrentItem() == 1) {
+        if (slider.getCurrentItem() == 0) {
 
             // If the user is currently looking at the first step, allow the system to handle the
             // Back button. This calls finish() on this activity and pops the back stack.
             // super.onBackPressed();
         } else {
             // Otherwise, select the previous step.
-            slider.setCurrentItem(1);
+            slider.setCurrentItem(0);
         }
     }
 
@@ -100,11 +80,8 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             Fragment frag;
             switch (position) {
-                case 2:
+                case 1:
                     frag =  new MainAllStoriesFragment();
-                    break;
-                case 0:
-                    frag = new MainPartyModeFragment();
                     break;
                 default:
                     frag=  new MainHomeFragment();
@@ -115,27 +92,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return NUM_SLIDES;
-        }
-    }
-    /**
-     * Main Pager adapter, contains 2 fragments: -MainPagerFragment(contains 2 fragments)
-     *                                           -Story
-     *
-     */
-    public class MainSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public MainSlidePagerAdapter(FragmentManager fm) {super(fm);}
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 1: return new MainAllStoriesFragment();
-                default: return new MainPagerFragment(); //fragment contains a pager
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 2; //create static var
         }
     }
 }

@@ -1,4 +1,4 @@
-package app.storyteller.fragments;
+package app.storyteller;
 
 import android.os.Bundle;
 

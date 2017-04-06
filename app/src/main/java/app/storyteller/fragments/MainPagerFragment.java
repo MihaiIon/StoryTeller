@@ -13,7 +13,7 @@ import android.support.v4.view.ViewPager;
 
 public class MainPagerFragment extends Fragment {
 
-    private static final int NUM_PAGES = 2;
+    private static final int NUM_PAGES = 1;
     private ViewPager mPager;
     private PagerAdapter mPagerAdapter;
 
@@ -38,8 +38,8 @@ public class MainPagerFragment extends Fragment {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0: return new MainPartyModeFragment();
-                case 1: return new MainHomeFragment();
+                case 0: return new MainHomeFragment();
+                case 1: return new MainAllStoriesFragment();
                 default: return null;
             }
         }

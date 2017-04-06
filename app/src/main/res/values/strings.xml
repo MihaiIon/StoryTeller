@@ -8,6 +8,7 @@
 
     <!-- Home -->
     <string name="home_available_story">A new story is available!</string>
+    <string name="home_setting_desc">Settings</string>
 
     <!-- StoryChooser -->
     <string name="story_chooser_header_title">Available Stories</string>

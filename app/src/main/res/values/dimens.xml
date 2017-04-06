@@ -19,24 +19,28 @@
     <dimen name="signIn_section_padding">45dp</dimen>
 
     <!--  Home  -->
-    <dimen name="profile_section_margins_top">18dp</dimen>
-    <item name="profile_section_weight" format="float" type="dimen">.25</item>
-    <item name="action_zone_section_weight" format="float" type="dimen">.55</item>
-    <item name="slides_indicatior_section_weight" format="float" type="dimen">.15</item>
+    <dimen name="home_header_section_height">175dp</dimen>
+    <dimen name="home_header_aside_layout_width">80dp</dimen>
+    <dimen name="home_header_aside_layout_vertical_padding">20dp</dimen>
+    <dimen name="home_header_profile_image_size">86dp</dimen>
+    <dimen name="home_header_profile_image_radius">43dp</dimen>
+    <dimen name="home_action_zone_vertical_padding">40dp</dimen>
+
+    <!-- Home : Play Button -->
     <dimen name="play_btn_size">200dp</dimen>
     <item name="play_btn_frame_duration" format="integer" type="dimen">50</item>
     <item name="play_btn_last_frame_duration" format="integer" type="dimen">50</item>
-
-    <!--  Home : Profile  -->
-    <item name="profile_settings_weight" format="float" type="dimen">.20</item>
-    <item name="profile_profile_weight" format="float" type="dimen">.60</item>
-    <item name="profile_tokens_weight" format="float" type="dimen">.20</item>
 
     <!--
       ~~ StoryChooser : List Item.
       -->
     <dimen name="list_item_vertical_padding">16dp</dimen>
     <dimen name="list_item_horizontal_padding">16dp</dimen>
+
+    <!--
+      ~~ Footer : Home and AllStories.
+      -->
+    <dimen name="footer_height">60dp</dimen>
 
     <!--
       ~~ Default screen margins, per the Android Design guidelines.
