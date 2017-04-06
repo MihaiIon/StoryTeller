@@ -43,11 +43,6 @@ public class Profile extends User {
     }
     public void setImagePath(String imageURL) { super.setImagePath(imageURL); }
 
-    public void updateInfo()
-    {
-
-    }
-
     //------------------------------------------------------------
     // Methods
 

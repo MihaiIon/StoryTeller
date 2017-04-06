@@ -74,8 +74,6 @@ public class StoryChooserActivity extends AppCompatActivity {
                 int currTok = currentAccount.getTokens();
                 if(currTok > 0)
                 {
-                    currentAccount.setTokens(currTok-1);
-                    ApiRequests.updateProfile(currentAccount);
                     startActivity(new Intent(getApplicationContext(), StoryCreatorActivity.class));
                 }
                 else
@@ -203,12 +201,6 @@ public class StoryChooserActivity extends AppCompatActivity {
      *
      */
     private void backToMain(){
-
-        //rajouter la vie enlevée pour l'histoire
-        Account currentAccount = StoryTellerManager.getAccount();
-        int curr = currentAccount.getTokens();
-        currentAccount.setTokens(curr+1);
-        ApiRequests.updateProfile(currentAccount);
         startActivity(new Intent(this, MainActivity.class));
     }
 }

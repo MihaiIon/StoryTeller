@@ -2,7 +2,9 @@ package app.storyteller.fragments;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -12,8 +14,15 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import org.w3c.dom.Text;
+
+import java.sql.Timestamp;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import app.storyteller.R;
 import app.storyteller.StoryChooserActivity;
@@ -40,13 +49,16 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup home = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
 
+
         initPlayBtn(home.findViewById(R.id.playBtn));
         initializeSettings(home.findViewById(R.id.settings_btn));
         initializeWebView(home.findViewById(R.id.webview_logo));
         initializeTokens(home.findViewById(R.id.token1), home.findViewById(R.id.token2), home.findViewById(R.id.token3));
 
-        int newtok = StoryTellerManager.getAccount().getTokens();
-        refreshTokenUI(newtok, home.findViewById(R.id.token1), home.findViewById(R.id.token2), home.findViewById(R.id.token3), false);
+        //Toast t = Toast.makeText(getContext(),"before updateProfile: " + StoryTellerManager.getAccount().getTokens(),Toast.LENGTH_SHORT);
+        //t.show();
+        refreshTokenUI(StoryTellerManager.getAccount().getTokens(), home.findViewById(R.id.token1), home.findViewById(R.id.token2), home.findViewById(R.id.token3), false);
+
         return home;
     }
 
@@ -175,4 +187,8 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
             }
         });
     }
+
+    //----------------------------------------------------------------------------------
+    // Matt's code yo!
+
 }
