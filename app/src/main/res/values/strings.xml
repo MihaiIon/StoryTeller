@@ -17,6 +17,12 @@
         <item>Adventure</item>
         <item>Horror</item>
     </string-array>
+    <string-array name="themes_array_spinner">
+        <item>All</item>
+        <item>Funny</item>
+        <item>Adventure</item>
+        <item>Horror</item>
+    </string-array>
 
     <!-- StoryCreator -->
     <string name="story_creator_header_title">Once upon a time&#8230;</string>

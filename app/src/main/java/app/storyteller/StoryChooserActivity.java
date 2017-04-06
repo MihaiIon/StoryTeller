@@ -13,6 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,16 +27,15 @@ import app.storyteller.models.Story;
  * Created by Mihai on 2017-03-25.
  */
 
-public class StoryChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class StoryChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
 
     /**
      *
      */
     private ListView lstview;
-    private String[] titles;
-    private String[] previews;
-    private String[] themes;
-    private String[] characters;
+    private Spinner spinner;
+    private ArrayList<Story> stories;
+    private String currentTheme;
 
     /**
      *
@@ -62,8 +63,9 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         initAddStoryBtn(findViewById(R.id.story_chooser_add_btn));
         initBackArrow();
         initLoadingScreen();
+        initSpinner();
         // -- On create, fetch all incomplete stories and display them.
-        fetchIncompleteStories();
+        //fetchIncompleteStories();
 
     }
 
@@ -84,7 +86,22 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         });
     }
 
+    private void initSpinner(){
+        spinner = (Spinner) findViewById(R.id.chooser_spinner);
+        spinner.setOnItemSelectedListener(this);
 
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        this.currentTheme = parent.getItemAtPosition(position).toString();
+        fetchIncompleteStories();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 
     //--------------------------------------------------------------------
     // Methods
@@ -105,21 +122,9 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         setLockActivity(false);
         System.out.println("************"+isActivityLocked);
         // -- TODO :  Remove loading and place stories in ListView.
-        titles = new String[list.size()];
-        previews = new String[list.size()];
-        themes = new String[list.size()];
-        characters = new String[list.size()];
-        int t;
-        for (int i = 0; i < list.size(); i++) {
-            Story story = list.get(i);
-            titles[i] = story.getDetails().getTitle();
-            t = story.getSentences().size(); //get last sentence
-            previews[i] = story.getSentences().get(t - 1).getContent();
-            themes[i] = story.getDetails().getTheme();
-            characters[i] = story.getDetails().getMainCharacter();
-        }
+        stories = list;
         lstview = (ListView) findViewById(R.id.story_chooser_story_list);
-        StoryChooserAdapter adapter = new StoryChooserAdapter(this,titles,previews,themes);
+        StoryChooserAdapter adapter = new StoryChooserAdapter(this, stories, currentTheme);
         lstview.setOnItemClickListener(StoryChooserActivity.this);
         lstview.setAdapter(adapter);
     }
@@ -147,14 +152,16 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         if (!isLocked){
             Api.executeRequest(ApiRequests.lockStory(0), this);
             Intent intent = new Intent(getApplicationContext(),StoryEditorActivity.class);
-            intent.putExtra("title",this.titles[selectedItem]);
-            intent.putExtra("character_name",this.characters[selectedItem]);
-            intent.putExtra("theme",this.titles[selectedItem]);
+            intent.putExtra("title",this.stories.get(selectedItem).getDetails().getTitle());
+            intent.putExtra("character_name",this.stories.get(selectedItem).getDetails().getMainCharacter());
+            intent.putExtra("theme",this.stories.get(selectedItem).getDetails().getTheme());
             intent.putExtra("new_story",false);
             startActivity(intent);
         } else{
             // Sorry the item is not available
             // TODO : Remove item from list.
+            fetchIncompleteStories();
+
         }
     }
 

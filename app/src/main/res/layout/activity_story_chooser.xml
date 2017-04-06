@@ -29,8 +29,10 @@
 
             <!-- Select box -->
             <Spinner
+                android:id="@+id/chooser_spinner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:entries="@array/themes_array_spinner">
 
             </Spinner>
         </LinearLayout>
@@ -44,15 +46,9 @@
                 android:id="@+id/story_chooser_story_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/story_chooser_add_btn">
+                android:layout_alignParentBottom="true">
 
             </ListView>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </ScrollView>
 
             <ImageButton
                 android:id="@+id/story_chooser_add_btn"
