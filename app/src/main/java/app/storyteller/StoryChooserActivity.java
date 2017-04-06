@@ -13,6 +13,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,13 +27,15 @@ import app.storyteller.models.Story;
  * Created by Mihai on 2017-03-25.
  */
 
-public class StoryChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class StoryChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
 
     /**
      *
      */
     private ListView lstview;
+    private Spinner spinner;
     private ArrayList<Story> stories;
+    private String currentTheme;
 
     /**
      *
@@ -59,8 +63,9 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         initAddStoryBtn(findViewById(R.id.story_chooser_add_btn));
         initBackArrow();
         initLoadingScreen();
+        initSpinner();
         // -- On create, fetch all incomplete stories and display them.
-        fetchIncompleteStories();
+        //fetchIncompleteStories();
 
     }
 
@@ -81,7 +86,22 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         });
     }
 
+    private void initSpinner(){
+        spinner = (Spinner) findViewById(R.id.chooser_spinner);
+        spinner.setOnItemSelectedListener(this);
 
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        this.currentTheme = parent.getItemAtPosition(position).toString();
+        fetchIncompleteStories();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 
     //--------------------------------------------------------------------
     // Methods
@@ -104,7 +124,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         // -- TODO :  Remove loading and place stories in ListView.
         stories = list;
         lstview = (ListView) findViewById(R.id.story_chooser_story_list);
-        StoryChooserAdapter adapter = new StoryChooserAdapter(this, stories);
+        StoryChooserAdapter adapter = new StoryChooserAdapter(this, stories, currentTheme);
         lstview.setOnItemClickListener(StoryChooserActivity.this);
         lstview.setAdapter(adapter);
     }
@@ -140,6 +160,8 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         } else{
             // Sorry the item is not available
             // TODO : Remove item from list.
+            fetchIncompleteStories();
+
         }
     }
 

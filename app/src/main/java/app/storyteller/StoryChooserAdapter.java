@@ -21,10 +21,25 @@ public class StoryChooserAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Story> stories;
     private LayoutInflater inflater;
+    private String currentTheme;
 
-    public StoryChooserAdapter(Context context, ArrayList<Story> stories) {
+    private final int WORD_COUNT_TO_SHOW = 5;
+
+    public StoryChooserAdapter(Context context, ArrayList<Story> stories, String currentTheme) {
         this.context = context;
-        this.stories = stories;
+        this.currentTheme = currentTheme;
+        if(this.currentTheme.equals("All"))
+            this.stories = stories;
+        else{
+            ArrayList<Story> parsedList = new ArrayList<Story>();
+            for (int i = 0; i < stories.size(); i++) {
+                if (stories.get(i).getDetails().getTheme().equals(currentTheme)) {
+                    parsedList.add(stories.get(i));
+                }
+            }
+            this.stories = parsedList;
+        }
+
         if(context != null)
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -66,9 +81,9 @@ public class StoryChooserAdapter extends BaseAdapter {
         String lastSentence = this.stories.get(position).getSentences().get(indexOfLastSentence).getContent();
         arrayLastSentence = lastSentence.split(" ");
 
-        if (arrayLastSentence.length > 5) {
+        if (arrayLastSentence.length > WORD_COUNT_TO_SHOW) {
             lastSentence = "...";
-            for (int i = arrayLastSentence.length - 5; i < arrayLastSentence.length; i++) {
+            for (int i = arrayLastSentence.length - WORD_COUNT_TO_SHOW; i < arrayLastSentence.length; i++) {
                 lastSentence += arrayLastSentence[i] + " ";
             }
             lastSentence = lastSentence.substring(0,lastSentence.length() - 1);
