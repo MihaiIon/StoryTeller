@@ -31,6 +31,7 @@ public class AuthenticationActivity extends AppCompatActivity {
         this.setContentView(R.layout.activity_loading);
         ((WebView)findViewById(R.id.loading_screen)).loadData("\t<html> <head> <style> body {display:flex; width:100%; min-height:100vh; justify-content:center; align-items:center; } .loading {width:80px; height:80px; border:solid #55b875 8px; border-radius:50%; border-bottom-color:rgba(0,0,0,0); -webkit-animation:spin 1s linear infinite; } @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } } @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } } @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } } </style> </head> <body> <div class=\"loading\"> </div> </body> </html>", "text/html", null);
 
+
         /*
         * Verifies if connected to internet before starting anything
          */

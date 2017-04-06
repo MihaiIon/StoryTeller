@@ -13,19 +13,27 @@
             android:label="@string/app_name"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".AuthenticationActivity">
+        <activity android:name=".AuthenticationActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".LoadingActivity"/>
-        <activity android:name=".SignInActivity"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".StoryChooserActivity"/>
-        <activity android:name=".StoryCreatorActivity"/>
-        <activity android:name=".StoryEditorActivity"/>
-        <activity android:name=".StoryReaderActivity"/>
+        <activity android:name=".LoadingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignInActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".StoryChooserActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".StoryCreatorActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".StoryEditorActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".StoryReaderActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

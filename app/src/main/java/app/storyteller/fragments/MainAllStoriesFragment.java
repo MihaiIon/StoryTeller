@@ -31,7 +31,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     String[] authors;
     boolean[] favorites;
 
-
+    LinearLayout loading_screen;
     LinearLayout all_stories;
     LinearLayout my_stories;
     LinearLayout favs_stories;
@@ -48,13 +48,14 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //init les tableaux avec le size de getAllStories (version bs)
-        titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
-        authors = new String[] {"Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents"};
+        titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
+        authors = new String[] {"Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents"};
         favorites = new boolean[titles.length];
         View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
         lv = (ListView) view.findViewById(R.id.listview);
         initHeader(view);
         Publish p = new Publish();
+
         p.execute();
 
 
@@ -97,12 +98,8 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
 
 
 
-
-
-
-
     public class Publish extends AsyncTask{
-        ProgressDialog dialog = new ProgressDialog(getContext());
+        ProgressDialog proDialog;
         @Override
         protected Object doInBackground(Object[] params) {
 
@@ -118,6 +115,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
 
             testingStory(getContext());
             DBHandler.openConnection(getContext());
+
             titles[0] = DBHandler.getStory(126).getDetails().getTitle();
             authors[0] = DBHandler.getStory(126).getCreator().getName();
             ArrayList<Integer> arrayList = DBHandler.getFavorites(127);
@@ -136,7 +134,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             StoriesListAdapter adapter = new StoriesListAdapter(getActivity(), titles, authors, favorites);
             lv.setOnItemClickListener(MainAllStoriesFragment.this);
             lv.setAdapter(adapter);
-            dialog.hide();
+            proDialog.dismiss();
         }
 
         @Override
@@ -144,16 +142,18 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             super.onProgressUpdate(values);
             //Loading screen
 
-            dialog.setMessage("Loading");
-            dialog.setCancelable(false);
-            dialog.setInverseBackgroundForced(false);
-            dialog.show();
 
         }
 
         @Override
-        protected void onCancelled() {
-
+        protected void onPreExecute() {
+            super.onPreExecute();
+            proDialog = new ProgressDialog(getContext());
+            proDialog.setMessage("LOADING");
+            proDialog.setIndeterminate(false);
+            proDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            proDialog.setCancelable(false);
+            proDialog.show();
         }
     }
 
