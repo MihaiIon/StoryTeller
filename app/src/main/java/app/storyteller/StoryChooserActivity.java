@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -24,12 +25,13 @@ import app.storyteller.models.Story;
  * Created by Mihai on 2017-03-25.
  */
 
-public class StoryChooserActivity extends AppCompatActivity {
+public class StoryChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
 
     private ListView lstview;
     private String[] titles;
     private String[] previews;
     private String[] themes;
+    private String[] characters;
     /**
      *
      */
@@ -38,7 +40,6 @@ public class StoryChooserActivity extends AppCompatActivity {
     /**
      * Contains all the incomplete Stories.
      */
-    private ListView listView;
 
     /**
      *
@@ -74,7 +75,20 @@ public class StoryChooserActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     *
+     */
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getApplicationContext(),StoryEditorActivity.class);
+        intent.putExtra("title",this.titles[position]);
+        intent.putExtra("character_name",this.characters[position]);
+        intent.putExtra("theme",this.titles[position]);
+        intent.putExtra("new_story",false);
 
+        startActivity(intent);
+    }
 
     //--------------------------------------------------------------------
     // Methods
@@ -100,6 +114,7 @@ public class StoryChooserActivity extends AppCompatActivity {
         titles = new String[list.size()];
         previews = new String[list.size()];
         themes = new String[list.size()];
+        characters = new String[list.size()];
         int t;
         for (int i = 0; i < list.size(); i++) {
             Story story = list.get(i);
@@ -107,9 +122,11 @@ public class StoryChooserActivity extends AppCompatActivity {
             t = story.getSentences().size(); //get last sentence
             previews[i] = story.getSentences().get(t - 1).getContent();
             themes[i] = story.getDetails().getTheme();
+            characters[i] = story.getDetails().getMainCharacter();
         }
         lstview = (ListView) findViewById(R.id.story_chooser_story_list);
         StoryChooserAdapter adapter = new StoryChooserAdapter(this,titles,previews,themes);
+        lstview.setOnItemClickListener(StoryChooserActivity.this);
         lstview.setAdapter(adapter);
     }
 
