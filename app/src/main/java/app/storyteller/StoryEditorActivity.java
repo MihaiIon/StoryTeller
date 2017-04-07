@@ -208,7 +208,7 @@ public class StoryEditorActivity extends AppCompatActivity {
      */
     public void onStoryCompletionResult(int storySentenceNb){
         setLockActivity(false);
-        completionEnabled = storySentenceNb >= 15;
+        completionEnabled = storySentenceNb >= 9;
         if (completionEnabled) {
             Toast.makeText(
                     getApplicationContext(),
