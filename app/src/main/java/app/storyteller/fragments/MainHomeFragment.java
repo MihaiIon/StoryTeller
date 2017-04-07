@@ -1,43 +1,23 @@
 package app.storyteller.fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.text.Layout;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import org.w3c.dom.Text;
-
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
 import app.storyteller.R;
 import app.storyteller.StoryChooserActivity;
-import app.storyteller.api.Api;
-import app.storyteller.api.ApiRequests;
-import app.storyteller.database.DBHandler;
 import app.storyteller.fragments.dialogs.Settings;
 import app.storyteller.manager.StoryTellerManager;
-import app.storyteller.models.Account;
 
 /**
  * Created by Mihai on 2017-01-20.
@@ -129,7 +109,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
                 }
                 else
                 {
-                    Toast toast = Toast.makeText(getContext(),"You have unsufficient tokens, come back in a few minutes", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getContext(),getString(R.string.home_unsufficient_tokens), Toast.LENGTH_LONG);
                     toast.show();
                 }
             }

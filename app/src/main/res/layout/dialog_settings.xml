@@ -21,8 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/settings_title"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+
             style="@style/AppTheme.Dialog.Title"
             android:background="#f2f2f2"/>
 
@@ -48,14 +47,12 @@
             style="@style/AppTheme.Dialog.Content.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Log out" />
+            android:text="@string/setting_log_out" />
 
         <Button
             android:id="@+id/settings_exit_btn"
             style="@style/AppTheme.Dialog.Content.Button"
             android:layout_width="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView"
             android:layout_marginTop="11dp"
             android:text="@string/settings_exit" />
 
@@ -65,10 +62,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="-- DEBUG VERSION --"
+        android:text="@string/settings_debugg_version"
         android:id="@+id/textView"
         android:paddingTop="15dp"
-        android:textSize="10dp"
+        android:textSize="12sp"
         android:textColor="#bfbfbf"
         android:layout_below="@+id/linearLayout"
         android:layout_centerHorizontal="true" />

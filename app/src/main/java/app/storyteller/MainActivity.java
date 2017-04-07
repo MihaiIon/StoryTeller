@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import app.storyteller.fragments.MainAllStoriesFragment;
 import app.storyteller.fragments.MainHomeFragment;
-import app.storyteller.fragments.MainPagerFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 backBtnPressed = true;
                 Toast.makeText(
                         getApplicationContext(),
-                        "Press back button again to exit the App.",
+                        getString(R.string.main_press_back_again_exit),
                         Toast.LENGTH_SHORT).show();
             }
         } else {

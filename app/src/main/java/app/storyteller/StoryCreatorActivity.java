@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -90,7 +89,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
                     char c = s.charAt(s.length()-1);
                     if (!validateChar(c)){
                         Toast.makeText(getApplicationContext(),
-                                "\""+c+"\" : " + "is an invalid character.",
+                                "\""+c+"\" : " + getString(R.string.story_creator_invalid_char),
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -120,7 +119,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
                     char c = s.charAt(s.length()-1);
                     if (!validateChar(c)){
                         Toast.makeText(getApplicationContext(),
-                                "\""+c+"\" : " + "is an invalid character.",
+                                "\""+c+"\" : " + getString(R.string.story_creator_invalid_char),
                                 Toast.LENGTH_SHORT).show();
                     }
                 }

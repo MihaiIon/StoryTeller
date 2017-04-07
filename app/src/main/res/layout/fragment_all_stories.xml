@@ -19,8 +19,6 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentTop="true"
             android:id="@+id/listview"
             android:divider="@color/softGrey"
             android:dividerHeight="1dp"/>
@@ -28,12 +26,12 @@
 
         <!-- Navigation Bar Maison -->
         <LinearLayout
-            android:layout_alignParentBottom="true"
             android:background="@color/softGrey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center">
+            android:gravity="center"
+            android:baselineAligned="false">
 
 
             <LinearLayout
@@ -47,7 +45,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="All"
+                    android:text="@string/navigator_all"
                     android:textColor="@color/primary"
                     />
 
@@ -64,7 +62,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Only Me"
+                    android:text="@string/navigator_only_me"
                     android:textColor="@color/primary"
                     />
 
@@ -82,7 +80,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="My Favs"
+                    android:text="@string/navigator_favs"
                     android:textColor="@color/primary"
                     />
 
