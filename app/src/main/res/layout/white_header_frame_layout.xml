@@ -7,12 +7,12 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical">
         <LinearLayout
+            android:id="@+id/header_back_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
-            android:paddingStart="30dp"
-            android:id="@+id/app_header_arrow_btn">
+            android:paddingStart="30dp">
 
             <ImageView
                 android:background="@drawable/green_back_arrow"
