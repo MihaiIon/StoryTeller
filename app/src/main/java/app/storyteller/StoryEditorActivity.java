@@ -188,7 +188,7 @@ public class StoryEditorActivity extends AppCompatActivity {
                 } else {
                     Api.executeRequest(
                         ApiRequests.updateStory(
-                            story_id, content, completionEnabled),
+                            story_id, sentenceInput.getText().toString(), completionEnabled),
                             StoryEditorActivity.this);
                 }
 

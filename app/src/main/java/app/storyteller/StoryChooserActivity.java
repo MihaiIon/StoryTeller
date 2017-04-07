@@ -158,12 +158,11 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
             intent.putExtra("new_story",false);
             startActivity(intent);
         } else{
-            // Sorry the item is not available
-            // TODO : Remove item from list.
             Toast.makeText(
                     getApplicationContext(),
                     "Sorry this story is not available at the moment.",
                     Toast.LENGTH_SHORT).show();
+            // TODO : Do refresh HERE.
             fetchIncompleteStories();
         }
     }
