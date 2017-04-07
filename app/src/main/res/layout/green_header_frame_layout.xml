@@ -12,7 +12,8 @@
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
-            android:paddingStart="30dp">
+            android:paddingStart="30dp"
+            android:id="@+id/header_back_arrow">
 
             <ImageView
                 style="@style/AppTheme.Activity.Header.BackBtn"

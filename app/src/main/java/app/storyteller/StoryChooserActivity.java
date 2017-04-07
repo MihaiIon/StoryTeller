@@ -9,19 +9,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
-import app.storyteller.database.DBHandler;
 import app.storyteller.models.Story;
 
 /**
@@ -55,7 +51,6 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         setContentView(R.layout.activity_story_chooser);
         initAddStoryBtn(findViewById(R.id.story_chooser_add_btn));
         initHeader();
-        initBackArrow();
         initLoadingScreen();
         initSpinner();
         // -- On create, fetch all incomplete stories and display them.
@@ -226,7 +221,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        finish();
+                        onBackPressed();
                     }
         });
     }
