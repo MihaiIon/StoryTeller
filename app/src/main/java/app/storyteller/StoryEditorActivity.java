@@ -34,6 +34,7 @@ public class StoryEditorActivity extends AppCompatActivity {
     private final int MAX_WORDS_ALLOWED = 20;
     private final int MIN_WORDS_ALLOWED = 8;
     private final int MAX_CHRACTERS_ALLOWED = 100;
+    private final int MAX_NUM_SENTENCE_TO_COMPLETE_STORY = 10;
 
     /**
      * Information related to the Current Story.
@@ -208,7 +209,7 @@ public class StoryEditorActivity extends AppCompatActivity {
      */
     public void onStoryCompletionResult(int storySentenceNb){
         setLockActivity(false);
-        completionEnabled = storySentenceNb >= 9;
+        completionEnabled = storySentenceNb >= MAX_NUM_SENTENCE_TO_COMPLETE_STORY-1;
         if (completionEnabled) {
             Toast.makeText(
                     getApplicationContext(),
