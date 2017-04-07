@@ -150,4 +150,13 @@ public class AuthenticationActivity extends AppCompatActivity {
             } else System.out.println("****ERROR******AN ERROR IS FUCKING ME UP (Most likely error: 12501");
         }else System.out.println("****ERROR******REQUEST CODE FAILED, requestCode : " + requestCode);
     }
+
+
+    /**
+     * Close app.
+     */
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
 }

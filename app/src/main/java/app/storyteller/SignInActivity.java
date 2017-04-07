@@ -91,15 +91,13 @@ public class SignInActivity extends AppCompatActivity {
     }
 
 
-
-    // int statusCode = result.getStatus().getStatusCode();
-    //System.out.println(statusCode);
-
-    //System.out.println("Account is: "+acct.getDisplayName() +" has id: " + acct.getId()+ " and has email: "+ acct.getEmail()+ "Photo URL: " + acct.getPhotoUrl());
-    //Toast.makeText(getApplicationContext(),"Account is: "+acct.getDisplayName(), Toast.LENGTH_SHORT).show();
-    //Toast.makeText(getApplicationContext(), "has id: " + acct.getId(), Toast.LENGTH_SHORT).show();
-    //Toast.makeText(getApplicationContext()," and has email: "+ acct.getEmail(), Toast.LENGTH_SHORT).show();
-
+    /**
+     * Close app.
+     */
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
 
 
     //----------------------------------------------------------------------------
