@@ -7,7 +7,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical">
         <LinearLayout
-            android:id="@+id/story_chooser_back_lyt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
@@ -15,11 +14,12 @@
             android:paddingLeft="30dp">
 
             <ImageView
+                android:id="@+id/header_back_arrow"
                 style="@style/AppTheme.Activity.Header.BackBtn"
                 android:background="@drawable/white_back_arrow"/>
         </LinearLayout>
         <TextView
-            android:id="@+id/app_header_title"
+            android:id="@+id/header_title"
             style="@style/AppTheme.Activity.Header.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

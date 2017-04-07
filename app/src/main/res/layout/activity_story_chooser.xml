@@ -15,8 +15,6 @@
         <!-- Header -->
         <include layout="@layout/green_header_frame_layout" />
 
-
-
         <!-- Filters -->
         <LinearLayout
             android:layout_width="match_parent"

@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     /**
      *
      */
-    private ListView lstview;
+    private ListView listview;
     private Spinner spinner;
     private ArrayList<Story> stories;
     private String currentTheme;
@@ -61,6 +62,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_chooser);
         initAddStoryBtn(findViewById(R.id.story_chooser_add_btn));
+        initHeader();
         initBackArrow();
         initLoadingScreen();
         initSpinner();
@@ -69,6 +71,14 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
 
     }
 
+    /**
+     *
+     */
+    private void initHeader(){
+        initBackArrow();
+        ((TextView)findViewById(R.id.header_title))
+                .setText(R.string.story_chooser_header_title);
+    }
 
     /**
      *
@@ -78,10 +88,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), StoryCreatorActivity.class));
-
                 //MATT TON CODE VAS ICI POUR ENLEVER LES PLUMES
-
-
             }
         });
     }
@@ -123,10 +130,10 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         System.out.println("************"+isActivityLocked);
         // -- TODO :  Remove loading and place stories in ListView.
         stories = list;
-        lstview = (ListView) findViewById(R.id.story_chooser_story_list);
+        listview = (ListView) findViewById(R.id.story_chooser_story_list);
         StoryChooserAdapter adapter = new StoryChooserAdapter(this, stories, currentTheme);
-        lstview.setOnItemClickListener(StoryChooserActivity.this);
-        lstview.setAdapter(adapter);
+        listview.setOnItemClickListener(StoryChooserActivity.this);
+        listview.setAdapter(adapter);
     }
 
 
@@ -220,11 +227,11 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
      * When the Layout of the Back Arrow is pressed, return to MainActivity.
      */
     private void initBackArrow(){
-        findViewById(R.id.story_chooser_back_lyt)
+        findViewById(R.id.header_back_arrow)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        backToMain();
+                        finish();
                     }
         });
     }
@@ -235,13 +242,5 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        backToMain();
-    }
-
-    /**
-     *
-     */
-    private void backToMain(){
-        startActivity(new Intent(this, MainActivity.class));
     }
 }

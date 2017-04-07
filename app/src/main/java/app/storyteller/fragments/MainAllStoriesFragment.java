@@ -77,13 +77,13 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     }
 
     public void initHeader(View v){
-        v.findViewById(R.id.story_chooser_back_lyt).setOnClickListener(new View.OnClickListener() {
+        v.findViewById(R.id.header_back_arrow).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
             }
         });
-        ((TextView)v.findViewById(R.id.app_header_title)).setText(getString(R.string.storie_list_header_title));
+        ((TextView)v.findViewById(R.id.header_title)).setText(getString(R.string.storie_list_header_title));
     }
 
 
