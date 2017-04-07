@@ -122,7 +122,7 @@ public class StoryEditorActivity extends AppCompatActivity {
      */
     private void initHeader(){
         // -- Set Arrow Button.
-        findViewById(R.id.app_header_arrow_btn)
+        findViewById(R.id.header_back_arrow)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
