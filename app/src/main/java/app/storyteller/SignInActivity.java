@@ -75,11 +75,10 @@ public class SignInActivity extends AppCompatActivity {
                 GoogleSignInAccount acct = result.getSignInAccount();
 
                 /*
-                 * Launch LoadingActivity and wait for the API response. When
+                 * Launch LoadProfileActivity and wait for the API response. When
                  * the application is ready. proceed to MainActivity.
                  */
-                Intent intent = new Intent(this, LoadingActivity.class);
-                intent.putExtra("next_activity", LoadingActivity.ActivityList.MAIN_ACTIVITY);
+                Intent intent = new Intent(this, LoadProfileActivity.class);
                 intent.putExtra("account_id", acct.getId());
                 intent.putExtra("account_name", acct.getDisplayName());
                 intent.putExtra("account_image_url", acct.getPhotoUrl().toString());

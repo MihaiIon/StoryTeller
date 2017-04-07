@@ -1,6 +1,7 @@
 package app.storyteller.manager;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
@@ -28,20 +29,27 @@ public class StoryTellerManager{
      */
     private static Account account;
 
+    /**
+     *
+     * @return
+     */
+    private static Bitmap accountImage;
+
 
     //-------------------------------------------------------
     // Getters and Setters
 
     public static Account getAccount(){ return account; }
     public static GoogleApiClient getGoogleApiClient(){ return gac; }
+    public static Bitmap getAccountImage(){ return accountImage; }
 
     public static void setAccount(Account a){ account = a; }
     public static void setGoogleApiClient(GoogleApiClient g){ gac = g; }
+    public static void setAccountImage(Bitmap bitmap){ accountImage = bitmap; }
 
 
     //-------------------------------------------------------
     // Methods
-
 
     /**
      *
@@ -66,4 +74,9 @@ public class StoryTellerManager{
     public static boolean isSignedIn(){
         return gac.isConnected();
     }
+
+    /**
+     *
+     */
+    public static boolean isAccountCreated() { return account != null; }
 }

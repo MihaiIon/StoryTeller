@@ -54,9 +54,9 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
         lv = (ListView) view.findViewById(R.id.listview);
         initHeader(view);
-        Publish p = new Publish();
+        /*Publish p = new Publish();
 
-        p.execute();
+        p.execute();*/
 
 
 
@@ -87,17 +87,6 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
     public class Publish extends AsyncTask{
         ProgressDialog proDialog;
         @Override
@@ -113,7 +102,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             //passer le tableau des favorites de l'utilisateur a l'adapter
             //gerer l'extract du title + author dans l'adapter
 
-            testingStory(getContext());
+            //testingStory(getContext());
             DBHandler.openConnection(getContext());
 
             titles[0] = DBHandler.getStory(126).getDetails().getTitle();

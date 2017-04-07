@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
-import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -28,24 +27,15 @@ public class AuthenticationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.setContentView(R.layout.activity_loading);
-        ((WebView)findViewById(R.id.loading_screen)).loadData("\t<html> <head> <style> body {display:flex; width:100%; min-height:100vh; justify-content:center; align-items:center; } .loading {width:80px; height:80px; border:solid #55b875 8px; border-radius:50%; border-bottom-color:rgba(0,0,0,0); -webkit-animation:spin 1s linear infinite; } @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } } @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } } @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } } </style> </head> <body> <div class=\"loading\"> </div> </body> </html>", "text/html", null);
-
-
-        /*
-        * Verifies if connected to internet before starting anything
-         */
+        this.setContentView(R.layout.activity_load_profile);
         if(StoryTellerManager.isConnectedToInternet(getApplicationContext()))
         {
-            // -- Google.
+            // -- Google and Local DB.
             setUpGoogleStuff();
-
-            // -- Connect to Database.
             DBHandler.openConnection(getApplicationContext());
 
             /*
-             * If there is no Profile in the Database or if the current User isn't signed
-             * in with a Google Account, go to SignInActivity.
+             * If there is no Profile in the Database, go to SignInActivity.
              */
             if (DBHandler.getProfileListSize() == 0) {
                 DBHandler.closeConnection();
@@ -87,15 +77,17 @@ public class AuthenticationActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
 
+        // -- Builder.
+        GoogleApiClient.Builder builder = new GoogleApiClient.Builder(this).enableAutoManage(
+                this, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                        Toast.makeText(getApplicationContext(),
+                                "Sorry there was an error with your connection",
+                                Toast.LENGTH_SHORT).show();
+                    }});
+
         // -- Set Client.
-        StoryTellerManager.init(new GoogleApiClient.Builder(this)
-                .enableAutoManage(this,
-                        new GoogleApiClient.OnConnectionFailedListener() {
-                            @Override
-                            public void onConnectionFailed(@NonNull ConnectionResult connectionResult)
-                            { /*try again? Show message of error and try again?*/}})
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build());
+        StoryTellerManager.init(builder.addApi(Auth.GOOGLE_SIGN_IN_API, gso).build());
     }
 
 
@@ -139,19 +131,20 @@ public class AuthenticationActivity extends AppCompatActivity {
                  */
                 if (DBHandler.accountExists(acct.getId())&& true /*TODO*/)
                 {
-                    StoryTellerManager.setAccount(DBHandler.getAccount(acct.getId()));
                     DBHandler.closeConnection();
-                    startActivity(new Intent(this, MainActivity.class));
+                    Intent i = new Intent(this, LoadProfileActivity.class);
+                    i.putExtra("is_account_in_database", true);
+                    i.putExtra("account_id", acct.getId());
+                    startActivity(i);
                 }
 
                 // -- Proceed to SignInActivity.
                 else
                 {
                     DBHandler.closeConnection();
-                    startActivity(new Intent(this, MainActivity.class));
+                    startActivity(new Intent(this, SignInActivity.class));
                 }
-            }
-            else System.out.println("****ERROR******AN ERROR IS FUCKING ME UP (Most likely error: 12501");
+            } else System.out.println("****ERROR******AN ERROR IS FUCKING ME UP (Most likely error: 12501");
         }else System.out.println("****ERROR******REQUEST CODE FAILED, requestCode : " + requestCode);
     }
 }

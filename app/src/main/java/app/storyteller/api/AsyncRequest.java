@@ -16,6 +16,7 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import app.storyteller.LoadProfileActivity;
 import app.storyteller.StoryChooserActivity;
 import app.storyteller.database.DBHandler;
 import app.storyteller.manager.StoryTellerManager;
@@ -234,7 +235,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
             DBHandler.closeConnection();
 
             // -- Proceed to MainActivity.
-            activity.finish();
+            ((LoadProfileActivity)activity).onAccountCreated();
         } catch(JSONException e){ e.printStackTrace(); }
     }
 
