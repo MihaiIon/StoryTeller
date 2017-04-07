@@ -88,7 +88,7 @@
 
     <!--    HomeFrag Layout -->
     <string name="home_crap">crap</string>
-    <string name="home_profil_image">Image account</string>
+    <string name="home_profile_image">Image account</string>
     <string name="home_play_button">Play Button</string>
     <!--    Item StoryList  -->
     <string name="item_storylist_new">( NEW )</string>

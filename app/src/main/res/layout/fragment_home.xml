@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,8 +12,8 @@
         android:id="@+id/profile_section"
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_header_section_height"
-        android:background="@color/primary"
-        android:baselineAligned="false">
+        android:baselineAligned="false"
+        android:background="@drawable/home_bg">
 
         <!-- Settings -->
         <LinearLayout
@@ -35,25 +36,32 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center">
+            android:gravity="center"
+            >
 
-            <android.support.v7.widget.CardView
-                android:layout_width="@dimen/home_header_profile_image_size"
-                android:layout_height="@dimen/home_header_profile_image_size"
-                app:cardCornerRadius="@dimen/home_header_profile_image_radius"
-                android:innerRadius="0dp"
-                android:shape="ring"
-                android:thicknessRatio="1">
-                <ImageView
-                    android:id="@+id/profile_image_view"
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:src="@drawable/token"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:contentDescription="@string/home_profil_image">
-                </ImageView>
-            </android.support.v7.widget.CardView>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_view_edge">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="@dimen/home_header_profile_image_size"
+                    android:layout_height="@dimen/home_header_profile_image_size"
+                    android:innerRadius="50dp"
+                    android:shape="ring"
+                    android:thicknessRatio="1"
+                    app:cardCornerRadius="@dimen/home_header_profile_image_radius">
+
+                    <ImageView
+                        android:id="@+id/profile_image_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:contentDescription="@string/home_profile_image"
+                        android:src="@drawable/token" />
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/profile_name_text_view"
@@ -75,66 +83,76 @@
             android:paddingTop="@dimen/home_header_aside_layout_vertical_padding"
             android:paddingBottom="@dimen/home_header_aside_layout_vertical_padding">
 
-            <ToggleButton
-                android:id="@+id/token1"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:background="@drawable/toggle_tokens"
-                android:textOn=""
-                android:textOff=""
-                android:clickable="false"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ToggleButton
-                android:id="@+id/token2"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:textOn=""
-                android:textOff=""
-                android:background="@drawable/toggle_tokens"
-                android:clickable="false"/>
+                <ToggleButton
+                    android:id="@+id/token1"
+                    android:layout_width="@dimen/home_tokens_width"
+                    android:layout_height="@dimen/home_tokens_height"
+                    android:background="@drawable/toggle_tokens"
+                    android:textOn=""
+                    android:textOff=""
+                    android:clickable="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
 
-            <ToggleButton
-                android:id="@+id/token3"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:textOn=""
-                android:textOff=""
-                android:background="@drawable/toggle_tokens"
-                android:clickable="false"/>
+                <ToggleButton
+                    android:id="@+id/token2"
+                    android:layout_width="@dimen/home_tokens_width"
+                    android:layout_height="@dimen/home_tokens_height"
+                    android:textOn=""
+                    android:textOff=""
+                    android:background="@drawable/toggle_tokens"
+                    android:clickable="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="21dp"/>
 
+                <ToggleButton
+                    android:id="@+id/token3"
+                    android:layout_width="@dimen/home_tokens_width"
+                    android:layout_height="@dimen/home_tokens_height"
+                    android:textOn=""
+                    android:textOff=""
+                    android:background="@drawable/toggle_tokens"
+                    android:clickable="false"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="42dp" />
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 
 
     <!-- Content -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
 
         <!-- Action Zone -->
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_gravity="center"
-            android:gravity="center">
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/home_available_story"
+                android:textAlignment="center"
                 android:textColor="@color/primary"
                 android:textSize="24sp"
-                android:textStyle="italic"
-                android:fontFamily="sans-serif-light"
-                android:textAlignment="center"
-                android:layout_marginBottom="10dp"
-                android:text="@string/home_available_story"/>
+                android:textStyle="italic" />
+
             <ImageButton
                 android:id="@+id/home_play_btn"
                 android:layout_width="@dimen/play_btn_size"
@@ -146,10 +164,22 @@
         <!-- Slides Indicator Section -->
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/slides_indicator_section"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="@dimen/footer_height"
-            android:background="@color/softGrey">
+            android:background="@color/softGrey"
+            android:orientation="horizontal"
+            android:gravity="center">
+            
+            <View
+                android:layout_width="@dimen/home_slides_indicator_size"
+                android:layout_height="@dimen/home_slides_indicator_size"
+                android:background="@drawable/slides_indicator_full"/>
+
+            <View
+                android:layout_width="@dimen/home_slides_indicator_size"
+                android:layout_height="@dimen/home_slides_indicator_size"
+                android:background="@drawable/slides_indicator_empty"
+                android:layout_marginStart="10dp"/>
 
         </LinearLayout>
     </LinearLayout>
