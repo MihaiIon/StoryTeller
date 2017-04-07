@@ -22,8 +22,8 @@
     <dimen name="home_header_section_height">198dp</dimen>
     <dimen name="home_header_aside_layout_width">90dp</dimen>
     <dimen name="home_header_aside_layout_vertical_padding">20dp</dimen>
-    <dimen name="home_header_profile_image_size">86dp</dimen>
-    <dimen name="home_header_profile_image_radius">43dp</dimen>
+    <dimen name="home_header_profile_image_size">88dp</dimen>
+    <dimen name="home_header_profile_image_radius">44dp</dimen>
     <dimen name="home_action_zone_vertical_padding">40dp</dimen>
 
     <!--  Home : Tokens  -->
