@@ -12,8 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:fontFamily="sans-serif-medium"
-        android:text="TEST" />
+        android:fontFamily="sans-serif-medium" />
 
     <!-- Content -->
     <LinearLayout
@@ -28,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="sans-serif"
-            android:text="My story Title"
             android:textColor="@color/primary"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -40,7 +38,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:fontFamily="sans-serif"
-            android:text="My story Preview"
             android:textColor="@color/dark"
             android:textSize="14sp" />
     </LinearLayout>

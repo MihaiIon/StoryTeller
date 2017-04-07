@@ -1,7 +1,6 @@
 package app.storyteller;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,7 @@ public class StoryChooserAdapter extends BaseAdapter {
     public StoryChooserAdapter(Context context, ArrayList<Story> stories, String currentTheme) {
         this.context = context;
         this.currentTheme = currentTheme;
-        if(this.currentTheme.equals("All"))
+        if(this.currentTheme.equals(context.getString(R.string.story_chooser_all)))
             this.stories = stories;
         else{
             ArrayList<Story> parsedList = new ArrayList<Story>();

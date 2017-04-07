@@ -11,13 +11,13 @@
             android:layout_height="wrap_content"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
-            android:paddingLeft="30dp"
+            android:paddingStart="30dp"
             android:id="@+id/app_header_arrow_btn">
 
             <ImageView
                 android:background="@drawable/green_back_arrow"
                 style="@style/AppTheme.Activity.Header.BackBtn"
-                />
+                android:contentDescription="@string/header_back_button" />
         </LinearLayout>
         <TextView
             android:id="@+id/app_header_title"

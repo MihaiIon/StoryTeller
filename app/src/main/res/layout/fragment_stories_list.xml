@@ -13,7 +13,10 @@
         android:id="@+id/toggleButton"
         style="@style/AppTheme.ToggleStars"
         android:background="@drawable/mytogglebutton"
-        android:focusable="false" />
+        android:focusable="false"
+        android:textOff=""
+        android:textOn=""
+        android:text=""/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +27,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left">
+            android:gravity="start">
 
 
             <TextView
@@ -32,7 +35,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="Titre"
                 android:textColor="@color/primary"
                 android:textStyle="bold"/>
 
@@ -41,9 +43,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="( NEW )"
+                android:text="@string/item_storylist_new"
                 android:textColor="@color/newStory"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:textStyle="italic"/>
 
 
@@ -77,16 +79,15 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="left">
+            android:gravity="start">
 
             <TextView
                 android:id="@+id/labelauthor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="Author: "
                 android:textColor="@color/darkerGrey"
-                android:singleLine="true"
+                android:maxLines="1"
                 android:textStyle="italic"/>
 
             <TextView
@@ -96,7 +97,7 @@
                 android:gravity="center_vertical"
                 android:text=""
                 android:textColor="@color/darkerGrey"
-                android:layout_toRightOf="@+id/labelauthor" />
+                android:layout_toEndOf="@+id/labelauthor" />
 
         </RelativeLayout>
     </LinearLayout>

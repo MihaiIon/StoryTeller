@@ -11,7 +11,8 @@
         android:id="@+id/profile_section"
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_header_section_height"
-        android:background="@color/primary">
+        android:background="@color/primary"
+        android:baselineAligned="false">
 
         <!-- Settings -->
         <LinearLayout
@@ -49,7 +50,8 @@
                     android:layout_width="match_parent"
                     android:src="@drawable/token"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true">
+                    android:layout_centerHorizontal="true"
+                    android:contentDescription="@string/home_profil_image">
                 </ImageView>
             </android.support.v7.widget.CardView>
 
@@ -62,7 +64,7 @@
                 android:textSize="24sp"
                 android:fontFamily="sans-serif-light"
                 android:textColor="@color/white"
-                android:text="caca"/>
+                android:text="@string/home_crap"/>
         </LinearLayout>
 
         <!-- Tokens -->
@@ -136,7 +138,8 @@
             <ImageButton
                 android:id="@+id/home_play_btn"
                 android:layout_width="@dimen/play_btn_size"
-                android:layout_height="@dimen/play_btn_size" />
+                android:layout_height="@dimen/play_btn_size"
+                android:contentDescription="@string/home_play_button" />
         </LinearLayout>
 
 

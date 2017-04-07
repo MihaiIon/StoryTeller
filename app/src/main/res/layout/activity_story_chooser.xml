@@ -23,7 +23,7 @@
             android:paddingRight="@dimen/header_horizontal_padding"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:gravity="right">
+            android:gravity="end">
 
             <!-- Select box -->
             <Spinner
@@ -56,7 +56,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/story_chooser_add_btn"/>
+                android:background="@drawable/story_chooser_add_btn"
+                android:contentDescription="@string/story_chooser_add_story_description" />
         </RelativeLayout>
 
     </LinearLayout>

@@ -52,7 +52,7 @@ public class AuthenticationActivity extends AppCompatActivity {
             else signInAndProceed();
         }
         else{
-            Toast.makeText(getApplicationContext(),"This Application needs an Internet Connection, please connect to the internet to continue", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),getString(R.string.authentification_need_internet), Toast.LENGTH_SHORT).show();
             System.out.println("SYSTEM IS NOT CONNECTED TO THE INTERNET");
             //Wait
             try{Thread.sleep(1000, 1);}
@@ -83,7 +83,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                 this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
                         Toast.makeText(getApplicationContext(),
-                                "Sorry there was an error with your connection",
+                                getString(R.string.authentification_connection_error),
                                 Toast.LENGTH_SHORT).show();
                     }});
 
