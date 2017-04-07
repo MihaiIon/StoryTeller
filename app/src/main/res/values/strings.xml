@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">StoryTeller</string>
 
+    <!-- Authentication -->
+    <string name="authentication_connecting">Connecting</string>
+
+    <!-- Loading Profile -->
+    <string name="launching_app">Welcome</string>
+
     <!--  SignIn  -->
     <string name="signIn_create_profile">Create Profile</string>
     <string name="signIn_no_account">I don\'t have a <b>Google Account</b> </string>

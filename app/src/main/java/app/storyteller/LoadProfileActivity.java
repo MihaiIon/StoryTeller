@@ -92,9 +92,7 @@ public class LoadProfileActivity extends AppCompatActivity {
     /**
      *
      */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onAccountReady() {
         startActivity(new Intent(this, MainActivity.class));
     }
 
@@ -147,7 +145,7 @@ public class LoadProfileActivity extends AppCompatActivity {
         protected void onPostExecute(Bitmap result) {
             super.onPostExecute(result);
             StoryTellerManager.setAccountImage(result);
-            activity.finish();
+            activity.onAccountReady();
         }
     }
 }

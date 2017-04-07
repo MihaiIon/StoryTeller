@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_authentication"
+    android:id="@+id/activity_load_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -13,10 +13,14 @@
     android:orientation="vertical"
     style="@style/AppTheme.Activity">
 
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="@style/AppTheme.ProgressBar" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/launching_app"
+        android:text="@string/authentication_connecting"
         android:textColor="@color/primary"
         android:textSize="30sp"
         android:textAlignment="center"

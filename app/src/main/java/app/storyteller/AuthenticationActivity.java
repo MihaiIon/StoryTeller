@@ -27,7 +27,7 @@ public class AuthenticationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.setContentView(R.layout.activity_load_profile);
+        this.setContentView(R.layout.activity_authentication);
         if(StoryTellerManager.isConnectedToInternet(getApplicationContext()))
         {
             // -- Google and Local DB.
@@ -40,6 +40,7 @@ public class AuthenticationActivity extends AppCompatActivity {
             if (DBHandler.getProfileListSize() == 0) {
                 DBHandler.closeConnection();
                 startActivity(new Intent(this, SignInActivity.class));
+                finish();
             }
 
             /*
@@ -136,6 +137,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                     i.putExtra("is_account_in_database", true);
                     i.putExtra("account_id", acct.getId());
                     startActivity(i);
+                    finish();
                 }
 
                 // -- Proceed to SignInActivity.
@@ -143,6 +145,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                 {
                     DBHandler.closeConnection();
                     startActivity(new Intent(this, SignInActivity.class));
+                    finish();
                 }
             } else System.out.println("****ERROR******AN ERROR IS FUCKING ME UP (Most likely error: 12501");
         }else System.out.println("****ERROR******REQUEST CODE FAILED, requestCode : " + requestCode);
