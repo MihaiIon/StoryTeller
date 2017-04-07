@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
@@ -56,7 +57,7 @@ public class StoryEditorActivity extends AppCompatActivity {
     /**
      * By editing this current Story, will it be completed?
      */
-    private boolean isCompleted;
+    private boolean completionEnabled;
 
     /**
      * The content of the sentence is written here.
@@ -72,15 +73,13 @@ public class StoryEditorActivity extends AppCompatActivity {
      *
      */
     private LinearLayout loadingScreen;
+    private boolean isActivityLocked;
 
-    /**
-     *
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_editor);
+        initLoadingScreen();
 
         // -- Get info related to story.
         getInfoFromExtras();
@@ -90,7 +89,7 @@ public class StoryEditorActivity extends AppCompatActivity {
         initThemeInfo();
         initSentenceInput();
         initSubmitBtn();
-        initLoadingScreen();
+
     }
 
 
@@ -105,15 +104,16 @@ public class StoryEditorActivity extends AppCompatActivity {
         title = getIntent().getStringExtra("title");
         characterName = getIntent().getStringExtra("character_name");
         theme = getIntent().getStringExtra("theme");
+        story_id = getIntent().getIntExtra("id", -1);
 
         // -- Information on the nature of the Story : NEW or ALREADY STARTED.
         isNewStory = getIntent().getBooleanExtra("new_story", false);
 
-        if (isNewStory)
-            story_id = getIntent().getIntExtra("story_id", -1);
-
-        // -- By default. TODO.
-        isCompleted = false;
+        // -- Get numbers of sentences in the current Story (if not new).
+        if (!isNewStory) {
+            setLockActivity(true);
+            Api.executeRequest(ApiRequests.getStoryCompletionState(story_id), this);
+        }
     }
 
     /**
@@ -188,32 +188,33 @@ public class StoryEditorActivity extends AppCompatActivity {
                 } else {
                     Api.executeRequest(
                         ApiRequests.updateStory(
-                            story_id, content, isCompleted),
+                            story_id, sentenceInput.getText().toString(), completionEnabled),
                             StoryEditorActivity.this);
                 }
 
                 // --
-                lockActivity();
+                setLockActivity(true);
             }
         });
     }
 
 
     //-------------------------------------------------------------------
-    // Loading Screen methods.
-
-    private void initLoadingScreen(){
-        loadingScreen = (LinearLayout)findViewById(R.id.full_loading_screen);
-        loadingScreen.setVisibility(View.GONE);
-    }
+    // Methods
 
     /**
-     * Removes all users interaction with the current activity.
+     *
+     * @param storySentenceNb
      */
-    private void lockActivity(){
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
+    public void onStoryCompletionResult(int storySentenceNb){
+        setLockActivity(false);
+        completionEnabled = storySentenceNb >= 15;
+        if (completionEnabled) {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "This is the end! Complete the Story and end it!!!",
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
 
@@ -262,5 +263,50 @@ public class StoryEditorActivity extends AppCompatActivity {
 
         submitBtn.setTextColor(ContextCompat.getColor(
                 getApplicationContext(), R.color.darkGrey));
+    }
+
+
+    //-------------------------------------------------------------------
+    // Loading Screen methods.
+
+    private void initLoadingScreen(){
+        loadingScreen = (LinearLayout)findViewById(R.id.full_loading_screen);
+        loadingScreen.setBackground(ContextCompat
+                .getDrawable(getApplicationContext(), R.color.semiTransparent));
+        hideLoadingScreen();
+    }
+
+    private void hideLoadingScreen(){
+        loadingScreen.setVisibility(View.GONE);
+    }
+    private void showLoadingScreen(){
+        loadingScreen.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * If TRUE, removes all users interaction with the current activity. Setting
+     * it to FALSE will reactivate all the listeners.
+     * @param value
+     */
+    private void setLockActivity(boolean value){
+        if (value){
+            showLoadingScreen();
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        } else {
+            hideLoadingScreen();
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        isActivityLocked = value;
+    }
+
+
+    //-------------------------------------------------------------------
+    //
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Api.executeRequest(ApiRequests.unlockStory(story_id), this);
     }
 }

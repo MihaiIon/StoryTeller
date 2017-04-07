@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import app.storyteller.LoadProfileActivity;
 import app.storyteller.StoryChooserActivity;
+import app.storyteller.StoryEditorActivity;
 import app.storyteller.database.DBHandler;
 import app.storyteller.manager.StoryTellerManager;
 import app.storyteller.models.Account;
@@ -46,7 +47,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
     /**
      * Constructors
      */
-    public AsyncRequest(Request request, Activity activity){
+    AsyncRequest(Request request, Activity activity){
         this.request = request;
         this.activity = activity;
         execute();
@@ -131,6 +132,9 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
             case ApiRequests.Actions.IS_STORY_LOCKED:
                 processIsStoryLocked(response);
                 break;
+            case ApiRequests.Actions.GET_STORY_COMPLETION_STATE:
+                processGetStoryCompletionState(response);
+                break;
 
 
             //----------------------------------------------------------------------
@@ -140,48 +144,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
             case ApiRequests.Actions.GET_COMPLETED_STORIES:
                 break;
             case ApiRequests.Actions.GET_INCOMPLETE_STORIES:
-                System.out.println(
-                    "************************************"
-                    +"\nIncomplete Stories fetched from API.\n"
-                    +"************************************"
-                );
-
-                // -- List that will contain all the Stories from the response.
-                ArrayList<Story> incompleteStories = new ArrayList<>();
-
-                // -- Get stories from response.
-                try{
-                    // -- Get JSON obj.
-                    JSONObject obj  = new JSONObject(response);
-                    JSONArray array = obj.optJSONArray("array");
-
-                    /*
-                     *
-                     */
-                    JSONObject row;
-                    Story st; StoryDetails sd;
-                    ArrayList<Sentence> se;
-                    for (int i=0; i<array.length();i++){
-                        row = array.getJSONObject(i);
-                        sd = new StoryDetails(
-                                row.getString("title"),
-                                row.getString("theme"),
-                                row.getString("main_character"));
-                        se = new ArrayList<>();
-                        se.add(new Sentence(row.getString("content")));
-                        st = new Story(
-                                row.getInt("id"),
-                                sd, new User(row.getInt("creator_id")),
-                                se, null
-                        );
-                        incompleteStories.add(st);
-                        System.out.println(st);
-                    }
-                } catch(JSONException e){ e.printStackTrace(); }
-
-                // -- Refresh StoryChooserActivity.
-                ((StoryChooserActivity)activity)
-                        .refreshStoriesList(incompleteStories);
+                processIncompleteStories(response);
                 break;
 
             //----------------------------------------------------------------------
@@ -205,13 +168,13 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
 
     /**
      *
-     * @param response
+     * @param response : Response from API.
      */
     private void processProfile(String response){
         System.out.println(
                 "************************************"
-                        +"\nProfile Created/Updated on API.\n"
-                        +"************************************"
+                +"\nProfile Created/Updated on API.\n"
+                +"************************************"
         );
         try{
             JSONObject obj = new JSONObject(response);
@@ -239,15 +202,78 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
         } catch(JSONException e){ e.printStackTrace(); }
     }
 
+
     /**
      *
-     * @param response
+     * @param response : Response from API.
+     */
+    private void processIncompleteStories(String response){
+        System.out.println(
+                "************************************"
+                        +"\nIncomplete Stories fetched from API.\n"
+                        +"************************************"
+        );
+
+        // -- List that will contain all the Stories from the response.
+        ArrayList<Story> incompleteStories = new ArrayList<>();
+
+        // -- Get stories from response.
+        try{
+            // -- Get JSON obj.
+            JSONObject obj  = new JSONObject(response);
+            JSONArray array = obj.optJSONArray("array");
+
+                    /*
+                     *
+                     */
+            JSONObject row;
+            Story st; StoryDetails sd;
+            ArrayList<Sentence> se;
+            for (int i=0; i<array.length();i++){
+                row = array.getJSONObject(i);
+                sd = new StoryDetails(
+                        row.getString("title"),
+                        row.getString("theme"),
+                        row.getString("main_character"));
+                se = new ArrayList<>();
+                se.add(new Sentence(row.getString("content")));
+                st = new Story(
+                        row.getInt("id"),
+                        sd, new User(row.getInt("creator_id")),
+                        se, null
+                );
+                incompleteStories.add(st);
+                System.out.println(st);
+            }
+        } catch(JSONException e){ e.printStackTrace(); }
+
+        // -- Refresh StoryChooserActivity.
+        ((StoryChooserActivity)activity)
+                .refreshStoriesList(incompleteStories);
+    }
+
+
+    /**
+     *
+     * @param response : Response from API.
      */
     private void processIsStoryLocked(String response){
         try{
             JSONObject obj = new JSONObject(response);
             ((StoryChooserActivity)activity)
                     .onItemVerified(obj.getInt("value") == 1);
+        }catch(JSONException e){ e.printStackTrace(); }
+    }
+
+    /**
+     *
+     * @param response : Response from API.
+     */
+    private void processGetStoryCompletionState(String response){
+        try{
+            JSONObject obj = new JSONObject(response);
+            ((StoryEditorActivity)activity)
+                    .onStoryCompletionResult(obj.getInt("value"));
         }catch(JSONException e){ e.printStackTrace(); }
     }
 }

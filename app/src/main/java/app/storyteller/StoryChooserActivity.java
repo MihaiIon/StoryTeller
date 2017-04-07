@@ -37,21 +37,13 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     /**
      *
      */
-    private int selectedItem;
-
-    /**
-     *
-     */
-    private boolean isActivityLocked;
-
-    /**
-     * Contains all the incomplete Stories.
-     */
+    private Story selectedStory;
 
     /**
      *
      */
     private LinearLayout loadingScreen;
+    private boolean isActivityLocked;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -142,8 +134,8 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         setLockActivity(true);
-        selectedItem = position;
-        Api.executeRequest(ApiRequests.isStoryLocked(37), this);
+        selectedStory = stories.get(position);
+        Api.executeRequest(ApiRequests.isStoryLocked(selectedStory.getId()), this);
     }
 
     /**
@@ -152,18 +144,21 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     public void onItemVerified(boolean isLocked){
         setLockActivity(false);
         if (!isLocked){
-            Api.executeRequest(ApiRequests.lockStory(0), this);
+            Api.executeRequest(ApiRequests.lockStory(selectedStory.getId()), this);
             Intent intent = new Intent(getApplicationContext(),StoryEditorActivity.class);
-            intent.putExtra("title",this.stories.get(selectedItem).getDetails().getTitle());
-            intent.putExtra("character_name",this.stories.get(selectedItem).getDetails().getMainCharacter());
-            intent.putExtra("theme",this.stories.get(selectedItem).getDetails().getTheme());
+            intent.putExtra("id",selectedStory.getId());
+            intent.putExtra("title",selectedStory.getDetails().getTitle());
+            intent.putExtra("character_name",selectedStory.getDetails().getMainCharacter());
+            intent.putExtra("theme",selectedStory.getDetails().getTheme());
             intent.putExtra("new_story",false);
             startActivity(intent);
         } else{
-            // Sorry the item is not available
-            // TODO : Remove item from list.
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Sorry this story is not available at the moment.",
+                    Toast.LENGTH_SHORT).show();
+            // TODO : Do refresh HERE.
             fetchIncompleteStories();
-
         }
     }
 
