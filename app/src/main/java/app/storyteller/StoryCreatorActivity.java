@@ -26,6 +26,12 @@ public class StoryCreatorActivity extends AppCompatActivity {
     /**
      *
      */
+    private final int MAX_CHARACTERS_FOR_TITLE = 20;
+    private final int MAX_CHARACTERS_FOR_CHARACTER = 20;
+
+    /**
+     *
+     */
     private Button nextBtn;
     private EditText title;
     private EditText character;
@@ -151,7 +157,6 @@ public class StoryCreatorActivity extends AppCompatActivity {
                 i.putExtra("theme", theme.getSelectedItem().toString());
                 i.putExtra("character_name", character.getText().toString());
                 i.putExtra("new_story", true);
-
                 startActivity(i);
                 finish();
             }

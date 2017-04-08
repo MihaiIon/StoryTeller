@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import app.storyteller.adapters.StoryChooserAdapter;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.models.Story;

@@ -1,4 +1,4 @@
-package app.storyteller;
+package app.storyteller.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import app.storyteller.R;
 import app.storyteller.models.Story;
 
 /**

@@ -2,6 +2,7 @@ package app.storyteller.api;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,6 +21,7 @@ import app.storyteller.LoadProfileActivity;
 import app.storyteller.StoryChooserActivity;
 import app.storyteller.StoryEditorActivity;
 import app.storyteller.database.DBHandler;
+import app.storyteller.fragments.MainAllStoriesFragment;
 import app.storyteller.manager.StoryTellerManager;
 import app.storyteller.models.Account;
 import app.storyteller.models.Sentence;
@@ -40,6 +42,10 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
     private Activity activity;
 
     /**
+     * Current activity that ordered a AsyncRequest.
+     */
+    private Fragment fragment;
+    /**
      * The resquest sent to the API.
      */
     private Request request;
@@ -50,6 +56,14 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
     AsyncRequest(Request request, Activity activity){
         this.request = request;
         this.activity = activity;
+        this.fragment = null;
+        execute();
+    }
+
+    AsyncRequest(Request request, Fragment fragment){
+        this.request = request;
+        this.activity = null;
+        this.fragment = fragment;
         execute();
     }
 
@@ -142,6 +156,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
              * Story related - Fetches
              */
             case ApiRequests.Actions.GET_COMPLETED_STORIES:
+                processCompletedStories(response);
                 break;
             case ApiRequests.Actions.GET_INCOMPLETE_STORIES:
                 processIncompleteStories(response);
@@ -207,11 +222,80 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
      *
      * @param response : Response from API.
      */
+    private void processCompletedStories(String response){
+        System.out.println(
+                "************************************"
+                +"\nComplete Stories fetched from API.\n"
+                +"************************************"
+        );
+
+        // -- List that will contain all the Stories from the response.
+        ArrayList<Story> completeStories = new ArrayList<>();
+
+        // -- Get stories from response.
+        try{
+            // -- Get JSON obj.
+            JSONArray storyArr  = new JSONArray(response);
+
+            /*
+             *
+             */
+            JSONObject row;
+            JSONArray sentenceArr;
+            JSONObject storyObj; JSONObject sentenceObj;
+            Story st; StoryDetails sd;
+            ArrayList<Sentence> se;
+            for (int i=0; i<storyArr.length();i++)
+            {
+                // --
+                row = storyArr.getJSONObject(i);
+
+                // --
+                se = new ArrayList<>();
+                sentenceArr = row.getJSONArray("content");
+                for (int j=0; j<sentenceArr.length();j++)
+                {
+                    sentenceObj = sentenceArr.getJSONObject(j);
+                    se.add(new Sentence(
+                            sentenceObj.getInt("id"),
+                            new User(sentenceObj.getInt("author_id")),
+                            sentenceObj.getString("content"),
+                            Timestamp.valueOf(sentenceObj.getString("creation_date"))));
+                }
+
+                // -- Get story information.
+                storyObj = row.getJSONObject("story");
+
+                // --
+                sd = new StoryDetails(
+                        storyObj.getString("title"),
+                        storyObj.getString("theme"),
+                        storyObj.getString("main_character"));
+
+                st = new Story(
+                        storyObj.getInt("id"),
+                        sd, new User(storyObj.getInt("creator_id")), se,
+                        Timestamp.valueOf(storyObj.getString("creation_date")));
+
+                completeStories.add(st);
+                System.out.println(st);
+            }
+        } catch(JSONException e){ e.printStackTrace(); }
+
+        // -- Refresh.
+        ((MainAllStoriesFragment)fragment)
+                .onCompletedStoriesFetched(completeStories);
+    }
+
+    /**
+     *
+     * @param response : Response from API.
+     */
     private void processIncompleteStories(String response){
         System.out.println(
                 "************************************"
-                        +"\nIncomplete Stories fetched from API.\n"
-                        +"************************************"
+                +"\nIncomplete Stories fetched from API.\n"
+                +"************************************"
         );
 
         // -- List that will contain all the Stories from the response.

@@ -21,7 +21,10 @@ import java.util.ArrayList;
 
 import app.storyteller.R;
 import app.storyteller.StoryReaderActivity;
+import app.storyteller.api.Api;
+import app.storyteller.api.ApiRequests;
 import app.storyteller.database.DBHandler;
+import app.storyteller.models.Story;
 
 /**
  * Created by Mihai on 2017-01-20.
@@ -59,8 +62,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         /*Publish p = new Publish();
 
         p.execute();*/
-
-
+        Api.executeRequest(ApiRequests.getCompletedStories(), this);
 
         return view;
     }
@@ -72,7 +74,6 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         intent.putExtra("Authors",authors[position]);
         intent.putExtra("Story","GET THE STORY AND PUT IT HERE GEE.");
         intent.putExtra("Favs",favorites[position]);
-
 
 
         startActivity(intent);
@@ -89,7 +90,26 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     }
 
 
-    public class Publish extends AsyncTask{
+
+
+
+
+    //-------------------------------------------------------------------
+    // Methods
+
+    /**
+     *
+     * @param list : List of...TODO
+     */
+    public void onCompletedStoriesFetched(ArrayList<Story> list) {
+        // TODO.
+    }
+
+
+    /*
+     * Maybe not useful : Duplicate.
+     */
+    /*public class Publish extends AsyncTask{
         ProgressDialog proDialog;
         @Override
         protected Object doInBackground(Object[] params) {
@@ -146,7 +166,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             proDialog.setCancelable(false);
             proDialog.show();
         }
-    }
+    }*/
 
 
 
@@ -205,8 +225,8 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             public void onClick(View v) {
                 navigatorToSelector(0);
                 //Thread qui remplace le listView
-                Publish p = new Publish();
-                p.execute();
+                /*Publish p = new Publish();
+                p.execute();*/
             }
         });
 
