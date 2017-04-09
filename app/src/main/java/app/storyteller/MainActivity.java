@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
      * The pager adapter, which provides the pages to the view pager widget.
      */
     private PagerAdapter sliderAdapter;
+
+    /**
+     *
+     * @param savedInstanceState
+     */
+    private Fragment currentDisplayedFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,26 +92,49 @@ public class MainActivity extends AppCompatActivity {
      * on the current position in the slider (pager), a different slide is shown.
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
+        private ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
         @Override
         public Fragment getItem(int position) {
-            Fragment frag;
             switch (position) {
                 case 1:
-                    frag =  new MainAllStoriesFragment();
+                   /* MainActivity.updateSlidersIndicators(
+                            (MainHomeFragment)currentDisplayedFragment, false);*/
+                    currentDisplayedFragment = new MainAllStoriesFragment();
                     break;
                 default:
-                    frag=  new MainHomeFragment();
+                    currentDisplayedFragment = new MainHomeFragment();
+                    /*MainActivity.updateSlidersIndicators(
+                            (MainHomeFragment)currentDisplayedFragment, true);*/
                     break;
             }
-            return frag;
+            return currentDisplayedFragment;
         }
         @Override
         public int getCount() {
             return NUM_SLIDES;
         }
+    }
+
+
+    /**
+     *
+     * @param home :
+     * @param isHome :
+     */
+    public static void updateSlidersIndicators(MainHomeFragment home, boolean isHome){
+        // -- First Circle.
+        home.getActivity().findViewById(R.id.slides_indicator_1)
+                .setBackground(ContextCompat.getDrawable(home.getActivity(),
+                        (isHome ? R.drawable.slides_indicator_full
+                            : R.drawable.slides_indicator_empty)));
+
+        // -- Second Cricle.
+        home.getActivity().findViewById(R.id.slides_indicator_1)
+                .setBackground(ContextCompat.getDrawable(home.getActivity(),
+                        (isHome ? R.drawable.slides_indicator_empty
+                                : R.drawable.slides_indicator_full)));
     }
 }
