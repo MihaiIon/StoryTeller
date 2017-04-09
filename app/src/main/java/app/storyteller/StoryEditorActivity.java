@@ -1,5 +1,6 @@
 package app.storyteller;
 
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,8 @@ import java.util.regex.Pattern;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.constants.RegexPatterns;
+import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.models.Account;
 import app.storyteller.models.StoryDetails;
 
 /**
@@ -192,7 +195,14 @@ public class StoryEditorActivity extends AppCompatActivity {
                             story_id, sentenceInput.getText().toString(), completionEnabled),
                             StoryEditorActivity.this);
                 }
-
+                //On va enlever la vie ici.. moins de gestion étrange des token grace a ça
+                Account currentAccount = StoryTellerManager.getAccount();
+                int curr = currentAccount.getTokens();
+                currentAccount.setTokens(curr-1);
+                ApiRequests.updateProfile(currentAccount);
+                int tokensAft = StoryTellerManager.getAccount().getTokens();
+                Toast t = Toast.makeText(getApplicationContext(),"Tokens after update in storyEditor: " +tokensAft ,Toast.LENGTH_LONG);
+                t.show();
                 // --
                 setLockActivity(true);
             }

@@ -3,6 +3,8 @@ package app.storyteller.models;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+import app.storyteller.database.DBHandler;
+
 
 public class Profile extends User {
 
@@ -32,6 +34,7 @@ public class Profile extends User {
     public String getImageURL() { return super.getImageURL(); }
     public ArrayList getFavorites() { return favorites; }
     public Timestamp getLastConnected() { return super.getLastConnected(); }
+    public Timestamp getNewTimestamp() {return new Timestamp(System.currentTimeMillis());}
 
     public void setName(String name) {
         super.setName(name);
@@ -40,7 +43,6 @@ public class Profile extends User {
         this.tokens = tokens;
     }
     public void setImagePath(String imageURL) { super.setImagePath(imageURL); }
-
 
     //------------------------------------------------------------
     // Methods

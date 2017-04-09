@@ -1,5 +1,6 @@
 package app.storyteller;
 
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,9 @@ import java.util.ArrayList;
 import app.storyteller.adapters.StoryChooserAdapter;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
+import app.storyteller.database.DBHandler;
+import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.models.Account;
 import app.storyteller.models.Story;
 
 /**
@@ -76,8 +80,20 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), StoryCreatorActivity.class));
-                //MATT TON CODE VAS ICI POUR ENLEVER LES PLUMES
+                //rajouter le code pour verifier la quantité de vies.
+                Account currentAccount = StoryTellerManager.getAccount();
+                int currTok = currentAccount.getTokens();
+                if(currTok > 0)
+                {
+                    startActivity(new Intent(getApplicationContext(), StoryCreatorActivity.class));
+                }
+                else
+                {
+                    String amountTime = "10";
+                    //check last time a token was given (timestamp) if this current timestamp - lastTokenGiven % 15(mins) == 1 give one life, ==2 two lives, == 3 give all life back
+                    Toast toast = Toast.makeText(getApplicationContext(),"You have unsufficient tokens, come back in "+amountTime+" minutes", Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
     }

@@ -2,22 +2,43 @@ package app.storyteller.fragments;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import android.widget.TextView;
+
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+
+import java.sql.Timestamp;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+
+
 import app.storyteller.R;
 import app.storyteller.StoryChooserActivity;
+import app.storyteller.api.ApiRequests;
+import app.storyteller.database.DBHandler;
 import app.storyteller.fragments.dialogs.Settings;
 import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.models.Account;
+
 
 /**
  * Created by Mihai on 2017-01-20.
@@ -44,6 +65,15 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
      * Central button that triggers the StoryChooserActivity.
      */
     private ImageView playBtn;
+    private TextView timerText;
+    private ToggleButton token1,token2,token3;
+    private int count;
+    public int getCount() {
+        return count;
+    }
+    public void setCount(int count) {
+        this.count = count;
+    }
 
 
     @Override
@@ -51,6 +81,16 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         fragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         initHeader();
         initPlayBtn();
+        //timerText = (TextView) fragmentLayout.findViewById(R.id.timerToken);
+        token1 = (ToggleButton) fragmentLayout.findViewById(R.id.token1);
+        token2 = (ToggleButton) fragmentLayout.findViewById(R.id.token2);
+        token3 = (ToggleButton) fragmentLayout.findViewById(R.id.token3);
+
+        TimerToken timer = new TimerToken();
+        timer.execute();
+
+        refreshTokenUI(StoryTellerManager.getAccount().getTokens(),token1, token2, token3, false);
+
         return fragmentLayout;
     }
 // initializeTokens(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
@@ -187,5 +227,54 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
                 startActivity(new Intent(getActivity(), StoryChooserActivity.class));
             }
         });
+    }
+
+    public class TimerToken extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            new Reminder(1);
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Object[] values){
+            long time = System.currentTimeMillis();
+            long diff = time - (long)values[0];
+            long diffInSeconds = diff/1000;
+            long diffInMinutes = diffInSeconds/60;
+            String timeDisplayed = "Time: "+String.valueOf(diffInMinutes);
+            //timerText.setText(timeDisplayed);
+            if(diffInMinutes >= 15)
+            {
+                Account currAcc = StoryTellerManager.getAccount();
+                int nbTok = currAcc.getTokens();
+                if(nbTok < 3)
+                {
+                    currAcc.setTokens(nbTok+1);
+                    refreshTokenUI(currAcc.getTokens(),token1,token2,token3,true);
+                    Toast.makeText(getContext(),"Here, take a life sir!",Toast.LENGTH_SHORT).show();
+                }
+                ApiRequests.updateProfile(currAcc);
+
+            }
+        }
+        public class Reminder {
+            Timer timer;
+
+            public Reminder(int seconds) {
+                timer = new Timer();
+                timer.scheduleAtFixedRate(new RemindTask(), 0,seconds * 1000);
+            }
+
+            class RemindTask extends TimerTask {
+                public void run()
+                {
+                    //setCount(getCount()+1);
+                    Timestamp time = StoryTellerManager.getAccount().getLastConnected();
+                    publishProgress(time.getTime());
+                }
+            }
+        }
     }
 }
