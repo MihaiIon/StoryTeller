@@ -7,7 +7,7 @@
     android:screenOrientation="portrait">
 
     <!-- Header Section -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:id="@+id/profile_section"
         android:layout_width="match_parent"
         android:layout_height="@dimen/home_header_section_height"
@@ -18,23 +18,25 @@
             android:layout_width="@dimen/home_header_aside_layout_width"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:paddingTop="@dimen/home_header_aside_layout_vertical_padding"
-            android:paddingBottom="@dimen/home_header_aside_layout_vertical_padding">
+            android:paddingBottom="@dimen/home_header_aside_layout_vertical_padding"
+            android:paddingTop="@dimen/home_header_aside_layout_vertical_padding">
+
             <ImageButton
                 android:id="@+id/settings_btn"
                 android:layout_width="@dimen/settings_btn_dimensions"
                 android:layout_height="@dimen/settings_btn_dimensions"
                 android:background="@drawable/settings_icon"
-                android:contentDescription="@string/home_setting_desc"/>
+                android:contentDescription="@string/home_setting_desc" />
         </LinearLayout>
 
         <!-- Profile -->
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
+
             <WebView
                 android:id="@+id/webview_logo"
                 android:layout_width="2dp"
@@ -44,29 +46,29 @@
             <android.support.v7.widget.CardView
                 android:layout_width="@dimen/home_header_profile_image_size"
                 android:layout_height="@dimen/home_header_profile_image_size"
-                app:cardCornerRadius="@dimen/home_header_profile_image_radius"
                 android:innerRadius="0dp"
                 android:shape="ring"
-                android:thicknessRatio="1">
+                android:thicknessRatio="1"
+                app:cardCornerRadius="@dimen/home_header_profile_image_radius">
+
                 <ImageView
                     android:id="@+id/profile_image_view"
-                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
-                    android:src="@drawable/token"
+                    android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true">
-                </ImageView>
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/token"></ImageView>
             </android.support.v7.widget.CardView>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
                 android:layout_marginTop="10dp"
-                android:textSize="24sp"
                 android:fontFamily="sans-serif-light"
+                android:text="caca"
+                android:textAlignment="center"
                 android:textColor="@color/white"
-                android:text="caca"/>
+                android:textSize="24sp" />
         </LinearLayout>
 
         <!-- Tokens -->
@@ -74,44 +76,62 @@
             android:layout_width="@dimen/home_header_aside_layout_width"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:paddingTop="@dimen/home_header_aside_layout_vertical_padding"
-            android:paddingBottom="@dimen/home_header_aside_layout_vertical_padding">
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/home_header_aside_layout_vertical_padding"
+            android:paddingTop="@dimen/home_header_aside_layout_vertical_padding">
 
-            <ToggleButton
-                android:id="@+id/token1"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
+            <TextView
+                android:id="@+id/timerToken"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/toggle_tokens"
-                android:textOn=""
-                android:textOff=""
-                android:clickable="false"/>
+                android:text="Time:" />
 
-            <ToggleButton
-                android:id="@+id/token2"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textOn=""
-                android:textOff=""
-                android:background="@drawable/toggle_tokens"
-                android:clickable="false"/>
+                android:orientation="horizontal">
 
-            <ToggleButton
-                android:id="@+id/token3"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:textOn=""
-                android:textOff=""
-                android:background="@drawable/toggle_tokens"
-                android:clickable="false"/>
+                <ToggleButton
+                    android:id="@+id/token1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_tokens"
+                    android:clickable="false"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/token3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_tokens"
+                    android:clickable="false"
+                    android:textOff=""
+                    android:textOn="" />
+
+                <ToggleButton
+                    android:id="@+id/token2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/toggle_tokens"
+                    android:clickable="false"
+                    android:textOff=""
+                    android:textOn="" />
+
+            </LinearLayout>
 
         </LinearLayout>
+
     </LinearLayout>
 
 
     <!-- Content -->
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
