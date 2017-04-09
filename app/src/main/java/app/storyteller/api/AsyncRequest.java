@@ -186,11 +186,6 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
      * @param response : Response from API.
      */
     private void processProfile(String response){
-        System.out.println(
-                "************************************"
-                +"\nProfile Created/Updated on API.\n"
-                +"************************************"
-        );
         try{
             JSONObject obj = new JSONObject(response);
             Account acc = new Account(
@@ -202,18 +197,33 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                     Timestamp.valueOf(obj.getString("last_connected")),
                     new ArrayList<Story>()
             );
+            StoryTellerManager.setAccount(acc);
             System.out.println(acc);
 
-            // -- Add/Update Account in local DB.
+            // -- Add Account in local DB.
             DBHandler.openConnection(activity.getApplicationContext());
-            if (request.getAction().equals(ApiRequests.Actions.CREATE_PROFILE))
+            if (request.getAction().equals(ApiRequests.Actions.CREATE_PROFILE)){
+                System.out.println(
+                    "************************************"
+                    +"\nProfile Created on API.\n"
+                    +"************************************"
+                );
                 DBHandler.createAccount(acc);
-            else DBHandler.updateAccount(acc);
-            StoryTellerManager.setAccount(acc);
-            DBHandler.closeConnection();
+                DBHandler.closeConnection();
+                ((LoadProfileActivity)activity).onAccountCreated(); // Proceed to MainActivity.
+            }
 
-            // -- Proceed to MainActivity.
-            ((LoadProfileActivity)activity).onAccountCreated();
+            // -- Add/Update Account in local DB.
+            else {
+                System.out.println(
+                    "************************************"
+                    +"\nProfile Updated on API.\n"
+                    +"************************************"
+                );
+                DBHandler.updateAccount(acc);
+                DBHandler.closeConnection();
+            }
+
         } catch(JSONException e){ e.printStackTrace(); }
     }
 

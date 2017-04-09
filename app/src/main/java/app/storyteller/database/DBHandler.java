@@ -111,7 +111,7 @@ public class DBHandler extends SQLiteOpenHelper {
         db.update(
                 Database.ProfilesTable.TABLE_NAME,
                 values,
-                Database.ProfilesTable.COLUMN_GOOGLE_ID,
+                Database.ProfilesTable.COLUMN_GOOGLE_ID  + "=?",
                 new String[]{acc.getGoogleId()});
     }
 

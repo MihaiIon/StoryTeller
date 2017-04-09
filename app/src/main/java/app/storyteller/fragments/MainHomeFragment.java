@@ -255,8 +255,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
                     refreshTokenUI(currAcc.getTokens(),token1,token2,token3,true);
                     Toast.makeText(getContext(),"Here, take a life sir!",Toast.LENGTH_SHORT).show();
                 }
-                ApiRequests.updateProfile(currAcc);
-
+                ApiRequests.updateProfile();
             }
         }
         public class Reminder {

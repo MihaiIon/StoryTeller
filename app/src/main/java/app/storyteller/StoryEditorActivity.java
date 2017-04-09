@@ -199,7 +199,7 @@ public class StoryEditorActivity extends AppCompatActivity {
                 Account currentAccount = StoryTellerManager.getAccount();
                 int curr = currentAccount.getTokens();
                 currentAccount.setTokens(curr-1);
-                ApiRequests.updateProfile(currentAccount);
+                ApiRequests.updateProfile();
                 int tokensAft = StoryTellerManager.getAccount().getTokens();
                 Toast t = Toast.makeText(getApplicationContext(),"Tokens after update in storyEditor: " +tokensAft ,Toast.LENGTH_LONG);
                 t.show();
