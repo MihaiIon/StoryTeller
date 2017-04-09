@@ -34,6 +34,7 @@ public class Profile extends User {
     public String getImageURL() { return super.getImageURL(); }
     public ArrayList getFavorites() { return favorites; }
     public Timestamp getLastConnected() { return super.getLastConnected(); }
+    public Timestamp getNewTimestamp() {return new Timestamp(System.currentTimeMillis());}
 
     public void setName(String name) {
         super.setName(name);

@@ -81,17 +81,15 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         fragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         initHeader();
         initPlayBtn();
-        timerText = (TextView) home.findViewById(R.id.timerToken);
-        token1 = (ToggleButton) home.findViewById(R.id.token1);
-        token2 = (ToggleButton) home.findViewById(R.id.token2);
-        token3 = (ToggleButton) home.findViewById(R.id.token3);
+        //timerText = (TextView) fragmentLayout.findViewById(R.id.timerToken);
+        token1 = (ToggleButton) fragmentLayout.findViewById(R.id.token1);
+        token2 = (ToggleButton) fragmentLayout.findViewById(R.id.token2);
+        token3 = (ToggleButton) fragmentLayout.findViewById(R.id.token3);
 
         TimerToken timer = new TimerToken();
         timer.execute();
 
-        //Toast t = Toast.makeText(getContext(),"before updateProfile: " + StoryTellerManager.getAccount().getTokens(),Toast.LENGTH_SHORT);
-        //t.show();
-        refreshTokenUI(StoryTellerManager.getAccount().getTokens(), home.findViewById(R.id.token1), home.findViewById(R.id.token2), home.findViewById(R.id.token3), false);
+        refreshTokenUI(StoryTellerManager.getAccount().getTokens(),token1, token2, token3, false);
 
         return fragmentLayout;
     }
@@ -246,7 +244,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
             long diffInSeconds = diff/1000;
             long diffInMinutes = diffInSeconds/60;
             String timeDisplayed = "Time: "+String.valueOf(diffInMinutes);
-            timerText.setText(timeDisplayed);
+            //timerText.setText(timeDisplayed);
             if(diffInMinutes >= 15)
             {
                 Account currAcc = StoryTellerManager.getAccount();

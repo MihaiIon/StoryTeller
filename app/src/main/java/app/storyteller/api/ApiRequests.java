@@ -80,6 +80,7 @@ public class ApiRequests {
             json.put("name", acc.getName());
             json.put("tokens", acc.getTokens());
             json.put("imageURL", acc.getImageURL());
+            json.put("lastConnected", acc.getNewTimestamp());
         } catch (JSONException e) { e.printStackTrace(); }
         return new Request(Actions.UPDATE_PROFILE, json);
     }
