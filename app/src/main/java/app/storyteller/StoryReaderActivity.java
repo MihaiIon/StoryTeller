@@ -39,7 +39,6 @@ public class StoryReaderActivity extends AppCompatActivity {
             title.setText(bundle.getString("Title"));
             author.setText("by : " + bundle.getString("Authors"));
             story.setText(bundle.getString("Story"));
-
             favs.setChecked(bundle.getBoolean("Favs"));
 
         }
@@ -48,7 +47,7 @@ public class StoryReaderActivity extends AppCompatActivity {
 
     public void InitHeader()
     {
-        this.findViewById(R.id.story_chooser_back_lyt).setOnClickListener(new View.OnClickListener() {
+        this.findViewById(R.id.header_back_arrow).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();

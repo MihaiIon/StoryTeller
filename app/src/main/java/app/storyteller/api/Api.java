@@ -2,6 +2,7 @@ package app.storyteller.api;
 
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
 
 /**
  * Created by Mihai on 2017-01-30.
@@ -32,5 +33,10 @@ public class Api {
     public static void executeRequest(Request request, Activity activity)
     {
         new AsyncRequest(request, activity);
+    }
+
+    public static void executeRequest(Request request, Fragment fragment)
+    {
+        new AsyncRequest(request, fragment);
     }
 }

@@ -160,7 +160,12 @@
     <style name="AppTheme.LoadingScreen.SemiTransparent">
         <item name="android:background">@color/semiTransparent</item>
     </style>
-
+    <style name="AppTheme.ProgressBar">
+        <item name="android:indeterminate">true</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_width">70dp</item>
+        <item name="android:maxHeight">1dp</item>
+    </style>
 
     <!--
       ~~ Tokens

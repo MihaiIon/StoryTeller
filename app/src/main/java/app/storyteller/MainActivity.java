@@ -8,13 +8,17 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import app.storyteller.fragments.MainAllStoriesFragment;
 import app.storyteller.fragments.MainHomeFragment;
-import app.storyteller.fragments.MainPagerFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    /**
+     * See onBackPressed() method.
+     */
+    private boolean backBtnPressed;
 
     /**
      * Number of slides contained in the mainActivity. The slides includes : this Home screen,
@@ -40,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         slider = (ViewPager) findViewById(R.id.mainActivity);
         sliderAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         slider.setAdapter(sliderAdapter);
+        backBtnPressed = false;
     }
 
     @Override
@@ -53,13 +58,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onBackPressed() {
         if (slider.getCurrentItem() == 0) {
-
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            // super.onBackPressed();
+            if (backBtnPressed){
+                finishAffinity();
+            } else {
+                backBtnPressed = true;
+                Toast.makeText(
+                        getApplicationContext(),
+                        getString(R.string.main_press_back_again_exit),
+                        Toast.LENGTH_SHORT).show();
+            }
         } else {
             // Otherwise, select the previous step.
             slider.setCurrentItem(0);

@@ -84,6 +84,7 @@ public class Profile extends User {
             this.favorites.add(story);
         }
         else throw new IllegalArgumentException("Story already present");
+
     }
 
     /**

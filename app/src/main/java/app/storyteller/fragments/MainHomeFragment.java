@@ -16,6 +16,7 @@ import android.webkit.WebView;
 
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import android.widget.TextView;
 
@@ -45,12 +46,23 @@ import app.storyteller.models.Account;
 public class MainHomeFragment extends Fragment /*implements View.OnClickListener*/ {
 
     /**
+     * The current fragment layout.
+     */
+    private ViewGroup fragmentLayout;
+
+    /**
      * Settings button.
      */
     private ImageButton settings;
 
     /**
-     *
+     * Profile Views.
+     */
+    private ImageView profileImage;
+    private TextView profileName;
+
+    /**
+     * Central button that triggers the StoryChooserActivity.
      */
     private ImageView playBtn;
     private TextView timerText;
@@ -63,14 +75,12 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         this.count = count;
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        ViewGroup home = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
-
-        initPlayBtn(home.findViewById(R.id.playBtn));
-        initializeSettings(home.findViewById(R.id.settings_btn));
-        initializeWebView(home.findViewById(R.id.webview_logo));
-        initializeTokens(home.findViewById(R.id.token1), home.findViewById(R.id.token2), home.findViewById(R.id.token3));
+        fragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
+        initHeader();
+        initPlayBtn();
         timerText = (TextView) home.findViewById(R.id.timerToken);
         token1 = (ToggleButton) home.findViewById(R.id.token1);
         token2 = (ToggleButton) home.findViewById(R.id.token2);
@@ -83,22 +93,19 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         //t.show();
         refreshTokenUI(StoryTellerManager.getAccount().getTokens(), home.findViewById(R.id.token1), home.findViewById(R.id.token2), home.findViewById(R.id.token3), false);
 
-        return home;
+        return fragmentLayout;
     }
+// initializeTokens(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
 
 
-    // http://stackoverflow.com/questions/2471935/how-to-load-an-imageview-by-url-in-android
-    // http://stackoverflow.com/questions/18953632/how-to-set-image-from-url-for-imageview
-    private void initializeWebView(View view)
-    {
-        WebView webview = (WebView) view;
-        String url = getGoogleProfileImgURL();
-        String name = getGoogleProfileName();
-        webview.loadDataWithBaseURL("file:///android_res/drawable/", "<html><body style='background-color:#1aa19b'><img src='"+url+"' style='border-radius:50%;width:50%;max-width:50%;max-height:60%;margin-left:25%;margin-right:25%;margin-bottom:0;padding-bottom:0;' /><p style='text-align:center;color:white;font-size:26px;margin-top:0;padding-top:0;margin-bottom:0;padding-bottom:0;'>"+name+"</p></body></html>", "text/html", "utf-8", null);
-    }
+    //-----------------------------------------------------------------------------------
+    // Init
 
-    private void initializeSettings(View view) {
-        settings = (ImageButton) view;
+    /**
+     * The main settings of the app.
+     */
+    private void initSettings() {
+        settings = (ImageButton)fragmentLayout.findViewById(R.id.settings_btn);
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +122,42 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
             }
         });
     }
+
+    /**
+     *
+     */
+    private void initHeader(){
+        profileImage = (ImageView)fragmentLayout.findViewById(R.id.profile_image_view);
+        profileImage.setImageBitmap(StoryTellerManager.getAccountImage());
+        profileName  = (TextView)fragmentLayout.findViewById(R.id.profile_name_text_view);
+        profileName.setText(StoryTellerManager.getAccount().getName());
+        initSettings();
+    }
+
+
+    //-------------------------------------------------------------------
+    // Tokens
+
+    private void initializePlayButtonTEST_MATT(final View tok1,final  View tok2,final View tok3) {
+        playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int currentTok = StoryTellerManager.getAccount().getTokens();
+                if(currentTok > 0)
+                {
+                    int newTok = currentTok-1;
+                    StoryTellerManager.getAccount().setTokens(newTok);
+                    refreshTokenUI(newTok, tok1,tok2,tok3,false);
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(getContext(),getString(R.string.home_unsufficient_tokens), Toast.LENGTH_LONG);
+                    toast.show();
+                }
+            }
+        });
+    }
+
     private void refreshTokenUI(int nbTokens, View token1, View token2, View token3,boolean setVisible)
     {
         final int TOTAL_HP = 3;
@@ -164,48 +207,20 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
             }
         }
     }
+
+
     private void initializeTokens(View token1, View token2, View token3)
     {
-        int tok = getGoogleProfileTokens();
+        int tok = StoryTellerManager.getAccount().getTokens();
         refreshTokenUI(tok,token1, token2, token3,true);
     }
 
-    private String getGoogleProfileImgURL() {
-        DBHandler.openConnection(getContext());
-        String str = StoryTellerManager.getAccount().getImageURL();
-        DBHandler.closeConnection();
-        return str;
-    }
-
-    private String getGoogleProfileName() {
-        DBHandler.openConnection(getContext());
-        String str = StoryTellerManager.getAccount().getName();
-        DBHandler.closeConnection();
-        return str;
-    }
-    private int getGoogleProfileTokens() {
-        DBHandler.openConnection(getContext());
-        int tok = StoryTellerManager.getAccount().getTokens();
-        DBHandler.closeConnection();
-        return tok;
-    }
-
-    /*@Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.profile_button:
-                Intent intent = new Intent( getContext(), SignInActivity.class);
-                startActivity(intent);
-                break;
-    }}*/
-
-
 
     //-----------------------------------------------------------------------------------
-    // Mihai's code
+    // Play Btn
 
-    private void initPlayBtn(View v){
-        playBtn = (ImageView) v;
+    private void initPlayBtn(){
+        playBtn = (ImageView)fragmentLayout.findViewById(R.id.home_play_btn);
         playBtn.setBackgroundResource(R.drawable.play_btn_animation);
         ((AnimationDrawable) playBtn.getBackground()).start();
         playBtn.setOnClickListener(new View.OnClickListener() {

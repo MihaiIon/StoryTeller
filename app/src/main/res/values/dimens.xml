@@ -19,32 +19,45 @@
     <dimen name="signIn_section_padding">45dp</dimen>
 
     <!--  Home  -->
-    <dimen name="home_header_section_height">175dp</dimen>
-    <dimen name="home_header_aside_layout_width">80dp</dimen>
+    <dimen name="home_header_section_height">198dp</dimen>
+    <dimen name="home_header_aside_layout_width">90dp</dimen>
     <dimen name="home_header_aside_layout_vertical_padding">20dp</dimen>
-    <dimen name="home_header_profile_image_size">86dp</dimen>
-    <dimen name="home_header_profile_image_radius">43dp</dimen>
+    <dimen name="home_header_profile_image_size">88dp</dimen>
+    <dimen name="home_header_profile_image_radius">44dp</dimen>
     <dimen name="home_action_zone_vertical_padding">40dp</dimen>
+
+    <!--  Home : Tokens  -->
+    <dimen name="home_tokens_width">30dp</dimen>
+    <dimen name="home_tokens_height">50dp</dimen>
 
     <!-- Home : Play Button -->
     <dimen name="play_btn_size">200dp</dimen>
     <item name="play_btn_frame_duration" format="integer" type="dimen">50</item>
     <item name="play_btn_last_frame_duration" format="integer" type="dimen">50</item>
 
-    <!--
-      ~~ StoryChooser : List Item.
-      -->
+    <!-- Home : Slides Indicators -->
+    <dimen name="home_slides_indicator_size">10dp</dimen>
+
+
+    <!-- StoryChooser : List Item. -->
     <dimen name="list_item_vertical_padding">16dp</dimen>
     <dimen name="list_item_horizontal_padding">16dp</dimen>
 
-    <!--
-      ~~ Footer : Home and AllStories.
-      -->
+    <!-- Footer : Home and AllStories. -->
     <dimen name="footer_height">60dp</dimen>
 
-    <!--
-      ~~ Default screen margins, per the Android Design guidelines.
-      -->
+    <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+
+    <!--
+    ~~ Activity Read
+    -->
+    <dimen name="activity_read_margin_horizontal">30dp</dimen>
+    <dimen name="activity_read_margin_top">10dp</dimen>
+    <dimen name="activity_read_title_size">17sp</dimen>
+    <dimen name="activity_read_scrollview_magin_top">20dp</dimen>
+    <dimen name="activity_read_storie_size">17sp</dimen>
+
 </resources>

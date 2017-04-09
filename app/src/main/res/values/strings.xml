@@ -1,14 +1,25 @@
 <resources>
     <string name="app_name">StoryTeller</string>
 
-    <!--  SignIn  -->
+    <!-- Authentication Layout-->
+    <string name="authentication_connecting">Connecting</string>
+
+    <!-- Loading Profile Layout-->
+    <string name="launching_app">Welcome</string>
+
+    <!-- Loading Layout -->
+    <string name="loading_loading">Loading</string>
+
+    <!--  SignIn  Layout-->
     <string name="signIn_create_profile">Create Profile</string>
     <string name="signIn_no_account">I don\'t have a <b>Google Account</b> </string>
     <string name="signIn_google_account">Continue with my <b>Google Account</b> </string>
+    <string name="signIn_storyteller_logo">Application Logo</string>
 
     <!-- Home -->
     <string name="home_available_story">A new story is available!</string>
     <string name="home_setting_desc">Settings</string>
+    <string name="home_unsufficient_tokens">You have unsufficient tokens, come back in a few minutes</string>
 
     <!-- StoryChooser -->
     <string name="story_chooser_header_title">Available Stories</string>
@@ -17,26 +28,72 @@
         <item>Adventure</item>
         <item>Horror</item>
     </string-array>
+    <string-array name="themes_array_spinner">
+        <item>All</item>
+        <item>Funny</item>
+        <item>Adventure</item>
+        <item>Horror</item>
+    </string-array>
 
-    <!-- StoryCreator -->
+    <!--    StoryCreator Layout    -->
     <string name="story_creator_header_title">Once upon a time&#8230;</string>
     <string name="story_creator_title_hint">Title</string>
     <string name="story_creator_character_hint">Main character\'s name</string>
     <string name="story_creator_theme_btn">Pick a THEME</string>
     <string name="story_creator_next_btn">Next</string>
+    <!--    StoryCreator Class   -->
+    <string name="story_creator_invalid_char">is an invalid character.</string>
 
-    <!-- StoryEditor -->
+    <!--    StoryEditor Layout -->
     <string name="story_editor_new_story_sentence_hint">And so it begins&#8230;</string>
     <string name="story_editor_continue_sentence_hint">Wr</string>
     <string name="story_editor_submit_btn">Submit</string>
 
-    <!--  Settings  -->
+    <!--  Settings Layout   -->
     <string name="settings_title">Settings</string>
     <string name="settings_clearDB">Clear Database</string>
     <string name="settings_addTokens">Add Tokens</string>
     <string name="settings_exit">Exit</string>
+    <string name="settings_log_out">Log out</string>
+    <string name="settings_debugg_version">-- DEBUG VERSION --</string>
 
 
-
+    <!--    Header Layout   -->
     <string name="storie_list_header_title">Stories</string>
+    <string name="header_back_button">Back Button</string>
+
+    <!--    StoryChooserAdapter    -->
+    <string name="story_chooser_all">All</string>
+
+    <!--    BottomNavigator -->
+    <string name="navigator_all">All</string>
+    <string name="navigator_only_me">Only Me</string>
+    <string name="navigator_favs">My Favs</string>
+
+    <!--    StoryChooserAdapter    -->
+    <string name="main_press_back_again_exit">Press back button again to exit the App.</string>
+
+
+    <!--    Authentification    -->
+    <string name="authentification_need_internet">This Application needs an Internet Connection, please connect to the internet to continue</string>
+    <string name="authentification_connection_error">Sorry there was an error with your connection</string>
+
+    <!-- Settings Class -->
+    <string name="setting_log_out">Logging out</string>
+    <string name="setting_added_token">100 Tokens added!</string>
+    <string name="setting_are_you_sure">Are you sure?</string>
+    <string name="setting_dbh_cleared">DBHandler cleared</string>
+    <string name="setting_dbh_already_cleared">DBHandler already cleared</string>
+
+
+    <!--    HomeFrag Layout -->
+    <string name="home_crap">crap</string>
+    <string name="home_profile_image">Image account</string>
+    <string name="home_play_button">Play Button</string>
+    <!--    Item StoryList  -->
+    <string name="item_storylist_new">( NEW )</string>
+
+
+    <!--    StoryChooser Layout-->
+    <string name="story_chooser_add_story_description">Button to create a new Story</string>
 </resources>

@@ -15,8 +15,6 @@
         <!-- Header -->
         <include layout="@layout/green_header_frame_layout" />
 
-
-
         <!-- Filters -->
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,12 +23,14 @@
             android:paddingRight="@dimen/header_horizontal_padding"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
-            android:gravity="right">
+            android:gravity="end">
 
             <!-- Select box -->
             <Spinner
+                android:id="@+id/chooser_spinner"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:entries="@array/themes_array_spinner">
 
             </Spinner>
         </LinearLayout>
@@ -44,15 +44,9 @@
                 android:id="@+id/story_chooser_story_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/story_chooser_add_btn">
+                android:layout_alignParentBottom="true">
 
             </ListView>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </ScrollView>
 
             <ImageButton
                 android:id="@+id/story_chooser_add_btn"
@@ -62,7 +56,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/story_chooser_add_btn"/>
+                android:background="@drawable/story_chooser_add_btn"
+                android:contentDescription="@string/story_chooser_add_story_description" />
         </RelativeLayout>
 
     </LinearLayout>

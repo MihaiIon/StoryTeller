@@ -29,7 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/logo_green"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginTop="12dp"
+                android:contentDescription="@string/signIn_storyteller_logo" />
         </LinearLayout>
 
         <!--  Main   -->

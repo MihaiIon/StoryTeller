@@ -1,6 +1,7 @@
 package app.storyteller.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,17 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import java.util.ArrayList;
 
 import app.storyteller.R;
 import app.storyteller.StoryReaderActivity;
+import app.storyteller.api.Api;
+import app.storyteller.api.ApiRequests;
 import app.storyteller.database.DBHandler;
-
-import static app.storyteller.testing.MihaiTesting.testingStory;
+import app.storyteller.models.Story;
 
 /**
  * Created by Mihai on 2017-01-20.
@@ -31,7 +36,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     String[] authors;
     boolean[] favorites;
 
-
+    LinearLayout loading_screen;
     LinearLayout all_stories;
     LinearLayout my_stories;
     LinearLayout favs_stories;
@@ -48,16 +53,16 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         //init les tableaux avec le size de getAllStories (version bs)
-        titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
-        authors = new String[] {"Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents"};
+        titles = new String[] {"A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience","A walk through the woods","And there she comes","Gena's Legend" , "Simply put it's trivial", "My one and only","Terror in ComputerScience" };
+        authors = new String[] {"Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents"};
         favorites = new boolean[titles.length];
         View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
         lv = (ListView) view.findViewById(R.id.listview);
         initHeader(view);
-        Publish p = new Publish();
-        p.execute();
+        /*Publish p = new Publish();
 
-
+        p.execute();*/
+        Api.executeRequest(ApiRequests.getCompletedStories(), this);
 
         return view;
     }
@@ -71,18 +76,17 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         intent.putExtra("Favs",favorites[position]);
 
 
-
         startActivity(intent);
     }
 
     public void initHeader(View v){
-        v.findViewById(R.id.story_chooser_back_lyt).setOnClickListener(new View.OnClickListener() {
+        v.findViewById(R.id.header_back_arrow).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().onBackPressed();
             }
         });
-        ((TextView)v.findViewById(R.id.app_header_title)).setText(getString(R.string.storie_list_header_title));
+        ((TextView)v.findViewById(R.id.header_title)).setText(getString(R.string.storie_list_header_title));
     }
 
 
@@ -90,19 +94,23 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
 
 
 
+    //-------------------------------------------------------------------
+    // Methods
+
+    /**
+     *
+     * @param list : List of...TODO
+     */
+    public void onCompletedStoriesFetched(ArrayList<Story> list) {
+        // TODO.
+    }
 
 
-
-
-
-
-
-
-
-
-
-    public class Publish extends AsyncTask{
-        ProgressDialog dialog = new ProgressDialog(getContext());
+    /*
+     * Maybe not useful : Duplicate.
+     */
+    /*public class Publish extends AsyncTask{
+        ProgressDialog proDialog;
         @Override
         protected Object doInBackground(Object[] params) {
 
@@ -116,8 +124,9 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             //passer le tableau des favorites de l'utilisateur a l'adapter
             //gerer l'extract du title + author dans l'adapter
 
-            testingStory(getContext());
+            //testingStory(getContext());
             DBHandler.openConnection(getContext());
+
             titles[0] = DBHandler.getStory(126).getDetails().getTitle();
             authors[0] = DBHandler.getStory(126).getCreator().getName();
             ArrayList<Integer> arrayList = DBHandler.getFavorites(127);
@@ -136,7 +145,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             StoriesListAdapter adapter = new StoriesListAdapter(getActivity(), titles, authors, favorites);
             lv.setOnItemClickListener(MainAllStoriesFragment.this);
             lv.setAdapter(adapter);
-            dialog.hide();
+            proDialog.dismiss();
         }
 
         @Override
@@ -144,18 +153,20 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             super.onProgressUpdate(values);
             //Loading screen
 
-            dialog.setMessage("Loading");
-            dialog.setCancelable(false);
-            dialog.setInverseBackgroundForced(false);
-            dialog.show();
 
         }
 
         @Override
-        protected void onCancelled() {
-
+        protected void onPreExecute() {
+            super.onPreExecute();
+            proDialog = new ProgressDialog(getContext());
+            proDialog.setMessage("LOADING");
+            proDialog.setIndeterminate(false);
+            proDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            proDialog.setCancelable(false);
+            proDialog.show();
         }
-    }
+    }*/
 
 
 
@@ -214,8 +225,8 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             public void onClick(View v) {
                 navigatorToSelector(0);
                 //Thread qui remplace le listView
-                Publish p = new Publish();
-                p.execute();
+                /*Publish p = new Publish();
+                p.execute();*/
             }
         });
 
@@ -239,6 +250,95 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         //Set a All Stories au depart
         navigatorToSelector(0);
 
+    }
+
+
+
+
+    private class StoriesListAdapter extends BaseAdapter {
+
+        private Context context;
+        private String[] titles;
+        private String[] authors;
+        private boolean[] favorites; //true, false selon si le story au meme index est favorite
+        private LayoutInflater inflater;
+
+
+        public StoriesListAdapter(Context context, String[] titles, String[] author, boolean[] favorites) {
+            this.context = context;
+            this.titles = titles;
+            this.authors = author;
+            this.favorites = favorites;
+            if(context != null)
+                inflater = (LayoutInflater) context
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getCount() {
+            return titles.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            //return super.getView(position, convertView, parent);
+
+       /* View rowView = inflater.inflate(R.layout.list_stories_element, parent, false);
+        TextView textView = (TextView) rowView.findViewById(R.id.text_view_stories_reader);
+        ToggleButton toggleButton = (ToggleButton) rowView.findViewById(R.id.toggle_button_favorite);
+
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), position + " faved", Toast.LENGTH_SHORT).show();
+            }
+        });
+YOLO GROS CHANGEMENT
+        textView.setText(values[position]);
+*/
+            View v = convertView;
+
+            //Modifie la row dans le listView
+            v= inflater.inflate(R.layout.fragment_stories_list,parent,false);
+
+            //Va chercher le toggle et change ces propriétés
+            ToggleButton tb = (ToggleButton) v.findViewById(R.id.toggleButton);
+            tb.setChecked(this.favorites[position]);
+
+            tb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked)
+                        System.out.println("Checked " + position);
+                    else System.out.println("Unchecked " + position);
+                }
+            });
+
+            //Va chercher text et modifie
+            //Plus tard modifier pour ce qui a été prit dans BD
+            TextView titretv = (TextView) v.findViewById(R.id.title);
+            titretv.setText(this.titles[position]);
+
+            //Va chercher text et modifie
+            //Plus tard modifier pour ce qui a été prit dans BD
+            TextView authortv = (TextView) v.findViewById(R.id.author);
+            authortv.setText(this.authors[position]);
+
+
+
+            return v;
+
+        }
     }
 
 }

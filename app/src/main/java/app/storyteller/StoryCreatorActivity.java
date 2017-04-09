@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -23,6 +22,12 @@ import app.storyteller.constants.RegexPatterns;
  * Created by Mihai on 2017-03-26.
  */
 public class StoryCreatorActivity extends AppCompatActivity {
+
+    /**
+     *
+     */
+    private final int MAX_CHARACTERS_FOR_TITLE = 20;
+    private final int MAX_CHARACTERS_FOR_CHARACTER = 20;
 
     /**
      *
@@ -53,7 +58,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
      */
     private void initHeader(){
         // -- Set Arrow Button.
-        findViewById(R.id.app_header_arrow_btn)
+        findViewById(R.id.header_back_arrow)
             .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +95,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
                     char c = s.charAt(s.length()-1);
                     if (!validateChar(c)){
                         Toast.makeText(getApplicationContext(),
-                                "\""+c+"\" : " + "is an invalid character.",
+                                "\""+c+"\" : " + getString(R.string.story_creator_invalid_char),
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -120,7 +125,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
                     char c = s.charAt(s.length()-1);
                     if (!validateChar(c)){
                         Toast.makeText(getApplicationContext(),
-                                "\""+c+"\" : " + "is an invalid character.",
+                                "\""+c+"\" : " + getString(R.string.story_creator_invalid_char),
                                 Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -152,7 +157,6 @@ public class StoryCreatorActivity extends AppCompatActivity {
                 i.putExtra("theme", theme.getSelectedItem().toString());
                 i.putExtra("character_name", character.getText().toString());
                 i.putExtra("new_story", true);
-
                 startActivity(i);
                 finish();
             }

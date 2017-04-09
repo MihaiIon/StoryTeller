@@ -134,16 +134,16 @@ public class Settings extends DialogFragment {
             public void onClick(View v) {
                 switch (count) {
                     case 0:
-                        Toast.makeText(getContext(), "Are you sure?", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.setting_are_you_sure), Toast.LENGTH_SHORT).show();
                         count++;
                         break;
                     case 1:
-                        Toast.makeText(getContext(), "DBHandler cleared.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.setting_dbh_cleared), Toast.LENGTH_SHORT).show();
                         // Api.resetDatabase();
                         count++;
                         break;
                     default:
-                        Toast.makeText(getContext(), "DBHandler already cleared.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.setting_dbh_already_cleared), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -159,7 +159,7 @@ public class Settings extends DialogFragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "100 Tokens added!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.setting_added_token), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -208,7 +208,7 @@ public class Settings extends DialogFragment {
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
-                        Toast.makeText(getContext(), "Logging out", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.setting_log_out), Toast.LENGTH_SHORT).show();
                         //Setting has account to false
                         DBHandler.openConnection(getContext());
                         //Make current account not

@@ -75,11 +75,10 @@ public class SignInActivity extends AppCompatActivity {
                 GoogleSignInAccount acct = result.getSignInAccount();
 
                 /*
-                 * Launch LoadingActivity and wait for the API response. When
+                 * Launch LoadProfileActivity and wait for the API response. When
                  * the application is ready. proceed to MainActivity.
                  */
-                Intent intent = new Intent(this, LoadingActivity.class);
-                intent.putExtra("next_activity", LoadingActivity.ActivityList.MAIN_ACTIVITY);
+                Intent intent = new Intent(this, LoadProfileActivity.class);
                 intent.putExtra("account_id", acct.getId());
                 intent.putExtra("account_name", acct.getDisplayName());
                 intent.putExtra("account_image_url", acct.getPhotoUrl().toString());
@@ -92,15 +91,13 @@ public class SignInActivity extends AppCompatActivity {
     }
 
 
-
-    // int statusCode = result.getStatus().getStatusCode();
-    //System.out.println(statusCode);
-
-    //System.out.println("Account is: "+acct.getDisplayName() +" has id: " + acct.getId()+ " and has email: "+ acct.getEmail()+ "Photo URL: " + acct.getPhotoUrl());
-    //Toast.makeText(getApplicationContext(),"Account is: "+acct.getDisplayName(), Toast.LENGTH_SHORT).show();
-    //Toast.makeText(getApplicationContext(), "has id: " + acct.getId(), Toast.LENGTH_SHORT).show();
-    //Toast.makeText(getApplicationContext()," and has email: "+ acct.getEmail(), Toast.LENGTH_SHORT).show();
-
+    /**
+     * Close app.
+     */
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
+    }
 
 
     //----------------------------------------------------------------------------

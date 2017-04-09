@@ -29,6 +29,7 @@ public class ApiRequests {
         final static String LOCK_STORY      = "lockstory";
         final static String UNLOCK_STORY    = "unlockstory";
         final static String IS_STORY_LOCKED = "isstorylocked";
+        final static String GET_STORY_COMPLETION_STATE = "getstorycompletionstate";
 
         final static String GET_COMPLETED_STORIES   = "getcompletedstories";
         final static String GET_INCOMPLETE_STORIES = "getincompletestories";
@@ -124,7 +125,20 @@ public class ApiRequests {
     }
 
     /**
-     *
+     * Provides the number of sentences in the current story.
+     */
+    public static Request getStoryCompletionState(int story_id){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("key", Api.API_KEY);
+            json.put("story_id", story_id);
+        } catch (JSONException e) { e.printStackTrace(); }
+        return new Request(Actions.GET_STORY_COMPLETION_STATE, json);
+    }
+
+    /**
+     * To make sure that no story is edited by multiple users, each
+     * story must be locked when in use by a user.
      */
     public static Request lockStory(int story_id){
         JSONObject json = new JSONObject();
@@ -136,7 +150,8 @@ public class ApiRequests {
     }
 
     /**
-     *
+     * When the user finished editing the story, the story must be
+     * unlock in order.
      */
     public static Request unlockStory(int story_id){
         JSONObject json = new JSONObject();
@@ -148,7 +163,7 @@ public class ApiRequests {
     }
 
     /**
-     *
+     * Checks if the current selected story is in use.
      */
     public static Request isStoryLocked(int story_id){
         JSONObject json = new JSONObject();

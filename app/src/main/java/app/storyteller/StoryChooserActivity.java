@@ -10,14 +10,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import app.storyteller.adapters.StoryChooserAdapter;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.database.DBHandler;
@@ -29,48 +30,48 @@ import app.storyteller.models.Story;
  * Created by Mihai on 2017-03-25.
  */
 
-public class StoryChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class StoryChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
 
     /**
      *
      */
-    private ListView lstview;
-    private String[] titles;
-    private String[] previews;
-    private String[] themes;
-    private String[] characters;
+    private ListView listview;
+    private Spinner spinner;
+    private ArrayList<Story> stories;
+    private String currentTheme;
 
     /**
      *
      */
-    private int selectedItem;
-
-    /**
-     *
-     */
-    private boolean isActivityLocked;
-
-    /**
-     * Contains all the incomplete Stories.
-     */
+    private Story selectedStory;
 
     /**
      *
      */
     private LinearLayout loadingScreen;
+    private boolean isActivityLocked;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_chooser);
         initAddStoryBtn(findViewById(R.id.story_chooser_add_btn));
-        initBackArrow();
+        initHeader();
         initLoadingScreen();
+        initSpinner();
         // -- On create, fetch all incomplete stories and display them.
-        fetchIncompleteStories();
+        //fetchIncompleteStories();
 
     }
 
+    /**
+     *
+     */
+    private void initHeader(){
+        initBackArrow();
+        ((TextView)findViewById(R.id.header_title))
+                .setText(R.string.story_chooser_header_title);
+    }
 
     /**
      *
@@ -97,6 +98,23 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         });
     }
 
+    private void initSpinner(){
+        spinner = (Spinner) findViewById(R.id.chooser_spinner);
+        spinner.setOnItemSelectedListener(this);
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        this.currentTheme = parent.getItemAtPosition(position).toString();
+        fetchIncompleteStories();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
     //--------------------------------------------------------------------
     // Methods
 
@@ -116,23 +134,11 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         setLockActivity(false);
         System.out.println("************"+isActivityLocked);
         // -- TODO :  Remove loading and place stories in ListView.
-        titles = new String[list.size()];
-        previews = new String[list.size()];
-        themes = new String[list.size()];
-        characters = new String[list.size()];
-        int t;
-        for (int i = 0; i < list.size(); i++) {
-            Story story = list.get(i);
-            titles[i] = story.getDetails().getTitle();
-            t = story.getSentences().size(); //get last sentence
-            previews[i] = story.getSentences().get(t - 1).getContent();
-            themes[i] = story.getDetails().getTheme();
-            characters[i] = story.getDetails().getMainCharacter();
-        }
-        lstview = (ListView) findViewById(R.id.story_chooser_story_list);
-        StoryChooserAdapter adapter = new StoryChooserAdapter(this,titles,previews,themes);
-        lstview.setOnItemClickListener(StoryChooserActivity.this);
-        lstview.setAdapter(adapter);
+        stories = list;
+        listview = (ListView) findViewById(R.id.story_chooser_story_list);
+        StoryChooserAdapter adapter = new StoryChooserAdapter(this, stories, currentTheme);
+        listview.setOnItemClickListener(StoryChooserActivity.this);
+        listview.setAdapter(adapter);
     }
 
 
@@ -146,8 +152,8 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         setLockActivity(true);
-        selectedItem = position;
-        Api.executeRequest(ApiRequests.isStoryLocked(37), this);
+        selectedStory = stories.get(position);
+        Api.executeRequest(ApiRequests.isStoryLocked(selectedStory.getId()), this);
     }
 
     /**
@@ -156,16 +162,21 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     public void onItemVerified(boolean isLocked){
         setLockActivity(false);
         if (!isLocked){
-            Api.executeRequest(ApiRequests.lockStory(0), this);
+            Api.executeRequest(ApiRequests.lockStory(selectedStory.getId()), this);
             Intent intent = new Intent(getApplicationContext(),StoryEditorActivity.class);
-            intent.putExtra("title",this.titles[selectedItem]);
-            intent.putExtra("character_name",this.characters[selectedItem]);
-            intent.putExtra("theme",this.titles[selectedItem]);
+            intent.putExtra("id",selectedStory.getId());
+            intent.putExtra("title",selectedStory.getDetails().getTitle());
+            intent.putExtra("character_name",selectedStory.getDetails().getMainCharacter());
+            intent.putExtra("theme",selectedStory.getDetails().getTheme());
             intent.putExtra("new_story",false);
             startActivity(intent);
         } else{
-            // Sorry the item is not available
-            // TODO : Remove item from list.
+            Toast.makeText(
+                    getApplicationContext(),
+                    "Sorry this story is not available at the moment.",
+                    Toast.LENGTH_SHORT).show();
+            // TODO : Do refresh HERE.
+            fetchIncompleteStories();
         }
     }
 
@@ -224,11 +235,11 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
      * When the Layout of the Back Arrow is pressed, return to MainActivity.
      */
     private void initBackArrow(){
-        findViewById(R.id.story_chooser_back_lyt)
+        findViewById(R.id.header_back_arrow)
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        backToMain();
+                        onBackPressed();
                     }
         });
     }
@@ -239,13 +250,5 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        backToMain();
-    }
-
-    /**
-     *
-     */
-    private void backToMain(){
-        startActivity(new Intent(this, MainActivity.class));
     }
 }
