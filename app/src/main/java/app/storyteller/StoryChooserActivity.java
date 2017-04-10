@@ -251,4 +251,14 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+    /**
+     * When the user comes back from the story editor activity
+     * the story he last modified does is not displayed.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchIncompleteStories();
+    }
 }
