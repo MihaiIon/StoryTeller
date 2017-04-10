@@ -85,7 +85,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="119dp">
 
                 <ToggleButton
                     android:id="@+id/token1"
@@ -121,6 +121,20 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true"
                     android:layout_marginStart="42dp" />
+
+                <TextView
+                    android:id="@+id/timerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignEnd="@+id/token3"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/token1"
+                    android:layout_marginTop="13dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="More in:"
+                    android:textColor="@color/white"
+                    android:textStyle="italic" />
+                    android:text="Time left:" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

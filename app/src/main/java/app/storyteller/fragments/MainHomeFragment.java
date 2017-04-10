@@ -81,7 +81,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         fragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
         initHeader();
         initPlayBtn();
-        //timerText = (TextView) fragmentLayout.findViewById(R.id.timerToken);
+        timerText = (TextView) fragmentLayout.findViewById(R.id.timerText);
         token1 = (ToggleButton) fragmentLayout.findViewById(R.id.token1);
         token2 = (ToggleButton) fragmentLayout.findViewById(R.id.token2);
         token3 = (ToggleButton) fragmentLayout.findViewById(R.id.token3);
@@ -243,8 +243,9 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
             long diff = time - (long)values[0];
             long diffInSeconds = diff/1000;
             long diffInMinutes = diffInSeconds/60;
-            String timeDisplayed = "Time: "+String.valueOf(diffInMinutes);
-            //timerText.setText(timeDisplayed);
+            String timeDisplayed = "More in: "+String.valueOf(diffInMinutes);
+            timerText.setText(timeDisplayed);
+
             if(diffInMinutes >= 15)
             {
                 Account currAcc = StoryTellerManager.getAccount();
@@ -253,10 +254,11 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
                 {
                     currAcc.setTokens(nbTok+1);
                     refreshTokenUI(currAcc.getTokens(),token1,token2,token3,true);
-                    Toast.makeText(getContext(),"Here, take a life sir!",Toast.LENGTH_SHORT).show();
+                    ApiRequests.updateProfile(currAcc);
+                    Toast.makeText(getContext(),"before update lastConnected value=" + currAcc.getLastConnected(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"ProfileUpdated Yo!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"after update lastConnected value=" + currAcc.getLastConnected(),Toast.LENGTH_LONG).show();
                 }
-                ApiRequests.updateProfile(currAcc);
-
             }
         }
         public class Reminder {
@@ -270,7 +272,6 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
             class RemindTask extends TimerTask {
                 public void run()
                 {
-                    //setCount(getCount()+1);
                     Timestamp time = StoryTellerManager.getAccount().getLastConnected();
                     publishProgress(time.getTime());
                 }

@@ -23,7 +23,6 @@ public class Profile extends User {
         this.favorites = favorites;
     }
 
-
     //------------------------------------------------------------
     // Getters and Setters
 
