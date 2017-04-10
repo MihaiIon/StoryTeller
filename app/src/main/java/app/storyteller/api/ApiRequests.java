@@ -69,10 +69,9 @@ public class ApiRequests {
 
     /**
      * Update all the Information of the current Profile.
-     *
-     * @param acc : Account related to the current Profile.
      */
-    public static Request updateProfile(Account acc){
+    public static Request updateProfile(){
+        Account acc = StoryTellerManager.getAccount();
         JSONObject json = new JSONObject();
         try {
             json.put("key", Api.API_KEY);
@@ -80,7 +79,6 @@ public class ApiRequests {
             json.put("name", acc.getName());
             json.put("tokens", acc.getTokens());
             json.put("imageURL", acc.getImageURL());
-            json.put("lastConnected", acc.getNewTimestamp());
         } catch (JSONException e) { e.printStackTrace(); }
         return new Request(Actions.UPDATE_PROFILE, json);
     }

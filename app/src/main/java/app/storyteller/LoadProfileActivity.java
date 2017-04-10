@@ -145,6 +145,7 @@ public class LoadProfileActivity extends AppCompatActivity {
         protected void onPostExecute(Bitmap result) {
             super.onPostExecute(result);
             StoryTellerManager.setAccountImage(result);
+            Api.executeRequest(ApiRequests.updateProfile(), activity);
             activity.onAccountReady();
         }
     }
