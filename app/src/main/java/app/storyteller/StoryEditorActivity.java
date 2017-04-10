@@ -195,14 +195,12 @@ public class StoryEditorActivity extends AppCompatActivity {
                             story_id, sentenceInput.getText().toString(), completionEnabled),
                             StoryEditorActivity.this);
                 }
-                //On va enlever la vie ici.. moins de gestion étrange des token grace a ça
+
                 Account currentAccount = StoryTellerManager.getAccount();
                 int curr = currentAccount.getTokens();
                 currentAccount.setTokens(curr-1);
-                ApiRequests.updateProfile();
-                int tokensAft = StoryTellerManager.getAccount().getTokens();
-                Toast t = Toast.makeText(getApplicationContext(),"Tokens after update in storyEditor: " +tokensAft ,Toast.LENGTH_LONG);
-                t.show();
+                //ApiRequests.updateProfile();
+                //int tokensAft = StoryTellerManager.getAccount().getTokens();
                 // --
                 setLockActivity(true);
             }

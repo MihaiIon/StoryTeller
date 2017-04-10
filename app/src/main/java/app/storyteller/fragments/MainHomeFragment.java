@@ -2,6 +2,7 @@ package app.storyteller.fragments;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.PaintDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -79,21 +80,24 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
-        initHeader();
-        initPlayBtn();
         timerText = (TextView) fragmentLayout.findViewById(R.id.timerText);
         token1 = (ToggleButton) fragmentLayout.findViewById(R.id.token1);
         token2 = (ToggleButton) fragmentLayout.findViewById(R.id.token2);
         token3 = (ToggleButton) fragmentLayout.findViewById(R.id.token3);
 
-        TimerToken timer = new TimerToken();
-        timer.execute();
-
-        refreshTokenUI(StoryTellerManager.getAccount().getTokens(),token1, token2, token3, false);
+        initHeader();
+        initPlayBtn();
+        initTokenUIandThread();
 
         return fragmentLayout;
     }
 // initializeTokens(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
+
+    private void initTokenUIandThread() {
+        refreshTokenUI(StoryTellerManager.getAccount().getTokens(),token1, token2, token3, true);
+        TimerToken timer = new TimerToken();
+        timer.execute();
+    }
 
 
     //-----------------------------------------------------------------------------------
@@ -135,27 +139,6 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
 
     //-------------------------------------------------------------------
     // Tokens
-
-    private void initializePlayButtonTEST_MATT(final View tok1,final  View tok2,final View tok3) {
-        playBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentTok = StoryTellerManager.getAccount().getTokens();
-                if(currentTok > 0)
-                {
-                    int newTok = currentTok-1;
-                    StoryTellerManager.getAccount().setTokens(newTok);
-                    refreshTokenUI(newTok, tok1,tok2,tok3,false);
-                }
-                else
-                {
-                    Toast toast = Toast.makeText(getContext(),getString(R.string.home_unsufficient_tokens), Toast.LENGTH_LONG);
-                    toast.show();
-                }
-            }
-        });
-    }
-
     private void refreshTokenUI(int nbTokens, View token1, View token2, View token3,boolean setVisible)
     {
         final int TOTAL_HP = 3;
@@ -206,14 +189,6 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         }
     }
 
-
-    private void initializeTokens(View token1, View token2, View token3)
-    {
-        int tok = StoryTellerManager.getAccount().getTokens();
-        refreshTokenUI(tok,token1, token2, token3,true);
-    }
-
-
     //-----------------------------------------------------------------------------------
     // Play Btn
 
@@ -239,27 +214,27 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
 
         @Override
         protected void onProgressUpdate(Object[] values){
+            Account currAcc = StoryTellerManager.getAccount();
+
             long time = System.currentTimeMillis();
             long diff = time - (long)values[0];
             long diffInSeconds = diff/1000;
             long diffInMinutes = diffInSeconds/60;
-            String timeDisplayed = "More in: "+String.valueOf(diffInMinutes);
+            String timeDisplayed = "More in: "+String.valueOf(60 - diffInSeconds);
             timerText.setText(timeDisplayed);
 
-            if(diffInMinutes >= 15)
+            if(diffInMinutes >= 1)
             {
-                Account currAcc = StoryTellerManager.getAccount();
                 int nbTok = currAcc.getTokens();
+
                 if(nbTok < 3)
                 {
                     currAcc.setTokens(nbTok+1);
                     refreshTokenUI(currAcc.getTokens(),token1,token2,token3,true);
-                    ApiRequests.updateProfile(currAcc);
-                    Toast.makeText(getContext(),"before update lastConnected value=" + currAcc.getLastConnected(),Toast.LENGTH_LONG).show();
-                    Toast.makeText(getContext(),"ProfileUpdated Yo!",Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getContext(),"after update lastConnected value=" + currAcc.getLastConnected(),Toast.LENGTH_LONG).show();
+                    ApiRequests.updateProfile();
                 }
             }
+
         }
         public class Reminder {
             Timer timer;
