@@ -1,7 +1,5 @@
 package app.storyteller;
 
-import android.accounts.AccountManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -21,7 +19,7 @@ import java.util.regex.Pattern;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.constants.RegexPatterns;
-import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.manager.AppManager;
 import app.storyteller.models.Account;
 import app.storyteller.models.StoryDetails;
 
@@ -196,12 +194,7 @@ public class StoryEditorActivity extends AppCompatActivity {
                             StoryEditorActivity.this);
                 }
 
-                Account currentAccount = StoryTellerManager.getAccount();
-                int curr = currentAccount.getTokens();
-                currentAccount.setTokens(curr-1);
-                //ApiRequests.updateProfile();
-                //int tokensAft = StoryTellerManager.getAccount().getTokens();
-                // --
+                AppManager.getTokenManager().consumeToken(getParent());
                 setLockActivity(true);
             }
         });

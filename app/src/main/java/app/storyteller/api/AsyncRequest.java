@@ -22,7 +22,7 @@ import app.storyteller.StoryChooserActivity;
 import app.storyteller.StoryEditorActivity;
 import app.storyteller.database.DBHandler;
 import app.storyteller.fragments.MainAllStoriesFragment;
-import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.manager.AppManager;
 import app.storyteller.models.Account;
 import app.storyteller.models.Sentence;
 import app.storyteller.models.Story;
@@ -197,7 +197,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                     Timestamp.valueOf(obj.getString("last_connected")),
                     new ArrayList<Story>()
             );
-            StoryTellerManager.setAccount(acc);
+            AppManager.setAccount(acc);
             System.out.println(acc);
 
             // -- Add Account in local DB.

@@ -3,10 +3,8 @@ package app.storyteller.api;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.manager.AppManager;
 import app.storyteller.models.Account;
-import app.storyteller.models.Profile;
-import app.storyteller.models.Sentence;
 import app.storyteller.models.StoryDetails;
 
 /**
@@ -71,7 +69,7 @@ public class ApiRequests {
      * Update all the Information of the current Profile.
      */
     public static Request updateProfile(){
-        Account acc = StoryTellerManager.getAccount();
+        Account acc = AppManager.getAccount();
         JSONObject json = new JSONObject();
         try {
             json.put("key", Api.API_KEY);
@@ -103,7 +101,7 @@ public class ApiRequests {
             json.put("theme", sd.getTheme());
             json.put("sentence_content", sentence);
             json.put("character_name", sd.getMainCharacter());
-            json.put("creator_id", StoryTellerManager.getAccount().getId());
+            json.put("creator_id", AppManager.getAccount().getId());
         } catch (JSONException e) { e.printStackTrace(); }
         return new Request(Actions.CREATE_STORY, json);
     }
@@ -117,7 +115,7 @@ public class ApiRequests {
             json.put("key", Api.API_KEY);
             json.put("story_id", story_id);
             json.put("sentence_content", sentence);
-            json.put("author_id", StoryTellerManager.getAccount().getId());
+            json.put("author_id", AppManager.getAccount().getId());
             json.put("is_completed", isCompleted ? 1 : 0);
         } catch (JSONException e) { e.printStackTrace(); }
         return new Request(Actions.UPDATE_STORY, json);
@@ -181,7 +179,7 @@ public class ApiRequests {
         JSONObject json = new JSONObject();
         try {
             json.put("key", Api.API_KEY);
-            json.put("profile_id", StoryTellerManager.getAccount().getId());
+            json.put("profile_id", AppManager.getAccount().getId());
         } catch (JSONException e) { e.printStackTrace(); }
         return new Request(Actions.GET_COMPLETED_STORIES, json);
     }
@@ -194,7 +192,7 @@ public class ApiRequests {
         JSONObject json = new JSONObject();
         try {
             json.put("key", Api.API_KEY);
-            json.put("profile_id", StoryTellerManager.getAccount().getId());
+            json.put("profile_id", AppManager.getAccount().getId());
         } catch (JSONException e) { e.printStackTrace(); }
         return new Request(Actions.GET_INCOMPLETE_STORIES, json);
     }

@@ -1,6 +1,5 @@
 package app.storyteller;
 
-import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,8 +20,7 @@ import java.util.ArrayList;
 import app.storyteller.adapters.StoryChooserAdapter;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
-import app.storyteller.database.DBHandler;
-import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.manager.AppManager;
 import app.storyteller.models.Account;
 import app.storyteller.models.Story;
 
@@ -59,6 +57,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         initHeader();
         initLoadingScreen();
         initSpinner();
+        currentTheme = "caca";
         // -- On create, fetch all incomplete stories and display them.
         //fetchIncompleteStories();
 
@@ -81,7 +80,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
             @Override
             public void onClick(View v) {
                 //rajouter le code pour verifier la quantité de vies.
-                Account currentAccount = StoryTellerManager.getAccount();
+                Account currentAccount = AppManager.getAccount();
                 int currTok = currentAccount.getTokens();
                 if(currTok > 0)
                 {

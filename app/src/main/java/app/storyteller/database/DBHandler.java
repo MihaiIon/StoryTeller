@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-import app.storyteller.manager.StoryTellerManager;
 import app.storyteller.models.Account;
 import app.storyteller.models.Profile;
 import app.storyteller.models.Sentence;

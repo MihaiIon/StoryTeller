@@ -15,9 +15,7 @@ import java.net.URL;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.database.DBHandler;
-import app.storyteller.fragments.MainHomeFragment;
-import app.storyteller.manager.StoryTellerManager;
-import app.storyteller.models.Account;
+import app.storyteller.manager.AppManager;
 
 /**
  * This Activity is a "Transition Activity". Meaning that, when the
@@ -66,7 +64,7 @@ public class LoadProfileActivity extends AppCompatActivity {
     // Methods
 
     private void loadAccountFromDatabase(){
-        StoryTellerManager.setAccount(DBHandler.getAccount(account_id));
+        AppManager.setAccount(DBHandler.getAccount(account_id));
         DBHandler.closeConnection();
     }
 
@@ -106,7 +104,7 @@ public class LoadProfileActivity extends AppCompatActivity {
      * application launches normally.
      */
     private void fetchProfileImage(){
-        new LoadImageFromUrl(StoryTellerManager.getAccount().getImageURL(),
+        new LoadImageFromUrl(AppManager.getAccount().getImageURL(),
                 this).execute();
     }
 
@@ -144,7 +142,7 @@ public class LoadProfileActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Bitmap result) {
             super.onPostExecute(result);
-            StoryTellerManager.setAccountImage(result);
+            AppManager.getAccountManager().setAccountImage(result);
             Api.executeRequest(ApiRequests.updateProfile(), activity);
             activity.onAccountReady();
         }

@@ -1,5 +1,6 @@
 package app.storyteller.manager;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
@@ -16,7 +17,7 @@ import app.storyteller.models.Account;
  * activities changes.
  */
 
-public class StoryTellerManager{
+public class AppManager {
 
     /**
      * Provides access to the Google API to retrieve information about accounts
@@ -24,28 +25,19 @@ public class StoryTellerManager{
     private static GoogleApiClient gac;
 
     /**
-     * Current logged-in Profile or the last Profile that logged-in
-     * since the last visit.
-     */
-    private static Account account;
-
-    /**
      *
-     * @return
      */
-    private static Bitmap accountImage;
+    private static AccountManager accountManager;
 
 
     //-------------------------------------------------------
     // Getters and Setters
 
-    public static Account getAccount(){ return account; }
+    public static Account getAccount(){ return accountManager.getAccount(); }
+    public static AccountManager getAccountManager(){ return accountManager; }
+    public static TokenManager getTokenManager(){ return accountManager.getTokenManager(); }
     public static GoogleApiClient getGoogleApiClient(){ return gac; }
-    public static Bitmap getAccountImage(){ return accountImage; }
-
-    public static void setAccount(Account a){ account = a; }
     public static void setGoogleApiClient(GoogleApiClient g){ gac = g; }
-    public static void setAccountImage(Bitmap bitmap){ accountImage = bitmap; }
 
 
     //-------------------------------------------------------
@@ -54,9 +46,16 @@ public class StoryTellerManager{
     /**
      *
      */
-    public static boolean init(GoogleApiClient g){
-        setGoogleApiClient(g);
-        return true;
+    public static void init(GoogleApiClient g){
+        gac = g;
+    }
+
+    /**
+     *
+     * @param account
+     */
+    public static void setAccount(Account account){
+        accountManager = new AccountManager((account));
     }
 
     /**
@@ -74,9 +73,4 @@ public class StoryTellerManager{
     public static boolean isSignedIn(){
         return gac.isConnected();
     }
-
-    /**
-     *
-     */
-    public static boolean isAccountCreated() { return account != null; }
 }

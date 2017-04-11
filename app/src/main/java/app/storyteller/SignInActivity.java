@@ -13,7 +13,7 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 
-import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.manager.AppManager;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -114,7 +114,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(
-                        StoryTellerManager.getGoogleApiClient());
+                        AppManager.getGoogleApiClient());
                 startActivityForResult(signInIntent, 1);
                 // On complete goes to -> onActivityResult().
             }

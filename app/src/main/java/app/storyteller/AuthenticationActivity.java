@@ -15,7 +15,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import app.storyteller.database.DBHandler;
-import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.manager.AppManager;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
@@ -26,9 +26,8 @@ public class AuthenticationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.setContentView(R.layout.activity_authentication);
-        if(StoryTellerManager.isConnectedToInternet(getApplicationContext()))
+        if(AppManager.isConnectedToInternet(getApplicationContext()))
         {
             // -- Google and Local DB.
             setUpGoogleStuff();
@@ -88,7 +87,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                     }});
 
         // -- Set Client.
-        StoryTellerManager.init(builder.addApi(Auth.GOOGLE_SIGN_IN_API, gso).build());
+        AppManager.init(builder.addApi(Auth.GOOGLE_SIGN_IN_API, gso).build());
     }
 
 
@@ -100,7 +99,7 @@ public class AuthenticationActivity extends AppCompatActivity {
      */
     private void signInAndProceed(){
         Intent signInIntent = Auth.GoogleSignInApi
-                .getSignInIntent(StoryTellerManager.getGoogleApiClient());
+                .getSignInIntent(AppManager.getGoogleApiClient());
         startActivityForResult(signInIntent, 1);
     }
 

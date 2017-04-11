@@ -34,14 +34,8 @@ public class Profile extends User {
     public ArrayList getFavorites() { return favorites; }
     public Timestamp getLastConnected() { return super.getLastConnected(); }
 
-    @Deprecated
-    public Timestamp getNewTimestamp() {return new Timestamp(System.currentTimeMillis());}
-
     public void setName(String name) {
         super.setName(name);
-    }
-    public void setTokens(int tokens) {
-        this.tokens = tokens;
     }
     public void setImagePath(String imageURL) { super.setImagePath(imageURL); }
 
@@ -49,12 +43,11 @@ public class Profile extends User {
     // Methods
 
     /**
-     * TODO. -> Returns a list of all the stories which this profile participated.
-     * @return :
+     * Tokens Methods.
      */
-    public ArrayList<Story> hasParticipatedIn() {
-        return new ArrayList<Story>();
-    }
+    public void grantToken()  { if (this.tokens < 3) this.tokens++; }
+    public void consumeToken(){ if (this.tokens > 1) this.tokens--; }
+
 
     /**
      * Checks if the current User (Profile) is connect to the Internet.
@@ -69,14 +62,6 @@ public class Profile extends User {
     }
 
     /**
-     * Trivial.
-     */
-    public Profile updateLastConnected(){
-        super.setLastConnected(new Timestamp(System.currentTimeMillis()));
-        return this;
-    }
-
-    /**
      *
      * @param story
      */
@@ -86,7 +71,6 @@ public class Profile extends User {
             this.favorites.add(story);
         }
         else throw new IllegalArgumentException("Story already present");
-
     }
 
     /**

@@ -2,7 +2,6 @@ package app.storyteller.fragments;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.PaintDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -13,15 +12,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import android.widget.TextView;
-
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
@@ -35,9 +30,10 @@ import java.util.TimerTask;
 import app.storyteller.R;
 import app.storyteller.StoryChooserActivity;
 import app.storyteller.api.ApiRequests;
-import app.storyteller.database.DBHandler;
 import app.storyteller.fragments.dialogs.Settings;
-import app.storyteller.manager.StoryTellerManager;
+import app.storyteller.manager.AccountManager;
+import app.storyteller.manager.AppManager;
+import app.storyteller.manager.TokenManager;
 import app.storyteller.models.Account;
 
 
@@ -91,14 +87,6 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
 
         return fragmentLayout;
     }
-// initializeTokens(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
-
-    private void initTokenUIandThread() {
-        refreshTokenUI(StoryTellerManager.getAccount().getTokens(),token1, token2, token3, true);
-        TimerToken timer = new TimerToken();
-        timer.execute();
-    }
-
 
     //-----------------------------------------------------------------------------------
     // Init
@@ -130,10 +118,35 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
      */
     private void initHeader(){
         profileImage = (ImageView)fragmentLayout.findViewById(R.id.profile_image_view);
-        profileImage.setImageBitmap(StoryTellerManager.getAccountImage());
+        profileImage.setImageBitmap(AppManager.getAccountManager().getAccountImage());
         profileName  = (TextView)fragmentLayout.findViewById(R.id.profile_name_text_view);
-        profileName.setText(StoryTellerManager.getAccount().getName());
+        profileName.setText(AppManager.getAccount().getName());
         initSettings();
+    }
+
+
+    // initializeTokens(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
+    private void initTokenUIandThread() {
+        refreshTokenUI(AppManager.getAccount().getTokens(),token1, token2, token3, true);
+        TimerToken timer = new TimerToken();
+        timer.execute();
+    }
+
+
+
+    //-----------------------------------------------------------------------------------
+    // Play Btn
+
+    private void initPlayBtn(){
+        playBtn = (ImageView)fragmentLayout.findViewById(R.id.home_play_btn);
+        playBtn.setBackgroundResource(R.drawable.play_btn_animation);
+        ((AnimationDrawable) playBtn.getBackground()).start();
+        playBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), StoryChooserActivity.class));
+            }
+        });
     }
 
 
@@ -189,21 +202,6 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         }
     }
 
-    //-----------------------------------------------------------------------------------
-    // Play Btn
-
-    private void initPlayBtn(){
-        playBtn = (ImageView)fragmentLayout.findViewById(R.id.home_play_btn);
-        playBtn.setBackgroundResource(R.drawable.play_btn_animation);
-        ((AnimationDrawable) playBtn.getBackground()).start();
-        playBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), StoryChooserActivity.class));
-            }
-        });
-    }
-
     public class TimerToken extends AsyncTask {
 
         @Override
@@ -214,7 +212,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
 
         @Override
         protected void onProgressUpdate(Object[] values){
-            Account currAcc = StoryTellerManager.getAccount();
+            AccountManager accountManager = AppManager.getAccountManager();
 
             long time = System.currentTimeMillis();
             long diff = time - (long)values[0];
@@ -225,14 +223,10 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
 
             if(diffInMinutes >= 1)
             {
-                int nbTok = currAcc.getTokens();
-
-                if(nbTok < 3)
-                {
-                    currAcc.setTokens(nbTok+1);
-                    refreshTokenUI(currAcc.getTokens(),token1,token2,token3,true);
-                    ApiRequests.updateProfile();
-                }
+                Account currAcc = accountManager.getAccount();
+                currAcc.grantToken();
+                refreshTokenUI(currAcc.getTokens(),token1,token2,token3,true);
+                ApiRequests.updateProfile();
             }
 
         }
@@ -247,7 +241,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
             class RemindTask extends TimerTask {
                 public void run()
                 {
-                    Timestamp time = StoryTellerManager.getAccount().getLastConnected();
+                    Timestamp time = AppManager.getAccount().getLastConnected();
                     publishProgress(time.getTime());
                 }
             }
