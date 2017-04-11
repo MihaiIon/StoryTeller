@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import app.storyteller.fragments.MainAllStoriesFragment;
 import app.storyteller.fragments.MainHomeFragment;
+import app.storyteller.manager.StoryTellerManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
         sliderAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         slider.setAdapter(sliderAdapter);
         backBtnPressed = false;
+        if(StoryTellerManager.getAccount().getId() == 2){
+            Toast.makeText(getApplicationContext(), "Sorry you are banned from the app for spamming poop in the database.", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
