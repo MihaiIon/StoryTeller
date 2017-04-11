@@ -40,13 +40,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ListView
-                android:id="@+id/story_chooser_story_list"
+            <android.support.v4.widget.SwipeRefreshLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/story_chooser_swipeContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentBottom="true">
+                android:layout_height="match_parent">
 
-            </ListView>
+                <ListView
+                    android:id="@+id/story_chooser_story_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true">
+
+                </ListView>
+            </android.support.v4.widget.SwipeRefreshLayout>
 
             <ImageButton
                 android:id="@+id/story_chooser_add_btn"
