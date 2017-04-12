@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -107,9 +108,6 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     }
 
 
-
-
-
     /**
      * Initialize the button that allows the user to create new Stories.
      * -- At least one token is required to start a new Story.
@@ -133,10 +131,6 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     //----------------------------------------------------------------------------
 
 
-
-    /**
-     *
-     */
     /**
      * Initialize the Pull Down for refresh container
      */
