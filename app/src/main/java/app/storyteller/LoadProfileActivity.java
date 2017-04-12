@@ -64,7 +64,7 @@ public class LoadProfileActivity extends AppCompatActivity {
     // Methods
 
     private void loadAccountFromDatabase(){
-        AppManager.setAccount(DBHandler.getAccount(account_id));
+        AppManager.setAccountManager(DBHandler.getAccount(account_id));
         DBHandler.closeConnection();
     }
 

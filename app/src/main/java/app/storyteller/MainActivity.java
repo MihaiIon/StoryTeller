@@ -48,25 +48,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // Instantiate a ViewPager and a PagerAdapter.
         slider = (ViewPager) findViewById(R.id.mainActivity);
         sliderAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         slider.setAdapter(sliderAdapter);
         backBtnPressed = false;
+
+        // --
         if(AppManager.getAccount().getId() == 2){
             Toast.makeText(getApplicationContext(), "Sorry you are banned from the app for spamming poop in the database.", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    protected void onPause() {
+        super.onPause();
+        AppManager.getTokenManager().stopTokensWatcher();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppManager.getTokenManager().startTokensWatcher(this);
     }
 
     /**
@@ -119,6 +123,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             return NUM_SLIDES;
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

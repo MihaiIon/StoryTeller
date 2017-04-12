@@ -129,6 +129,8 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
             case ApiRequests.Actions.CREATE_PROFILE:
             case ApiRequests.Actions.UPDATE_PROFILE:
                 processProfile(response);
+                if (activity instanceof StoryEditorActivity)
+                    activity.finish();
                 break;
 
             //----------------------------------------------------------------------
@@ -137,9 +139,6 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
              */
             case ApiRequests.Actions.CREATE_STORY:
             case ApiRequests.Actions.UPDATE_STORY:
-                // -- Destroy StoryEditorActivity.
-                activity.finish();
-                break;
             case ApiRequests.Actions.LOCK_STORY:
             case ApiRequests.Actions.UNLOCK_STORY:
                 break;
@@ -197,7 +196,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                     Timestamp.valueOf(obj.getString("last_connected")),
                     new ArrayList<Story>()
             );
-            AppManager.setAccount(acc);
+            AppManager.getAccountManager().setAccount(acc);
             System.out.println(acc);
 
             // -- Add Account in local DB.

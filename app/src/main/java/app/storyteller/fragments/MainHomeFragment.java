@@ -2,10 +2,10 @@ package app.storyteller.fragments;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
@@ -19,22 +19,10 @@ import android.widget.TextView;
 
 import android.widget.ToggleButton;
 
-
-import java.sql.Timestamp;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
-
-
 import app.storyteller.R;
 import app.storyteller.StoryChooserActivity;
-import app.storyteller.api.ApiRequests;
 import app.storyteller.fragments.dialogs.Settings;
-import app.storyteller.manager.AccountManager;
 import app.storyteller.manager.AppManager;
-import app.storyteller.manager.TokenManager;
-import app.storyteller.models.Account;
 
 
 /**
@@ -59,37 +47,41 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
     private TextView profileName;
 
     /**
+     * Tokens Related.
+     */
+    private TextView timerText;
+    private ToggleButton token1,token2,token3;
+
+    /**
      * Central button that triggers the StoryChooserActivity.
      */
     private ImageView playBtn;
-    private TextView timerText;
-    private ToggleButton token1,token2,token3;
-    private int count;
-    public int getCount() {
-        return count;
-    }
-    public void setCount(int count) {
-        this.count = count;
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentLayout = (ViewGroup) inflater.inflate(R.layout.fragment_home, container, false);
-        timerText = (TextView) fragmentLayout.findViewById(R.id.timerText);
-        token1 = (ToggleButton) fragmentLayout.findViewById(R.id.token1);
-        token2 = (ToggleButton) fragmentLayout.findViewById(R.id.token2);
-        token3 = (ToggleButton) fragmentLayout.findViewById(R.id.token3);
 
         initHeader();
         initPlayBtn();
-        initTokenUIandThread();
 
         return fragmentLayout;
     }
 
     //-----------------------------------------------------------------------------------
     // Init
+
+
+    /**
+     *
+     */
+    private void initHeader(){
+        profileImage = (ImageView)fragmentLayout.findViewById(R.id.profile_image_view);
+        profileImage.setImageBitmap(AppManager.getAccountManager().getAccountImage());
+        profileName  = (TextView)fragmentLayout.findViewById(R.id.profile_name_text_view);
+        profileName.setText(AppManager.getAccount().getName());
+        initTokens();
+        initSettings();
+    }
 
     /**
      * The main settings of the app.
@@ -101,9 +93,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
             public void onClick(View v) {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 Fragment prev = getFragmentManager().findFragmentByTag("dialog");
-                if (prev != null) {
-                    ft.remove(prev);
-                }
+                if (prev != null) { ft.remove(prev); }
                 ft.addToBackStack(null);
 
                 // Create and show the dialog.
@@ -112,26 +102,6 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
             }
         });
     }
-
-    /**
-     *
-     */
-    private void initHeader(){
-        profileImage = (ImageView)fragmentLayout.findViewById(R.id.profile_image_view);
-        profileImage.setImageBitmap(AppManager.getAccountManager().getAccountImage());
-        profileName  = (TextView)fragmentLayout.findViewById(R.id.profile_name_text_view);
-        profileName.setText(AppManager.getAccount().getName());
-        initSettings();
-    }
-
-
-    // initializeTokens(home.findViewById(R.id.token1), home.findViewById(R.id.token2),home.findViewById(R.id.token3));
-    private void initTokenUIandThread() {
-        refreshTokenUI(AppManager.getAccount().getTokens(),token1, token2, token3, true);
-        TimerToken timer = new TimerToken();
-        timer.execute();
-    }
-
 
 
     //-----------------------------------------------------------------------------------
@@ -152,99 +122,16 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
 
     //-------------------------------------------------------------------
     // Tokens
-    private void refreshTokenUI(int nbTokens, View token1, View token2, View token3,boolean setVisible)
-    {
-        final int TOTAL_HP = 3;
-        ToggleButton tb;
-        int amountToRemove = TOTAL_HP - nbTokens;
 
-        if(!setVisible) {
-            for(int i = 0 ; i < amountToRemove; i++)
-            {
-                switch (i)
-                {
-                    case  0:
-                        tb = (ToggleButton) token1;
-                        tb.setChecked(false);
-                        break;
-                    case 1:
-                        tb  = (ToggleButton) token2;
-                        tb.setChecked(false);
-                        break;
-                    case 2:
-                        tb  = (ToggleButton) token3;
-                        tb.setChecked(false);
-                        break;
-                }
-            }
-        }
-
-        if(setVisible)
-        {
-            for (int i = 0; i < nbTokens; i++)
-            {
-                switch (i)
-                {
-                    case 0:
-                        tb  = (ToggleButton) token3;
-                        tb.setChecked(true);
-                        break;
-                    case 1:
-                        tb  = (ToggleButton) token2;
-                        tb.setChecked(true);
-                        break;
-                    case 2:
-                        tb  = (ToggleButton) token1;
-                        tb.setChecked(true);
-                        break;
-                }
-            }
-        }
+    /**
+     *
+     */
+    private void initTokens() {
+        timerText = (TextView) fragmentLayout.findViewById(R.id.timerText);
+        token1 = (ToggleButton) fragmentLayout.findViewById(R.id.token1);
+        token2 = (ToggleButton) fragmentLayout.findViewById(R.id.token2);
+        token3 = (ToggleButton) fragmentLayout.findViewById(R.id.token3);
     }
 
-    public class TimerToken extends AsyncTask {
 
-        @Override
-        protected Object doInBackground(Object[] params) {
-            new Reminder(1);
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Object[] values){
-            AccountManager accountManager = AppManager.getAccountManager();
-
-            long time = System.currentTimeMillis();
-            long diff = time - (long)values[0];
-            long diffInSeconds = diff/1000;
-            long diffInMinutes = diffInSeconds/60;
-            String timeDisplayed = "More in: "+String.valueOf(60 - diffInSeconds);
-            timerText.setText(timeDisplayed);
-
-            if(diffInMinutes >= 1)
-            {
-                Account currAcc = accountManager.getAccount();
-                currAcc.grantToken();
-                refreshTokenUI(currAcc.getTokens(),token1,token2,token3,true);
-                ApiRequests.updateProfile();
-            }
-
-        }
-        public class Reminder {
-            Timer timer;
-
-            public Reminder(int seconds) {
-                timer = new Timer();
-                timer.scheduleAtFixedRate(new RemindTask(), 0,seconds * 1000);
-            }
-
-            class RemindTask extends TimerTask {
-                public void run()
-                {
-                    Timestamp time = AppManager.getAccount().getLastConnected();
-                    publishProgress(time.getTime());
-                }
-            }
-        }
-    }
 }

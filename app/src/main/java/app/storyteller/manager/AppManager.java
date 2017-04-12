@@ -39,6 +39,14 @@ public class AppManager {
     public static GoogleApiClient getGoogleApiClient(){ return gac; }
     public static void setGoogleApiClient(GoogleApiClient g){ gac = g; }
 
+    /**
+     *
+     * @param account : .
+     */
+    public static void setAccountManager(Account account){
+        accountManager = new AccountManager(account);
+    }
+
 
     //-------------------------------------------------------
     // Methods
@@ -48,14 +56,6 @@ public class AppManager {
      */
     public static void init(GoogleApiClient g){
         gac = g;
-    }
-
-    /**
-     *
-     * @param account
-     */
-    public static void setAccount(Account account){
-        accountManager = new AccountManager((account));
     }
 
     /**

@@ -21,6 +21,7 @@ import app.storyteller.adapters.StoryChooserAdapter;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.manager.AppManager;
+import app.storyteller.manager.TokenManager;
 import app.storyteller.models.Account;
 import app.storyteller.models.Story;
 
@@ -60,47 +61,75 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         currentTheme = "caca";
         // -- On create, fetch all incomplete stories and display them.
         //fetchIncompleteStories();
-
     }
+
+    /**
+     * When the user comes back from the story editor activity
+     * the story he last modified does is not displayed.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppManager.getTokenManager().startTokensWatcher(this);
+        fetchIncompleteStories();
+    }
+
+
+
+    //----------------------------------------------------------------------------
+
+
 
     /**
      *
      */
     private void initHeader(){
+        ((TextView)findViewById(R.id.header_title)).setText(R.string.story_chooser_header_title);
         initBackArrow();
-        ((TextView)findViewById(R.id.header_title))
-                .setText(R.string.story_chooser_header_title);
+        initTokens();
     }
 
     /**
-     *
+     * TODO.
+     */
+    private void initTokens(){
+
+    }
+
+
+
+
+
+    /**
+     * Initialize the button that allows the user to create new Stories.
+     * -- At least one token is required to start a new Story.
      */
     private void initAddStoryBtn(View v){
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //rajouter le code pour verifier la quantité de vies.
-                Account currentAccount = AppManager.getAccount();
-                int currTok = currentAccount.getTokens();
-                if(currTok > 0)
-                {
-                    startActivity(new Intent(getApplicationContext(), StoryCreatorActivity.class));
+                if(AppManager.getTokenManager().getTokens() > 0) {
+                    startActivity(new Intent(getApplicationContext(),
+                            StoryCreatorActivity.class));
+                } else {
+                    Toast.makeText(getApplicationContext(),
+                            "You have unsufficient tokens",
+                            Toast.LENGTH_LONG).show();
                 }
-                else
-                {
-                    String amountTime = "10";
-                    //check last time a token was given (timestamp) if this current timestamp - lastTokenGiven % 15(mins) == 1 give one life, ==2 two lives, == 3 give all life back
-                    Toast toast = Toast.makeText(getApplicationContext(),"You have unsufficient tokens, come back in "+amountTime+" minutes", Toast.LENGTH_LONG);
-                    toast.show();
-                }
-            }
-        });
+            }});
     }
 
+
+    //----------------------------------------------------------------------------
+
+
+
+    /**
+     *
+     */
     private void initSpinner(){
         spinner = (Spinner) findViewById(R.id.chooser_spinner);
         spinner.setOnItemSelectedListener(this);
-
     }
 
     @Override
@@ -113,6 +142,8 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
+
 
     //--------------------------------------------------------------------
     // Methods
@@ -251,13 +282,9 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         super.onBackPressed();
     }
 
-    /**
-     * When the user comes back from the story editor activity
-     * the story he last modified does is not displayed.
-     */
     @Override
-    protected void onResume() {
-        super.onResume();
-        fetchIncompleteStories();
+    protected void onPause() {
+        AppManager.getTokenManager().stopTokensWatcher();
+        super.onPause();
     }
 }

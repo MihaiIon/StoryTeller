@@ -45,8 +45,10 @@ public class Profile extends User {
     /**
      * Tokens Methods.
      */
-    public void grantToken()  { if (this.tokens < 3) this.tokens++; }
-    public void consumeToken(){ if (this.tokens > 1) this.tokens--; }
+    public void grantToken()  { if (tokens < 3) tokens++; }
+    public void consumeToken(){ if (tokens > 1) tokens--; }
+    public boolean maxTokensReached() { return tokens == 3; }
+    public boolean minTokensReached() { return tokens == 0; }
 
 
     /**

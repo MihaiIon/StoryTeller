@@ -36,7 +36,7 @@ public class AccountManager {
      */
     public AccountManager(Account account){
         this.account = account;
-        this.tokenManager = new TokenManager(account);
+        this.tokenManager = new TokenManager(this);
     }
 
 
@@ -47,6 +47,7 @@ public class AccountManager {
     public TokenManager getTokenManager() {return tokenManager; }
     public Bitmap getAccountImage(){ return accountImage; }
 
+    public void setAccount(Account account) { this.account = account; }
     public void setAccountImage(Bitmap bitmap){ accountImage = bitmap; }
 
 

@@ -1,5 +1,7 @@
 package app.storyteller;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -91,7 +93,6 @@ public class StoryEditorActivity extends AppCompatActivity {
         initThemeInfo();
         initSentenceInput();
         initSubmitBtn();
-
     }
 
 
@@ -177,9 +178,6 @@ public class StoryEditorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // -- Enable Loading.
-                findViewById(R.id.full_loading_screen).setVisibility(View.VISIBLE);
-
                 // -- Launch API request.
                 if (isNewStory){
                     Api.executeRequest(
@@ -194,7 +192,9 @@ public class StoryEditorActivity extends AppCompatActivity {
                             StoryEditorActivity.this);
                 }
 
-                AppManager.getTokenManager().consumeToken(getParent());
+                // -- Unlock Story on API and show loading screen.
+                Api.executeRequest(ApiRequests.unlockStory(story_id), getParent());
+                Api.executeRequest(ApiRequests.updateProfile(), StoryEditorActivity.this);
                 setLockActivity(true);
             }
         });
@@ -300,15 +300,5 @@ public class StoryEditorActivity extends AppCompatActivity {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
         isActivityLocked = value;
-    }
-
-
-    //-------------------------------------------------------------------
-    //
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Api.executeRequest(ApiRequests.unlockStory(story_id), this);
     }
 }
