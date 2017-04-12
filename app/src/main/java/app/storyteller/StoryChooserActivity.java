@@ -85,6 +85,12 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         fetchIncompleteStories();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppManager.getTokenManager().stopTokensWatcher();
+    }
+
 
 
     //----------------------------------------------------------------------------
@@ -326,11 +332,5 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-    }
-
-    @Override
-    protected void onPause() {
-        AppManager.getTokenManager().stopTokensWatcher();
-        super.onPause();
     }
 }

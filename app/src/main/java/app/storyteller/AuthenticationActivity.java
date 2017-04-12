@@ -34,6 +34,11 @@ public class AuthenticationActivity extends AppCompatActivity {
             DBHandler.openConnection(getApplicationContext());
 
             /*
+             *
+             */
+            AppManager.setAccountManager(null);
+
+            /*
              * If there is no Profile in the Database, go to SignInActivity.
              */
             if (DBHandler.getProfileListSize() == 0) {

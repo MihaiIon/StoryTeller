@@ -73,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         if (currentDisplayedFragment != null && currentDisplayedFragment instanceof MainHomeFragment)
             ((MainHomeFragment)currentDisplayedFragment)
                     .updateTokensUI(AppManager.getTokenManager().getTokens());
-
     }
 
     /**
