@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      *
-     * @param savedInstanceState
      */
     private Fragment currentDisplayedFragment;
 
@@ -71,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         AppManager.getTokenManager().startTokensWatcher(this);
+        if (currentDisplayedFragment != null && currentDisplayedFragment instanceof MainHomeFragment)
+            ((MainHomeFragment)currentDisplayedFragment)
+                    .updateTokensUI(AppManager.getTokenManager().getTokens());
+
     }
 
     /**
@@ -148,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         home.getActivity().findViewById(R.id.slides_indicator_1)
                 .setBackground(ContextCompat.getDrawable(home.getActivity(),
                         (isHome ? R.drawable.slides_indicator_full
-                            : R.drawable.slides_indicator_empty)));
+                                : R.drawable.slides_indicator_empty)));
 
         // -- Second Cricle.
         home.getActivity().findViewById(R.id.slides_indicator_1)

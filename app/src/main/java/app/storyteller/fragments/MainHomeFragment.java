@@ -103,6 +103,48 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
         });
     }
 
+    //-------------------------------------------------------------------
+    // Tokens
+
+    /**
+     *
+     */
+    private void initTokens() {
+        timerText = (TextView) fragmentLayout.findViewById(R.id.timerText);
+        token1 = (ToggleButton) fragmentLayout.findViewById(R.id.token1);
+        token2 = (ToggleButton) fragmentLayout.findViewById(R.id.token2);
+        token3 = (ToggleButton) fragmentLayout.findViewById(R.id.token3);
+        updateTokensUI(AppManager.getTokenManager().getTokens());
+    }
+
+    /**
+     * This methods needs to be called when there is a need to
+     * @param value : Number of available tokens.
+     */
+    public void updateTokensUI(int value) {
+        switch (value){
+            case 3:
+                token1.setChecked(true);
+                token2.setChecked(true);
+                token3.setChecked(true);
+                break;
+            case 2:
+                token1.setChecked(false);
+                token2.setChecked(true);
+                token3.setChecked(true);
+                break;
+            case 1:
+                token1.setChecked(false);
+                token2.setChecked(false);
+                token3.setChecked(true);
+                break;
+            default:
+                token1.setChecked(false);
+                token2.setChecked(false);
+                token3.setChecked(false);
+        }
+    }
+
 
     //-----------------------------------------------------------------------------------
     // Play Btn
@@ -118,20 +160,4 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
             }
         });
     }
-
-
-    //-------------------------------------------------------------------
-    // Tokens
-
-    /**
-     *
-     */
-    private void initTokens() {
-        timerText = (TextView) fragmentLayout.findViewById(R.id.timerText);
-        token1 = (ToggleButton) fragmentLayout.findViewById(R.id.token1);
-        token2 = (ToggleButton) fragmentLayout.findViewById(R.id.token2);
-        token3 = (ToggleButton) fragmentLayout.findViewById(R.id.token3);
-    }
-
-
 }
