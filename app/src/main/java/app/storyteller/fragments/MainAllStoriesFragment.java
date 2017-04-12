@@ -1,11 +1,10 @@
 package app.storyteller.fragments;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +22,6 @@ import app.storyteller.R;
 import app.storyteller.StoryReaderActivity;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
-import app.storyteller.database.DBHandler;
 import app.storyteller.models.Story;
 
 /**
@@ -35,6 +33,9 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     ArrayList<Story> stories;
 
     boolean[] favorites;
+
+    private SwipeRefreshLayout swipeContainer;
+
 
     LinearLayout loading_screen;
     LinearLayout all_stories;
@@ -60,10 +61,11 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         lv = (ListView) view.findViewById(R.id.listview);
         lv.setOnItemClickListener(this);
         initHeader(view);
+        initSwipeContainer(view);
         /*Publish p = new Publish();
 
         p.execute();*/
-        Api.executeRequest(ApiRequests.getCompletedStories(), this);
+        fetchCompleteStories();
 
         return view;
     }
@@ -91,6 +93,24 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     }
 
 
+    private void initSwipeContainer(View v){
+        this.swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.all_stories_swipeContainer);
+
+        this.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeContainer.setRefreshing(false);
+                fetchCompleteStories();
+            }
+        });
+    }
+
+    /**
+     * Get completed stories from API
+     */
+    private void fetchCompleteStories(){
+        Api.executeRequest(ApiRequests.getCompletedStories(), this);
+    }
 
 
 

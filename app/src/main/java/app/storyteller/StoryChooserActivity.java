@@ -32,12 +32,21 @@ import app.storyteller.models.Story;
 public class StoryChooserActivity extends AppCompatActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemSelectedListener{
 
     /**
-     *
+     * Used to display editable stories
      */
     private ListView listview;
-    private Spinner spinner;
     private ArrayList<Story> stories;
+
+    /**
+     * Used to hold the themes for sorting
+     */
+    private Spinner spinner;
     private String currentTheme;
+
+    /**
+     *  Pull-down to refresh
+     */
+    private SwipeRefreshLayout swipeContainer;
 
     /**
      *
@@ -57,8 +66,9 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         initAddStoryBtn(findViewById(R.id.story_chooser_add_btn));
         initHeader();
         initLoadingScreen();
+        initSwipeContainer();
         initSpinner();
-        currentTheme = "caca";
+        currentTheme = "All";
         // -- On create, fetch all incomplete stories and display them.
         //fetchIncompleteStories();
     }
@@ -127,11 +137,36 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     /**
      *
      */
+    /**
+     * Initialize the Pull Down for refresh container
+     */
+    private void initSwipeContainer(){
+        this.swipeContainer = (SwipeRefreshLayout) findViewById(R.id.story_chooser_swipeContainer);
+        this.swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchIncompleteStories();
+                swipeContainer.setRefreshing(false);
+
+            }
+        });
+    }
+
+    /**
+     * Initialize the Spinner used for sorting
+     */
     private void initSpinner(){
         spinner = (Spinner) findViewById(R.id.chooser_spinner);
         spinner.setOnItemSelectedListener(this);
     }
 
+    /**
+     * On item change in Spinner, refresh the story list
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         this.currentTheme = parent.getItemAtPosition(position).toString();
@@ -140,7 +175,6 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
 
