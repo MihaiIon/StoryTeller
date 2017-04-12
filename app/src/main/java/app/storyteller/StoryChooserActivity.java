@@ -193,10 +193,27 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         System.out.println("************"+isActivityLocked);
         // -- TODO :  Remove loading and place stories in ListView.
         stories = list;
+
+        // stories are parsed depending on the current theme
+        if(currentTheme.equals(getApplicationContext().getString(R.string.story_chooser_all)))
+            stories = list;
+        else{
+            ArrayList<Story> parsedList = new ArrayList<Story>();
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getDetails().getTheme().equals(currentTheme)) {
+                    parsedList.add(list.get(i));
+                }
+            }
+            this.stories = parsedList;
+        }
+
         listview = (ListView) findViewById(R.id.story_chooser_story_list);
-        StoryChooserAdapter adapter = new StoryChooserAdapter(this, stories, currentTheme);
+        StoryChooserAdapter adapter = new StoryChooserAdapter(this, stories);
         listview.setOnItemClickListener(StoryChooserActivity.this);
         listview.setAdapter(adapter);
+
+
+
     }
 
 

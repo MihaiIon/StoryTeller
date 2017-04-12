@@ -21,25 +21,12 @@ public class StoryChooserAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Story> stories;
     private LayoutInflater inflater;
-    private String currentTheme;
 
     private final int WORD_COUNT_TO_SHOW = 5;
 
-    public StoryChooserAdapter(Context context, ArrayList<Story> stories, String currentTheme) {
+    public StoryChooserAdapter(Context context, ArrayList<Story> stories) {
         this.context = context;
-        this.currentTheme = currentTheme;
-        if(this.currentTheme.equals(context.getString(R.string.story_chooser_all)))
-            this.stories = stories;
-        else{
-            ArrayList<Story> parsedList = new ArrayList<Story>();
-            for (int i = 0; i < stories.size(); i++) {
-                if (stories.get(i).getDetails().getTheme().equals(currentTheme)) {
-                    parsedList.add(stories.get(i));
-                }
-            }
-            this.stories = parsedList;
-        }
-
+        this.stories = stories;
         if(context != null)
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
