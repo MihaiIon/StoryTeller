@@ -196,7 +196,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
                     Timestamp.valueOf(obj.getString("last_connected")),
                     new ArrayList<Story>()
             );
-            AppManager.getAccountManager().setAccount(acc);
+            AppManager.setAccountManager(acc);
             System.out.println(acc);
 
             // -- Add Account in local DB.

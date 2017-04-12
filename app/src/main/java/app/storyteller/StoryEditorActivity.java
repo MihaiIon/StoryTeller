@@ -95,6 +95,11 @@ public class StoryEditorActivity extends AppCompatActivity {
         initSubmitBtn();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Api.executeRequest(ApiRequests.unlockStory(story_id), StoryEditorActivity.this);
+    }
 
     //-------------------------------------------------------------------
     // Init.
@@ -193,7 +198,6 @@ public class StoryEditorActivity extends AppCompatActivity {
                 }
 
                 // -- Unlock Story on API and show loading screen.
-                Api.executeRequest(ApiRequests.unlockStory(story_id), StoryEditorActivity.this);
                 AppManager.getTokenManager().consumeToken(StoryEditorActivity.this);
                 setLockActivity(true);
             }
