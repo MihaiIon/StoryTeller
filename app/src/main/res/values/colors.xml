@@ -1,7 +1,7 @@
 <resources>
     <!--  Base  -->
     <color name="transparent">#00000000</color>
-    <color name="semiTransparent">#59ffffff</color>
+    <color name="semiTransparent">#91ffffff</color>
     <color name="white">#ffffff</color>
     <color name="softGrey">#f5f5f5</color>
     <color name="grey">#dadada</color>

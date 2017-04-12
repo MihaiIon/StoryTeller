@@ -6,9 +6,18 @@
     style="@style/AppTheme.LoadingScreen.Opaque">
 
     <!-- Loading Element -->
+    <ProgressBar
+        android:id="@+id/loading_circle"
+        style="@style/AppTheme.ProgressBar" />
+
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/loading_loading"/>
+        android:text="@string/loading_loading"
+        android:textColor="@color/primary"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif-light"
+        android:layout_marginTop="5dp"/>
 
 </LinearLayout>

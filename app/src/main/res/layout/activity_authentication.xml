@@ -14,7 +14,7 @@
     style="@style/AppTheme.Activity">
 
     <ProgressBar
-        android:id="@+id/progressBar2"
+        android:id="@+id/loading_circle"
         style="@style/AppTheme.ProgressBar" />
 
     <TextView

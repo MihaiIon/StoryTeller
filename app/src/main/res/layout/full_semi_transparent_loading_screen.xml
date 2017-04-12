@@ -6,9 +6,8 @@
     style="@style/AppTheme.LoadingScreen.SemiTransparent">
 
     <!-- Loading Element -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/loading_loading"/>
+    <ProgressBar
+        android:id="@+id/loading_circle"
+        style="@style/AppTheme.ProgressBar" />
 
 </LinearLayout>

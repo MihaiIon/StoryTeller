@@ -1,0 +1,28 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        style="@style/AppTheme.Activity.Header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+        <LinearLayout
+            android:id="@+id/header_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:paddingStart="30dp">
+
+            <ImageView
+                style="@style/AppTheme.Activity.Header.BackBtn"
+                android:background="@drawable/white_back_arrow"
+                android:contentDescription="@string/header_back_button" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/header_title"
+            style="@style/AppTheme.Activity.Header.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</FrameLayout>
