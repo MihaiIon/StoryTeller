@@ -2,97 +2,101 @@
 <RelativeLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:orientation="vertical"
+
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linear_layout_list_reader"
+        style="@style/AppTheme.Activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        style="@style/AppTheme.Activity">
-
+        android:layout_above="@+id/reader_nav_bar"
+        android:orientation="vertical">
 
 
         <!-- Header -->
-       <include layout="@layout/green_header_frame_layout"/>
+        <include layout="@layout/green_header_frame_layout" />
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/all_stories_swipeContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ListView
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
                 android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:divider="@color/softGrey"
-                android:dividerHeight="1dp"/>
+                android:dividerHeight="1dp" />
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
+    </LinearLayout>
 
-        <!-- Navigation Bar Maison -->
+    <!-- Navigation Bar Maison -->
+
+    <LinearLayout
+        android:id="@+id/reader_nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/softGrey"
+        android:baselineAligned="false"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
         <LinearLayout
-            android:background="@color/softGrey"
+            android:id="@+id/all_story_page"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:gravity="center"
-            android:baselineAligned="false">
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:id="@+id/all_story_page">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/navigator_all"
-                    android:textColor="@color/primary"
-                    />
+                android:text="@string/navigator_all"
+                android:textColor="@color/primary" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:id="@+id/my_story_page">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/navigator_only_me"
-                    android:textColor="@color/primary"
-                    />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:id="@+id/favs_story_page">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/navigator_favs"
-                    android:textColor="@color/primary"
-                    />
-
-            </LinearLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/my_story_page"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/navigator_only_me"
+                android:textColor="@color/primary" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/favs_story_page"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/navigator_favs"
+                android:textColor="@color/primary" />
+
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

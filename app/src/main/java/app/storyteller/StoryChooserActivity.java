@@ -186,7 +186,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     }
 
     /**
-     *
+     * When stories are pulled from the API, parse them using the selected theme.
      */
     public void refreshStoriesList(ArrayList<Story> list){
         setLockActivity(false);
@@ -207,6 +207,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
             this.stories = parsedList;
         }
 
+        //reset listview
         listview = (ListView) findViewById(R.id.story_chooser_story_list);
         StoryChooserAdapter adapter = new StoryChooserAdapter(this, stories);
         listview.setOnItemClickListener(StoryChooserActivity.this);
