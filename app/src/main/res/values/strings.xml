@@ -41,6 +41,7 @@
     <string name="story_creator_character_hint">Main character\'s name</string>
     <string name="story_creator_theme_btn">Pick a THEME</string>
     <string name="story_creator_next_btn">Next</string>
+
     <!--    StoryCreator Class   -->
     <string name="story_creator_invalid_char">is an invalid character.</string>
 
@@ -52,11 +53,18 @@
     <!--  Settings Layout   -->
     <string name="settings_title">Settings</string>
     <string name="settings_clearDB">Clear Database</string>
-    <string name="settings_addTokens">Add Tokens</string>
+    <string name="settings_grant_tokens">Add Tokens</string>
+    <string name="settings_consume_tokens">Remove Tokens</string>
     <string name="settings_exit">Exit</string>
     <string name="settings_log_out">Log out</string>
-    <string name="settings_debugg_version">-- DEBUG VERSION --</string>
+    <string name="settings_debug_version">-- DEBUG VERSION --</string>
 
+    <!-- Settings Class -->
+    <string name="setting_log_out">Logging out</string>
+    <string name="setting_added_token">Token added!</string>
+    <string name="setting_are_you_sure">Are you sure?</string>
+    <string name="setting_dbh_cleared">DBHandler cleared</string>
+    <string name="setting_dbh_already_cleared">DBHandler already cleared</string>
 
     <!--    Header Layout   -->
     <string name="storie_list_header_title">Stories</string>
@@ -73,17 +81,10 @@
     <!--    StoryChooserAdapter    -->
     <string name="main_press_back_again_exit">Press back button again to exit the App.</string>
 
-
     <!--    Authentification    -->
     <string name="authentification_need_internet">This Application needs an Internet Connection, please connect to the internet to continue</string>
     <string name="authentification_connection_error">Sorry there was an error with your connection</string>
 
-    <!-- Settings Class -->
-    <string name="setting_log_out">Logging out</string>
-    <string name="setting_added_token">100 Tokens added!</string>
-    <string name="setting_are_you_sure">Are you sure?</string>
-    <string name="setting_dbh_cleared">DBHandler cleared</string>
-    <string name="setting_dbh_already_cleared">DBHandler already cleared</string>
 
 
     <!--    HomeFrag Layout -->
@@ -92,7 +93,6 @@
     <string name="home_play_button">Play Button</string>
     <!--    Item StoryList  -->
     <string name="item_storylist_new">( NEW )</string>
-
 
     <!--    StoryChooser Layout-->
     <string name="story_chooser_add_story_description">Button to create a new Story</string>

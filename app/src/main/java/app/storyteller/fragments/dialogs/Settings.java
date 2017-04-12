@@ -3,6 +3,7 @@ package app.storyteller.fragments.dialogs;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -24,11 +25,12 @@ import com.google.android.gms.common.api.Status;
 import app.storyteller.AuthenticationActivity;
 import app.storyteller.R;
 import app.storyteller.database.DBHandler;
+import app.storyteller.manager.AppManager;
 
 /**
  * Created by Mihai on 2017-01-28.
  */
-public class Settings extends DialogFragment {
+public class Settings extends DialogFragment implements GoogleApiClient.ConnectionCallbacks {
 
     //Local variable
     private GoogleApiClient mGoogleApiClient;
@@ -47,17 +49,13 @@ public class Settings extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Here we choose and set the style of our dialog.
-        int style = DialogFragment.STYLE_NORMAL, theme = 0;
-        setStyle(style, theme);
-
         /*
             We set up for log out
              NOTE: Sign Out needs sign in options from google to work? weird but it works
              DATABASE CLEAR IS NOT DONE, ONLY NEEDS TO BE INSERTED BEFORE activityStart
          */
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(this.getResources().getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
@@ -70,7 +68,9 @@ public class Settings extends DialogFragment {
                                 //try again? Show message of error and try again?
                             }})
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+                .build();*/
+
+        mGoogleApiClient = AppManager.getGoogleApiClient();
 
     }
 
@@ -79,10 +79,14 @@ public class Settings extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_settings, container, false);
 
         // Add listeners to buttons.
-        initializeClearDBBtn(view.findViewById(R.id.settings_clearDB_btn));
-        initializeTokensBtn(view.findViewById(R.id.settings_addTokens_btn));
+        //initializeClearDBBtn(view.findViewById(R.id.settings_clearDB_btn));
+        initializeTokenBtns(
+                view.findViewById(R.id.settings_grant_token_btn),
+                view.findViewById(R.id.settings_consume_token_btn));
+
         initializeExitBtn(view.findViewById(R.id.settings_exit_btn));
         initializeLogOutBtn(view.findViewById(R.id.setting_log_out_button));
+
         // Allow closing on outside press
         getDialog().setCanceledOnTouchOutside(true);
         return view;
@@ -154,12 +158,19 @@ public class Settings extends DialogFragment {
      *
      *  Adds tokens to the current User.
      */
-    private void initializeTokensBtn(View view){
-        Button btn = (Button) view;
-        btn.setOnClickListener(new View.OnClickListener() {
+    private void initializeTokenBtns(View addBtn, View removeBtn){
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), getString(R.string.setting_added_token), Toast.LENGTH_SHORT).show();
+                AppManager.getTokenManager().grantToken(getActivity());
+                Toast.makeText(getContext(), getString(R.string.settings_grant_tokens), Toast.LENGTH_SHORT).show();
+            }
+        });
+        removeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AppManager.getTokenManager().consumeToken(getActivity());
+                Toast.makeText(getContext(), getString(R.string.settings_consume_tokens), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -175,12 +186,17 @@ public class Settings extends DialogFragment {
             @Override
             public void onClick(View v) {
                 //resets gso and mGoogleApiClient
-                closeConnection();
+                //closeConnection();
                 //closes popup
                 dismiss();
             }
         });
     }
+
+
+
+    //--------------------------------------------------------------------------------
+    //
 
     /**
      * NOT DEBUG (maybe)
@@ -193,7 +209,6 @@ public class Settings extends DialogFragment {
      */
     private void initializeLogOutBtn(View view)
     {
-
         Button btn = (Button) view;
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,6 +219,21 @@ public class Settings extends DialogFragment {
     }
 
     private void logOut() {
+        if (!mGoogleApiClient.isConnected()){
+            mGoogleApiClient.disconnect();
+            mGoogleApiClient.connect();
+        }
+
+    }
+
+    private void closeConnection() {
+        /*mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();*/
+    }
+
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(           //launches google sign out and resets sign in process
                 new ResultCallback<Status>() {
                     @Override
@@ -216,13 +246,15 @@ public class Settings extends DialogFragment {
                         //Setting up new Loading screen
                         Intent FreshStart = new Intent(getContext(),AuthenticationActivity.class);
                         startActivity(FreshStart);
-                    }
-                });
-
+                    }});
     }
 
-    private void closeConnection() {
-        mGoogleApiClient.stopAutoManage(getActivity());
-        mGoogleApiClient.disconnect();
+    /**
+     *
+     * @param i :
+     */
+    @Override
+    public void onConnectionSuspended(int i) {
+
     }
 }

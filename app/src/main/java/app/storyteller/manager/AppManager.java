@@ -5,9 +5,13 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.content.ContextCompat;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import app.storyteller.R;
 import app.storyteller.models.Account;
 
 /**
@@ -22,7 +26,7 @@ public class AppManager {
     /**
      * Provides access to the Google API to retrieve information about accounts
      */
-    private static GoogleApiClient gac;
+    private static GoogleApiClient googleApiClient;
 
     /**
      *
@@ -36,8 +40,8 @@ public class AppManager {
     public static Account getAccount(){ return accountManager.getAccount(); }
     public static AccountManager getAccountManager(){ return accountManager; }
     public static TokenManager getTokenManager(){ return accountManager.getTokenManager(); }
-    public static GoogleApiClient getGoogleApiClient(){ return gac; }
-    public static void setGoogleApiClient(GoogleApiClient g){ gac = g; }
+    public static GoogleApiClient getGoogleApiClient(){ return googleApiClient; }
+    public static void setGoogleApiClient(GoogleApiClient g){ googleApiClient = g; }
 
     /**
      *
@@ -54,8 +58,8 @@ public class AppManager {
     /**
      *
      */
-    public static void init(GoogleApiClient g){
-        gac = g;
+    public static void init(GoogleApiClient gac){
+        googleApiClient = gac;
     }
 
     /**
@@ -71,6 +75,6 @@ public class AppManager {
      *  Checks if the current User has signed in with a Google Account.
      */
     public static boolean isSignedIn(){
-        return gac.isConnected();
+        return googleApiClient.isConnected();
     }
 }

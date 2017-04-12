@@ -193,7 +193,7 @@ public class StoryEditorActivity extends AppCompatActivity {
                 }
 
                 // -- Unlock Story on API and show loading screen.
-                Api.executeRequest(ApiRequests.unlockStory(story_id), getParent());
+                Api.executeRequest(ApiRequests.unlockStory(story_id), StoryEditorActivity.this);
                 AppManager.getTokenManager().consumeToken(StoryEditorActivity.this);
                 setLockActivity(true);
             }

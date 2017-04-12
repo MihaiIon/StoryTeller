@@ -78,13 +78,13 @@ public class AuthenticationActivity extends AppCompatActivity {
                 .build();
 
         // -- Builder.
-        GoogleApiClient.Builder builder = new GoogleApiClient.Builder(this).enableAutoManage(
-                this, new GoogleApiClient.OnConnectionFailedListener() {
+        GoogleApiClient.Builder builder = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
                     @Override public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
                         Toast.makeText(getApplicationContext(),
                                 getString(R.string.authentification_connection_error),
-                                Toast.LENGTH_SHORT).show();
-                    }});
+                                Toast.LENGTH_SHORT).show();}
+                });
 
         // -- Set Client.
         AppManager.init(builder.addApi(Auth.GOOGLE_SIGN_IN_API, gso).build());

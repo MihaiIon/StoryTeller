@@ -30,30 +30,39 @@
             style="@style/AppTheme.Dialog.Content.Separator"
             android:id="@+id/view" />
 
-        <Button
-            style="@style/AppTheme.Dialog.Content.Button"
+        <!--<Button
+            style="@style/AppTheme.Button"
             android:text="@string/settings_clearDB"
             android:id="@+id/settings_clearDB_btn"
-            android:layout_width="match_parent" />
+            android:layout_width="match_parent" />-->
 
         <Button
-            style="@style/AppTheme.Dialog.Content.Button"
-            android:text="@string/settings_addTokens"
-            android:id="@+id/settings_addTokens_btn"
-            android:layout_width="match_parent" />
-
-        <Button
-            android:id="@+id/setting_log_out_button"
-            style="@style/AppTheme.Dialog.Content.Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/AppTheme.Button"
+            android:text="@string/settings_grant_tokens"
+            android:id="@+id/settings_grant_token_btn" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Button"
+            android:text="@string/settings_consume_tokens"
+            android:id="@+id/settings_consume_token_btn" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Button"
+            android:id="@+id/setting_log_out_button"
             android:text="@string/setting_log_out" />
 
         <Button
-            android:id="@+id/settings_exit_btn"
-            style="@style/AppTheme.Dialog.Content.Button"
             android:layout_width="match_parent"
-            android:layout_marginTop="11dp"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.Button"
+            android:id="@+id/settings_exit_btn"
+            android:layout_marginTop="25dp"
             android:text="@string/settings_exit" />
 
     </LinearLayout>
@@ -62,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="@string/settings_debugg_version"
+        android:text="@string/settings_debug_version"
         android:id="@+id/textView"
         android:paddingTop="15dp"
         android:textSize="12sp"
