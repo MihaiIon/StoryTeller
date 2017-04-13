@@ -7,8 +7,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import app.storyteller.MainActivity;
+import app.storyteller.StoryChooserActivity;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
+import app.storyteller.fragments.MainHomeFragment;
 
 /**
  * Created by Mihai on 2017-04-11.
@@ -121,13 +123,22 @@ public class TokenManager {
             if (!isMaximumReached()){
                 long time = System.currentTimeMillis();
                 long diff = (time - values[0])/1000;
-                onRefreshRemainingTime(60-diff);
+                String timeDisplayed = "";
+                if(60-diff != 0)
+                    timeDisplayed = "More in: "+(60-diff);
+                else
+                    timeDisplayed = "";
+                onRefreshRemainingTime(timeDisplayed);
 
                 // --
                 if(diff == THERSHOLD) {
                     grantToken(activity);
                     onRefreshTokens(getTokens());
                 }
+            }
+            else
+            {
+
             }
         }
 
@@ -149,12 +160,15 @@ public class TokenManager {
 
         /**
          * Updates the "remaining time" in the UI.
-         * @param value : seconds before next token.
+         * @param time : text to be displayed.
          */
-        private void onRefreshRemainingTime(long value){
-            String time = "More in: "+String.valueOf(value);
+        private void onRefreshRemainingTime(String time){
+
             System.out.println(time);
-            // timerText.setText(timeDisplayed);
+            if(activity instanceof  MainActivity)
+            {
+                ((MainActivity)activity).onRefreshTimerText(time);
+            }
         }
 
         /**
@@ -164,8 +178,11 @@ public class TokenManager {
         private void onRefreshTokens(int value){
             if (activity instanceof MainActivity){
                 System.out.println("********* Can be cast to MainActivity");
+                ((MainActivity)activity).onRefreshUI(value);
+
             } else {
                 System.out.println("********* Can be cast to StoryChooserActivity");
+                //((StoryChooserActivity)activity).onRefreshUI(value);
             }
         }
     }

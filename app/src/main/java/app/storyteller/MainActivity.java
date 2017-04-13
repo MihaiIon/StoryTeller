@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      *
      */
-    private Fragment currentDisplayedFragment;
+    private Fragment mainHomeFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         // --
         if(AppManager.getAccount().getId() == 2){
-            Toast.makeText(getApplicationContext(), "Sorry you are banned from the app for spamming poop in the database.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Sir you are the greatest of all !", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -70,11 +71,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         AppManager.getTokenManager().startTokensWatcher(this);
-        if (currentDisplayedFragment != null && currentDisplayedFragment instanceof MainHomeFragment)
-            ((MainHomeFragment)currentDisplayedFragment)
+        if (mainHomeFragment != null && mainHomeFragment instanceof MainHomeFragment)
+            ((MainHomeFragment)mainHomeFragment)
                     .updateTokensUI(AppManager.getTokenManager().getTokens());
     }
 
+    public void onRefreshUI(int value)
+    {
+        if (mainHomeFragment != null && mainHomeFragment instanceof MainHomeFragment)
+            ((MainHomeFragment)mainHomeFragment).updateTokensUI(value);
+        else
+            System.out.println("You're not in mainHomeFragment bruh!");
+    }
+
+    public void onRefreshTimerText(String time)
+    {
+        if (mainHomeFragment != null && mainHomeFragment instanceof MainHomeFragment)
+            ((MainHomeFragment)mainHomeFragment).updateTimerText(time);
+        else
+            System.out.println("You're not in mainHomeFragment bruh!");
+    }
     /**
      *
      */
@@ -108,19 +124,21 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            Fragment frag ;
             switch (position) {
-                case 1:
-                   /* MainActivity.updateSlidersIndicators(
-                            (MainHomeFragment)currentDisplayedFragment, false);*/
-                    currentDisplayedFragment = new MainAllStoriesFragment();
+                case 0:
+                    frag = new MainHomeFragment();
                     break;
                 default:
-                    currentDisplayedFragment = new MainHomeFragment();
-                    /*MainActivity.updateSlidersIndicators(
-                            (MainHomeFragment)currentDisplayedFragment, true);*/
+                    frag = new MainAllStoriesFragment();
                     break;
             }
-            return currentDisplayedFragment;
+            if(frag instanceof  MainHomeFragment)
+            {
+                mainHomeFragment = frag;
+            }
+
+            return frag;
         }
         @Override
         public int getCount() {

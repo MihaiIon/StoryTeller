@@ -144,7 +144,11 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
                 token3.setChecked(false);
         }
     }
-
+    //--Called by mainActivity
+    public void updateTimerText(String time)
+    {
+        timerText.setText(time);
+    }
 
     //-----------------------------------------------------------------------------------
     // Play Btn
