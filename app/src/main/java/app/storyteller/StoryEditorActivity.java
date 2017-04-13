@@ -1,7 +1,5 @@
 package app.storyteller;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -22,7 +20,6 @@ import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.constants.RegexPatterns;
 import app.storyteller.manager.AppManager;
-import app.storyteller.models.Account;
 import app.storyteller.models.StoryDetails;
 
 /**
@@ -46,6 +43,7 @@ public class StoryEditorActivity extends AppCompatActivity {
     private String characterName;
     private String theme;
     private String content;
+    private String lastSentenceString;
 
     /**
      * This is value is set to TRUE if the current story is a new
@@ -68,6 +66,10 @@ public class StoryEditorActivity extends AppCompatActivity {
      */
     private EditText sentenceInput;
 
+    /**
+     * The content of the last sentence written
+     */
+    private TextView lastSentece;
     /**
      * Submits the Story the API.
      */
@@ -93,13 +95,32 @@ public class StoryEditorActivity extends AppCompatActivity {
         initThemeInfo();
         initSentenceInput();
         initSubmitBtn();
+        initLastSentence();
+
+        // change le layout pour quand le clavier swipe up
+        // getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Api.executeRequest(ApiRequests.unlockStory(story_id), StoryEditorActivity.this);
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Api.executeRequest(ApiRequests.unlockStory(story_id), StoryEditorActivity.this);
+    protected void onResume() {
+        super.onResume();
+        // Lock Screen ( Loading )
+        // API is lock ?
+        // Créer fct pour le asynktask qui retourne bool
+
+        //Check si lock
+        // Oui : on back press
+        // Non : on relock
+
     }
+
 
     //-------------------------------------------------------------------
     // Init.
@@ -113,6 +134,7 @@ public class StoryEditorActivity extends AppCompatActivity {
         characterName = getIntent().getStringExtra("character_name");
         theme = getIntent().getStringExtra("theme");
         story_id = getIntent().getIntExtra("id", -1);
+        lastSentenceString = getIntent().getStringExtra("lastsentence");
 
         // -- Information on the nature of the Story : NEW or ALREADY STARTED.
         isNewStory = getIntent().getBooleanExtra("new_story", false);
@@ -122,6 +144,14 @@ public class StoryEditorActivity extends AppCompatActivity {
             setLockActivity(true);
             Api.executeRequest(ApiRequests.getStoryCompletionState(story_id), this);
         }
+    }
+
+    /**
+     *
+     */
+    private void initLastSentence(){
+        lastSentece = (TextView) findViewById(R.id.previous_sentence);
+        lastSentece.setText(lastSentenceString);
     }
 
     /**

@@ -49,6 +49,7 @@
     <string name="story_editor_new_story_sentence_hint">And so it begins&#8230;</string>
     <string name="story_editor_continue_sentence_hint">Wr</string>
     <string name="story_editor_submit_btn">Submit</string>
+    <string name="story_editor_previous_sentence">Previous sentence</string>
 
     <!--  Settings Layout   -->
     <string name="settings_title">Settings</string>
