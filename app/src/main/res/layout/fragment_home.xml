@@ -131,7 +131,6 @@
                     android:layout_below="@+id/token1"
                     android:layout_marginTop="13dp"
                     android:fontFamily="sans-serif-light"
-                    android:text="More in:"
                     android:textColor="@color/white"
                     android:textStyle="italic" />
                     android:text="Time left:" />
