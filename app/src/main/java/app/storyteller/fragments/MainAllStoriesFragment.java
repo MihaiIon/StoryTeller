@@ -31,7 +31,7 @@ import app.storyteller.models.Story;
 public class MainAllStoriesFragment extends Fragment implements AdapterView.OnItemClickListener{
     ListView lv;
     ArrayList<Story> stories;
-
+    int current_nav; // 0:All 1:My 2:Favs
     boolean[] favorites;
 
     private SwipeRefreshLayout swipeContainer;
@@ -62,6 +62,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         lv.setOnItemClickListener(this);
         initHeader(view);
         initSwipeContainer(view);
+        current_nav =0;
         /*Publish p = new Publish();
 
         p.execute();*/
@@ -131,6 +132,16 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         }
         this.favorites = fav;
         lv.setAdapter(new StoriesListAdapter(getContext(),list,fav));
+       /* WHEN STORIES WILL HAVE AUTHORS AND FAVORITES
+       switch(current_nav){
+            case 0: // All
+                break;
+            case 1: // MyStories
+                break;
+            case 2: // Favs
+                break;
+        }
+        */
     }
 
 
@@ -217,11 +228,12 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
 
     // 0 : AllStorie    1: MyStories   2: FavsStories
     public void navigatorToSelector(int Selector) {
+
         navigatorResetColor();
         navigator[Selector].setBackgroundColor(getResources().getColor(R.color.primary));
         TextView v = (TextView) navigator[Selector].getChildAt(0);
         v.setTextColor(getResources().getColor(R.color.softGrey));
-
+        current_nav = Selector;
     }
     // Remet couleur de base
     public void navigatorResetColor(){

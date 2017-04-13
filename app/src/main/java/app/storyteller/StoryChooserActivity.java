@@ -22,8 +22,6 @@ import app.storyteller.adapters.StoryChooserAdapter;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.manager.AppManager;
-import app.storyteller.manager.TokenManager;
-import app.storyteller.models.Account;
 import app.storyteller.models.Story;
 
 /**
@@ -248,6 +246,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
             Intent intent = new Intent(getApplicationContext(),StoryEditorActivity.class);
             intent.putExtra("id",selectedStory.getId());
             intent.putExtra("title",selectedStory.getDetails().getTitle());
+            intent.putExtra("lastsentence",selectedStory.getSentences().get(selectedStory.getSentences().size()-1).getContent());
             intent.putExtra("character_name",selectedStory.getDetails().getMainCharacter());
             intent.putExtra("theme",selectedStory.getDetails().getTheme());
             intent.putExtra("new_story",false);

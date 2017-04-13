@@ -18,39 +18,65 @@
         <RelativeLayout
             android:layout_height="match_parent"
             style="@style/AppTheme.Form">
-
-            <!-- Sentence Input Container -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                style="@style/AppTheme.SentenceInputContainer">
-
-                <!-- Sentence Input -->
-                <EditText
-                    android:id="@+id/story_editor_sentence_input"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/AppTheme.SentenceInput"/>
+                    android:layout_height="match_parent"
+                    android:text="@string/story_editor_previous_sentence"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/primaryDark"/>
 
-                <!-- Infos -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/AppTheme.SentenceInfoContainer">
+                    android:orientation="vertical"
+                    style="@style/AppTheme.SentenceInputContainer"
+                    android:layout_marginBottom="15dp">
 
-                    <!-- Theme -->
                     <TextView
-                        android:id="@+id/story_editor_theme_info"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"/>
+                        android:id="@+id/previous_sentence"
+                        android:textColor="@color/primary"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+                <!-- Sentence Input Container -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    style="@style/AppTheme.SentenceInputContainer">
 
-                    <!-- Number of Words remaining -->
-                    <TextView
-                        android:id="@+id/story_editor_word_counter_info"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <!-- Sentence Input -->
+                    <EditText
+                        android:id="@+id/story_editor_sentence_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/AppTheme.SentenceInput"/>
+
+                    <!-- Infos -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/AppTheme.SentenceInfoContainer">
+
+                        <!-- Theme -->
+                        <TextView
+                            android:id="@+id/story_editor_theme_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"/>
+
+                        <!-- Number of Words remaining -->
+                        <TextView
+                            android:id="@+id/story_editor_word_counter_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
