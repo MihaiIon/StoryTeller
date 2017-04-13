@@ -138,7 +138,8 @@ public class TokenManager {
             }
             else
             {
-
+                String timeDisplayed = "";
+                onRefreshRemainingTime(timeDisplayed);
             }
         }
 
