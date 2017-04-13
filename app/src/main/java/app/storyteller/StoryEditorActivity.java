@@ -108,18 +108,7 @@ public class StoryEditorActivity extends AppCompatActivity {
         Api.executeRequest(ApiRequests.unlockStory(story_id), StoryEditorActivity.this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Lock Screen ( Loading )
-        // API is lock ?
-        // Créer fct pour le asynktask qui retourne bool
 
-        //Check si lock
-        // Oui : on back press
-        // Non : on relock
-
-    }
 
 
     //-------------------------------------------------------------------
@@ -252,6 +241,7 @@ public class StoryEditorActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show();
         }
     }
+
 
 
 

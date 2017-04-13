@@ -353,8 +353,14 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
     private void processIsStoryLocked(String response){
         try{
             JSONObject obj = new JSONObject(response);
-            ((StoryChooserActivity)activity)
-                    .onItemVerified(obj.getInt("value") == 1);
+
+            if(activity instanceof StoryChooserActivity){
+                ((StoryChooserActivity)activity)
+                        .onItemVerified(obj.getInt("value") == 1);
+            }
+            if(activity instanceof StoryEditorActivity){
+
+            }
         }catch(JSONException e){ e.printStackTrace(); }
     }
 
