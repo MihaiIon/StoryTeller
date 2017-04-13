@@ -32,7 +32,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     ListView lv;
     ArrayList<Story> stories;
     int current_nav; // 0:All 1:My 2:Favs
-    boolean[] favorites;
+    static boolean[] favorites;
 
     private SwipeRefreshLayout swipeContainer;
 
@@ -72,12 +72,19 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        fetchCompleteStories();
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getContext(),StoryReaderActivity.class);
         intent.putExtra("Title",stories.get(position).getDetails().getTitle());
         intent.putExtra("Authors",stories.get(position).getCreator().getName());
         intent.putExtra("Story",stories.get(position).getContent());
         intent.putExtra("Favs",favorites[position]);
+        intent.putExtra("Position",position);
 
 
         startActivity(intent);
@@ -126,12 +133,12 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     public void onCompletedStoriesFetched(ArrayList<Story> list) {
         // TODO.
         this.stories = list;
-        boolean[] fav = new boolean[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            fav[i] = false;
+        boolean[] fav;
+        if(favorites == null) {
+            fav = new boolean[list.size()];
+            this.favorites = fav;
         }
-        this.favorites = fav;
-        lv.setAdapter(new StoriesListAdapter(getContext(),list,fav));
+        lv.setAdapter(new StoriesListAdapter(getContext(),list,favorites));
        /* WHEN STORIES WILL HAVE AUTHORS AND FAVORITES
        switch(current_nav){
             case 0: // All
@@ -143,6 +150,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         }
         */
     }
+
 
 
     /*
@@ -294,6 +302,10 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
 
 
 
+    static public void setFavs(int position, boolean check)
+    {
+        favorites[position] = check;
+    }
 
     private class StoriesListAdapter extends BaseAdapter {
 
@@ -365,8 +377,8 @@ YOLO GROS CHANGEMENT
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked)
-                        System.out.println("Checked " + position);
-                    else System.out.println("Unchecked " + position);
+                        setFavs(position,true);
+                    else setFavs(position,false);
                 }
             });
 
