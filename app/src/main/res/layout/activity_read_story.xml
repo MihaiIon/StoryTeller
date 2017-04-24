@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_height="match_parent"
+<RelativeLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical">
 
-    <include layout="@layout/green_header_frame_layout"/>
+    <include
+        android:id="@+id/reader_header"
+        layout="@layout/green_header_frame_layout" />
+
+    <Button
+        android:id="@+id/button_text_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="Aa" />
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/activity_read_margin_horizontal"
         android:layout_marginRight="@dimen/activity_read_margin_horizontal"
         android:layout_marginTop="@dimen/activity_read_margin_top"
+        android:layout_below="@id/reader_header"
         android:orientation="vertical">
 
 
@@ -61,4 +73,4 @@
                 android:textSize="@dimen/activity_read_storie_size" />
         </ScrollView>
     </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

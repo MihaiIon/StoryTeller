@@ -16,12 +16,13 @@
 
 
         <!-- Header -->
+
         <include layout="@layout/green_header_frame_layout" />
 
         <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/all_stories_swipeContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ListView
                 android:id="@+id/listview"
@@ -99,4 +100,5 @@
 
         </LinearLayout>
     </LinearLayout>
+
 </RelativeLayout>

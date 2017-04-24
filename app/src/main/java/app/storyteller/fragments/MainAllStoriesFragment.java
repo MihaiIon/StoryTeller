@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -36,7 +37,6 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
 
     private SwipeRefreshLayout swipeContainer;
 
-
     LinearLayout loading_screen;
     LinearLayout all_stories;
     LinearLayout my_stories;
@@ -62,6 +62,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         lv.setOnItemClickListener(this);
         initHeader(view);
         initSwipeContainer(view);
+
         current_nav =0;
         /*Publish p = new Publish();
 

@@ -2,9 +2,12 @@ package app.storyteller;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import app.storyteller.fragments.MainAllStoriesFragment;
@@ -18,6 +21,9 @@ public class StoryReaderActivity extends AppCompatActivity {
     TextView title, author,story;
     ToggleButton favs;
     TextView header_title;
+    private Button textSizeCycle;
+    private int textSize;
+
     int position;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +34,7 @@ public class StoryReaderActivity extends AppCompatActivity {
         author = (TextView) findViewById(R.id.story_author);
         story= (TextView) findViewById(R.id.story);
         favs= (ToggleButton) findViewById(R.id.story_fav);
-
+        textSize = 0;
 
 
 
@@ -44,6 +50,7 @@ public class StoryReaderActivity extends AppCompatActivity {
         }
 
         InitHeader();
+        initTextButtons();
         InitToggleStar();
 
     }
@@ -70,5 +77,32 @@ public class StoryReaderActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+    }
+
+    private void initTextButtons(){
+        textSizeCycle = (Button) findViewById(R.id.button_text_size);
+
+        textSizeCycle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (textSize){
+                    case 0:
+                        textSize = 1;
+                        story.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                        break;
+                    case 1:
+                        textSize = 2;
+                        story.setTextSize(TypedValue.COMPLEX_UNIT_SP, 23);
+                        break;
+                    case 2:
+                        textSize = 0;
+                        story.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+                        break;
+                }
+            }
+        });
+
+
+
     }
 }
