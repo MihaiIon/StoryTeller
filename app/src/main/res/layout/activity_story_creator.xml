@@ -55,15 +55,8 @@
 
 
             <!-- Theme Selection -->
-            <Spinner
-                android:id="@+id/story_creator_theme_select"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/themes_array"
-                android:textAlignment="center"
-                android:layout_marginTop="22dp"
-                style="@style/AppTheme.Spinner.Primary"/>
 
+            <include layout="@layout/spinner_box" />
         </LinearLayout>
 
         <!-- Next -->
