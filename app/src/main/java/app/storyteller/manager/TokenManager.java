@@ -7,10 +7,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import app.storyteller.MainActivity;
-import app.storyteller.StoryChooserActivity;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
-import app.storyteller.fragments.MainHomeFragment;
 
 /**
  * Created by Mihai on 2017-04-11.
@@ -94,7 +92,7 @@ public class TokenManager {
         /**
          *
          */
-        private static final int THERSHOLD = 60;
+        private static final int THRESHOLD = 60;
 
         /**
          * Current Activity.
@@ -125,13 +123,13 @@ public class TokenManager {
                 long diff = (time - values[0])/1000;
                 String timeDisplayed = "";
                 if(60-diff != 0)
-                    timeDisplayed = "More in: "+(60-diff);
+                    timeDisplayed = "More in: "+getFormatedTime(60-diff);
                 else
                     timeDisplayed = "";
                 onRefreshRemainingTime(timeDisplayed);
 
                 // --
-                if(diff == THERSHOLD) {
+                if(diff >= THRESHOLD) {
                     grantToken(activity);
                     onRefreshTokens(getTokens());
                 }
@@ -157,7 +155,15 @@ public class TokenManager {
 
 
         //--------------------------------------------------------------------
-        // Refresh Methods
+        // Methods
+
+        /**
+         *
+         */
+        private String getFormatedTime(long seconds){
+            return seconds < 60 ? String.format("%1ds", seconds)
+                    : String.format("%1dm %02ds", (long)Math.floor(seconds/60), seconds%60);
+        }
 
         /**
          * Updates the "remaining time" in the UI.
