@@ -3,7 +3,9 @@
     <!--
       ~~ StoryTeller Base : AppTheme.
       -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/primaryDark</item>
+    </style>
 
     <!--
       ~~ Activity

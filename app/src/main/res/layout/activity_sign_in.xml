@@ -76,12 +76,5 @@
         android:background="@color/softGrey"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/skip_to_main_btn"
-            style="@style/AppTheme.Button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/softGrey"
-            android:textColor="@color/softGrey" />
     </LinearLayout>
 </LinearLayout>

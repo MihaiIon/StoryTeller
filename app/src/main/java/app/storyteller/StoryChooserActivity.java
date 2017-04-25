@@ -1,5 +1,7 @@
 package app.storyteller;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -92,8 +96,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
 
 
     //----------------------------------------------------------------------------
-
-
+    // Tokens
 
     /**
      *
@@ -127,8 +130,21 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
                     Toast.makeText(getApplicationContext(),
                             "You have unsufficient tokens",
                             Toast.LENGTH_LONG).show();
-                }
-            }});
+                }}});
+
+        pulseAnimation((ImageButton)v);
+    }
+
+    /**
+     *
+     */
+    ObjectAnimator objAnim;
+    private void pulseAnimation(ImageButton btn){
+        objAnim= ObjectAnimator.ofPropertyValuesHolder(btn, PropertyValuesHolder.ofFloat("scaleX", 1.05f), PropertyValuesHolder.ofFloat("scaleY", 1.05f));
+        objAnim.setDuration(600);
+        objAnim.setRepeatCount(ObjectAnimator.INFINITE);
+        objAnim.setRepeatMode(ObjectAnimator.REVERSE);
+        objAnim.start();
     }
 
 

@@ -14,10 +14,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import app.storyteller.api.GoogleApiHelper;
 import app.storyteller.database.DBHandler;
 import app.storyteller.manager.AppManager;
 
 public class AuthenticationActivity extends AppCompatActivity {
+
+    /**
+     *
+     */
+    private GoogleApiClient googleApiClient;
 
     /**
      *
@@ -29,14 +35,9 @@ public class AuthenticationActivity extends AppCompatActivity {
         this.setContentView(R.layout.activity_authentication);
         if(AppManager.isConnectedToInternet(getApplicationContext()))
         {
-            // -- Google and Local DB.
-            setUpGoogleStuff();
+            AppManager.init();
+            googleApiClient = AppManager.getGoogleApiClient(getApplicationContext());
             DBHandler.openConnection(getApplicationContext());
-
-            /*
-             *
-             */
-            AppManager.setAccountManager(null);
 
             /*
              * If there is no Profile in the Database, go to SignInActivity.
@@ -45,54 +46,15 @@ public class AuthenticationActivity extends AppCompatActivity {
                 DBHandler.closeConnection();
                 startActivity(new Intent(this, SignInActivity.class));
                 finish();
-            }
-
-            /*
-             * Else, connect to Google's API with the current Google Account logged and Fetch the
-             * Profile that corresponds to the Google Account's ID in the local Database.
-             *
-             * If the Profile Exist, go straight to the MainActivity. Else, go to SignInActivity.
-             */
-            else signInAndProceed();
+            } else signInAndProceed();
         }
         else{
-            Toast.makeText(getApplicationContext(),getString(R.string.authentification_need_internet), Toast.LENGTH_SHORT).show();
-            System.out.println("SYSTEM IS NOT CONNECTED TO THE INTERNET");
-            //Wait
-            try{Thread.sleep(1000, 1);}
-            catch(InterruptedException e){e.printStackTrace();}
-            //Reload AuthenticationActivity
-            //startActivity(new Intent(this, AuthenticationActivity.class));
+            Toast.makeText(
+                    getApplicationContext(),
+                    getString(R.string.authentification_need_internet),
+                    Toast.LENGTH_LONG).show();
+            System.exit(0);
         }
-    }
-
-
-
-
-    //----------------------------------------------------------------------------
-    // Google
-
-    /**
-     * Connect to the Google API.
-     */
-    private void setUpGoogleStuff(){
-        // -- Options.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(this.getResources().getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        // -- Builder.
-        GoogleApiClient.Builder builder = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                        Toast.makeText(getApplicationContext(),
-                                getString(R.string.authentification_connection_error),
-                                Toast.LENGTH_SHORT).show();}
-                });
-
-        // -- Set Client.
-        AppManager.init(builder.addApi(Auth.GOOGLE_SIGN_IN_API, gso).build());
     }
 
 
@@ -103,9 +65,7 @@ public class AuthenticationActivity extends AppCompatActivity {
      * Sign In to the Google's API.
      */
     private void signInAndProceed(){
-        Intent signInIntent = Auth.GoogleSignInApi
-                .getSignInIntent(AppManager.getGoogleApiClient());
-        startActivityForResult(signInIntent, 1);
+        startActivityForResult(Auth.GoogleSignInApi.getSignInIntent(googleApiClient), 1);
     }
 
     /**
@@ -118,15 +78,15 @@ public class AuthenticationActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        // -- If requestCode == 1, the request has succeeded.
-        if (requestCode == 1) {
-
-            // -- Get results.
+        /*
+         * Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...).
+         */
+        if (requestCode == 1)
+        {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess())
             {
-                // -- Get Account Infos.
+                // -- Get Account Info.
                 GoogleSignInAccount acct = result.getSignInAccount();
 
                 /*

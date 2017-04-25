@@ -5,6 +5,7 @@ package app.storyteller;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -70,7 +71,8 @@ public class SignInActivity extends AppCompatActivity {
          */
         if (requestCode == 1) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-
+            Log.d("Code", ""+requestCode);
+            Log.d("Code", ""+resultCode);
             if (result.isSuccess()) {
                 GoogleSignInAccount acct = result.getSignInAccount();
 
@@ -113,10 +115,8 @@ public class SignInActivity extends AppCompatActivity {
         googleSignInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(
-                        AppManager.getGoogleApiClient());
-                startActivityForResult(signInIntent, 1);
-                // On complete goes to -> onActivityResult().
+                startActivityForResult(Auth.GoogleSignInApi.getSignInIntent(
+                        AppManager.getGoogleApiClient(getApplicationContext())), 1);
             }
         });
 
@@ -127,16 +127,6 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-            }
-        });
-
-        // -- DEBUG --
-        // Skips the Google authentication process.
-        skipToMainBtn = (Button)findViewById(R.id.skip_to_main_btn);
-        skipToMainBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(v.getContext(), MainActivity.class));
             }
         });
     }

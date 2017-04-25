@@ -1,14 +1,13 @@
 <resources>
     <string name="app_name">StoryTeller</string>
 
-    <!-- Authentication Layout-->
-    <string name="authentication_connecting">Connecting</string>
-
-    <!-- Loading Profile Layout-->
-    <string name="launching_app">Welcome</string>
-
     <!-- Loading Layout -->
     <string name="loading_loading">Loading</string>
+
+    <!--    Authentication    -->
+    <string name="authentification_need_internet">This Application needs an Internet Connection, please connect to the internet to continue</string>
+    <string name="authentification_connection_error">Sorry there was an error with your connection</string>
+    <string name="authentication_connecting">Connecting</string>
 
     <!--  SignIn  Layout-->
     <string name="signIn_create_profile">Create Profile</string>
@@ -16,10 +15,16 @@
     <string name="signIn_google_account">Continue with my <b>Google Account</b> </string>
     <string name="signIn_storyteller_logo">Application Logo</string>
 
+    <!-- Loading Profile Layout-->
+    <string name="launching_app">Welcome</string>
+
     <!-- Home -->
     <string name="home_available_story">Create your own story!</string>
     <string name="home_setting_desc">Settings</string>
     <string name="home_unsufficient_tokens">You have unsufficient tokens, come back in a few minutes</string>
+    <string name="home_crap">crap</string>
+    <string name="home_profile_image">Image account</string>
+    <string name="home_play_button">Play Button</string>
 
     <!-- StoryChooser -->
     <string name="story_chooser_header_title">Available Stories</string>
@@ -27,22 +32,22 @@
         <item>Funny</item>
         <item>Adventure</item>
         <item>Horror</item>
+        <item>Build Up</item>
     </string-array>
     <string-array name="themes_array_spinner">
         <item>All</item>
         <item>Funny</item>
         <item>Adventure</item>
         <item>Horror</item>
+        <item>Build Up</item>
     </string-array>
 
     <!--    StoryCreator Layout    -->
-    <string name="story_creator_header_title">Once upon a time&#8230;</string>
+    <string name="story_creator_header_title">Create your own Story!</string>
     <string name="story_creator_title_hint">Title</string>
     <string name="story_creator_character_hint">Main character\'s name</string>
     <string name="story_creator_theme_btn">Pick a THEME</string>
     <string name="story_creator_next_btn">Next</string>
-
-    <!--    StoryCreator Class   -->
     <string name="story_creator_invalid_char">is an invalid character.</string>
 
     <!--    StoryEditor Layout -->
@@ -56,7 +61,7 @@
     <string name="settings_clearDB">Clear Database</string>
     <string name="settings_grant_tokens">Add Tokens</string>
     <string name="settings_consume_tokens">Remove Tokens</string>
-    <string name="settings_exit">Exit</string>
+    <string name="settings_exit">Close settings</string>
     <string name="settings_log_out">Log out</string>
     <string name="settings_debug_version">-- DEBUG VERSION --</string>
 
@@ -68,7 +73,7 @@
     <string name="setting_dbh_already_cleared">DBHandler already cleared</string>
 
     <!--    Header Layout   -->
-    <string name="storie_list_header_title">Stories</string>
+    <string name="storie_list_header_title">Completed Stories</string>
     <string name="header_back_button">Back Button</string>
 
     <!--    StoryChooserAdapter    -->
@@ -81,17 +86,6 @@
 
     <!--    StoryChooserAdapter    -->
     <string name="main_press_back_again_exit">Press back button again to exit the App.</string>
-
-    <!--    Authentification    -->
-    <string name="authentification_need_internet">This Application needs an Internet Connection, please connect to the internet to continue</string>
-    <string name="authentification_connection_error">Sorry there was an error with your connection</string>
-
-
-
-    <!--    HomeFrag Layout -->
-    <string name="home_crap">crap</string>
-    <string name="home_profile_image">Image account</string>
-    <string name="home_play_button">Play Button</string>
 
     <!--    Item StoryList  -->
     <string name="item_storylist_new">( NEW )</string>

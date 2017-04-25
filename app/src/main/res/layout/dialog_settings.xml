@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/AppTheme.Button"
-            android:id="@+id/settings_exit_btn"
+            android:id="@+id/settings_close_btn"
             android:layout_marginTop="25dp"
             android:text="@string/settings_exit" />
 

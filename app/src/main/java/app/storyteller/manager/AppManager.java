@@ -12,6 +12,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import app.storyteller.R;
+import app.storyteller.api.GoogleApiHelper;
 import app.storyteller.models.Account;
 
 /**
@@ -24,42 +25,16 @@ import app.storyteller.models.Account;
 public class AppManager {
 
     /**
-     * Provides access to the Google API to retrieve information about accounts
-     */
-    private static GoogleApiClient googleApiClient;
-
-    /**
      *
      */
     private static AccountManager accountManager;
 
 
     //-------------------------------------------------------
-    // Getters and Setters
-
-    public static Account getAccount(){ return accountManager.getAccount(); }
-    public static AccountManager getAccountManager(){ return accountManager; }
-    public static TokenManager getTokenManager(){ return accountManager.getTokenManager(); }
-    public static GoogleApiClient getGoogleApiClient(){ return googleApiClient; }
-    public static void setGoogleApiClient(GoogleApiClient g){ googleApiClient = g; }
-
-    /**
-     *
-     * @param account : .
-     */
-    public static void setAccountManager(Account account){
-        accountManager = new AccountManager(account);
-    }
-
-
-    //-------------------------------------------------------
     // Methods
 
-    /**
-     *
-     */
-    public static void init(GoogleApiClient gac){
-        googleApiClient = gac;
+    public static void init(){
+        setAccountManager(null);
     }
 
     /**
@@ -74,7 +49,34 @@ public class AppManager {
     /**
      *  Checks if the current User has signed in with a Google Account.
      */
-    public static boolean isSignedIn(){
-        return googleApiClient.isConnected();
+    public static boolean isSignedIn(Context ctx){
+        return getGoogleApiClient(ctx).isConnected();
     }
+
+
+    //-------------------------------------------------------
+    // Getters and Setters
+
+    public static Account getAccount(){ return accountManager.getAccount(); }
+    public static AccountManager getAccountManager(){ return accountManager; }
+    public static TokenManager getTokenManager(){ return accountManager.getTokenManager(); }
+
+    /**
+     *
+     * @return
+     */
+    public static GoogleApiClient getGoogleApiClient(Context ctx){
+        return new GoogleApiHelper(ctx).getGoogleApiClient();
+    }
+
+    /**
+     *
+     * @param account : .
+     */
+    public static void setAccountManager(Account account){
+        accountManager = new AccountManager(account);
+    }
+
+
+
 }

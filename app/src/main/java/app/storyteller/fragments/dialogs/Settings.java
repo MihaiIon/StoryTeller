@@ -1,5 +1,8 @@
 package app.storyteller.fragments.dialogs;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -30,10 +33,17 @@ import app.storyteller.manager.AppManager;
 /**
  * Created by Mihai on 2017-01-28.
  */
-public class Settings extends DialogFragment implements GoogleApiClient.ConnectionCallbacks {
+public class Settings extends DialogFragment {
 
-    //Local variable
+    /*
+     *
+     */
     private GoogleApiClient mGoogleApiClient;
+
+    /*
+     *
+     */
+    private View layout;
 
     /**
      * Creates a new instance of the Settings Dialog.
@@ -48,48 +58,22 @@ public class Settings extends DialogFragment implements GoogleApiClient.Connecti
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /*
-            We set up for log out
-             NOTE: Sign Out needs sign in options from google to work? weird but it works
-             DATABASE CLEAR IS NOT DONE, ONLY NEEDS TO BE INSERTED BEFORE activityStart
-         */
-
-        /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(this.getResources().getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity().getApplicationContext())
-                .enableAutoManage(getActivity(),
-                        new GoogleApiClient.OnConnectionFailedListener() {
-                            @Override
-                            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                                //try again? Show message of error and try again?
-                            }})
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();*/
-
-        mGoogleApiClient = AppManager.getGoogleApiClient();
-
+        mGoogleApiClient = AppManager.getGoogleApiClient(getContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_settings, container, false);
+        layout = inflater.inflate(R.layout.dialog_settings, container, false);
 
         // Add listeners to buttons.
         //initializeClearDBBtn(view.findViewById(R.id.settings_clearDB_btn));
-        initializeTokenBtns(
-                view.findViewById(R.id.settings_grant_token_btn),
-                view.findViewById(R.id.settings_consume_token_btn));
-
-        initializeExitBtn(view.findViewById(R.id.settings_exit_btn));
-        initializeLogOutBtn(view.findViewById(R.id.setting_log_out_button));
+        initializeTokenBtns();
+        initializeCloseBtn();
+        initializeLogOutBtn();
 
         // Allow closing on outside press
         getDialog().setCanceledOnTouchOutside(true);
-        return view;
+        return layout;
     }
 
     @Override
@@ -103,25 +87,12 @@ public class Settings extends DialogFragment implements GoogleApiClient.Connecti
         //TODO:
     }
 
-    /**
-     * Close connection in an outside click event
-     * @param dialog
-     */
-    @Override
-    public void onCancel(DialogInterface dialog) {
-        closeConnection();
-        super.onCancel(dialog);
-
-    }
-
-
     //------------------------------------------------------------------------------------------
 
 
-
-    /**
+    /*
      * Provides a way to
-     */
+     *
     private int count;
 
     /**
@@ -129,7 +100,7 @@ public class Settings extends DialogFragment implements GoogleApiClient.Connecti
      *
      * Resets the database on the server. Useful when the app's data structure has been
      * changed or is not in sync with the server's database.
-     */
+     *
     private void initializeClearDBBtn(View view){
         count = 0;
         Button btn = (Button) view;
@@ -151,22 +122,22 @@ public class Settings extends DialogFragment implements GoogleApiClient.Connecti
                 }
             }
         });
-    }
+    }*/
 
     /**
      * -- DEBUG TOOL --
      *
      *  Adds tokens to the current User.
      */
-    private void initializeTokenBtns(View addBtn, View removeBtn){
-        addBtn.setOnClickListener(new View.OnClickListener() {
+    private void initializeTokenBtns(){
+        layout.findViewById(R.id.settings_grant_token_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AppManager.getTokenManager().grantToken(getActivity());
                 Toast.makeText(getContext(), getString(R.string.settings_grant_tokens), Toast.LENGTH_SHORT).show();
             }
         });
-        removeBtn.setOnClickListener(new View.OnClickListener() {
+        layout.findViewById(R.id.settings_consume_token_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AppManager.getTokenManager().consumeToken(getActivity());
@@ -175,86 +146,25 @@ public class Settings extends DialogFragment implements GoogleApiClient.Connecti
         });
     }
 
-    /**
-     * -- DEBUG TOOL --
-     *
-     * When the "Exit" button is pressed, the dialog is dismissed.
-     */
-    private void initializeExitBtn(View view){
-        Button btn = (Button) view;
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //resets gso and mGoogleApiClient
-                //closeConnection();
-                //closes popup
-                dismiss();
-            }
-        });
-    }
-
-
-
-    //--------------------------------------------------------------------------------
-    //
-
-    /**
-     * NOT DEBUG (maybe)
-     *
-     * When the "Log out" button is clicked, the account is unlinked and
-     */
-
-    /*
-    DATABASE CLEAR IS NOT DONE, ONLY NEEDS TO BE INSERTED BEFORE StartActivity(...)
-     */
-    private void initializeLogOutBtn(View view)
+    private void initializeLogOutBtn()
     {
-        Button btn = (Button) view;
+        Button btn = (Button) layout.findViewById(R.id.setting_log_out_button);
         btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logOut();
-            }
+            @Override public void onClick(View v) {
+                Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                        new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(Status status) {
+                                Intent i = new Intent(getContext(), AuthenticationActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(i);
+                            }});}
         });
     }
 
-    private void logOut() {
-        if (!mGoogleApiClient.isConnected()){
-            mGoogleApiClient.disconnect();
-            mGoogleApiClient.connect();
-        }
-
-    }
-
-    private void closeConnection() {
-        /*mGoogleApiClient.stopAutoManage(getActivity());
-        mGoogleApiClient.disconnect();*/
-    }
-
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(           //launches google sign out and resets sign in process
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        Toast.makeText(getContext(), getString(R.string.setting_log_out), Toast.LENGTH_SHORT).show();
-                        //Setting has account to false
-                        DBHandler.openConnection(getContext());
-                        //Make current account not
-                        DBHandler.closeConnection();
-                        //Setting up new Loading screen
-                        Intent FreshStart = new Intent(getContext(),AuthenticationActivity.class);
-                        startActivity(FreshStart);
-                    }});
-    }
-
-    /**
-     *
-     * @param i :
-     */
-    @Override
-    public void onConnectionSuspended(int i) {
-
+    private void initializeCloseBtn(){
+        Button btn = (Button) layout.findViewById(R.id.settings_close_btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) { dismiss(); }});
     }
 }
