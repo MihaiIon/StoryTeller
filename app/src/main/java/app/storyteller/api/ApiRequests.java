@@ -179,7 +179,6 @@ public class ApiRequests {
         JSONObject json = new JSONObject();
         try {
             json.put("key", Api.API_KEY);
-            json.put("profile_id", AppManager.getAccount().getId());
         } catch (JSONException e) { e.printStackTrace(); }
         return new Request(Actions.GET_COMPLETED_STORIES, json);
     }

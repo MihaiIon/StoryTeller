@@ -17,7 +17,7 @@
     <string name="signIn_storyteller_logo">Application Logo</string>
 
     <!-- Home -->
-    <string name="home_available_story">A new story is available!</string>
+    <string name="home_available_story">Create your own story!</string>
     <string name="home_setting_desc">Settings</string>
     <string name="home_unsufficient_tokens">You have unsufficient tokens, come back in a few minutes</string>
 
@@ -92,6 +92,7 @@
     <string name="home_crap">crap</string>
     <string name="home_profile_image">Image account</string>
     <string name="home_play_button">Play Button</string>
+
     <!--    Item StoryList  -->
     <string name="item_storylist_new">( NEW )</string>
 
