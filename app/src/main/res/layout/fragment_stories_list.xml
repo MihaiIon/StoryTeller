@@ -46,7 +46,8 @@
                 android:text="@string/item_storylist_new"
                 android:textColor="@color/newStory"
                 android:layout_alignParentEnd="true"
-                android:textStyle="italic"/>
+                android:textStyle="italic"
+                android:visibility="invisible"/>
 
 
         </RelativeLayout>

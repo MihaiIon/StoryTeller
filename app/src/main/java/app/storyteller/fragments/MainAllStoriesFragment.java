@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -23,6 +22,7 @@ import app.storyteller.R;
 import app.storyteller.StoryReaderActivity;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
+import app.storyteller.manager.AppManager;
 import app.storyteller.models.Story;
 
 /**
@@ -36,7 +36,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     static boolean[] favorites;
 
     private SwipeRefreshLayout swipeContainer;
-
+    TextView emptyText;
     LinearLayout loading_screen;
     LinearLayout all_stories;
     LinearLayout my_stories;
@@ -58,6 +58,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         //authors = new String[] {"Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents","Jenny2009","EliteBoi","Gena","Gilles","A+","TheStudents"};
         //favorites = new boolean[titles.length];
         View view = inflater.inflate(R.layout.fragment_all_stories, container, false);
+        emptyText = (TextView)view.findViewById(R.id.emptylist);
         lv = (ListView) view.findViewById(R.id.listview);
         lv.setOnItemClickListener(this);
         initHeader(view);
@@ -136,21 +137,54 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             fav = new boolean[list.size()];
             this.favorites = fav;
         }
-        lv.setAdapter(new StoriesListAdapter(getContext(),list,favorites));
-       /* WHEN STORIES WILL HAVE AUTHORS AND FAVORITES
+
+       //WHEN STORIES WILL HAVE AUTHORS AND FAVORITES
        switch(current_nav){
             case 0: // All
+                if(list.isEmpty()){
+                    HideListView();
+                    emptyText.setText(R.string.empty_all_story);
+                }
+                else {
+                    lv.setAdapter(new StoriesListAdapter(getContext(), list, favorites));
+                    ShowListView();
+                }
                 break;
             case 1: // MyStories
+                ArrayList<Story> mystories = new ArrayList<Story>();
+                for (int i=0 ; i<list.size();i++) {
+                    int storyname = list.get(i).getCreator().getId();
+                    int googlename = AppManager.getAccount().getId();
+                    if (storyname == googlename) {
+                        mystories.add(list.get(i));
+                    }
+                }
+                this.stories = mystories;
+                if(mystories.isEmpty()) {
+                    HideListView();
+                    emptyText.setText(R.string.empty_my_story);
+                    lv.setAdapter(null);
+                }
+                else{
+                    lv.setAdapter(new StoriesListAdapter(getContext(),mystories,favorites));
+                    ShowListView();
+                }
                 break;
-            case 2: // Favs
-                break;
+           case 2: // Favs
+
+               break;
         }
-        */
+
     }
 
-
-
+    private void ShowListView(){
+        lv.setVisibility(View.VISIBLE);
+        emptyText.setVisibility(View.INVISIBLE);
+    }
+    private void HideListView(){
+        lv.setVisibility(View.INVISIBLE);
+        emptyText.setVisibility(View.VISIBLE);
+    }
 
     // 0 : AllStorie    1: MyStories   2: FavsStories
     public void navigatorToSelector(int Selector) {
@@ -190,6 +224,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             @Override
             public void onClick(View v) {
                 navigatorToSelector(0);
+                fetchCompleteStories();
                 //Thread qui remplace le listView
                 /*Publish p = new Publish();
                 p.execute();*/
@@ -201,6 +236,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             @Override
             public void onClick(View v) {
                 navigatorToSelector(1);
+                fetchCompleteStories();
                 //Thread qui remplace le listView
             }
         });
@@ -210,6 +246,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             @Override
             public void onClick(View v) {
                 navigatorToSelector(2);
+                fetchCompleteStories();
                 //Thread qui remplace le listView
             }
         });
