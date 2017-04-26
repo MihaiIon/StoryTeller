@@ -1,0 +1,44 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        style="@style/AppTheme.Activity.WhiteHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/header_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:paddingBottom="20dp"
+            android:paddingStart="30dp"
+            android:paddingTop="20dp">
+
+            <ImageView
+                style="@style/AppTheme.Activity.Header.BackBtn"
+                android:background="@drawable/green_back_arrow"
+                android:contentDescription="@string/header_back_button" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/app_header_title"
+            style="@style/AppTheme.Activity.WhiteHeader.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/header_back_arrow" />
+
+        <ImageButton
+            android:id="@+id/story_editor_info_btn"
+            style="@style/AppTheme.Activity.Header.BackBtn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:adjustViewBounds="true"
+            android:background="@drawable/info_button"
+            android:scaleType="fitCenter" />
+    </RelativeLayout>
+</FrameLayout>

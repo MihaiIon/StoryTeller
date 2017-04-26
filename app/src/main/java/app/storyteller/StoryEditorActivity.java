@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,6 +75,7 @@ public class StoryEditorActivity extends AppCompatActivity {
      * Submits the Story the API.
      */
     private Button submitBtn;
+    private ImageButton infoBtn;
 
     /**
      *
@@ -96,6 +98,7 @@ public class StoryEditorActivity extends AppCompatActivity {
         initSentenceInput();
         initSubmitBtn();
         initLastSentence();
+        initInfoBtn();
 
         // change le layout pour quand le clavier swipe up
         // getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -191,6 +194,29 @@ public class StoryEditorActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     *  Initializes the information button by
+     *  sending appropriate info to the created toast
+     */
+
+    private void initInfoBtn()
+    {
+        infoBtn = (ImageButton) findViewById(R.id.story_editor_info_btn);
+        infoBtn.setOnClickListener(new View.OnClickListener() {
+            //Makes a toast
+            @Override
+            public void onClick(View v) {
+                System.out.println("HEREUCK");
+                Toast.makeText(
+                        getApplicationContext(),
+                        "Main Character: "+ characterName + " || Theme: "+ theme,
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
 
     /**
      *

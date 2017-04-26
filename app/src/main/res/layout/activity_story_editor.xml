@@ -12,7 +12,7 @@
         android:gravity="center_horizontal">
 
         <!-- Header -->
-        <include layout="@layout/white_header_frame_layout"/>
+        <include layout="@layout/white_header_frame_layout_with_info_button"/>
 
         <!-- Content -->
         <RelativeLayout
