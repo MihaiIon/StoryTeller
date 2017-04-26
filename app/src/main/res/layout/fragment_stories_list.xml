@@ -4,10 +4,9 @@
 <LinearLayout android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="5dp"
+    android:padding="5dp"
     android:gravity="center_vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
 
     <ToggleButton
         android:id="@+id/toggleButton"
@@ -24,82 +23,37 @@
         android:orientation="vertical"
         android:layout_margin="5dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start">
-
-
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:textColor="@color/primary"
+                android:textSize="18sp"
+                android:layout_marginBottom="2dp"
                 android:textStyle="bold"/>
 
-            <TextView
-                android:id="@+id/newStory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="@string/item_storylist_new"
-                android:textColor="@color/newStory"
-                android:layout_alignParentEnd="true"
-                android:textStyle="italic"
-                android:visibility="invisible"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <TextView
+                    android:id="@+id/completed_stories_list_item_author_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/darkerGrey"
+                    android:text="@string/completed_stories_list_item_author_label"
+                    android:layout_marginEnd="4dp"
+                    android:textSize="12sp"
+                    android:textStyle="italic|bold"/>
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/completed_stories_list_item_author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/darkerGrey" />
 
-        <!--
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="Titre"
-                android:textColor="@color/primary"/>
-
-            <TextView
-                android:id="@+id/newStory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text="( NEW ! )"
-                android:textColor="@color/newStory"/>
-
-
-        </LinearLayout>
-        -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start">
-
-            <TextView
-                android:id="@+id/labelauthor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:textColor="@color/darkerGrey"
-                android:maxLines="1"
-                android:textStyle="italic"/>
-
-            <TextView
-                android:id="@+id/author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:text=""
-                android:textColor="@color/darkerGrey"
-                android:layout_toEndOf="@+id/labelauthor" />
-
-        </RelativeLayout>
+            </LinearLayout>
     </LinearLayout>
 </LinearLayout>

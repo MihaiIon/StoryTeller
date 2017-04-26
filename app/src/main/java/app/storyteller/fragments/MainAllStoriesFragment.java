@@ -377,7 +377,7 @@ YOLO GROS CHANGEMENT
 
             //Va chercher text et modifie
             //Plus tard modifier pour ce qui a été prit dans BD
-            TextView authortv = (TextView) v.findViewById(R.id.author);
+            TextView authortv = (TextView) v.findViewById(R.id.completed_stories_list_item_author);
             authortv.setText(this.authors[position]);
 
 
