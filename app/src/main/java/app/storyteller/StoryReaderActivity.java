@@ -11,7 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import app.storyteller.database.DBHandler;
 import app.storyteller.fragments.MainAllStoriesFragment;
+import app.storyteller.manager.AppManager;
+import app.storyteller.models.Story;
 
 /**
  * Created by Vincent on 2017-04-01.
@@ -25,6 +28,7 @@ public class StoryReaderActivity extends AppCompatActivity {
     private ImageButton smallerText;
     private ImageButton biggerText;
     private int textSize;
+    private int id;
 
     int position;
     @Override
@@ -49,6 +53,7 @@ public class StoryReaderActivity extends AppCompatActivity {
             story.setText(bundle.getString("Story"));
             favs.setChecked(bundle.getBoolean("Favs"));
             position = bundle.getInt("Position");
+            id = bundle.getInt("StoryID");
         }
 
         InitHeader();
@@ -64,9 +69,19 @@ public class StoryReaderActivity extends AppCompatActivity {
         favs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked)
-                    MainAllStoriesFragment.setFavs(position,true);
-                else MainAllStoriesFragment.setFavs(position,false);
+                int playerId = AppManager.getAccount().getId();
+                if (isChecked) {
+                    MainAllStoriesFragment.setFavs(position, true);
+                    DBHandler.openConnection(getApplicationContext());
+                    DBHandler.addFavorite(playerId,id);
+                    DBHandler.closeConnection();
+                }
+                else {
+                    MainAllStoriesFragment.setFavs(position,false);
+                    DBHandler.openConnection(getApplicationContext());
+                    DBHandler.removeFavorite(playerId,id);
+                    DBHandler.closeConnection();
+                }
             }
         });
 

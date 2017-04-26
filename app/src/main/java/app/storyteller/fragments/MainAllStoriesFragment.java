@@ -22,6 +22,7 @@ import app.storyteller.R;
 import app.storyteller.StoryReaderActivity;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
+import app.storyteller.database.DBHandler;
 import app.storyteller.manager.AppManager;
 import app.storyteller.models.Story;
 
@@ -87,6 +88,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         intent.putExtra("Story",stories.get(position).getContent());
         intent.putExtra("Favs",favorites[position]);
         intent.putExtra("Position",position);
+        intent.putExtra("StoryID",stories.get(position).getId());
         startActivity(intent);
     }
 
@@ -137,7 +139,27 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             fav = new boolean[list.size()];
             this.favorites = fav;
         }
+        int playerId = AppManager.getAccount().getId();
+        ArrayList<Integer> favsFromDB = new ArrayList<>(50);
+        DBHandler.openConnection(getContext());
+        if (DBHandler.getFavoriteListSize() > 0) {
+            favsFromDB = DBHandler.getFavorites(playerId);
+            for (int i = 0; i < favsFromDB.size(); i++) {
+                for (int j = 0; j < list.size(); j++) {
+                    if(list.get(j).getId() == favsFromDB.get(i)) {
+                        favorites[j] = true;
+                        break;
+                    }
+                }
+            }
+        }
+        DBHandler.closeConnection();
 
+        for (int i = 0; i < favsFromDB.size(); i++) {
+            System.out.println(favsFromDB.get(i));
+        }
+
+        lv.setAdapter(new StoriesListAdapter(getContext(),list,favorites));
        //WHEN STORIES WILL HAVE AUTHORS AND FAVORITES
        switch(current_nav){
             case 0: // All
@@ -331,9 +353,20 @@ YOLO GROS CHANGEMENT
             tb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked)
+                    int playerId = AppManager.getAccount().getId();
+
+                    if (isChecked){
+                        DBHandler.openConnection(getContext());
+                        DBHandler.addFavorite(playerId,stories.get(position).getId());
+                        DBHandler.closeConnection();
                         setFavs(position,true);
-                    else setFavs(position,false);
+                    }
+                    else {
+                        DBHandler.openConnection(getContext());
+                        DBHandler.removeFavorite(playerId,stories.get(position).getId());
+                        DBHandler.closeConnection();
+                        setFavs(position,false);
+                    }
                 }
             });
 
