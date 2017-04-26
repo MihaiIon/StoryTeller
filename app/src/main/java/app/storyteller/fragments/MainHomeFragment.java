@@ -1,5 +1,7 @@
 package app.storyteller.fragments;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -122,29 +124,33 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
      * @param value : Number of available tokens.
      */
     public void updateTokensUI(int value) {
+        token1.setChecked(false);
+        token2.setChecked(false);
+        token3.setChecked(false);
         switch (value){
-            case 3:
-                token1.setChecked(true);
-                token2.setChecked(true);
-                token3.setChecked(true);
-                break;
-            case 2:
-                token1.setChecked(false);
-                token2.setChecked(true);
-                token3.setChecked(true);
-                break;
-            case 1:
-                token1.setChecked(false);
-                token2.setChecked(false);
-                token3.setChecked(true);
-                break;
-            default:
-                token1.setChecked(false);
-                token2.setChecked(false);
-                token3.setChecked(false);
+            case 3: toggleToken(token1);
+            case 2: toggleToken(token2);
+            case 1: toggleToken(token3);
+            default: break;
         }
     }
-    //--Called by mainActivity
+
+    /**
+     *
+     */
+    private void toggleToken(ToggleButton btn){
+        btn.setChecked(true);
+        ObjectAnimator objAnim = ObjectAnimator.ofPropertyValuesHolder(
+                btn, PropertyValuesHolder.ofFloat("scaleX", 1.12f), PropertyValuesHolder.ofFloat("scaleY", 1.12f));
+        objAnim.setDuration(800);
+        objAnim.setRepeatCount(1);
+        objAnim.setRepeatMode(ObjectAnimator.REVERSE);
+        objAnim.start();
+    }
+
+    /**
+     * Called by mainActivity
+     */
     public void updateTimerText(String time)
     {
         timerText.setText(time);
