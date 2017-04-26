@@ -6,6 +6,7 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -21,7 +22,8 @@ public class StoryReaderActivity extends AppCompatActivity {
     TextView title, author,story;
     ToggleButton favs;
     TextView header_title;
-    private Button textSizeCycle;
+    private ImageButton smallerText;
+    private ImageButton biggerText;
     private int textSize;
 
     int position;
@@ -80,9 +82,10 @@ public class StoryReaderActivity extends AppCompatActivity {
     }
 
     private void initTextButtons(){
-        textSizeCycle = (Button) findViewById(R.id.button_text_size);
+        //smallerText = (ImageButton) findViewById(R.id.button_text_size_small);
+        biggerText = (ImageButton) findViewById(R.id.button_text_size_big);
 
-        textSizeCycle.setOnClickListener(new View.OnClickListener() {
+        biggerText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (textSize){
@@ -97,12 +100,9 @@ public class StoryReaderActivity extends AppCompatActivity {
                     case 2:
                         textSize = 0;
                         story.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
-                        break;
                 }
             }
         });
-
-
 
     }
 }
