@@ -209,6 +209,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 "profile_id = " + user_id + " AND story_id = " + story_id, null);
     }
 
+
     //------------------------------------------------------------------------
 
     /**

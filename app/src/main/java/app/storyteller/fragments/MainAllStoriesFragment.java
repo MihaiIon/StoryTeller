@@ -139,6 +139,10 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             fav = new boolean[list.size()];
             this.favorites = fav;
         }
+
+        // C'EST ICI QUE CA SE PASSE
+        //MODIFIER POUR LES FAVORIES ET TOUT
+        //VINCENT
         int playerId = AppManager.getAccount().getId();
         ArrayList<Integer> favsFromDB = new ArrayList<>(50);
         DBHandler.openConnection(getContext());
@@ -168,6 +172,10 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
                     emptyText.setText(R.string.empty_all_story);
                 }
                 else {
+                    favorites= new boolean[list.size()];
+                    for(int i=0;i<list.size();i++){
+                        //favorites[i] =
+                    }
                     lv.setAdapter(new StoriesListAdapter(getContext(), list, favorites));
                     ShowListView();
                 }
@@ -193,7 +201,9 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
                 }
                 break;
            case 2: // Favs
-
+               lv.setAdapter(null);
+               HideListView();
+               emptyText.setText(R.string.empty_fav_story);
                break;
         }
 
