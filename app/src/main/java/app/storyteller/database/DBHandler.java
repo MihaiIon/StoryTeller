@@ -205,7 +205,8 @@ public class DBHandler extends SQLiteOpenHelper {
      *
      */
     public static void removeFavorite(int user_id,int story_id) {
-
+        db.delete(Database.FavoritesTable.TABLE_NAME,
+                "profile_id = " + user_id + " AND story_id = " + story_id, null);
     }
 
     //------------------------------------------------------------------------
@@ -441,10 +442,19 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.getCount();
         System.out.println("****************FAVORITE COUNT OF ID#"+id+": " +cursor.getCount() + "*****************");
         cursor.moveToFirst();
-        favs.add(Integer.parseInt(cursor.getString(0)));
+        for (int i = 0; i < cursor.getCount(); i++) {
+            favs.add(Integer.parseInt(cursor.getString(0)));
+            cursor.moveToNext();
+        }
         return favs;
     };
 
+    /**
+     * Returns the number of favorites
+     */
+    public static int getFavoriteListSize() {
+        return db.rawQuery("SELECT * FROM "+ Database.FavoritesTable.TABLE_NAME, null).getCount();
+    }
 
     //------------------------------------------------------------------------
 
