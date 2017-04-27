@@ -1,9 +1,13 @@
 package app.storyteller;
 
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.style.LineHeightSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.TypefaceSpan;
 import android.util.TypedValue;
@@ -48,7 +52,7 @@ public class StoryReaderActivity extends AppCompatActivity {
             title.setText(bundle.getString("Title"));
             author.setText("by : " + bundle.getString("Authors"));
             storyContent.setText(getFormattedStoryContent(bundle.getString("Story")));
-            storyContent.setLineSpacing(1, 0.53f);
+            //storyContent.setLineSpacing(20f, 1f);
             favs.setChecked(bundle.getBoolean("Favs"));
             position = bundle.getInt("Position");
             id = bundle.getInt("StoryID");
@@ -118,7 +122,48 @@ public class StoryReaderActivity extends AppCompatActivity {
 
 
     //----------------------------------------------------------------------------------
-    // Mihai Lab
+    // Mihai's Lab
+
+
+    private class CustomTypefaceSpan extends TypefaceSpan {
+
+        private final Typeface newType;
+
+        public CustomTypefaceSpan(String family, Typeface type) {
+            super(family);
+            newType = type;
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            applyCustomTypeFace(ds, newType);
+        }
+
+        @Override
+        public void updateMeasureState(TextPaint paint) {
+            applyCustomTypeFace(paint, newType);
+        }
+
+        private void applyCustomTypeFace(Paint paint, Typeface tf) {
+            int oldStyle;
+            Typeface old = paint.getTypeface();
+            if (old == null) {
+                oldStyle = 0;
+            } else {
+                oldStyle = old.getStyle();
+            }
+
+            int fake = oldStyle & ~tf.getStyle();
+            if ((fake & Typeface.BOLD) != 0) {
+                paint.setFakeBoldText(true);
+            }
+
+            if ((fake & Typeface.ITALIC) != 0) {
+                paint.setTextSkewX(-0.25f);
+            }
+            paint.setTypeface(tf);
+        }
+    }
 
     /**
      *
@@ -126,8 +171,18 @@ public class StoryReaderActivity extends AppCompatActivity {
     private Spannable getFormattedStoryContent(String raw){
 
         Spannable s = new SpannableString(raw);
-        s.setSpan(new RelativeSizeSpan(2.5f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        s.setSpan(new TypefaceSpan("monospace"), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new RelativeSizeSpan(4f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new LineHeightSpan() {
+            @Override
+            public void chooseHeight(CharSequence text, int start, int end, int spanstartv, int v, Paint.FontMetricsInt fm) {
+                fm.bottom = 0;
+                fm.descent = 80;
+                fm.top = -200;
+                fm.ascent =0;
+            }
+        }, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new CustomTypefaceSpan("kaushan", Typeface.createFromAsset(getAssets(), "fonts/kaushan.otf")),
+                0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return s;
     }
 }
