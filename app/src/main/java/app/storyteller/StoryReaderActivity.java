@@ -176,7 +176,7 @@ public class StoryReaderActivity extends AppCompatActivity {
             @Override
             public void chooseHeight(CharSequence text, int start, int end, int spanstartv, int v, Paint.FontMetricsInt fm) {
                 fm.bottom = 0;
-                fm.descent = 80;
+                fm.descent = 100;
                 fm.top = -200;
                 fm.ascent =0;
             }
