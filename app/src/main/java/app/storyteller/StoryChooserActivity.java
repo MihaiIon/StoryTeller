@@ -12,7 +12,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -61,11 +60,16 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
      */
     private LinearLayout loadingScreen;
     private boolean isActivityLocked;
+    private TextView emptyMessage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_story_chooser);
+        listview = (ListView) findViewById(R.id.story_chooser_story_list);
+        emptyMessage = (TextView) findViewById(R.id.emptyMessage);
+        emptyMessage.setText(R.string.empty_chooser_story);
+        ShowList();
         initAddStoryBtn(findViewById(R.id.story_chooser_add_btn));
         initHeader();
         initLoadingScreen();
@@ -208,35 +212,47 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     /**
      * When stories are pulled from the API, parse them using the selected theme.
      */
-    public void refreshStoriesList(ArrayList<Story> list){
+    public void refreshStoriesList(ArrayList<Story> list) {
         setLockActivity(false);
-        System.out.println("************"+isActivityLocked);
+        System.out.println("************" + isActivityLocked);
         // -- TODO :  Remove loading and place stories in ListView.
         stories = list;
-
-        // stories are parsed depending on the current theme
-        if(currentTheme.equals(getApplicationContext().getString(R.string.story_chooser_all)))
-            stories = list;
-        else{
-            ArrayList<Story> parsedList = new ArrayList<Story>();
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getDetails().getTheme().equals(currentTheme)) {
-                    parsedList.add(list.get(i));
+        if (stories.size() > 0) {
+            // stories are parsed depending on the current theme
+            if (currentTheme.equals(getApplicationContext().getString(R.string.story_chooser_all)))
+                stories = list;
+            else {
+                ArrayList<Story> parsedList = new ArrayList<Story>();
+                for (int i = 0; i < list.size(); i++) {
+                    if (list.get(i).getDetails().getTheme().equals(currentTheme)) {
+                        parsedList.add(list.get(i));
+                    }
                 }
+                this.stories = parsedList;
             }
-            this.stories = parsedList;
+
+            //reset listview
+            ShowList();
+            StoryChooserAdapter adapter = new StoryChooserAdapter(this, stories);
+            listview.setOnItemClickListener(StoryChooserActivity.this);
+            listview.setAdapter(adapter);
         }
-
-        //reset listview
-        listview = (ListView) findViewById(R.id.story_chooser_story_list);
-        StoryChooserAdapter adapter = new StoryChooserAdapter(this, stories);
-        listview.setOnItemClickListener(StoryChooserActivity.this);
-        listview.setAdapter(adapter);
-
+        else {
+            HideList();
+        }
 
 
     }
-
+    private void ShowList()
+    {
+        emptyMessage.setVisibility(View.INVISIBLE);
+        listview.setVisibility(View.VISIBLE);
+    }
+    private void HideList()
+    {
+        emptyMessage.setVisibility(View.VISIBLE);
+        listview.setVisibility(View.INVISIBLE);
+    }
 
 
     //-------------------------------------------------------------------
