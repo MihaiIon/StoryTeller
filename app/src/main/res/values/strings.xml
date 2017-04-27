@@ -98,4 +98,5 @@
     <string name="empty_all_story">Sorry there\'s no story</string>
     <string name="empty_my_story">Sorry none of your story are completed</string>
     <string name="empty_fav_story">Sorry you don\'t have any favorite story</string>
+    <string name="empty_chooser_story">Sorry there\'s not story to edit.\n Maybe you could Create a new one</string>
 </resources>
