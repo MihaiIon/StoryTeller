@@ -32,7 +32,6 @@ import app.storyteller.models.Story;
 
 public class MainAllStoriesFragment extends Fragment implements AdapterView.OnItemClickListener{
     ListView lv;
-    ArrayList<Story> allstories;
     ArrayList<Story> favstories;
     ArrayList<Story> mystories;
     ArrayList<Story> stories;
@@ -296,9 +295,35 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     }
     private void favoriteselected()
     {
-        lv.setAdapter(null);
-        HideListView();
-        emptyText.setText(R.string.empty_fav_story);
+        favstories = new ArrayList<Story>();
+        ArrayList<Integer> favsFromDB = new ArrayList<>(stories.size());
+        DBHandler.openConnection(getContext());
+        favorites = new boolean[DBHandler.getFavoriteListSize()];
+
+        if (DBHandler.getFavoriteListSize() > 0) {
+            favsFromDB = DBHandler.getFavorites(AppManager.getAccount().getId());
+            for (int i = 0; i < favsFromDB.size(); i++) {
+                for (int j = 0; j < stories.size(); j++) {
+                    if(stories.get(j).getId() == favsFromDB.get(i)) {
+                        favstories.add(stories.get(j));
+                        favorites[i] = true;
+                        break;
+                    }
+                }
+            }
+            lv.setAdapter(new StoriesListAdapter(getContext(),favstories,favorites));
+            ShowListView();
+        }
+        else {
+            HideListView();
+            emptyText.setText(R.string.empty_fav_story);
+            lv.setAdapter(null);
+        }
+        DBHandler.closeConnection();
+
+
+
+
     }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
