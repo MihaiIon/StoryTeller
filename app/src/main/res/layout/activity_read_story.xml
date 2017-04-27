@@ -1,38 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_height="match_parent"
+<LinearLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical">
 
     <include
         android:id="@+id/reader_header"
-        layout="@layout/green_header_frame_layout" />
-
-    <ImageButton
-        android:id="@+id/button_text_size_big"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_text_size"
-        android:contentDescription="Bigger Text"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:text="big" />
-
+        layout="@layout/green_header_story_reader_frame_layout" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/activity_read_margin_horizontal"
-        android:layout_marginRight="@dimen/activity_read_margin_horizontal"
         android:layout_marginTop="@dimen/activity_read_margin_top"
-        android:layout_below="@id/reader_header"
         android:orientation="vertical">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingRight="@dimen/activity_read_padding_horizontal"
+            android:paddingLeft="@dimen/activity_read_padding_horizontal"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -59,7 +46,7 @@
             </LinearLayout>
 
             <ToggleButton
-                android:background="@drawable/mytogglebutton"
+                android:background="@drawable/favorites_star_toggle_btn"
                 style="@style/AppTheme.ToggleStars"
                 android:id="@+id/story_fav" />
 
@@ -68,13 +55,19 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/activity_read_scrollview_magin_top">
+            android:layout_marginTop="@dimen/activity_read_scrollview_margin_top">
 
             <TextView
-                android:id="@+id/story"
+                android:id="@+id/story_reader_story_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/activity_read_storie_size" />
+                android:textColor="@color/black"
+                android:lineSpacingExtra="7dp"
+                android:paddingBottom="@dimen/activity_read_padding_vertical"
+                android:paddingRight="@dimen/activity_read_padding_horizontal"
+                android:paddingLeft="@dimen/activity_read_padding_horizontal"
+                android:paddingTop="12dp"
+                android:textSize="@dimen/activity_read_story_content_text_size" />
         </ScrollView>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

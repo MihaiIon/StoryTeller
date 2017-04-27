@@ -1,20 +1,25 @@
 package app.storyteller;
 
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.TextPaint;
+import android.text.style.LineHeightSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.TypefaceSpan;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import app.storyteller.database.DBHandler;
 import app.storyteller.fragments.MainAllStoriesFragment;
 import app.storyteller.manager.AppManager;
-import app.storyteller.models.Story;
 
 /**
  * Created by Vincent on 2017-04-01.
@@ -22,7 +27,7 @@ import app.storyteller.models.Story;
 
 public class StoryReaderActivity extends AppCompatActivity {
 
-    TextView title, author,story;
+    TextView title, author, storyContent;
     ToggleButton favs;
     TextView header_title;
     private ImageButton smallerText;
@@ -38,19 +43,16 @@ public class StoryReaderActivity extends AppCompatActivity {
 
         title = (TextView) findViewById(R.id.story_title);
         author = (TextView) findViewById(R.id.story_author);
-        story= (TextView) findViewById(R.id.story);
+        storyContent = (TextView) findViewById(R.id.story_reader_story_container);
         favs= (ToggleButton) findViewById(R.id.story_fav);
         textSize = 0;
-
-
-
-
 
         Bundle bundle = getIntent().getExtras();
         if(bundle!=null){
             title.setText(bundle.getString("Title"));
             author.setText("by : " + bundle.getString("Authors"));
-            story.setText(bundle.getString("Story"));
+            storyContent.setText(getFormattedStoryContent(bundle.getString("Story")));
+            //storyContent.setLineSpacing(20f, 1f);
             favs.setChecked(bundle.getBoolean("Favs"));
             position = bundle.getInt("Position");
             id = bundle.getInt("StoryID");
@@ -59,13 +61,11 @@ public class StoryReaderActivity extends AppCompatActivity {
         InitHeader();
         initTextButtons();
         InitToggleStar();
-
     }
 
     public void InitToggleStar(){
         favs = (ToggleButton) findViewById(R.id.story_fav);
-
-
+        
         favs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -106,18 +106,83 @@ public class StoryReaderActivity extends AppCompatActivity {
                 switch (textSize){
                     case 0:
                         textSize = 1;
-                        story.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                        storyContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                         break;
                     case 1:
                         textSize = 2;
-                        story.setTextSize(TypedValue.COMPLEX_UNIT_SP, 23);
+                        storyContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, 23);
                         break;
                     case 2:
                         textSize = 0;
-                        story.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+                        storyContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 }
             }
         });
+    }
 
+
+    //----------------------------------------------------------------------------------
+    // Mihai's Lab
+
+
+    private class CustomTypefaceSpan extends TypefaceSpan {
+
+        private final Typeface newType;
+
+        public CustomTypefaceSpan(String family, Typeface type) {
+            super(family);
+            newType = type;
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            applyCustomTypeFace(ds, newType);
+        }
+
+        @Override
+        public void updateMeasureState(TextPaint paint) {
+            applyCustomTypeFace(paint, newType);
+        }
+
+        private void applyCustomTypeFace(Paint paint, Typeface tf) {
+            int oldStyle;
+            Typeface old = paint.getTypeface();
+            if (old == null) {
+                oldStyle = 0;
+            } else {
+                oldStyle = old.getStyle();
+            }
+
+            int fake = oldStyle & ~tf.getStyle();
+            if ((fake & Typeface.BOLD) != 0) {
+                paint.setFakeBoldText(true);
+            }
+
+            if ((fake & Typeface.ITALIC) != 0) {
+                paint.setTextSkewX(-0.25f);
+            }
+            paint.setTypeface(tf);
+        }
+    }
+
+    /**
+     *
+     */
+    private Spannable getFormattedStoryContent(String raw){
+
+        Spannable s = new SpannableString(raw.substring(0,1)+"  "+raw.substring(1));
+        s.setSpan(new RelativeSizeSpan(4f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new LineHeightSpan() {
+            @Override
+            public void chooseHeight(CharSequence text, int start, int end, int spanstartv, int v, Paint.FontMetricsInt fm) {
+                fm.bottom = 0;
+                fm.descent = 100;
+                fm.top = -200;
+                fm.ascent =0;
+            }
+        }, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new CustomTypefaceSpan("kaushan", Typeface.createFromAsset(getAssets(), "fonts/kaushan.otf")),
+                0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        return s;
     }
 }
