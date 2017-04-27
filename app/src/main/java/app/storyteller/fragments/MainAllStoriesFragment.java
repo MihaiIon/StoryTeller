@@ -176,7 +176,6 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             for (int i = 0; i < favsFromDB.size(); i++) {
                 for (int j = 0; j < list.size(); j++) {
                     if(list.get(j).getId() == favsFromDB.get(i)) {
-
                         favorites[j] = true;
                         break;
                     }
@@ -190,7 +189,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         }
 
         lv.setAdapter(new StoriesListAdapter(getContext(),list,favorites));
-       //WHEN STORIES WILL HAVE AUTHORS AND FAVORITES
+
        switch(current_nav){
             case 0: // All
                 allselected();
