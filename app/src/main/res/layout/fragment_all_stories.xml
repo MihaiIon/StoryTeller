@@ -20,8 +20,8 @@
         <include layout="@layout/green_header_frame_layout" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
             <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/all_stories_swipeContainer"
                 android:layout_width="match_parent"
@@ -32,15 +32,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="@color/softGrey"
-                android:dividerHeight="1dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/emptylist"
-                android:text="EMPTY LIST YIO"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"/>
+                android:dividerHeight="1dp"/>
+
         </android.support.v4.widget.SwipeRefreshLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/emptylist"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 
     </LinearLayout>
