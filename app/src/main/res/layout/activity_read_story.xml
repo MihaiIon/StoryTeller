@@ -11,8 +11,6 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingRight="@dimen/activity_read_padding_horizontal"
-        android:paddingLeft="@dimen/activity_read_padding_horizontal"
         android:layout_marginTop="@dimen/activity_read_margin_top"
         android:orientation="vertical">
 
@@ -20,6 +18,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingRight="@dimen/activity_read_padding_horizontal"
+            android:paddingLeft="@dimen/activity_read_padding_horizontal"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -55,8 +55,6 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="@dimen/activity_read_padding_vertical"
-            android:paddingBottom="@dimen/activity_read_padding_vertical"
             android:layout_marginTop="@dimen/activity_read_scrollview_margin_top">
 
             <TextView
@@ -65,6 +63,10 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:lineSpacingExtra="7dp"
+                android:paddingBottom="@dimen/activity_read_padding_vertical"
+                android:paddingRight="@dimen/activity_read_padding_horizontal"
+                android:paddingLeft="@dimen/activity_read_padding_horizontal"
+                android:paddingTop="12dp"
                 android:textSize="@dimen/activity_read_story_content_text_size" />
         </ScrollView>
     </LinearLayout>
