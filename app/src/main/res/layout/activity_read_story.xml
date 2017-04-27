@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_height="match_parent"
+<LinearLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical">
 
     <include
         android:id="@+id/reader_header"
-        layout="@layout/green_header_frame_layout" />
-
-    <ImageButton
-        android:id="@+id/button_text_size_big"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_text_size"
-        android:contentDescription="Bigger Text"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:text="big" />
-
+        layout="@layout/green_header_story_reader_frame_layout" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -59,7 +47,7 @@
             </LinearLayout>
 
             <ToggleButton
-                android:background="@drawable/mytogglebutton"
+                android:background="@drawable/favorites_star_toggle_btn"
                 style="@style/AppTheme.ToggleStars"
                 android:id="@+id/story_fav" />
 
@@ -69,12 +57,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/activity_read_scrollview_magin_top">
-
             <TextView
-                android:id="@+id/story"
+                android:id="@+id/story_reader_story_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/activity_read_storie_size" />
         </ScrollView>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

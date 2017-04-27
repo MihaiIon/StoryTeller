@@ -46,13 +46,13 @@ public class StoryEditorActivity extends AppCompatActivity {
     private String lastSentenceString;
 
     /**
-     * This is value is set to TRUE if the current story is a new
+     * This is value is set to TRUE if the current storyContent is a new
      * Story created by the current User.
      */
     private boolean isNewStory;
 
     /**
-     * The current story ID.
+     * The current storyContent ID.
      */
     private int story_id;
 
@@ -87,7 +87,7 @@ public class StoryEditorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_story_editor);
         initLoadingScreen();
 
-        // -- Get info related to story.
+        // -- Get info related to storyContent.
         getInfoFromExtras();
 
         // -- Initialise...
@@ -268,7 +268,7 @@ public class StoryEditorActivity extends AppCompatActivity {
 
     /**
      * Enabling the submitBtn will allow the user to create/update the
-     * story on the API.
+     * storyContent on the API.
      */
     private void enableSubmitBtn(){
         submitBtn.setEnabled(true);

@@ -77,8 +77,8 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     }
 
     /**
-     * When the user comes back from the story editor activity
-     * the story he last modified does is not displayed.
+     * When the user comes back from the storyContent editor activity
+     * the storyContent he last modified does is not displayed.
      */
     @Override
     protected void onResume() {
@@ -175,7 +175,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
     }
 
     /**
-     * On item change in Spinner, refresh the story list
+     * On item change in Spinner, refresh the storyContent list
      * @param parent
      * @param view
      * @param position
@@ -270,7 +270,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
         } else{
             Toast.makeText(
                     getApplicationContext(),
-                    "Sorry this story is not available at the moment.",
+                    "Sorry this storyContent is not available at the moment.",
                     Toast.LENGTH_SHORT).show();
             // TODO : Do refresh HERE.
             fetchIncompleteStories();
