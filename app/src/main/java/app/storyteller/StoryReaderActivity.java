@@ -170,7 +170,7 @@ public class StoryReaderActivity extends AppCompatActivity {
      */
     private Spannable getFormattedStoryContent(String raw){
 
-        Spannable s = new SpannableString(raw);
+        Spannable s = new SpannableString(raw.substring(0,1)+"  "+raw.substring(1));
         s.setSpan(new RelativeSizeSpan(4f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         s.setSpan(new LineHeightSpan() {
             @Override
