@@ -11,7 +11,7 @@
     <ToggleButton
         android:id="@+id/toggleButton"
         style="@style/AppTheme.ToggleStars"
-        android:background="@drawable/mytogglebutton"
+        android:background="@drawable/favorites_star_toggle_btn"
         android:focusable="false"
         android:textOff=""
         android:textOn=""

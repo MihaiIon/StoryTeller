@@ -197,7 +197,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
 
     /**
      * Enabling the nextBtn will allow the user to proceed
-     * and write the story first sentence.
+     * and write the storyContent first sentence.
      */
     private void enableNextBtn(){
         nextBtn.setEnabled(true);
