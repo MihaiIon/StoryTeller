@@ -283,8 +283,13 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
 
                 st = new Story(
                         storyObj.getInt("id"),
-                        sd, new User(storyObj.getInt("creator_id")), se,
-                        Timestamp.valueOf(storyObj.getString("creation_date")));
+                        sd,
+                        new User(
+                                storyObj.getInt("creator_id"),
+                                storyObj.getString("google_id"),
+                                storyObj.getString("name"),
+                                storyObj.getString("image_url")),
+                        se, Timestamp.valueOf(storyObj.getString("creation_date")));
 
                 completeStories.add(st);
                 System.out.println(st);

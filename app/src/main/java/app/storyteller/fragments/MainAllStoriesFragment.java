@@ -32,6 +32,9 @@ import app.storyteller.models.Story;
 
 public class MainAllStoriesFragment extends Fragment implements AdapterView.OnItemClickListener{
     ListView lv;
+    ArrayList<Story> allstories;
+    ArrayList<Story> favstories;
+    ArrayList<Story> mystories;
     ArrayList<Story> stories;
     int current_nav; // 0:All 1:My 2:Favs
     static boolean[] favorites;
@@ -83,13 +86,36 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(getContext(),StoryReaderActivity.class);
-        intent.putExtra("Title",stories.get(position).getDetails().getTitle());
-        intent.putExtra("Authors",stories.get(position).getCreator().getName());
-        intent.putExtra("Story",stories.get(position).getContent());
-        intent.putExtra("Favs",favorites[position]);
-        intent.putExtra("Position",position);
-        intent.putExtra("StoryID",stories.get(position).getId());
-        startActivity(intent);
+        switch (current_nav){
+            case 0:
+                intent.putExtra("Title",stories.get(position).getDetails().getTitle());
+                intent.putExtra("Authors",stories.get(position).getCreator().getName());
+                intent.putExtra("Story",stories.get(position).getContent());
+                intent.putExtra("Favs",favorites[position]);
+                intent.putExtra("Position",position);
+                intent.putExtra("StoryID",stories.get(position).getId());
+                startActivity(intent);
+                break;
+            case 1:
+                intent.putExtra("Title",mystories.get(position).getDetails().getTitle());
+                intent.putExtra("Authors",mystories.get(position).getCreator().getName());
+                intent.putExtra("Story",mystories.get(position).getContent());
+                intent.putExtra("Favs",favorites[position]);
+                intent.putExtra("Position",position);
+                intent.putExtra("StoryID",mystories.get(position).getId());
+                startActivity(intent);
+                break;
+            case 2:
+                intent.putExtra("Title",favstories.get(position).getDetails().getTitle());
+                intent.putExtra("Authors",favstories.get(position).getCreator().getName());
+                intent.putExtra("Story",favstories.get(position).getContent());
+                intent.putExtra("Favs",favorites[position]);
+                intent.putExtra("Position",position);
+                intent.putExtra("StoryID",favstories.get(position).getId());
+                startActivity(intent);
+                break;
+        }
+
     }
 
     public void initHeader(View v){
@@ -135,22 +161,23 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         // TODO.
         this.stories = list;
         boolean[] fav;
-        if(favorites == null) {
-            fav = new boolean[list.size()];
-            this.favorites = fav;
-        }
+
+        fav = new boolean[list.size()];
+        this.favorites = fav;
+
 
         // C'EST ICI QUE CA SE PASSE
         //MODIFIER POUR LES FAVORIES ET TOUT
         //VINCENT
-        int playerId = AppManager.getAccount().getId();
-        ArrayList<Integer> favsFromDB = new ArrayList<>(50);
+
+        ArrayList<Integer> favsFromDB = new ArrayList<>(stories.size());
         DBHandler.openConnection(getContext());
         if (DBHandler.getFavoriteListSize() > 0) {
-            favsFromDB = DBHandler.getFavorites(playerId);
+            favsFromDB = DBHandler.getFavorites(AppManager.getAccount().getId());
             for (int i = 0; i < favsFromDB.size(); i++) {
                 for (int j = 0; j < list.size(); j++) {
                     if(list.get(j).getId() == favsFromDB.get(i)) {
+
                         favorites[j] = true;
                         break;
                     }
@@ -167,43 +194,13 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
        //WHEN STORIES WILL HAVE AUTHORS AND FAVORITES
        switch(current_nav){
             case 0: // All
-                if(list.isEmpty()){
-                    HideListView();
-                    emptyText.setText(R.string.empty_all_story);
-                }
-                else {
-                    favorites= new boolean[list.size()];
-                    for(int i=0;i<list.size();i++){
-                        //favorites[i] =
-                    }
-                    lv.setAdapter(new StoriesListAdapter(getContext(), list, favorites));
-                    ShowListView();
-                }
+                allselected();
                 break;
             case 1: // MyStories
-                ArrayList<Story> mystories = new ArrayList<Story>();
-                for (int i=0 ; i<list.size();i++) {
-                    int storyname = list.get(i).getCreator().getId();
-                    int googlename = AppManager.getAccount().getId();
-                    if (storyname == googlename) {
-                        mystories.add(list.get(i));
-                    }
-                }
-                this.stories = mystories;
-                if(mystories.isEmpty()) {
-                    HideListView();
-                    emptyText.setText(R.string.empty_my_story);
-                    lv.setAdapter(null);
-                }
-                else{
-                    lv.setAdapter(new StoriesListAdapter(getContext(),mystories,favorites));
-                    ShowListView();
-                }
+                myselected();
                 break;
            case 2: // Favs
-               lv.setAdapter(null);
-               HideListView();
-               emptyText.setText(R.string.empty_fav_story);
+               favoriteselected();
                break;
         }
 
@@ -236,6 +233,73 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
         }
     }
 
+    private void allselected()
+    {
+        if(stories.isEmpty()){
+            HideListView();
+            emptyText.setText(R.string.empty_all_story);
+        }
+        else {
+            favorites = new boolean[stories.size()];
+            ArrayList<Integer> favsFromDB = new ArrayList<>(stories.size());
+            DBHandler.openConnection(getContext());
+            if (DBHandler.getFavoriteListSize() > 0) {
+                favsFromDB = DBHandler.getFavorites(AppManager.getAccount().getId());
+                for (int i = 0; i < favsFromDB.size(); i++) {
+                    for (int j = 0; j < stories.size(); j++) {
+                        if(stories.get(j).getId() == favsFromDB.get(i)) {
+                            favorites[j] = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            DBHandler.closeConnection();
+            lv.setAdapter(new StoriesListAdapter(getContext(), stories, favorites));
+            ShowListView();
+        }
+    }
+    private void myselected(){
+        mystories = new ArrayList<Story>();
+        for (int i=0 ; i<stories.size();i++) {
+            int storyname = stories.get(i).getCreator().getId();
+            int googlename = AppManager.getAccount().getId();
+            if (storyname == googlename) {
+                mystories.add(stories.get(i));
+            }
+        }
+        if(mystories.isEmpty()) {
+            HideListView();
+            emptyText.setText(R.string.empty_my_story);
+            lv.setAdapter(null);
+        }
+        else{
+            favorites = new boolean[mystories.size()];
+            ArrayList<Integer> favsFromDB = new ArrayList<>(mystories.size());
+            DBHandler.openConnection(getContext());
+            if (DBHandler.getFavoriteListSize() > 0) {
+                favsFromDB = DBHandler.getFavorites(AppManager.getAccount().getId());
+                for (int i = 0; i < favsFromDB.size(); i++) {
+                    for (int j = 0; j < mystories.size(); j++) {
+                        if(mystories.get(j).getId() == favsFromDB.get(i)) {
+                            favorites[j] = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            DBHandler.closeConnection();
+            //
+            lv.setAdapter(new StoriesListAdapter(getContext(),mystories,favorites));
+            ShowListView();
+        }
+    }
+    private void favoriteselected()
+    {
+        lv.setAdapter(null);
+        HideListView();
+        emptyText.setText(R.string.empty_fav_story);
+    }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -256,7 +320,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             @Override
             public void onClick(View v) {
                 navigatorToSelector(0);
-                fetchCompleteStories();
+                allselected();
                 //Thread qui remplace le listView
                 /*Publish p = new Publish();
                 p.execute();*/
@@ -268,7 +332,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             @Override
             public void onClick(View v) {
                 navigatorToSelector(1);
-                fetchCompleteStories();
+                myselected();
                 //Thread qui remplace le listView
             }
         });
@@ -278,7 +342,8 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
             @Override
             public void onClick(View v) {
                 navigatorToSelector(2);
-                fetchCompleteStories();
+                favoriteselected();
+
                 //Thread qui remplace le listView
             }
         });
@@ -365,18 +430,52 @@ YOLO GROS CHANGEMENT
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     int playerId = AppManager.getAccount().getId();
 
-                    if (isChecked){
-                        DBHandler.openConnection(getContext());
-                        DBHandler.addFavorite(playerId,stories.get(position).getId());
-                        DBHandler.closeConnection();
-                        setFavs(position,true);
+                    switch (current_nav) {
+                        case 0:
+                            if (isChecked){
+                                DBHandler.openConnection(getContext());
+                                DBHandler.addFavorite(playerId,stories.get(position).getId());
+                                DBHandler.closeConnection();
+                                setFavs(position,true);
+                            }
+                            else{
+                                DBHandler.openConnection(getContext());
+                                DBHandler.removeFavorite(playerId,stories.get(position).getId());
+                                DBHandler.closeConnection();
+                                setFavs(position,false);
+                            }
+                            break;
+                        case 1:
+                            if (isChecked){
+                                DBHandler.openConnection(getContext());
+                                DBHandler.addFavorite(playerId,mystories.get(position).getId());
+                                DBHandler.closeConnection();
+                                setFavs(position,true);
+                            }
+                            else {
+                                DBHandler.openConnection(getContext());
+                                DBHandler.removeFavorite(playerId,mystories.get(position).getId());
+                                DBHandler.closeConnection();
+                                setFavs(position,false);
+                            }
+                            break;
+                        case 2:
+                            if (isChecked){
+                                DBHandler.openConnection(getContext());
+                                DBHandler.addFavorite(playerId,favstories.get(position).getId());
+                                DBHandler.closeConnection();
+                                setFavs(position,true);
+                            }
+                            else {
+                                DBHandler.openConnection(getContext());
+                                DBHandler.removeFavorite(playerId,favstories.get(position).getId());
+                                DBHandler.closeConnection();
+                                setFavs(position,false);
+                            }
+                            break;
+
                     }
-                    else {
-                        DBHandler.openConnection(getContext());
-                        DBHandler.removeFavorite(playerId,stories.get(position).getId());
-                        DBHandler.closeConnection();
-                        setFavs(position,false);
-                    }
+
                 }
             });
 
@@ -387,7 +486,7 @@ YOLO GROS CHANGEMENT
 
             //Va chercher text et modifie
             //Plus tard modifier pour ce qui a été prit dans BD
-            TextView authortv = (TextView) v.findViewById(R.id.author);
+            TextView authortv = (TextView) v.findViewById(R.id.completed_stories_list_item_author);
             authortv.setText(this.authors[position]);
 
 

@@ -41,6 +41,18 @@ public class User {
         this.lastConnected = null;
     }
 
+    /**
+     * Default Constructor.
+     * -- A User is a person that interacts with the app.
+     */
+    public User(int id, String google_id, String name, String imageURL){
+        this.id = id;
+        this.google_id = google_id;
+        this.name = name;
+        this.imageURL = imageURL;
+        this.lastConnected = null;
+    }
+
     //------------------------------------------------------------
     // Getters and Setters
 
