@@ -50,14 +50,14 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-
     <!--
     ~~ Activity Read
     -->
-    <dimen name="activity_read_margin_horizontal">30dp</dimen>
+    <dimen name="activity_read_padding_horizontal">28dp</dimen>
+    <dimen name="activity_read_padding_vertical">28dp</dimen>
     <dimen name="activity_read_margin_top">10dp</dimen>
     <dimen name="activity_read_title_size">17sp</dimen>
-    <dimen name="activity_read_scrollview_magin_top">20dp</dimen>
-    <dimen name="activity_read_storie_size">17sp</dimen>
+    <dimen name="activity_read_scrollview_margin_top">20dp</dimen>
+    <dimen name="activity_read_story_content_text_size">17sp</dimen>
 
 </resources>
