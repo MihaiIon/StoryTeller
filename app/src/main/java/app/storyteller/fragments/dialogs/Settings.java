@@ -28,6 +28,8 @@ import com.google.android.gms.common.api.Status;
 import app.storyteller.AuthenticationActivity;
 import app.storyteller.R;
 import app.storyteller.SignInActivity;
+import app.storyteller.api.Api;
+import app.storyteller.api.ApiRequests;
 import app.storyteller.database.DBHandler;
 import app.storyteller.manager.AppManager;
 
@@ -71,6 +73,7 @@ public class Settings extends DialogFragment {
         initializeTokenBtns();
         initializeCloseBtn();
         initializeLogOutBtn();
+        initializeUnlockStoriesBtn();
 
         // Allow closing on outside press
         getDialog().setCanceledOnTouchOutside(true);
@@ -143,6 +146,16 @@ public class Settings extends DialogFragment {
             public void onClick(View v) {
                 AppManager.getTokenManager().consumeToken(getActivity());
                 Toast.makeText(getContext(), getString(R.string.settings_consume_tokens), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void initializeUnlockStoriesBtn(){
+        layout.findViewById(R.id.settings_unlock_all_stories_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Api.executeRequest(ApiRequests.unlockAllStories(),getActivity());
+                Toast.makeText(getContext(), getString(R.string.setting_all_stories_unlocked_msg), Toast.LENGTH_SHORT).show();
             }
         });
     }
