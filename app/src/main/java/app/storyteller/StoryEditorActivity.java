@@ -1,7 +1,7 @@
 package app.storyteller;
 
-import android.app.Dialog;
-import android.graphics.Color;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.constants.RegexPatterns;
-import app.storyteller.fragments.dialogs.InformationBox;
+import app.storyteller.fragments.dialogs.StoryInfoDialog;
 import app.storyteller.manager.AppManager;
 import app.storyteller.models.StoryDetails;
 
@@ -240,12 +240,14 @@ public class StoryEditorActivity extends AppCompatActivity {
             //Makes a toast
             @Override
             public void onClick(View v) {
-                System.out.println("HEREUCK");
-                //showInfoDialog();
-                Toast.makeText(
-                        getApplicationContext(),
-                        "Main Character: "+ characterName + " || Theme: "+ theme,
-                        Toast.LENGTH_LONG).show();
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+                if (prev != null) { ft.remove(prev); }
+                ft.addToBackStack(null);
+
+                // Create and show the dialog.
+                StoryInfoDialog s = StoryInfoDialog.newInstance(title, characterName, theme);
+                s.show(ft, "title");
             }
         });
     }
@@ -300,16 +302,6 @@ public class StoryEditorActivity extends AppCompatActivity {
                     "This is the end! Complete the Story and end it!!!",
                     Toast.LENGTH_LONG).show();
         }
-    }
-
-    /**
-     * Sets up the info box and shows it
-     */
-    private void showInfoDialog()
-    {
-        InformationBox infobox = InformationBox.newInstance("Title: "+title, "Main Character: "+characterName, "Theme: " + theme );
-        //infobox.setText();
-        infobox.show(getSupportFragmentManager(), "Information Box");
     }
 
     /**

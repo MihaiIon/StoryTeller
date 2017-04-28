@@ -124,7 +124,7 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
                 getActivity().onBackPressed();
             }
         });
-        ((TextView)v.findViewById(R.id.header_title)).setText(getString(R.string.storie_list_header_title));
+        ((TextView)v.findViewById(R.id.header_title)).setText(getString(R.string.story_list_header_title));
     }
 
 

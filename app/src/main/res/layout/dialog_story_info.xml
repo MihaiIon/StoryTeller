@@ -1,62 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2f2f2"
-    android:paddingLeft="40dp"
-    android:paddingRight="40dp"
-    android:paddingTop="30dp"
-    android:paddingBottom="30dp">
+    style="@style/AppTheme.Dialog.Box">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:id="@+id/linearLayout">
-
+        android:id="@+id/dialog_story_info">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#f2f2f2"
-            android:text="Story Information"
-            android:textColor="@color/primaryDark"
-            android:textSize="30sp" />
+            style="@style/AppTheme.Dialog.Title"
+            android:text="@string/dialog_story_info_dialog_title"/>
 
         <View
             android:layout_width="match_parent"
-            style="@style/AppTheme.Dialog.Content.Separator"
-            android:id="@+id/view" />
+            style="@style/AppTheme.Dialog.Content.Separator" />
 
         <TextView
-            android:id="@+id/dialog_infobox_title"
+            android:id="@+id/dialog_story_info_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="Title : "
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="Title :" />
 
         <TextView
-            android:id="@+id/dialog_infobox_character"
+            android:id="@+id/dialog_story_info_character_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="Main Character: "
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="Main Character: " />
 
         <TextView
-            android:id="@+id/dialog_infobox_theme"
+            android:id="@+id/dialog_story_info_theme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="5dp"
-            android:text="Theme :"
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="Theme :" />
