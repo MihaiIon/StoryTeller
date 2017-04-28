@@ -27,6 +27,7 @@ import com.google.android.gms.common.api.Status;
 
 import app.storyteller.AuthenticationActivity;
 import app.storyteller.R;
+import app.storyteller.SignInActivity;
 import app.storyteller.database.DBHandler;
 import app.storyteller.manager.AppManager;
 
@@ -155,7 +156,7 @@ public class Settings extends DialogFragment {
                         new ResultCallback<Status>() {
                             @Override
                             public void onResult(Status status) {
-                                Intent i = new Intent(getContext(), AuthenticationActivity.class);
+                                Intent i = new Intent(getContext(), SignInActivity.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                             }});}
