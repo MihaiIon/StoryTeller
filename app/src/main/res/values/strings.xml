@@ -64,6 +64,7 @@
     <string name="settings_exit">Close settings</string>
     <string name="settings_log_out">Log out</string>
     <string name="settings_debug_version">-- DEBUG VERSION --</string>
+    <string name="settings_unlock_all_stories_tokens">Unlock Stories</string>
 
     <!-- Settings Class -->
     <string name="setting_log_out">Logout</string>
@@ -71,6 +72,7 @@
     <string name="setting_are_you_sure">Are you sure?</string>
     <string name="setting_dbh_cleared">DBHandler cleared</string>
     <string name="setting_dbh_already_cleared">DBHandler already cleared</string>
+    <string name="setting_all_stories_unlocked_msg">All Stories are now unlocked Jeffery</string>
 
     <!--    Header Layout   -->
     <string name="storie_list_header_title">Completed Stories</string>

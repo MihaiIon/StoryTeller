@@ -141,6 +141,7 @@ public class AsyncRequest extends AsyncTask<Object, Integer, String> {
             case ApiRequests.Actions.UPDATE_STORY:
             case ApiRequests.Actions.LOCK_STORY:
             case ApiRequests.Actions.UNLOCK_STORY:
+            case ApiRequests.Actions.UNLOCK_ALL_STORIES:
                 break;
             case ApiRequests.Actions.IS_STORY_LOCKED:
                 processIsStoryLocked(response);

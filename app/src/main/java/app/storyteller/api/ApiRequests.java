@@ -27,6 +27,7 @@ public class ApiRequests {
         final static String LOCK_STORY      = "lockstory";
         final static String UNLOCK_STORY    = "unlockstory";
         final static String IS_STORY_LOCKED = "isstorylocked";
+        final static String UNLOCK_ALL_STORIES = "unlockallstories";
         final static String GET_STORY_COMPLETION_STATE = "getstorycompletionstate";
 
         final static String GET_COMPLETED_STORIES   = "getcompletedstories";
@@ -157,6 +158,18 @@ public class ApiRequests {
             json.put("story_id", story_id);
         } catch (JSONException e) { e.printStackTrace(); }
         return new Request(Actions.UNLOCK_STORY, json);
+    }
+
+    /**
+     * When the user finished editing the story, the story must be
+     * unlock in order.
+     */
+    public static Request unlockAllStories(){
+        JSONObject json = new JSONObject();
+        try {
+            json.put("key", Api.API_KEY);
+        } catch (JSONException e) { e.printStackTrace(); }
+        return new Request(Actions.UNLOCK_ALL_STORIES, json);
     }
 
     /**
