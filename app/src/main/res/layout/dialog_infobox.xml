@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:background="#f2f2f2"
             android:text="Story Information"
-            android:textColor="@color/primary"
-            android:textSize="36sp" />
+            android:textColor="@color/primaryDark"
+            android:textSize="30sp" />
 
         <View
             android:layout_width="match_parent"
@@ -35,30 +35,30 @@
             android:id="@+id/dialog_infobox_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:paddingBottom="10dp"
+            android:text="Title : "
+            android:textSize="18sp"
+            android:textStyle="bold"
             tools:text="Title :" />
 
         <TextView
             android:id="@+id/dialog_infobox_character"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:paddingBottom="10dp"
+            android:text="Main Character: "
+            android:textSize="18sp"
+            android:textStyle="bold"
             tools:text="Main Character: " />
 
         <TextView
             android:id="@+id/dialog_infobox_theme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="20sp"
-            android:textStyle="bold"
             android:paddingBottom="5dp"
+            android:text="Theme :"
+            android:textSize="18sp"
+            android:textStyle="bold"
             tools:text="Theme :" />
 
 

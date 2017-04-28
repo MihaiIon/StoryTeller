@@ -1,10 +1,13 @@
 package app.storyteller;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spannable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
@@ -20,6 +23,7 @@ import java.util.regex.Pattern;
 import app.storyteller.api.Api;
 import app.storyteller.api.ApiRequests;
 import app.storyteller.constants.RegexPatterns;
+import app.storyteller.fragments.dialogs.InformationBox;
 import app.storyteller.manager.AppManager;
 import app.storyteller.models.StoryDetails;
 
@@ -178,6 +182,9 @@ public class StoryEditorActivity extends AppCompatActivity {
     private void initSentenceInput(){
         sentenceInput = (EditText)findViewById(R.id.story_editor_sentence_input);
         sentenceInput.addTextChangedListener(new TextWatcher() {
+
+            InputFilter[] fa = new InputFilter[1];
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -186,10 +193,34 @@ public class StoryEditorActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+                int wordCount = countWords(s.toString());
+
+                System.out.println(wordCount);
+
+                /*if (wordCount < MIN_WORDS_ALLOWED)
+                {
+                    disableSubmitBtn();
+                }*/
+
+                if(wordCount >= MAX_WORDS_ALLOWED+1) {
+                    Toast.makeText(
+                            getApplicationContext(),
+                            "Maximum amount of words reached (" +MAX_WORDS_ALLOWED+ ")",
+                            Toast.LENGTH_LONG).show();
+                    fa[0] = new InputFilter.LengthFilter(count+1);
+                    sentenceInput.setFilters(fa);
+                }
+                else
+                {
+                    //46 being the longuest word that is not a chemistry formula
+                    fa[0] = new InputFilter.LengthFilter(100);
+                    sentenceInput.setFilters(fa);
+                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                verify_mentions(s);
                 validate();
             }
         });
@@ -197,7 +228,7 @@ public class StoryEditorActivity extends AppCompatActivity {
 
     /**
      *  Initializes the information button by
-     *  sending appropriate info to the created toast
+     *  sending appropriate info to the created dialog
      */
 
     private void initInfoBtn()
@@ -208,6 +239,7 @@ public class StoryEditorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("HEREUCK");
+                //showInfoDialog();
                 Toast.makeText(
                         getApplicationContext(),
                         "Main Character: "+ characterName + " || Theme: "+ theme,
@@ -268,6 +300,88 @@ public class StoryEditorActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets up the info box and shows it
+     */
+    private void showInfoDialog()
+    {
+        InformationBox infobox = InformationBox.newInstance("Title: "+title, "Main Character: "+characterName, "Theme: " + theme );
+        //infobox.setText();
+        infobox.show(getSupportFragmentManager(), "Information Box");
+    }
+
+    /**
+     * Counts the amount of words in s
+     * Credit: http://stackoverflow.com/questions/5864159/count-words-in-a-string-method
+     * @param s
+     * @return wordcount
+     */
+
+    private int countWords(String s)
+    {
+        int wordCount = 0;
+
+        System.out.println(s);
+
+        boolean word = false;
+        int endOfLine = s.length() - 1;
+
+        for (int i = 0; i < s.length(); i++) {
+            // if the char is a letter, word = true.
+            if (Character.isLetter(s.charAt(i)) && i != endOfLine) {
+                word = true;
+                // if char isn't a letter and there have been letters before,
+                // counter goes up.
+            } else if (!Character.isLetter(s.charAt(i)) && word) {
+                wordCount++;
+                word = false;
+                // last word of String; if it doesn't end with a non letter, it
+                // wouldn't count without this.
+            } else if (Character.isLetter(s.charAt(i)) && i == endOfLine) {
+                wordCount++;
+            }
+        }
+
+        return wordCount;
+    }
+
+    private void verify_mentions(Editable text) {
+
+        if(text.length() > 0) {
+            String s = text.toString();
+
+            int lengthOfCharacterName = countWords(characterName);
+
+            boolean word = false;
+            int endOfLine = s.length() - 1;
+
+            int wordStart = 0;
+            int wordEnd = 0;
+
+            for (int i = 0; i < s.length(); i++) {
+                // if the char is a letter, word = true.
+                if (Character.isLetter(s.charAt(i)) && i != endOfLine) {
+                    word = true;
+                    wordEnd = i;
+                }
+                // if char isn't a letter and there have been letters before,
+                // counter goes up.
+                else if (!Character.isLetter(s.charAt(i)) && word || Character.isLetter(s.charAt(i)) && i == endOfLine) {
+
+                    String evaluatedWord = s.substring(wordStart, wordEnd + 1);
+
+                    if (evaluatedWord.equals(characterName) || evaluatedWord.equals(" " + characterName)) {
+                        text.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                                wordStart, wordEnd + 1,
+                                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
+                    wordStart = wordEnd + 1;
+                    word = false;
+
+                }
+            }
+        }
+    }
 
 
 
@@ -286,7 +400,8 @@ public class StoryEditorActivity extends AppCompatActivity {
 
         /// -- If all fields are well filled, enable the nextBtn.
         if (p.matcher(sentence).matches())
-            enableSubmitBtn();
+        {    enableSubmitBtn();
+        }
 
             // -- Else, disable the button.
         else disableSubmitBtn();
