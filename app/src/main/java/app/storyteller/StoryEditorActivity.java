@@ -1,6 +1,7 @@
 package app.storyteller;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -9,6 +10,7 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spannable;
 import android.text.TextWatcher;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -374,6 +376,9 @@ public class StoryEditorActivity extends AppCompatActivity {
                         text.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
                                 wordStart, wordEnd + 1,
                                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        text.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.primary)),
+                                wordStart, wordEnd + 1,
+                                0);
                     }
                     wordStart = wordEnd + 1;
                     word = false;
