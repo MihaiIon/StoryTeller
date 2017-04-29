@@ -127,7 +127,8 @@ public class SignInActivity extends AppCompatActivity {
         googleNoAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                finishAffinity();
+                System.exit(0);
             }
         });
     }
