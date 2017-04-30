@@ -92,6 +92,7 @@ public class StoryEditorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_story_editor);
         initLoadingScreen();
 
@@ -133,6 +134,12 @@ public class StoryEditorActivity extends AppCompatActivity {
         theme = getIntent().getStringExtra("theme");
         story_id = getIntent().getIntExtra("id", -1);
         lastSentenceString = getIntent().getStringExtra("lastsentence");
+
+
+        if (lastSentenceString == null){
+            findViewById(R.id.layout_previous_sentence).setVisibility(View.GONE  );
+            findViewById(R.id.text_previous_sentence).setVisibility(View.GONE);
+        }
 
         // -- Information on the nature of the Story : NEW or ALREADY STARTED.
         isNewStory = getIntent().getBooleanExtra("new_story", false);

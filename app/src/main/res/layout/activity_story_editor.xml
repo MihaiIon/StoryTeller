@@ -30,7 +30,8 @@
                     android:textStyle="bold"
                     android:textSize="14sp"
                     android:layout_marginBottom="6dp"
-                    android:textColor="@color/primaryDark"/>
+                    android:textColor="@color/primaryDark"
+                    android:id="@+id/text_previous_sentence"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -40,7 +41,8 @@
                     android:background="@color/primaryLight"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
-                    android:layout_marginBottom="15dp">
+                    android:layout_marginBottom="15dp"
+                    android:id="@+id/layout_previous_sentence">
 
                     <TextView
                         android:layout_width="match_parent"
