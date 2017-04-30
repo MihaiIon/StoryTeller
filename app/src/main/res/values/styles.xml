@@ -117,6 +117,14 @@
       ~~ Dialog
       -->
     <style name="AppTheme.Dialog" parent="AppTheme.Activity"/>
+    <style name="AppTheme.Dialog.Box">
+        <item name="android:orientation">vertical</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:paddingTop">30dp</item>
+        <item name="android:paddingBottom">30dp</item>
+        <item name="android:paddingLeft">40dp</item>
+        <item name="android:paddingRight">40dp</item>
+    </style>
     <style name="AppTheme.Dialog.Title">
         <item name="android:fontFamily">sans-serif</item> <!--  roboto light  -->
         <item name="android:textColor">@color/primary</item>
@@ -129,7 +137,7 @@
     <style name="AppTheme.Dialog.Content.Separator">
         <item name="android:layout_height">2dp</item>
         <item name="android:background">@color/primary</item>
-        <item name="android:layout_marginBottom">28dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
     </style>
     <style name="AppTheme.Dialog.Content.Button">
         <item name="android:layout_height">-2dp</item><!--  Wrap content  -->

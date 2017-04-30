@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         if (slider.getCurrentItem() == 0) {
             if (backBtnPressed){
                 finishAffinity();
+                System.exit(0);
             } else {
                 backBtnPressed = true;
                 Toast.makeText(

@@ -11,9 +11,12 @@
 
     <!--  SignIn  Layout-->
     <string name="signIn_create_profile">Create Profile</string>
-    <string name="signIn_no_account">I don\'t have a <b>Google Account</b> </string>
+    <string name="signIn_no_account">Exit the <b>StoryTeller</b> </string>
     <string name="signIn_google_account">Continue with my <b>Google Account</b> </string>
     <string name="signIn_storyteller_logo">Application Logo</string>
+    <string name="signIn_storyteller_checkbox">
+        I accept to have <b>fun</b> while using this app.
+    </string>
 
     <!-- Loading Profile Layout-->
     <string name="launching_app">Welcome</string>
@@ -41,6 +44,9 @@
         <item>Horror</item>
         <item>Build Up</item>
     </string-array>
+    <string name="story_chooser_add_story_description">Button to create a new Story</string>
+    <string name="story_chooser_all">All</string>
+    <string name="main_press_back_again_exit">Press back button again to exit the App.</string>
 
     <!--    StoryCreator Layout    -->
     <string name="story_creator_header_title">Create your own Story!</string>
@@ -54,9 +60,27 @@
     <string name="story_editor_new_story_sentence_hint">And so it begins&#8230;</string>
     <string name="story_editor_continue_sentence_hint">Wr</string>
     <string name="story_editor_submit_btn">Submit</string>
-    <string name="story_editor_previous_sentence">Previous sentence</string>
+    <string name="story_editor_previous_sentence">Previous Sentence</string>
 
-    <!--  Settings Layout   -->
+    <!--    Header Layout   -->
+    <string name="story_list_header_title">Completed Stories</string>
+    <string name="header_back_button">Back Button</string>
+
+    <!--    Item StoryList  -->
+    <string name="completed_stories_list_item_author_label">Author: </string>
+
+    <!--    BottomNavigator -->
+    <string name="navigator_all">All</string>
+    <string name="navigator_only_me">Only Me</string>
+    <string name="navigator_favs">My Favs</string>
+
+    <!-- Empty ListView-->
+    <string name="empty_all_story">Sorry there\'s no stories</string>
+    <string name="empty_my_story">Sorry none of your stories are completed</string>
+    <string name="empty_fav_story">Sorry you don\'t have any favorites stories</string>
+    <string name="empty_chooser_story">Sorry there\'s no story to edit.\n Maybe you could Create a new one</string>
+
+    <!--  SettingsDialog Layout   -->
     <string name="settings_title">Settings</string>
     <string name="settings_clearDB">Clear Database</string>
     <string name="settings_grant_tokens">Add Tokens</string>
@@ -64,39 +88,17 @@
     <string name="settings_exit">Close settings</string>
     <string name="settings_log_out">Log out</string>
     <string name="settings_debug_version">-- DEBUG VERSION --</string>
+    <string name="settings_unlock_all_stories_tokens">Unlock Stories</string>
 
-    <!-- Settings Class -->
+    <!-- SettingsDialog Class -->
     <string name="setting_log_out">Logout</string>
     <string name="setting_added_token">Token added!</string>
     <string name="setting_are_you_sure">Are you sure?</string>
     <string name="setting_dbh_cleared">DBHandler cleared</string>
     <string name="setting_dbh_already_cleared">DBHandler already cleared</string>
+    <string name="setting_all_stories_unlocked_msg">All Stories are now unlocked</string>
 
-    <!--    Header Layout   -->
-    <string name="storie_list_header_title">Completed Stories</string>
-    <string name="header_back_button">Back Button</string>
-
-    <!--    StoryChooserAdapter    -->
-    <string name="story_chooser_all">All</string>
-
-    <!--    BottomNavigator -->
-    <string name="navigator_all">All</string>
-    <string name="navigator_only_me">Only Me</string>
-    <string name="navigator_favs">My Favs</string>
-
-    <!--    StoryChooserAdapter    -->
-    <string name="main_press_back_again_exit">Press back button again to exit the App.</string>
-
-    <!--    Item StoryList  -->
-    <string name="completed_stories_list_item_author_label">Author: </string>
-    <string name="item_storylist_new">( NEW )</string>
-
-    <!--    StoryChooser Layout-->
-    <string name="story_chooser_add_story_description">Button to create a new Story</string>
-
-    <!-- Empty ListView-->
-    <string name="empty_all_story">Sorry there\'s no story</string>
-    <string name="empty_my_story">Sorry none of your story are completed</string>
-    <string name="empty_fav_story">Sorry you don\'t have any favorite story</string>
-    <string name="empty_chooser_story">Sorry there\'s not story to edit.\n Maybe you could Create a new one</string>
+    <!-- StoryInfoDialog -->
+    <string name="dialog_story_info_dialog_title">Story Info</string>
+    <string name="dialog_story_info_title">Title</string>
 </resources>

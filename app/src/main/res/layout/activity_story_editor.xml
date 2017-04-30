@@ -12,7 +12,7 @@
         android:gravity="center_horizontal">
 
         <!-- Header -->
-        <include layout="@layout/white_header_frame_layout"/>
+        <include layout="@layout/white_header_frame_layout_with_info_button"/>
 
         <!-- Content -->
         <RelativeLayout
@@ -26,8 +26,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/story_editor_previous_sentence"
+                    android:fontFamily="sans-serif"
                     android:textStyle="bold"
-                    android:textSize="18sp"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="6dp"
                     android:textColor="@color/primaryDark"/>
 
                 <LinearLayout
@@ -35,6 +37,9 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     style="@style/AppTheme.SentenceInputContainer"
+                    android:background="@color/primaryLight"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
                     android:layout_marginBottom="15dp">
 
                     <TextView

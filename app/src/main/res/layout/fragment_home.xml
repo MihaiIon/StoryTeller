@@ -15,7 +15,7 @@
         android:baselineAligned="false"
         android:background="@drawable/home_bg">
 
-        <!-- Settings -->
+        <!-- SettingsDialog -->
         <LinearLayout
             android:layout_width="@dimen/home_header_aside_layout_width"
             android:layout_height="match_parent"

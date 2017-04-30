@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 
-
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
@@ -23,14 +21,14 @@ import android.widget.ToggleButton;
 
 import app.storyteller.R;
 import app.storyteller.StoryChooserActivity;
-import app.storyteller.fragments.dialogs.Settings;
+import app.storyteller.fragments.dialogs.SettingsDialog;
 import app.storyteller.manager.AppManager;
 
 
 /**
  * Created by Mihai on 2017-01-20.
  */
-public class MainHomeFragment extends Fragment /*implements View.OnClickListener*/ {
+public class MainHomeFragment extends Fragment {
 
     /**
      * The current fragment layout.
@@ -38,7 +36,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
     private ViewGroup fragmentLayout;
 
     /**
-     * Settings button.
+     * SettingsDialog button.
      */
     private ImageButton settings;
 
@@ -99,7 +97,7 @@ public class MainHomeFragment extends Fragment /*implements View.OnClickListener
                 ft.addToBackStack(null);
 
                 // Create and show the dialog.
-                Settings s = Settings.newInstance();
+                SettingsDialog s = SettingsDialog.newInstance();
                 s.show(ft, "title");
             }
         });

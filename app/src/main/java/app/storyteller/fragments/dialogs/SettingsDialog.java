@@ -1,12 +1,6 @@
 package app.storyteller.fragments.dialogs;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -19,40 +13,32 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
-import app.storyteller.AuthenticationActivity;
 import app.storyteller.R;
-import app.storyteller.database.DBHandler;
+import app.storyteller.SignInActivity;
+import app.storyteller.api.Api;
+import app.storyteller.api.ApiRequests;
 import app.storyteller.manager.AppManager;
 
 /**
  * Created by Mihai on 2017-01-28.
  */
-public class Settings extends DialogFragment {
+public class SettingsDialog extends DialogFragment {
 
-    /*
-     *
-     */
     private GoogleApiClient mGoogleApiClient;
-
-    /*
-     *
-     */
     private View layout;
 
     /**
-     * Creates a new instance of the Settings Dialog.
+     * Creates a new instance of the SettingsDialog Dialog.
      */
-    public static Settings newInstance() {
-        Settings settings = new Settings();
+    public static SettingsDialog newInstance() {
+        SettingsDialog settingsDialog = new SettingsDialog();
         Bundle args = new Bundle();
-        settings.setArguments(args);
-        return settings;
+        settingsDialog.setArguments(args);
+        return settingsDialog;
     }
 
     @Override
@@ -70,6 +56,7 @@ public class Settings extends DialogFragment {
         initializeTokenBtns();
         initializeCloseBtn();
         initializeLogOutBtn();
+        initializeUnlockStoriesBtn();
 
         // Allow closing on outside press
         getDialog().setCanceledOnTouchOutside(true);
@@ -146,6 +133,16 @@ public class Settings extends DialogFragment {
         });
     }
 
+    private void initializeUnlockStoriesBtn(){
+        layout.findViewById(R.id.settings_unlock_all_stories_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Api.executeRequest(ApiRequests.unlockAllStories(),getActivity());
+                Toast.makeText(getContext(), getString(R.string.setting_all_stories_unlocked_msg), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     private void initializeLogOutBtn()
     {
         Button btn = (Button) layout.findViewById(R.id.setting_log_out_button);
@@ -155,7 +152,7 @@ public class Settings extends DialogFragment {
                         new ResultCallback<Status>() {
                             @Override
                             public void onResult(Status status) {
-                                Intent i = new Intent(getContext(), AuthenticationActivity.class);
+                                Intent i = new Intent(getContext(), SignInActivity.class);
                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
                             }});}
