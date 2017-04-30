@@ -11,7 +11,7 @@
 
     <!--  SignIn  Layout-->
     <string name="signIn_create_profile">Create Profile</string>
-    <string name="signIn_no_account">Exit the <b>StoryTeller</b> </string>
+    <string name="signIn_no_account">Exit <b>StoryTeller</b> </string>
     <string name="signIn_google_account">Continue with my <b>Google Account</b> </string>
     <string name="signIn_storyteller_logo">Application Logo</string>
     <string name="signIn_storyteller_checkbox">
