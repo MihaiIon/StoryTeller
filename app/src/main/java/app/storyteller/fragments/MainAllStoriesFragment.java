@@ -79,7 +79,6 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     @Override
     public void onResume() {
         super.onResume();
-        fetchCompleteStories();
     }
 
     @Override
