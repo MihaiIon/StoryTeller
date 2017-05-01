@@ -101,4 +101,7 @@
     <!-- StoryInfoDialog -->
     <string name="dialog_story_info_dialog_title">Story Info</string>
     <string name="dialog_story_info_title">Title</string>
+    <string name="dialog_story_info_label_title">Title : </string>
+    <string name="dialog_story_info_label_character">Main Character : </string>
+    <string name="dialog_story_info_label_theme">Theme : </string>
 </resources>
