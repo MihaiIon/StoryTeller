@@ -66,7 +66,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
             }
          });
 
-        // -- Set title
+        // -- Set storyTitleTextView
         ((TextView)findViewById(R.id.app_header_title))
                 .setText(getString(R.string.story_creator_header_title));
     }
@@ -153,7 +153,7 @@ public class StoryCreatorActivity extends AppCompatActivity {
                  * Start new Activity and send infos.
                  */
                 Intent i = new Intent(v.getContext(), StoryEditorActivity.class);
-                i.putExtra("title", title.getText().toString());
+                i.putExtra("storyTitleTextView", title.getText().toString());
                 i.putExtra("theme", theme.getSelectedItem().toString());
                 i.putExtra("character_name", character.getText().toString());
                 i.putExtra("new_story", true);

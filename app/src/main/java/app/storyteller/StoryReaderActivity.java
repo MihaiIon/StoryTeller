@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.text.style.LineHeightSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.TypefaceSpan;
@@ -27,35 +28,55 @@ import app.storyteller.manager.AppManager;
 
 public class StoryReaderActivity extends AppCompatActivity {
 
-    TextView title, author, storyContent;
-    ToggleButton favs;
-    TextView header_title;
+
+
     private ImageButton smallerText;
     private ImageButton biggerText;
     private int textSize;
-    private int id;
 
-    int position;
+    int
+
+    /*
+     * View related.
+     */
+    private TextView storyTitleTextView, storyAuthorTextView, storyContentTextView;
+    private ToggleButton starToggleBtn;
+
+    /*
+     * Story Related.
+     */
+    private int storyID, storyPosition;
+    private String storyTitle, storyContent, storyCreator, storyCharacter;
+    private boolean storyIsFavorite;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_read_story);
 
-        title = (TextView) findViewById(R.id.story_title);
-        author = (TextView) findViewById(R.id.story_author);
-        storyContent = (TextView) findViewById(R.id.story_reader_story_container);
-        favs= (ToggleButton) findViewById(R.id.story_fav);
+        storyTitleTextView = (TextView) findViewById(R.id.story_title);
+        storyAuthorTextView = (TextView) findViewById(R.id.story_author);
+        storyContentTextView = (TextView) findViewById(R.id.story_reader_story_container);
+        starToggleBtn = (ToggleButton) findViewById(R.id.story_fav);
         textSize = 0;
 
         Bundle bundle = getIntent().getExtras();
         if(bundle!=null){
-            title.setText(bundle.getString("Title"));
-            author.setText("by : " + bundle.getString("Authors"));
-            storyContent.setText(getFormattedStoryContent(bundle.getString("Story")));
-            //storyContent.setLineSpacing(20f, 1f);
-            favs.setChecked(bundle.getBoolean("Favs"));
-            position = bundle.getInt("Position");
-            id = bundle.getInt("StoryID");
+            // -- Get
+            storyID = bundle.getInt("story_id");
+            storyTitle = bundle.getString("story_title");
+            storyCreator = bundle.getString("story_creator");
+            storyContent = bundle.getString("story_content");
+            storyCharacter = bundle.getString("story_character");
+            storyIsFavorite = bundle.getBoolean("is_fav");
+            storyPosition = bundle.getInt("story_position");
+
+            // -- Set
+            storyAuthorTextView.setText("by : " + storyCreator);
+            storyContentTextView.setText(getFormattedStoryContent(storyContent));
+            starToggleBtn.setChecked(storyIsFavorite);
         }
 
         InitHeader();
@@ -64,22 +85,22 @@ public class StoryReaderActivity extends AppCompatActivity {
     }
 
     public void InitToggleStar(){
-        favs = (ToggleButton) findViewById(R.id.story_fav);
+        starToggleBtn = (ToggleButton) findViewById(R.id.story_fav);
         
-        favs.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        starToggleBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 int playerId = AppManager.getAccount().getId();
                 if (isChecked) {
-                    MainAllStoriesFragment.setFavs(position, true);
+                    MainAllStoriesFragment.setFavs(storyPosition, true);
                     DBHandler.openConnection(getApplicationContext());
-                    DBHandler.addFavorite(playerId,id);
+                    DBHandler.addFavorite(playerId,storyID);
                     DBHandler.closeConnection();
                 }
                 else {
-                    MainAllStoriesFragment.setFavs(position,false);
+                    MainAllStoriesFragment.setFavs(storyPosition,false);
                     DBHandler.openConnection(getApplicationContext());
-                    DBHandler.removeFavorite(playerId,id);
+                    DBHandler.removeFavorite(playerId,storyID);
                     DBHandler.closeConnection();
                 }
             }
@@ -106,15 +127,15 @@ public class StoryReaderActivity extends AppCompatActivity {
                 switch (textSize){
                     case 0:
                         textSize = 1;
-                        storyContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                        storyContentTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                         break;
                     case 1:
                         textSize = 2;
-                        storyContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, 23);
+                        storyContentTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 23);
                         break;
                     case 2:
                         textSize = 0;
-                        storyContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
+                        storyContentTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
                 }
             }
         });
@@ -170,9 +191,12 @@ public class StoryReaderActivity extends AppCompatActivity {
      */
     private Spannable getFormattedStoryContent(String raw){
 
-        Spannable s = new SpannableString(raw.substring(0,1)+"  "+raw.substring(1));
-        s.setSpan(new RelativeSizeSpan(4f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        s.setSpan(new LineHeightSpan() {
+        /*
+         * Modify first letter.
+         */
+        Spannable firstLetter = new SpannableString(raw.substring(0,1)+"  ");
+        firstLetter.setSpan(new RelativeSizeSpan(4f), 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        firstLetter.setSpan(new LineHeightSpan() {
             @Override
             public void chooseHeight(CharSequence text, int start, int end, int spanstartv, int v, Paint.FontMetricsInt fm) {
                 fm.bottom = 0;
@@ -181,8 +205,20 @@ public class StoryReaderActivity extends AppCompatActivity {
                 fm.ascent =0;
             }
         }, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        s.setSpan(new CustomTypefaceSpan("kaushan", Typeface.createFromAsset(getAssets(), "fonts/kaushan.otf")),
+        firstLetter.setSpan(new CustomTypefaceSpan("kaushan", Typeface.createFromAsset(getAssets(), "fonts/kaushan.otf")),
                 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return s;
+
+        /*
+         *
+         */
+        /*String txt = raw.substring(1);
+        int index = txt.indexOf();
+        while (index >= 0) {
+            System.out.println(index);
+            index = word.indexOf(guess, index + 1);
+        }
+        Spannable firstLetter2 = new SpannableString(raw.substring(0,1)+"  ");*/
+
+        return new SpannableString(TextUtils.concat(firstLetter, raw.substring(1)));
     }
 }

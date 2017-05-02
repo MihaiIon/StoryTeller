@@ -129,7 +129,7 @@ public class StoryEditorActivity extends AppCompatActivity {
      */
     private void getInfoFromExtras(){
         // -- Info related to Story.
-        title = getIntent().getStringExtra("title");
+        title = getIntent().getStringExtra("storyTitleTextView");
         characterName = getIntent().getStringExtra("character_name");
         theme = getIntent().getStringExtra("theme");
         story_id = getIntent().getIntExtra("id", -1);
@@ -254,7 +254,7 @@ public class StoryEditorActivity extends AppCompatActivity {
 
                 // Create and show the dialog.
                 StoryInfoDialog s = StoryInfoDialog.newInstance(title, characterName, theme);
-                s.show(ft, "title");
+                s.show(ft, "storyTitleTextView");
             }
         });
     }

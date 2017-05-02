@@ -114,12 +114,13 @@ public class MainAllStoriesFragment extends Fragment implements AdapterView.OnIt
     }
     // Fonction qui va met les extras et start le reader
     private void InitExtra(Intent intent,ArrayList<Story> liste,int position){
-        intent.putExtra("Title",liste.get(position).getDetails().getTitle());
-        intent.putExtra("Authors",liste.get(position).getCreator().getName());
-        intent.putExtra("Story",liste.get(position).getContent());
-        intent.putExtra("Favs",favorites[position]);
-        intent.putExtra("Position",position);
-        intent.putExtra("StoryID",liste.get(position).getId());
+        intent.putExtra("story_title",liste.get(position).getDetails().getTitle());
+        intent.putExtra("story_creator",liste.get(position).getCreator().getName());
+        intent.putExtra("story_content",liste.get(position).getContent());
+        intent.putExtra("is_fav",favorites[position]);
+        intent.putExtra("story_position",position);
+        intent.putExtra("story_id",liste.get(position).getId());
+        intent.putExtra("story_character",liste.get(position).getDetails().getMainCharacter());
         startActivity(intent);
     }
 

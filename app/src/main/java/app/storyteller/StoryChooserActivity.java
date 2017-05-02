@@ -277,7 +277,7 @@ public class StoryChooserActivity extends AppCompatActivity implements AdapterVi
             Api.executeRequest(ApiRequests.lockStory(selectedStory.getId()), this);
             Intent intent = new Intent(getApplicationContext(),StoryEditorActivity.class);
             intent.putExtra("id",selectedStory.getId());
-            intent.putExtra("title",selectedStory.getDetails().getTitle());
+            intent.putExtra("storyTitleTextView",selectedStory.getDetails().getTitle());
             intent.putExtra("lastsentence",selectedStory.getSentences().get(selectedStory.getSentences().size()-1).getContent());
             intent.putExtra("character_name",selectedStory.getDetails().getMainCharacter());
             intent.putExtra("theme",selectedStory.getDetails().getTheme());
