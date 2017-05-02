@@ -34,8 +34,6 @@ public class StoryReaderActivity extends AppCompatActivity {
     private ImageButton biggerText;
     private int textSize;
 
-    int
-
     /*
      * View related.
      */
