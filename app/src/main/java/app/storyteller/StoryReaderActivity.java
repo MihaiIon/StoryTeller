@@ -4,6 +4,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextPaint;
@@ -51,7 +52,9 @@ public class StoryReaderActivity extends AppCompatActivity {
         if(bundle!=null){
             title.setText(bundle.getString("Title"));
             author.setText("by : " + bundle.getString("Authors"));
-            storyContent.setText(getFormattedStoryContent(bundle.getString("Story")));
+            //mettre en gras bleu, personnage principal ici ( passer toute la string avec un finder )
+            String storie = bundle.getString("Story");
+            storyContent.setText(getFormattedStoryContent(storie));
             //storyContent.setLineSpacing(20f, 1f);
             favs.setChecked(bundle.getBoolean("Favs"));
             position = bundle.getInt("Position");

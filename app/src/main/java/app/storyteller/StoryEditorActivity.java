@@ -11,6 +11,7 @@ import android.text.InputFilter;
 import android.text.Spannable;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import app.storyteller.api.Api;
@@ -347,7 +349,34 @@ public class StoryEditorActivity extends AppCompatActivity {
     }
 
     private void verify_mentions(Editable text) {
+        StyleSpan[] ss = text.getSpans(0,text.length(),StyleSpan.class);
 
+        for(int i=0 ;i<ss.length ; i++){
+            text.removeSpan(ss[i]);
+        }
+
+        text.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.black)),
+                0, text.length(),
+                0);
+
+        //* NEW WAY TO FIND THE CARACTER NAME
+        //* TODO : FIX REGEX
+        String INPUT = Pattern.quote(characterName);
+        String REGEX = "(?:[.-?!]|\\s)" + INPUT + "(?:[.-?!]|\\s)" ;
+        Pattern p = Pattern.compile(REGEX);
+        Matcher m = p.matcher(text.toString());
+
+        while(m.find()){;
+            text.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                    m.start()+1, m.end()-1,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            text.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.primary)),
+                    m.start()+1, m.end()-1,
+                    0);
+        }
+
+        /////////////////////////////////////////////////////////////////
+        /*
         if(text.length() > 0) {
             String s = text.toString();
 
@@ -385,6 +414,7 @@ public class StoryEditorActivity extends AppCompatActivity {
                 }
             }
         }
+        */
     }
 
 
